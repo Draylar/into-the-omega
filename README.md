@@ -1,4 +1,4 @@
-# Into the Omega
+# Into the Ω
 
 o·me·ga - Ω
 
