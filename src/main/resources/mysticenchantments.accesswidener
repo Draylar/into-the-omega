@@ -1,0 +1,11 @@
+accessWidener   v1  named
+
+accessible  method  net/minecraft/enchantment/KnockbackEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;[Lnet/minecraft/entity/EquipmentSlot;)V
+accessible  method  net/minecraft/enchantment/FireAspectEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;[Lnet/minecraft/entity/EquipmentSlot;)V
+accessible  method  net/minecraft/enchantment/LuckEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;Lnet/minecraft/enchantment/EnchantmentTarget;[Lnet/minecraft/entity/EquipmentSlot;)V
+accessible  method  net/minecraft/enchantment/EfficiencyEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;[Lnet/minecraft/entity/EquipmentSlot;)V
+accessible  method  net/minecraft/enchantment/SilkTouchEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;[Lnet/minecraft/entity/EquipmentSlot;)V
+accessible  method  net/minecraft/enchantment/UnbreakingEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;[Lnet/minecraft/entity/EquipmentSlot;)V
+accessible  method  net/minecraft/enchantment/LureEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;Lnet/minecraft/enchantment/EnchantmentTarget;[Lnet/minecraft/entity/EquipmentSlot;)V
+
+accessible class net/minecraft/enchantment/EnchantmentHelper$Consumer

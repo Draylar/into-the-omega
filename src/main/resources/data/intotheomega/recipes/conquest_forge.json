@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#G#",
+    "GAG"
+  ],
+  "key": {
+    "#": {
+      "item": "intotheomega:omega_crystal"
+    },
+    "G": {
+      "item": "minecraft:gold_block"
+    },
+    "A": {
+      "item": "minecraft:anvil"
+    }
+  },
+  "result": {
+    "item": "intotheomega:conquest_forge"
+  }
+}

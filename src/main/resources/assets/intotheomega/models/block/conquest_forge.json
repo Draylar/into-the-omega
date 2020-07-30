@@ -1,0 +1,65 @@
+{
+	"parent": "block/block",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "intotheomega:block/conquest_forge",
+		"particle": "intotheomega:block/conquest_forge"
+	},
+	"elements": [
+		{
+			"name": "Anvil base",
+			"from": [2, 0, 2],
+			"to": [14, 4, 14],
+			"faces": {
+				"north": {"uv": [2.5, 8, 5.5, 9], "texture": "#0"},
+				"east": {"uv": [5.5, 8, 8.5, 9], "texture": "#0"},
+				"south": {"uv": [8, 0, 11, 1], "texture": "#0"},
+				"west": {"uv": [8, 1, 11, 2], "texture": "#0"},
+				"up": {"uv": [8, 8, 5, 5], "texture": "#0"},
+				"down": {"uv": [8, 0, 5, 3], "texture": "#0", "cullface": "down"}
+			}
+		},
+		{
+			"name": "Lower narrow portion",
+			"from": [4, 4, 3],
+			"to": [12, 5, 13],
+			"faces": {
+				"north": {"uv": [0, 5.5, 2, 5.75], "texture": "#0"},
+				"east": {"uv": [5, 4.5, 7.5, 4.75], "texture": "#0"},
+				"south": {"uv": [0, 5.75, 2, 6], "texture": "#0"},
+				"west": {"uv": [5, 4.75, 7.5, 5], "texture": "#0"},
+				"up": {"uv": [4.5, 2.5, 2.5, 0], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Wider section beneath top portion",
+			"from": [6, 5, 4],
+			"to": [10, 10, 12],
+			"faces": {
+				"north": {"uv": [4, 6.5, 5, 7.75], "texture": "#0"},
+				"east": {"uv": [8, 4.5, 10, 5.75], "texture": "#0"},
+				"south": {"uv": [8.5, 8.5, 9.5, 9.75], "texture": "#0"},
+				"west": {"uv": [8, 5.75, 10, 7], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Anvil top",
+			"from": [3, 10, 0],
+			"to": [13, 16, 16],
+			"faces": {
+				"north": {"uv": [0, 4, 2.5, 5.5], "texture": "#0"},
+				"east": {"uv": [5, 3, 9, 4.5], "texture": "#0"},
+				"south": {"uv": [0, 8, 2.5, 9.5], "texture": "#0"},
+				"west": {"uv": [0, 6.5, 4, 8], "texture": "#0"},
+				"up": {"uv": [2.5, 4, 0, 0], "texture": "#0"},
+				"down": {"uv": [5, 2.5, 2.5, 6.5], "texture": "#0"}
+			}
+		}
+	],
+	"display": {
+		"fixed": {
+			"rotation": [0, 90, 0],
+			"scale": [0.5, 0.5, 0.5]
+		}
+	}
+}

@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "draylar.intotheomega.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "AnvilScreenHandlerMixin",
+    "EnchantedBookItemMixin",
+    "EnchantmentHelperMixin",
+    "EnchantmentMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

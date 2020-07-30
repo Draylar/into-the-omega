@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "intotheomega:block/conquest_forge",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "intotheomega:block/conquest_forge",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "intotheomega:block/conquest_forge"
+    },
+    "facing=west": {
+      "model": "intotheomega:block/conquest_forge",
+      "y": 90
+    }
+  }
+}
