@@ -18,7 +18,7 @@
       "draylar.intotheomega.IntoTheOmegaClient"
     ]
   },
-  "accessWidener": "mysticenchantments.accesswidener",
+  "accessWidener": "intotheomega.accesswidener",
   "mixins": [
     "intotheomega.mixins.json"
   ],
