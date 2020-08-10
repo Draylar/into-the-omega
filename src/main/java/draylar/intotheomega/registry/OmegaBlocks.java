@@ -20,7 +20,8 @@ public class OmegaBlocks {
             new OmegaCrystalOreBlock(
                     FabricBlockSettings
                             .of(Material.STONE)
-                            .breakByTool(FabricToolTags.PICKAXES)
+                            .requiresTool()
+                            .breakByTool(FabricToolTags.PICKAXES, 3)
                             .strength(10.0F, 9.0F)
             ),
             new Item.Settings()
