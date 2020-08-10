@@ -80,4 +80,37 @@ public abstract class EnchantmentMixin implements OmegaManipulator {
     public Enchantment getVanilla() {
         return me_vanilla;
     }
+
+    @Inject(
+            method = "isAvailableForEnchantedBookOffer",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void isAvailableForEnchantedBookOffer(CallbackInfoReturnable<Boolean> cir) {
+        if(isOmega()) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(
+            method = "isAvailableForRandomSelection",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void isAvailableForRandomSelection(CallbackInfoReturnable<Boolean> cir) {
+        if(isOmega()) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(
+            method = "canAccept",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    private void canAccept(Enchantment other, CallbackInfoReturnable<Boolean> cir) {
+        if(this.isOmega() && this.getVanilla().equals(other)) {
+            cir.setReturnValue(false);
+        }
+    }
 }

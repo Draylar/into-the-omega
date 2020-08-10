@@ -9,3 +9,4 @@ accessible  method  net/minecraft/enchantment/UnbreakingEnchantment  <init>  (Ln
 accessible  method  net/minecraft/enchantment/LureEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;Lnet/minecraft/enchantment/EnchantmentTarget;[Lnet/minecraft/entity/EquipmentSlot;)V
 
 accessible class net/minecraft/enchantment/EnchantmentHelper$Consumer
+accessible class net/minecraft/village/TradeOffers$EnchantBookFactory
