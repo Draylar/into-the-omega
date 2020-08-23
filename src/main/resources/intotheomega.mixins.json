@@ -9,7 +9,8 @@
     "EnchantmentHelperMixin",
     "EnchantmentMixin",
     "ExperienceOrbEntityMixin",
-    "SimpleRegistryAccessor"
+    "SimpleRegistryAccessor",
+    "TridentEntityMixin"
   ],
   "client": [
   ],
