@@ -4,12 +4,14 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AnvilScreenHandlerMixin",
+    "BowItemMixin",
     "CrossbowItemMixin",
     "DefaultBiomeCreatorMixin",
     "EnchantedBookItemMixin",
     "EnchantmentHelperMixin",
     "EnchantmentMixin",
     "ExperienceOrbEntityMixin",
+    "PersistentProjectileEntityMixin",
     "SimpleRegistryAccessor",
     "TridentEntityMixin"
   ],
