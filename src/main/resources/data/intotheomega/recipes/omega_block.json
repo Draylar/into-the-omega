@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "intotheomega:omega_crystal"
+    }
+  },
+  "result": {
+    "item": "intotheomega:omega_block"
+  }
+}

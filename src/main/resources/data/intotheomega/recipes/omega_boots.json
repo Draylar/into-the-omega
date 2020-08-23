@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "o o",
+    "o o"
+  ],
+  "key": {
+    "o": {
+      "item": "intotheomega:omega_crystal"
+    }
+  },
+  "result": {
+    "item": "intotheomega:omega_boots"
+  }
+}

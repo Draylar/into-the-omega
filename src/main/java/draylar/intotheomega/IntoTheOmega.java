@@ -1,9 +1,11 @@
 package draylar.intotheomega;
 
+import draylar.intotheomega.mixin.SimpleRegistryAccessor;
 import draylar.intotheomega.registry.OmegaBlocks;
 import draylar.intotheomega.registry.OmegaEnchantments;
 import draylar.intotheomega.registry.OmegaItems;
 import draylar.intotheomega.ui.ConquestForgeScreenHandler;
+import draylar.intotheomega.util.BiomeUtils;
 import draylar.intotheomega.world.OmegaCrystalOreFeature;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -13,6 +15,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
@@ -37,10 +40,6 @@ public class IntoTheOmega implements ModInitializer {
         OmegaEnchantments.init();
         OmegaBlocks.init();
         OmegaItems.init();
-
-        Registry.BIOME.forEach(biome ->{
-            biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES, OMEGA_ORE_FEATURE.configure(DefaultFeatureConfig.DEFAULT).createDecoratedFeature(Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(1, 0, 0, 175))));
-        });
     }
 
     public static Identifier id(String name) {
@@ -52,7 +51,7 @@ public class IntoTheOmega implements ModInitializer {
 
         if(testID != null) {
             Identifier potentialOmegaID = IntoTheOmega.id(String.format("omega_%s", testID.getPath()));
-            if(Registry.ENCHANTMENT.containsId(potentialOmegaID)) {
+            if(((SimpleRegistryAccessor) Registry.ENCHANTMENT).getIdToEntry().containsKey(potentialOmegaID)) {
                 return Registry.ENCHANTMENT.get(potentialOmegaID);
             }
         }

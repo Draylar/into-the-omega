@@ -15,6 +15,20 @@ import net.minecraft.util.registry.Registry;
 
 public class OmegaBlocks {
 
+    public static final Block OMEGA_BLOCK = register(
+            "omega_block",
+            new Block(
+                    FabricBlockSettings
+                        .of(Material.STONE)
+                        .requiresTool()
+                        .breakByTool(FabricToolTags.PICKAXES, 3)
+                        .strength(20.0F, 18.0F)
+            ),
+            new Item.Settings()
+                .group(IntoTheOmega.GROUP)
+                .rarity(Rarity.EPIC)
+    );
+
     public static final Block OMEGA_CRYSTAL_ORE = register(
             "omega_crystal_ore",
             new OmegaCrystalOreBlock(

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "intotheomega:omega_block"
+    }
+  ],
+  "result": {
+    "item": "intotheomega:omega_crystal",
+    "count": 9
+  }
+}

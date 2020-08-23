@@ -7,6 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -22,7 +23,7 @@ public class OmegaCrystalOreFeature extends Feature<DefaultFeatureConfig> {
         super(codec);
     }
 
-    public boolean generate(ServerWorldAccess serverWorldAccess, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig oreFeatureConfig) {
+    public boolean generate(StructureWorldAccess serverWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig oreFeatureConfig) {
         float f = random.nextFloat() * 3.1415927F;
         float g = (float) 8 / 8.0F;
         int i = MathHelper.ceil(((float) 8 / 16.0F * 2.0F + 1.0F) / 2.0F);

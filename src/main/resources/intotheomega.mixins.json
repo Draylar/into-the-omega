@@ -4,9 +4,12 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AnvilScreenHandlerMixin",
+    "DefaultBiomeCreatorMixin",
     "EnchantedBookItemMixin",
     "EnchantmentHelperMixin",
-    "EnchantmentMixin"
+    "EnchantmentMixin",
+    "ExperienceOrbEntityMixin",
+    "SimpleRegistryAccessor"
   ],
   "client": [
   ],

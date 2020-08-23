@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "oGo",
+    "o o"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:gold_block"
+    },
+    "o": {
+      "item": "intotheomega:omega_crystal"
+    }
+  },
+  "result": {
+    "item": "intotheomega:omega_helmet"
+  }
+}
