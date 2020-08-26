@@ -2,9 +2,15 @@ package draylar.intotheomega.mixin;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.impl.OmegaManipulator;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -24,6 +30,10 @@ public abstract class EnchantmentMixin implements OmegaManipulator {
     @Shadow protected String translationKey;
 
     @Shadow public abstract int getMaxLevel();
+
+    @Shadow public abstract Text getName(int level);
+
+    @Shadow public abstract String getTranslationKey();
 
     @Inject(
             method = "getOrCreateTranslationKey",
@@ -53,11 +63,21 @@ public abstract class EnchantmentMixin implements OmegaManipulator {
         Identifier regID = Registry.ENCHANTMENT.getId((Enchantment) (Object) this);
 
         if(regID != null && regID.getNamespace().equals(IntoTheOmega.MODID)) {
+            MutableText append;
+
             if(level == this.getMaxLevel()) {
-                cir.setReturnValue(new LiteralText(IntoTheOmega.OMEGA + " ").formatted(Formatting.AQUA).append(ret));
+                append = new LiteralText(IntoTheOmega.OMEGA + " ").formatted(Formatting.AQUA).append(ret);
             } else {
-                cir.setReturnValue(new LiteralText(IntoTheOmega.OMEGA + " ").formatted(Formatting.RED).append(ret));
+                append = new LiteralText(IntoTheOmega.OMEGA + " ").formatted(Formatting.RED).append(ret);
             }
+
+            if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+                if(Screen.hasControlDown()) {
+                    append.append(new LiteralText(" (").append(new TranslatableText(this.getTranslationKey())).append(" ").append(String.valueOf(level + this.getMaxLevel())).append(")"));
+                }
+            }
+
+            cir.setReturnValue(append);
         }
     }
 
