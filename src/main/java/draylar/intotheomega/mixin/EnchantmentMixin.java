@@ -30,9 +30,6 @@ public abstract class EnchantmentMixin implements OmegaManipulator {
     @Shadow protected String translationKey;
 
     @Shadow public abstract int getMaxLevel();
-
-    @Shadow public abstract Text getName(int level);
-
     @Shadow public abstract String getTranslationKey();
 
     @Inject(
@@ -40,9 +37,8 @@ public abstract class EnchantmentMixin implements OmegaManipulator {
             at = @At("HEAD")
     )
     private void modifyInitialTranslationKey(CallbackInfoReturnable<String> cir) {
-        Identifier regID = Registry.ENCHANTMENT.getId((Enchantment) (Object) this);
-
-        if(regID != null && regID.getNamespace().equals(IntoTheOmega.MODID)) {
+        if(isOmega()) {
+            Identifier regID = Registry.ENCHANTMENT.getId((Enchantment) (Object) this);
             this.translationKey = Util.createTranslationKey("enchantment", new Identifier(regID.getPath().replace("omega_", "")));
         }
     }
@@ -60,9 +56,7 @@ public abstract class EnchantmentMixin implements OmegaManipulator {
     )
     private void modifyName(int level, CallbackInfoReturnable<Text> cir) {
         Text ret = cir.getReturnValue();
-        Identifier regID = Registry.ENCHANTMENT.getId((Enchantment) (Object) this);
-
-        if(regID != null && regID.getNamespace().equals(IntoTheOmega.MODID)) {
+        if(isOmega()) {
             MutableText append;
 
             if(level == this.getMaxLevel()) {

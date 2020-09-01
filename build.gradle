@@ -17,6 +17,14 @@ minecraft {
 repositories {
     maven { url 'https://jitpack.io' }
     maven { url "http://server.bbkr.space:8081/artifactory/libs-release" }
+    maven {
+        name = 'Earthcomputer Mods'
+        url = 'https://dl.bintray.com/earthcomputer/mods'
+    }
+    maven {
+        name = "NerdHubMC"
+        url = "https://maven.abusedmaster.xyz/"
+    }
 }
 
 dependencies {
@@ -27,6 +35,22 @@ dependencies {
 
     // dev testing
     modImplementation 'com.github.Draylar:wolves-with-armor:1.5.2-1.16.2'
+
+    // gecko lib
+    modImplementation "com.github.bernie-g:geckolib:fabric-1.16.1-geckolib-2.0.0"
+    include "com.github.bernie-g:geckolib:fabric-1.16.1-geckolib-2.0.0"
+
+    // libstructure
+    modImplementation 'net.earthcomputer:libstructure:1.5'
+    include 'net.earthcomputer:libstructure:1.5'
+
+    // trinkets
+    modImplementation "com.github.emilyploszaj:trinkets:${trinkets_version}"
+    include "com.github.emilyploszaj:trinkets:${trinkets_version}"
+
+    //  shield lib
+    modImplementation "com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}"
+    include "com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}"
 }
 
 processResources {

@@ -1,6 +1,7 @@
 package draylar.intotheomega.mixin;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.impl.OmegaManipulator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentLevelEntry;
@@ -44,7 +45,7 @@ public abstract class EnchantedBookItemMixin {
                     Enchantment enchantment = entry.getKey();
 
                     // if namespace is 'intotheomega', remove
-                    if (omega_getID(enchantment).getNamespace().equals(IntoTheOmega.MODID)) {
+                    if (((OmegaManipulator) enchantment).isOmega()) {
                         added.add(stack);
                         break;
                     }
@@ -62,7 +63,7 @@ public abstract class EnchantedBookItemMixin {
     private void addStacksToGroup(ItemGroup group, DefaultedList<ItemStack> stacks, CallbackInfo ci) {
         if (group.equals(IntoTheOmega.GROUP)) {
             Registry.ENCHANTMENT.forEach(enchantment -> {
-                if(omega_getID(enchantment).getNamespace().equals(IntoTheOmega.MODID)) {
+                if(((OmegaManipulator) enchantment).isOmega()) {
                     stacks.add(forEnchantment(new EnchantmentLevelEntry(enchantment, enchantment.getMaxLevel())));
                 }
             });

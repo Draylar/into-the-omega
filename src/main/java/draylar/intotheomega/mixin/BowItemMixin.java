@@ -26,10 +26,6 @@ public class BowItemMixin {
             locals = LocalCapture.CAPTURE_FAILHARD
     )
     private void storeOmegaFlame(ItemStack stack, World world, LivingEntity user, int remainingUseTicks, CallbackInfo ci, PlayerEntity playerEntity, boolean bl, ItemStack itemStack, int i, float f, boolean bl2, ArrowItem arrowItem, PersistentProjectileEntity persistentProjectileEntity) {
-        if (EnchantmentHelper.getLevel(OmegaEnchantments.FLAME, stack) > 0) {
-            ((ProjectileEntityManipulator) persistentProjectileEntity).setOmegaFlame(true);
-        } else {
-            ((ProjectileEntityManipulator) persistentProjectileEntity).setOmegaFlame(false);
-        }
+        ((ProjectileEntityManipulator) persistentProjectileEntity).setOmegaFlame(EnchantmentHelper.getLevel(OmegaEnchantments.FLAME, stack) > 0);
     }
 }

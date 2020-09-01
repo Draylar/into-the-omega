@@ -3,9 +3,11 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.block.ConquestForgeBlock;
 import draylar.intotheomega.block.OmegaCrystalOreBlock;
+import draylar.intotheomega.block.WatchingEyeBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
+import net.minecraft.block.GlassBlock;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -19,14 +21,14 @@ public class OmegaBlocks {
             "omega_block",
             new Block(
                     FabricBlockSettings
-                        .of(Material.STONE)
-                        .requiresTool()
-                        .breakByTool(FabricToolTags.PICKAXES, 3)
-                        .strength(20.0F, 18.0F)
+                            .of(Material.STONE)
+                            .requiresTool()
+                            .breakByTool(FabricToolTags.PICKAXES, 3)
+                            .strength(20.0F, 18.0F)
             ),
             new Item.Settings()
-                .group(IntoTheOmega.GROUP)
-                .rarity(Rarity.EPIC)
+                    .group(IntoTheOmega.GROUP)
+                    .rarity(Rarity.EPIC)
     );
 
     public static final Block OMEGA_CRYSTAL_ORE = register(
@@ -53,8 +55,44 @@ public class OmegaBlocks {
                             .sounds(BlockSoundGroup.ANVIL)
             ),
             new Item.Settings()
-                .group(IntoTheOmega.GROUP)
-                .rarity(Rarity.EPIC)
+                    .group(IntoTheOmega.GROUP)
+                    .rarity(Rarity.EPIC)
+    );
+
+    public static final Block WATCHING_EYE = register(
+            "watching_eye",
+            new WatchingEyeBlock(
+                    FabricBlockSettings
+                            .of(Material.METAL)
+                            .breakByTool(FabricToolTags.PICKAXES)
+                            .strength(5f, 5f)
+                            .sounds(BlockSoundGroup.GLASS)
+            ),
+            new Item.Settings().group(IntoTheOmega.GROUP)
+    );
+
+    public static final Block ENDER_GLASS = register(
+            "ender_glass",
+            new GlassBlock(
+                    FabricBlockSettings
+                            .of(Material.GLASS)
+                            .strength(1f, 1f)
+                            .sounds(BlockSoundGroup.GLASS)
+                            .nonOpaque()
+            ),
+            new Item.Settings().group(IntoTheOmega.GROUP)
+    );
+
+    public static final Block OMEGA_GLASS = register(
+            "omega_glass",
+            new GlassBlock(
+                    FabricBlockSettings
+                            .of(Material.GLASS)
+                            .strength(1f, 1f)
+                            .sounds(BlockSoundGroup.GLASS)
+                            .nonOpaque()
+            ),
+            new Item.Settings().group(IntoTheOmega.GROUP)
     );
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {

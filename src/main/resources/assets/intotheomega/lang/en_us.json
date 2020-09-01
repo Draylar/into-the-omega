@@ -13,8 +13,20 @@
   "item.intotheomega.omega_leggings": "Omega Leggings",
   "item.intotheomega.omega_boots": "Omega Boots",
   "item.wolveswitharmor.omega_wolf_armor": "§dOmega Wolf Armor",
+  "item.intotheomega.true_eye_of_ender_spawn_egg": "True Eye of Ender Spawn Egg",
+  "item.intotheomega.warding_omega": "Warding Omega",
+  "item.intotheomega.omega_shield": "Resounding Shield of The End",
 
   "block.intotheomega.omega_crystal_ore": "Ω Crystal Ore",
   "block.intotheomega.conquest_forge": "Conquest Forge",
-  "block.intotheomega.omega_block": "Omega Block"
+  "block.intotheomega.omega_block": "Omega Block",
+
+  "entity.intotheomega.true_eye_of_ender": "True Eye of Ender",
+
+  "intotheomega.warding_omega.1": "A small fragment of the Omega,",
+  "intotheomega.warding_omega.2": "contained in a single ring...",
+  "intotheomega.omega_shield.1": "Unyielding endless Shield,",
+  "intotheomega.omega_shield.2": "bless me with your protection!",
+
+  "enchantment.intotheomega.bane_of_the_end": "Bane of The End"
 }

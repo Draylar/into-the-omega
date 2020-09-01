@@ -1,0 +1,14 @@
+{
+  "parent": "intotheomega:item/base_shield",
+  "textures": {
+    "shield": "intotheomega:item/omega_shield"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "blocking": 1
+      },
+      "model": "intotheomega:item/omega_shield_blocking"
+    }
+  ]
+}

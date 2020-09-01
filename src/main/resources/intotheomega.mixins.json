@@ -10,7 +10,12 @@
     "EnchantedBookItemMixin",
     "EnchantmentHelperMixin",
     "EnchantmentMixin",
+    "EntityTypeTagsAccessor",
     "ExperienceOrbEntityMixin",
+    "GenerationSettingsAccessor",
+    "LivingEntityMixin",
+    "ParticleManagerMixin",
+    "ParticleTypesAccessor",
     "PersistentProjectileEntityMixin",
     "SimpleRegistryAccessor",
     "TridentEntityMixin"

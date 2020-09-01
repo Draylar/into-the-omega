@@ -14,6 +14,7 @@ accessible method net/minecraft/item/PickaxeItem <init> (Lnet/minecraft/item/Too
 
 accessible class net/minecraft/enchantment/EnchantmentHelper$Consumer
 accessible class net/minecraft/village/TradeOffers$EnchantBookFactory
+accessible class net/minecraft/client/particle/ParticleManager$SpriteAwareFactory
 
 accessible    field    net/minecraft/world/biome/GenerationSettings    features    Ljava/util/List;
 mutable    field    net/minecraft/world/biome/GenerationSettings    features    Ljava/util/List;
