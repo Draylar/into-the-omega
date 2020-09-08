@@ -1,6 +1,7 @@
 package draylar.intotheomega.mixin;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.impl.DetailAppender;
 import draylar.intotheomega.impl.OmegaManipulator;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,8 +31,6 @@ public abstract class EnchantmentMixin implements OmegaManipulator {
     @Shadow protected String translationKey;
 
     @Shadow public abstract int getMaxLevel();
-
-    @Shadow public abstract Text getName(int level);
 
     @Shadow public abstract String getTranslationKey();
 
@@ -72,9 +71,7 @@ public abstract class EnchantmentMixin implements OmegaManipulator {
             }
 
             if(FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-                if(Screen.hasControlDown()) {
-                    append.append(new LiteralText(" (").append(new TranslatableText(this.getTranslationKey())).append(" ").append(String.valueOf(level + this.getMaxLevel())).append(")"));
-                }
+                DetailAppender.append(append, level, this.getTranslationKey(), this.getMaxLevel());
             }
 
             cir.setReturnValue(append);
