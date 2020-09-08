@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=true": {
+      "model": "intotheomega:block/watching_eye_on"
+    },
+    "powered=false": {
+      "model": "intotheomega:block/watching_eye"
+    }
+  }
+}

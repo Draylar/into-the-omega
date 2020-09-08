@@ -19,20 +19,27 @@ import java.util.Random;
 
 public class OmegaCrystalOreFeature extends Feature<DefaultFeatureConfig> {
 
+    private static final int SIZE = 16;
+
     public OmegaCrystalOreFeature(Codec<DefaultFeatureConfig> codec) {
         super(codec);
     }
 
     public boolean generate(StructureWorldAccess serverWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig oreFeatureConfig) {
+        // Do not generate ore on the main end island
+        if(Math.sqrt(blockPos.getSquaredDistance(0, 0, 0, true)) < 1024) {
+            return false;
+        }
+
         float f = random.nextFloat() * 3.1415927F;
-        float g = (float) 8 / 8.0F;
-        int i = MathHelper.ceil(((float) 8 / 16.0F * 2.0F + 1.0F) / 2.0F);
-        double d = (double)((float)blockPos.getX() + MathHelper.sin(f) * g);
-        double e = (double)((float)blockPos.getX() - MathHelper.sin(f) * g);
-        double h = (double)((float)blockPos.getZ() + MathHelper.cos(f) * g);
-        double j = (double)((float)blockPos.getZ() - MathHelper.cos(f) * g);
-        double l = (double)(blockPos.getY() + random.nextInt(3) - 2);
-        double m = (double)(blockPos.getY() + random.nextInt(3) - 2);
+        float g = (float) SIZE / 8.0F;
+        int i = MathHelper.ceil(((float) SIZE / 16.0F * 2.0F + 1.0F) / 2.0F);
+        double d = (float) blockPos.getX() + MathHelper.sin(f) * g;
+        double e = (float) blockPos.getX() - MathHelper.sin(f) * g;
+        double h = (float) blockPos.getZ() + MathHelper.cos(f) * g;
+        double j = (float) blockPos.getZ() - MathHelper.cos(f) * g;
+        double l = blockPos.getY() + random.nextInt(3) - 2;
+        double m = blockPos.getY() + random.nextInt(3) - 2;
         int n = blockPos.getX() - MathHelper.ceil(g) - i;
         int o = blockPos.getY() - 2 - i;
         int p = blockPos.getZ() - MathHelper.ceil(g) - i;
@@ -51,24 +58,22 @@ public class OmegaCrystalOreFeature extends Feature<DefaultFeatureConfig> {
     }
 
     protected boolean generateVeinPart(WorldAccess world, Random random, DefaultFeatureConfig config, double startX, double endX, double startZ, double endZ, double startY, double endY, int x, int y, int z, int size, int i) {
-        int configSize = 8;
-        
         int j = 0;
         BitSet bitSet = new BitSet(size * i * size);
         BlockPos.Mutable mutable = new BlockPos.Mutable();
-        double[] ds = new double[configSize * 4];
+        double[] ds = new double[SIZE * 4];
 
         int m;
         double o;
         double p;
         double q;
         double r;
-        for(m = 0; m < configSize; ++m) {
-            float f = (float)m / (float)configSize;
+        for(m = 0; m < SIZE; ++m) {
+            float f = (float)m / (float)SIZE;
             o = MathHelper.lerp((double)f, startX, endX);
             p = MathHelper.lerp((double)f, startY, endY);
             q = MathHelper.lerp((double)f, startZ, endZ);
-            r = random.nextDouble() * (double)configSize / 16.0D;
+            r = random.nextDouble() * (double)SIZE / 16.0D;
             double l = ((double)(MathHelper.sin(3.1415927F * f) + 1.0F) * r + 1.0D) / 2.0D;
             ds[m * 4 + 0] = o;
             ds[m * 4 + 1] = p;
@@ -76,9 +81,9 @@ public class OmegaCrystalOreFeature extends Feature<DefaultFeatureConfig> {
             ds[m * 4 + 3] = l;
         }
 
-        for(m = 0; m < configSize - 1; ++m) {
+        for(m = 0; m < SIZE - 1; ++m) {
             if (ds[m * 4 + 3] > 0.0D) {
-                for(int n = m + 1; n < configSize; ++n) {
+                for(int n = m + 1; n < SIZE; ++n) {
                     if (ds[n * 4 + 3] > 0.0D) {
                         o = ds[m * 4 + 0] - ds[n * 4 + 0];
                         p = ds[m * 4 + 1] - ds[n * 4 + 1];
@@ -96,7 +101,7 @@ public class OmegaCrystalOreFeature extends Feature<DefaultFeatureConfig> {
             }
         }
 
-        for(m = 0; m < configSize; ++m) {
+        for(m = 0; m < SIZE; ++m) {
             double t = ds[m * 4 + 3];
             if (t >= 0.0D) {
                 double u = ds[m * 4 + 0];

@@ -25,6 +25,15 @@ repositories {
         name = "NerdHubMC"
         url = "https://maven.abusedmaster.xyz/"
     }
+
+    maven {
+        url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
+    }
+
+    maven {
+        name = "Ladysnake Libs"
+        url = "https://dl.bintray.com/ladysnake/libs"
+    }
 }
 
 dependencies {
@@ -34,7 +43,9 @@ dependencies {
     modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // dev testing
-    modImplementation 'com.github.Draylar:wolves-with-armor:1.5.2-1.16.2'
+    modImplementation ('com.github.Draylar:wolves-with-armor:1.5.2-1.16.2') {
+        exclude group: "com.github.OnyxStudios.Cardinal-Components-API"
+    }
 
     // gecko lib
     modImplementation "com.github.bernie-g:geckolib:fabric-1.16.1-geckolib-2.0.0"
@@ -45,12 +56,31 @@ dependencies {
     include 'net.earthcomputer:libstructure:1.5'
 
     // trinkets
-    modImplementation "com.github.emilyploszaj:trinkets:${trinkets_version}"
+    modImplementation ("com.github.emilyploszaj:trinkets:${trinkets_version}") {
+        exclude group: "io.github.onyxstudios.Cardinal-Components-API"
+    }
     include "com.github.emilyploszaj:trinkets:${trinkets_version}"
 
     //  shield lib
     modImplementation "com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}"
     include "com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}"
+
+    // REI
+    modImplementation "me.shedaniel:RoughlyEnoughItems:5.2.10"
+
+    // CCA
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.5.4"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.5.4"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.5.4"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.5.4"
+
+    // Attributed
+    modImplementation 'com.github.Draylar:attributed:1.0.0-1.16.2'
+    include 'com.github.Draylar:attributed:1.0.0-1.16.2'
+
+    // arrp
+    modImplementation group: 'net.devtech', name: 'arrp', version: '0.2.6'
+    include group: 'net.devtech', name: 'arrp', version: '0.2.6'
 }
 
 processResources {

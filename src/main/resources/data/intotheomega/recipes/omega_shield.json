@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WWW",
+    "WXW",
+    " W "
+  ],
+  "key": {
+    "W": {
+      "item": "intotheomega:omega_crystal"
+    },
+    "X": {
+      "item": "intotheomega:omega_block"
+    }
+  },
+  "result": {
+    "item": "intotheomega:omega_shield"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "intotheomega:block/obsidian_pillar_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "intotheomega:block/obsidian_pillar"
+    },
+    "axis=z": {
+      "model": "intotheomega:block/obsidian_pillar_horizontal",
+      "x": 90
+    }
+  }
+}

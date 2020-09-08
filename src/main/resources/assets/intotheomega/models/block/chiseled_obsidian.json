@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "intotheomega:block/ender_glass"
+    "all": "intotheomega:block/chiseled_obsidian"
   }
 }

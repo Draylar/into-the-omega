@@ -3,12 +3,11 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.block.ConquestForgeBlock;
 import draylar.intotheomega.block.OmegaCrystalOreBlock;
+import draylar.intotheomega.block.StatueBlock;
 import draylar.intotheomega.block.WatchingEyeBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
-import net.minecraft.block.Block;
-import net.minecraft.block.GlassBlock;
-import net.minecraft.block.Material;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
@@ -71,12 +70,12 @@ public class OmegaBlocks {
             new Item.Settings().group(IntoTheOmega.GROUP)
     );
 
-    public static final Block ENDER_GLASS = register(
-            "ender_glass",
+    public static final Block OBSIDIAN_GLASS = register(
+            "obsidian_glass",
             new GlassBlock(
                     FabricBlockSettings
                             .of(Material.GLASS)
-                            .strength(1f, 1f)
+                            .strength(1f, 15f)
                             .sounds(BlockSoundGroup.GLASS)
                             .nonOpaque()
             ),
@@ -94,6 +93,13 @@ public class OmegaBlocks {
             ),
             new Item.Settings().group(IntoTheOmega.GROUP)
     );
+
+    public static final Block CHISELED_OBSIDIAN = register("chiseled_obsidian", new Block(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block OBSIDIAN_PILLAR = register("obsidian_pillar", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block GILDED_OBSIDIAN = register("gilded_obsidian", new Block(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
+
+    public static final Block ENDER_DRAGON_STATUE = register("ender_dragon_statue", new StatueBlock(), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block ENDERMAN_STATUE = register("enderman_statue", new StatueBlock(), new Item.Settings().group(IntoTheOmega.GROUP));
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, IntoTheOmega.id(name), block);

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "intotheomega:block/obsidian_pillar_top",
+    "side": "intotheomega:block/obsidian_pillar"
+  }
+}

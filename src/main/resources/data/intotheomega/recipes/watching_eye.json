@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GrG",
+    "r#r",
+    "GrG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:obsidian"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    },
+    "#": {
+      "item": "minecraft:ender_eye"
+    }
+  },
+  "result": {
+    "item": "intotheomega:watching_eye"
+  }
+}

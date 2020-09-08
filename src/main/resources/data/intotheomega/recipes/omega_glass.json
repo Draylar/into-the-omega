@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "G#G",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "#": {
+      "item": "intotheomega:omega_crystal"
+    }
+  },
+  "result": {
+    "item": "intotheomega:omega_glass",
+    "count": 8
+  }
+}

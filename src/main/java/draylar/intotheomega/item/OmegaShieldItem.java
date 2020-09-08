@@ -27,4 +27,6 @@ public class OmegaShieldItem extends AbstractShield {
         tooltip.add(new TranslatableText("intotheomega.omega_shield.1").formatted(Formatting.GRAY));
         tooltip.add(new TranslatableText("intotheomega.omega_shield.2").formatted(Formatting.GRAY));
     }
+
+
 }

@@ -3,7 +3,7 @@
   "id": "intotheomega",
   "version": "${version}",
   "name": "Into the Omega",
-  "description": "d",
+  "description": "Journey into an unforgettable adventure in the deep abyss of The End...",
   "authors": [
     "Draylar"
   ],
@@ -19,6 +19,9 @@
     ],
     "client": [
       "draylar.intotheomega.IntoTheOmegaClient"
+    ],
+    "cardinal-components-entity": [
+      "draylar.intotheomega.registry.OmegaComponents"
     ]
   },
   "accessWidener": "intotheomega.accesswidener",
@@ -29,5 +32,10 @@
     "fabricloader": ">=0.9.0+build.204",
     "fabric": "*",
     "minecraft": ">=1.16.1"
+  },
+  "custom": {
+    "cardinal-components": [
+      "intotheomega:double_jump"
+    ]
   }
 }
