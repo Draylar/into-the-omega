@@ -1,3 +1,8 @@
 # Project exclude paths
 /.gradle/
 /build/
+/mystic-enchantments.iml
+/.idea/
+/logs/
+/out/production/into-the-omega.main/
+/run/
