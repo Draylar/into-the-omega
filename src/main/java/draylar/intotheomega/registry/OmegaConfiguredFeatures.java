@@ -16,9 +16,12 @@ public class OmegaConfiguredFeatures {
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> EYE_ALTAR = register("eye_altar", OmegaWorld.EYE_ALTAR.configure(new DefaultFeatureConfig()));
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> SMALL_PHANTOM_TOWER = register("small_phantom_tower", OmegaWorld.SMALL_PHANTOM_TOWER.configure(new DefaultFeatureConfig()));
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> MEDIUM_PHANTOM_TOWER = register("medium_phantom_tower", OmegaWorld.MEDIUM_PHANTOM_TOWER.configure(new DefaultFeatureConfig()));
-    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_ISLAND = register("island", OmegaWorld.ISLAND.configure(DefaultFeatureConfig.INSTANCE));
     public static final ConfiguredStructureFeature<?, ?> CONFIGURED_SPIKE = register("spike", OmegaWorld.SPIKE.configure(DefaultFeatureConfig.INSTANCE));
+
+    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_BASE_ISLAND = register("base_island", OmegaWorld.BASE_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
+    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_GENERIC_ISLAND = register("generic_island", OmegaWorld.GENERIC_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
     public static final ConfiguredStructureFeature<?, ?> CONFIGURED_ICE_ISLAND = register("ice_island", OmegaWorld.ICE_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
+    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_CHORUS_ISLAND = register("chorus_island", OmegaWorld.CHORUS_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
 
     // Standard Features
     public static final ConfiguredFeature<?, ?> OBISDIAN_SPIKE = register("obsidian_spike", OmegaWorld.OBSIDIAN_SPIKE.configure(FeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeat(1));

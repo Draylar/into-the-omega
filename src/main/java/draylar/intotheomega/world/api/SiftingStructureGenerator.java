@@ -12,6 +12,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.structure.StructureManager;
+import net.minecraft.structure.StructurePieceType;
 import net.minecraft.structure.StructurePieceWithDimensions;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
@@ -28,12 +29,12 @@ public class SiftingStructureGenerator extends StructurePieceWithDimensions {
 
     public final Map<BlockPos, BlockInfo> blocks = new HashMap<>();
 
-    public SiftingStructureGenerator(Random random, int x, int z) {
-        super(OmegaStructurePieces.SIFTING_PIECE, random, x, 30, z, 16, 48, 16);
+    public SiftingStructureGenerator(StructurePieceType type, Random random, int x, int z) {
+        super(type, random, x, 30, z, 16, 48, 16);
     }
 
-    public SiftingStructureGenerator(StructureManager manager, CompoundTag tag) {
-        super(OmegaStructurePieces.SIFTING_PIECE, tag);
+    public SiftingStructureGenerator(StructurePieceType type, StructureManager manager, CompoundTag tag) {
+        super(type, tag);
 
         blocks.clear();
         ListTag blocksTag = tag.getList("Blocks", NbtType.COMPOUND);

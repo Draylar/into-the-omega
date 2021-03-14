@@ -1,8 +1,10 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.world.api.BaseIslandStructure;
+import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
 import draylar.intotheomega.world.ice_island.IceIslandStructure;
-import draylar.intotheomega.world.island.IslandStructure;
+import draylar.intotheomega.world.island.GenericIslandStructure;
 import draylar.intotheomega.world.spike.SpikeStructure;
 import draylar.intotheomega.world.structure.EyeAltarStructure;
 import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
@@ -13,7 +15,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
-import net.fabricmc.fabric.impl.biome.modification.BiomeSelectionContextImpl;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
@@ -31,9 +32,12 @@ public class OmegaWorld {
     public static final StructureFeature<DefaultFeatureConfig> EYE_ALTAR = new EyeAltarStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> SMALL_PHANTOM_TOWER = new SmallPhantomTowerStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> MEDIUM_PHANTOM_TOWER = new MediumPhantomTowerStructure(DefaultFeatureConfig.CODEC);
-    public static final StructureFeature<DefaultFeatureConfig> ISLAND = new IslandStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> SPIKE = new SpikeStructure(DefaultFeatureConfig.CODEC);
+
+    public static final StructureFeature<DefaultFeatureConfig> BASE_ISLAND = new BaseIslandStructure(DefaultFeatureConfig.CODEC);
+    public static final StructureFeature<DefaultFeatureConfig> GENERIC_ISLAND = new GenericIslandStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> ICE_ISLAND = new IceIslandStructure(DefaultFeatureConfig.CODEC);
+    public static final StructureFeature<DefaultFeatureConfig> CHORUS_ISLAND = new ChorusIslandStructure(DefaultFeatureConfig.CODEC);
 
     // TODO: phantom tower -> phantom outpost -> phantom [?]
 
@@ -80,15 +84,27 @@ public class OmegaWorld {
                 .register();
 
         FabricStructureBuilder
-                .create(IntoTheOmega.id("island"), ISLAND)
+                .create(IntoTheOmega.id("base_island"), BASE_ISLAND)
                 .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
-                .defaultConfig(12, 8, 62326)
+                .defaultConfig(5, 3, 62326)
+                .register();
+
+        FabricStructureBuilder
+                .create(IntoTheOmega.id("generic_island"), GENERIC_ISLAND)
+                .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
+                .defaultConfig(20, 16, 62326)
                 .register();
 
         FabricStructureBuilder
                 .create(IntoTheOmega.id("ice_island"), ICE_ISLAND)
                 .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
-                .defaultConfig(10, 8, 635634)
+                .defaultConfig(20, 16, 14213)
+                .register();
+
+        FabricStructureBuilder
+                .create(IntoTheOmega.id("chorus_island"), CHORUS_ISLAND)
+                .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
+                .defaultConfig(20, 16, 814857)
                 .register();
     }
 
@@ -112,16 +128,28 @@ public class OmegaWorld {
                         context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.MEDIUM_PHANTOM_TOWER));
 
         BiomeModifications
-                .create(IntoTheOmega.id("island"))
+                .create(IntoTheOmega.id("base_island"))
                 .add(ModificationPhase.ADDITIONS,
                         context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ISLAND));
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_BASE_ISLAND));
 
-        BiomeModifications
-                .create(IntoTheOmega.id("ice_island"))
-                .add(ModificationPhase.ADDITIONS,
-                        BiomeSelectors.foundInTheEnd(),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ICE_ISLAND));
+//        BiomeModifications
+//                .create(IntoTheOmega.id("island"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ISLAND));
+//
+//        BiomeModifications
+//                .create(IntoTheOmega.id("ice_island"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        BiomeSelectors.foundInTheEnd(),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ICE_ISLAND));
+//
+//        BiomeModifications
+//                .create(IntoTheOmega.id("chorus_island"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        BiomeSelectors.foundInTheEnd(),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_CHORUS_ISLAND));
 
         BiomeModifications
                 .create(IntoTheOmega.id("spike"))

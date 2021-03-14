@@ -3,6 +3,7 @@ package draylar.intotheomega.world.ice_island;
 import draylar.intotheomega.api.BlockInfo;
 import draylar.intotheomega.api.OpenSimplex2F;
 import draylar.intotheomega.api.Pos2D;
+import draylar.intotheomega.registry.OmegaStructurePieces;
 import draylar.intotheomega.world.api.SiftingStructureStart;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.StructureManager;
@@ -24,7 +25,7 @@ import java.util.Map;
 public class IceIslandStructureStart extends SiftingStructureStart {
 
     public IceIslandStructureStart(StructureFeature<DefaultFeatureConfig> feature, int chunkX, int chunkZ, BlockBox box, int references, long seed) {
-        super(feature, chunkX, chunkZ, box, references, seed);
+        super(OmegaStructurePieces.ICE_ISLAND, feature, chunkX, chunkZ, box, references, seed);
 
         int realX = chunkX * 16;
         int realZ = chunkZ * 16;
