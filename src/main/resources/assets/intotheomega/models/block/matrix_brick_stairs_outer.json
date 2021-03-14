@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "intotheomega:block/matrix_bricks",
+    "top": "intotheomega:block/matrix_bricks",
+    "side": "intotheomega:block/matrix_bricks"
+  }
+}

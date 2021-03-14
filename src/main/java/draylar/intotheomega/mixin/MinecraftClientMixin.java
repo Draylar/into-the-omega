@@ -1,7 +1,7 @@
 package draylar.intotheomega.mixin;
 
 import draylar.intotheomega.impl.AttackingItem;
-import draylar.intotheomega.registry.OmegaPacketHandlers;
+import draylar.intotheomega.registry.OmegaServerPackets;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
@@ -26,7 +26,7 @@ public class MinecraftClientMixin {
     private void onAttack(CallbackInfo ci) {
         // tell server to call attack method on held item
         PacketByteBuf packet = new PacketByteBuf(Unpooled.buffer());
-        ClientSidePacketRegistry.INSTANCE.sendToServer(OmegaPacketHandlers.ATTACK_PACKET, packet);
+        ClientSidePacketRegistry.INSTANCE.sendToServer(OmegaServerPackets.ATTACK_PACKET, packet);
 
         // call on client
         ItemStack playerHeldStack = player.getMainHandStack();

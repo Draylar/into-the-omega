@@ -64,7 +64,7 @@ public abstract class EnchantedBookItemMixin {
         if (group.equals(IntoTheOmega.GROUP)) {
             Registry.ENCHANTMENT.forEach(enchantment -> {
                 if(((OmegaManipulator) enchantment).isOmega()) {
-                    stacks.add(forEnchantment(new EnchantmentLevelEntry(enchantment, enchantment.getMaxLevel())));
+//                    stacks.add(forEnchantment(new EnchantmentLevelEntry(enchantment, enchantment.getMaxLevel())));
                 }
             });
         }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "oo",
+    "oo",
+    " o"
+  ],
+  "key": {
+    "o": {
+      "item": "intotheomega:dragon_scale"
+    }
+  },
+  "result": {
+    "item": "intotheomega:dragonslayer_axe"
+  }
+}

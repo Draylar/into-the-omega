@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "intotheomega:block/end_stone_bookshelf"
+      },
+      {
+        "model": "intotheomega:block/end_stone_bookshelf_2"
+      }
+    ]
+  }
+}

@@ -45,7 +45,7 @@ public class TrueEyeMoveControl extends MoveControl {
 
         for(int i = 1; i < steps; ++i) {
             box = box.offset(direction);
-            if (!this.eye.world.doesNotCollide(this.eye, box)) {
+            if (!this.eye.world.isSpaceEmpty(this.eye, box)) {
                 return false;
             }
         }

@@ -50,7 +50,7 @@ public class WatchingEyeBlockEntity extends BlockEntity implements Tickable {
         assert world != null;
 
         return world.getEntitiesByClass(PlayerEntity.class, new Box(pos.add(-radius, -radius, -radius), pos.add(radius, radius, radius)), player -> {
-            HitResult rayTrace = player.rayTrace(64, 0, false);
+            HitResult rayTrace = player.raycast(64, 0, false);
 
             // Check if ray trace hit this position
             if(rayTrace instanceof BlockHitResult) {

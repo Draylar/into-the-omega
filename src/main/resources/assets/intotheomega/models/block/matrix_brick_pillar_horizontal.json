@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "intotheomega:block/matrix_brick_pillar_top",
+    "side": "intotheomega:block/matrix_brick_pillar"
+  }
+}

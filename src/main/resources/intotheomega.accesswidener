@@ -7,6 +7,8 @@ accessible  method  net/minecraft/enchantment/EfficiencyEnchantment  <init>  (Ln
 accessible  method  net/minecraft/enchantment/SilkTouchEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;[Lnet/minecraft/entity/EquipmentSlot;)V
 accessible  method  net/minecraft/enchantment/UnbreakingEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;[Lnet/minecraft/entity/EquipmentSlot;)V
 accessible  method  net/minecraft/enchantment/LureEnchantment  <init>  (Lnet/minecraft/enchantment/Enchantment$Rarity;Lnet/minecraft/enchantment/EnchantmentTarget;[Lnet/minecraft/entity/EquipmentSlot;)V
+accessible  method  net/minecraft/block/StairsBlock  <init>  (Lnet/minecraft/block/BlockState;Lnet/minecraft/block/AbstractBlock$Settings;)V
+accessible  method  net/minecraft/entity/projectile/ProjectileEntity  <init>  (Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V
 
 accessible method net/minecraft/item/HoeItem <init> (Lnet/minecraft/item/ToolMaterial;IFLnet/minecraft/item/Item$Settings;)V
 accessible method net/minecraft/item/AxeItem <init> (Lnet/minecraft/item/ToolMaterial;FFLnet/minecraft/item/Item$Settings;)V
@@ -15,6 +17,15 @@ accessible method net/minecraft/item/PickaxeItem <init> (Lnet/minecraft/item/Too
 accessible class net/minecraft/enchantment/EnchantmentHelper$Consumer
 accessible class net/minecraft/village/TradeOffers$EnchantBookFactory
 accessible class net/minecraft/client/particle/ParticleManager$SpriteAwareFactory
+accessible class net/minecraft/block/StairsBlock
 
 accessible    field    net/minecraft/world/biome/GenerationSettings    features    Ljava/util/List;
 mutable    field    net/minecraft/world/biome/GenerationSettings    features    Ljava/util/List;
+
+accessible field net/minecraft/entity/projectile/PersistentProjectileEntity piercedEntities Lit/unimi/dsi/fastutil/ints/IntOpenHashSet;
+accessible field net/minecraft/entity/projectile/PersistentProjectileEntity piercingKilledEntities Ljava/util/List;
+
+accessible field net/minecraft/client/render/RenderPhase SMOOTH_SHADE_MODEL Lnet/minecraft/client/render/RenderPhase$ShadeModel;
+accessible field net/minecraft/client/render/RenderPhase ENABLE_LIGHTMAP Lnet/minecraft/client/render/RenderPhase$Lightmap;
+accessible field net/minecraft/client/render/RenderPhase MIPMAP_BLOCK_ATLAS_TEXTURE Lnet/minecraft/client/render/RenderPhase$Texture;
+accessible field net/minecraft/client/render/RenderPhase ALWAYS_DEPTH_TEST Lnet/minecraft/client/render/RenderPhase$DepthTest;

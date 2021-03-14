@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.5.11'
+    id 'fabric-loom' version '0.5-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -18,21 +18,22 @@ repositories {
     maven { url 'https://jitpack.io' }
     maven { url "http://server.bbkr.space:8081/artifactory/libs-release" }
     maven {
-        name = 'Earthcomputer Mods'
-        url = 'https://dl.bintray.com/earthcomputer/mods'
-    }
-    maven {
         name = "NerdHubMC"
         url = "https://maven.abusedmaster.xyz/"
     }
 
     maven {
-        url = 'https://raw.githubusercontent.com/Devan-Kerman/Devan-Repo/master/'
+        name = "Ladysnake Libs"
+        url = "https://dl.bintray.com/ladysnake/libs"
     }
 
     maven {
-        name = "Ladysnake Libs"
-        url = "https://dl.bintray.com/ladysnake/libs"
+        url 'https://repo.repsy.io/mvn/gandiber/geckolib'
+    }
+
+    maven {
+        name = "dblsaiko"
+        url = "https://maven.dblsaiko.net/"
     }
 }
 
@@ -41,6 +42,7 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
     modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+//    modCompile "com.github.FabricMC.fabric:fabric-api:1.16-SNAPSHOT"
 
     // dev testing
     modImplementation ('com.github.Draylar:wolves-with-armor:1.5.2-1.16.2') {
@@ -48,12 +50,8 @@ dependencies {
     }
 
     // gecko lib
-    modImplementation "com.github.bernie-g:geckolib:fabric-1.16.1-geckolib-2.0.0"
-    include "com.github.bernie-g:geckolib:fabric-1.16.1-geckolib-2.0.0"
-
-    // libstructure
-    modImplementation 'net.earthcomputer:libstructure:1.5'
-    include 'net.earthcomputer:libstructure:1.5'
+    modImplementation "software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.20:dev"
+    include "software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.20:dev"
 
     // trinkets
     modImplementation ("com.github.emilyploszaj:trinkets:${trinkets_version}") {
@@ -75,12 +73,20 @@ dependencies {
     include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.5.4"
 
     // Attributed
-    modImplementation 'com.github.Draylar:attributed:1.0.0-1.16.2'
-    include 'com.github.Draylar:attributed:1.0.0-1.16.2'
+    modImplementation 'com.github.Draylar:attributed:1.0.1-1.16.2'
+    include 'com.github.Draylar:attributed:1.0.1-1.16.2'
 
-    // arrp
-    modImplementation group: 'net.devtech', name: 'arrp', version: '0.2.6'
-    include group: 'net.devtech', name: 'arrp', version: '0.2.6'
+    // Enderman spawner patch
+    modCompile 'com.github.Draylar:angerable-patch:1.0.0'
+    include 'com.github.Draylar:angerable-patch:1.0.0'
+
+    // Dev building utils
+    modImplementation 'com.github.Draylar:staff-of-building:1.2.4-1.16.2'
+
+    // cool rendering
+    modImplementation "grondag:canvas-mc116:1.0.+"
+//    modImplementation "grondag:frex-mc116:4.8.207"
+//    modImplementation "grondag:jmx-mc116:1.19.+"
 }
 
 processResources {

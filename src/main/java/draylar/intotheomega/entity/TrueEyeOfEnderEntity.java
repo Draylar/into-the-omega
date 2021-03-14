@@ -1,13 +1,11 @@
 package draylar.intotheomega.entity;
 
-import draylar.intotheomega.entity.ai.TrueEyeLookControl;
+import draylar.intotheomega.entity.ai.FreeLookControl;
 import draylar.intotheomega.entity.ai.LookAtTargetGoal;
 import draylar.intotheomega.entity.ai.FlyRandomlyGoal;
 import draylar.intotheomega.entity.ai.TrueEyeMoveControl;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MovementType;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -18,24 +16,19 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import software.bernie.geckolib.animation.builder.AnimationBuilder;
-import software.bernie.geckolib.animation.controller.EntityAnimationController;
-import software.bernie.geckolib.entity.IAnimatedEntity;
-import software.bernie.geckolib.event.AnimationTestEvent;
-import software.bernie.geckolib.manager.EntityAnimationManager;
 
-public class TrueEyeOfEnderEntity extends PathAwareEntity implements IAnimatedEntity {
+public class TrueEyeOfEnderEntity extends PathAwareEntity {
 
-    private final EntityAnimationManager manager = new EntityAnimationManager();
-    private final EntityAnimationController<TrueEyeOfEnderEntity> controller = new EntityAnimationController<>(this, "controller", 1, this::animationPredicate);
+//    private final EntityAnimationManager manager = new EntityAnimationManager();
+//    private final EntityAnimationController<TrueEyeOfEnderEntity> controller = new EntityAnimationController<>(this, "controller", 1, this::animationPredicate);
     private int customDeathTime = 0; // death time that does not trigger the fall over animation
 
     public TrueEyeOfEnderEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
         moveControl = new TrueEyeMoveControl(this);
-        lookControl = new TrueEyeLookControl(this);
+        lookControl = new FreeLookControl(this);
 
-        registerAnimationControllers();
+//        registerAnimationControllers();
     }
 
     @Override
@@ -130,28 +123,28 @@ public class TrueEyeOfEnderEntity extends PathAwareEntity implements IAnimatedEn
         return false;
     }
 
-    @Override
-    public EntityAnimationManager getAnimationManager() {
-        return manager;
-    }
-
-    private void registerAnimationControllers() {
-        if(world.isClient) {
-            controller.setAnimation(new AnimationBuilder().addAnimation("animation.true_eoe.idle"));
-            manager.addAnimationController(controller);
-        }
-    }
-
-    private <E extends Entity> boolean animationPredicate(AnimationTestEvent<E> event) {
-        if (event.getEntity() instanceof LivingEntity) {
-            LivingEntity living = (LivingEntity) event.getEntity();
-
-            if(living.isDead()) {
-                controller.transitionLengthTicks = 0;
-                controller.setAnimation(new AnimationBuilder().addAnimation("animation.true_eoe.death"));
-            }
-        }
-
-        return true;
-    }
+//    @Override
+//    public EntityAnimationManager getAnimationManager() {
+//        return manager;
+//    }
+//
+//    private void registerAnimationControllers() {
+//        if(world.isClient) {
+//            controller.setAnimation(new AnimationBuilder().addAnimation("animation.true_eoe.idle"));
+//            manager.addAnimationController(controller);
+//        }
+//    }
+//
+//    private <E extends Entity> boolean animationPredicate(AnimationTestEvent<E> event) {
+//        if (event.getEntity() instanceof LivingEntity) {
+//            LivingEntity living = (LivingEntity) event.getEntity();
+//
+//            if(living.isDead()) {
+//                controller.transitionLengthTicks = 0;
+//                controller.setAnimation(new AnimationBuilder().addAnimation("animation.true_eoe.death"));
+//            }
+//        }
+//
+//        return true;
+//    }
 }

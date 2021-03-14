@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ooo",
+    "o o",
+    "o o"
+  ],
+  "key": {
+    "o": {
+      "item": "intotheomega:dragon_scale"
+    }
+  },
+  "result": {
+    "item": "intotheomega:dragonslayer_leggings"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:dark_soul"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:obsidian_core"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:midnight_heart"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:eternal_stand"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:ebony_eye"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:dark_flame_blaster"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:dark_enigma"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:dark_soul_helmet"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:dark_soul_chestplate"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:dark_soul_leggings"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:dark_soul_boots"
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:gold_block",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 7
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:gold_ingot",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 16
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:obsidian",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 32
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:omega_crystal",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 10
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -4,10 +4,12 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AnvilScreenHandlerMixin",
+    "ArrowMixin",
     "BowItemMixin",
     "ClientPlayerEntityMixin",
+    "ClientPlayerEntityRidingMixin",
+    "CrackParticleAccessor",
     "CrossbowItemMixin",
-    "DefaultBiomeCreatorMixin",
     "EnchantedBookItemMixin",
     "EnchantmentHelperMixin",
     "EnchantmentMixin",
@@ -16,15 +18,34 @@
     "GenerationSettingsAccessor",
     "LivingEntityAccessor",
     "LivingEntityMixin",
+    "LivingEntityMountMixin",
     "MinecraftClientMixin",
+    "MobEntityAccessor",
+    "MoveControlAccessor",
     "ParticleManagerMixin",
     "ParticleTypesAccessor",
+    "PersistentProjectileEntityAccessor",
     "PersistentProjectileEntityMixin",
+    "PlayerEntityDamageCallbackMixin",
+    "PlayerEntityMixin",
+    "ServerPlayerPreviousPositionMixin",
     "SimpleRegistryAccessor",
-    "TridentEntityMixin"
+    "SpawnEggItemAccessor",
+    "TridentEntityMixin",
+    "armor.ChorusFruitMixin",
+    "armor.LivingEntityGravityMixin",
+    "armor.PlayerEntityEatMixin",
+    "biome.ClientWorldBiomeParticleMixin",
+    "boss.BossBarHudMixin",
+    "dev.DebugInfoSenderMixin",
+    "dev.MobEntityAIRenderingMixin",
+    "theme.WorldRendererSnowMixin",
+    "trinkets.ExplosionDamageMixin"
   ],
   "client": [
-    "ItemRendererMixin"
+    "ItemRendererMixin",
+    "mechanic.PlayerEntityJumpMixin",
+    "mechanic.WorldRendererOutlineMixin"
   ],
   "injectors": {
     "defaultRequire": 1

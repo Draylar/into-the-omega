@@ -4,31 +4,26 @@ import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketSlots;
 import draylar.intotheomega.mixin.SimpleRegistryAccessor;
+import draylar.intotheomega.network.ServerNetworking;
 import draylar.intotheomega.registry.*;
 import draylar.intotheomega.ui.ConquestForgeScreenHandler;
-import draylar.intotheomega.world.OmegaCrystalOreFeature;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
-import net.fabricmc.fabric.api.loot.v1.FabricLootPoolBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
 import net.minecraft.loot.UniformLootTableRange;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.Feature;
+import software.bernie.geckolib3.GeckoLib;
 
 public class IntoTheOmega implements ModInitializer {
 
@@ -38,25 +33,38 @@ public class IntoTheOmega implements ModInitializer {
     public static final ScreenHandlerType<ConquestForgeScreenHandler> CF_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(id("conquest_forge"), ConquestForgeScreenHandler::new);
     public static final EntityGroup END_CREATURE = new EntityGroup();
 
-    public static final Feature<DefaultFeatureConfig> OMEGA_ORE_FEATURE = Registry.register(Registry.FEATURE, id("ore"), new OmegaCrystalOreFeature(DefaultFeatureConfig.CODEC));
-
     @Override
     public void onInitialize() {
+        GeckoLib.initialize();
+
+        OmegaBiomes.init();
+        OmegaSurfaceBuilders.init();
         OmegaEnchantments.init();
         OmegaBlocks.init();
         OmegaItems.init();
         OmegaEntities.init();
         OmegaWorld.init();
+        OmegaConfiguredFeatures.init();
+        OmegaStructurePieces.init();
         OmegaTags.init();
         OmegaParticles.init();
-        OmegaPacketHandlers.init();
+        OmegaServerPackets.init();
+        OmegaEventHandlers.init();
+        ServerNetworking.init();
 
         registerDragonLootAppender();
 
         TrinketSlots.addSlot(SlotGroups.HAND, Slots.RING, new Identifier("trinkets", "textures/item/empty_trinket_slot_ring.png"));
+        TrinketSlots.addSlot(SlotGroups.OFFHAND, Slots.RING, new Identifier("trinkets", "textures/item/empty_trinket_slot_ring.png"));
         TrinketSlots.addSlot(SlotGroups.LEGS, Slots.BELT, new Identifier("trinkets", "textures/item/empty_trinket_slot_belt.png"));
         TrinketSlots.addSlot(SlotGroups.CHEST, Slots.CAPE, new Identifier("trinkets", "textures/item/empty_trinket_slot_cape.png"));
+        TrinketSlots.addSlot(SlotGroups.CHEST, Slots.NECKLACE, new Identifier("trinkets", "textures/item/empty_trinket_slot_necklace.png"));
         TrinketSlots.addSlot(SlotGroups.HEAD, "eye", new Identifier("intotheomega", "textures/item/empty_trinket_slot_eye.png"));
+        TrinketSlots.addSlot(SlotGroups.HAND, "orbital", new Identifier("trinkets", "textures/item/empty_trinket_slot_ring.png"));
+
+//        TheEndBiomes.addHighlandsBiome(OmegaBiomes.SHALLOWS_KEY, 50);
+//        TheEndBiomes.addMidlandsBiome(OmegaBiomes.SHALLOWS_KEY, OmegaBiomes.SHALLOWS_KEY, 1000);
+//        TheEndBiomes.addBarrensBiome(OmegaBiomes.SHALLOWS_KEY, OmegaBiomes.SHALLOWS_KEY, 1000);
     }
 
     public static Identifier id(String name) {

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " g ",
+    "grg",
+    "oco"
+  ],
+  "key": {
+    "c": {
+      "item": "intotheomega:crystalia"
+    },
+    "g": {
+      "item": "minecraft:gold_ingot"
+    },
+    "o": {
+      "item": "intotheomega:omega_crystal"
+    },
+    "r": {
+      "item": "intotheomega:matrix_rune"
+    }
+  },
+  "result": {
+    "item": "intotheomega:beneath_crystalia"
+  }
+}

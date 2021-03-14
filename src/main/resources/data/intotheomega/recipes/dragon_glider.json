@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " e ",
+    "ese",
+    "ese"
+  ],
+  "key": {
+    "e": {
+      "item": "intotheomega:dragon_scale"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "intotheomega:dragon_glider"
+  }
+}

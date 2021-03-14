@@ -31,7 +31,7 @@ public class OmegaDaggerItem extends SwordItem {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if(!world.isClient && hand == Hand.MAIN_HAND) {
-            HitResult rayTrace = user.rayTrace(16, 0, false);
+            HitResult rayTrace = user.raycast(16, 0, false);
             Vec3d pos = rayTrace.getPos();
             user.requestTeleport(pos.getX(), pos.getY(), pos.getZ());
 

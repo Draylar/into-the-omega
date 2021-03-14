@@ -1,0 +1,182 @@
+Weapon Upgrades:
+ - Seventh Pillar => Awakened Seventh Pillar
+ - Inanis => Dual Inanis
+ - Crystalia => Beneath Crystalia
+ - Ferlius => Empereal Ferlius
+ - Horizon => Triumphant Horizon
+
+Bosses:
+ - Eye of Ender colored tentacle boss
+ - Void Matrix
+
+Weapon Awakening:
+ - Awaken weapons at altars around the end map, located >15k blocks out.
+   Awakened weapons deal increased damage, have new abilities, and are adorned in gold.
+
+--------------------------------------------------
+------------- ZONES / CONTENT THEMES -------------
+--------------------------------------------------
+
+End Crystal: (theme: glass/purple rotating cubes and explosions)
+ - Crystalia
+   - Left click: beam attack
+   - Right click hold: explosion attack
+   - Impacted by power enchantment
+ - Beneath Crystalia
+    - Left click: beam attack that explodes on impact
+    - Right click hold: tall vertical explosion attack
+    - Impacted by power enchantment
+    - Ability key: player camera zooms out, player spins and explosion beams rain down from the sky.
+ - Matrix Rune
+ - Matrite
+ - Throwable End Crystal bomb
+ - Void Matrix boss
+ - Matrix Charm trinket
+   - Reduces incoming explosion damage by 50%
+   - Takes durability damage equal to the damage it prevents
+   - Protection increases damage reduction up to 20% (5% per level)
+   - Unbreaking impacts durability loss
+ - End Crystal trinket - orbital?
+   - Matrite hovers around player
+   - When a hostile entity is detected within 15 blocks of the player, a Matrite will spawn and attack them. Has a cooldown of 10 seconds.
+ - Matrix Canon
+   - Shoots a Matrite at high velocity towards the player's looking direction
+ - Rotating Glass helmet/armor similar to crystal
+
+------------------------------------
+
+Obsidian Tower: (theme: obsidian and flaming purple soul)
+   Obsidian items and artifacts are based around slow, physical, high-damage attacks, and high defenses.
+   Visually, most content in this set has an obsidian color palette, as well as omega-palette flames.
+
+ - Obsidian Spike Biome
+   - Black Particle FX
+   - Obsidian Critters
+   - Black Flowers
+   - Location for upgrading seventh pillar
+ - Dark Soul
+
+ Entities:
+   - Ender Slime
+     - Teleports at peak of jump
+   - Void Beetle
+     - Neutral mob that will attack in swarms
+
+ Obsidian glider? Night glider?
+
+ Blocks:
+   - Obsidian Torch with an Omega Flame
+   - Obsidian Bookshelf
+   - Obsidian Stairs
+   - Chiseled Obsidian
+   - Obsidian Pillar
+   - Themed Obsidiano
+
+ Trinkets:
+   - Eternal Stand - when you are killed by an attack, you will revive at 10% health and gain 50% damage reduction, 25% physical damage increase, and slowness 25% for 10 seconds. Breaks on usage.
+   // - Brave Flame - 15% physical damage reduction, up to 25% with protection 4.
+   - Midnight Heart - 4 extra hearts
+   - Obsidian Core - 20% physical damage increase, 35% movement reduction, 10% physical damage taken reduction
+   - Ebony Eye - 20% attack speed reduction, 20% physical damage increase
+
+ Weapons:
+   - Seventh Pillar
+   - Awakened Seventh Pillar
+   - Dark Flame Blaster (similar to the red flame gun from hypixel smash game, with a purple flame nozzle and purple flame bullets)
+
+------------- EVENTS / MINI-BOSSES -------------
+
+Omega Rift:
+
+
+
+
+
+
+
+TODO:
+   - floating end island trinket
+   - mob armor
+   - abyssal armor with boots that add void walking
+   - Dark flame Blaster implementation
+
+   DO THE KING HASSAN STAB SWORD IN GROUND THING
+   - Ender Slime | Drops Ender Pearls on death. Randomly teleports at the peak of some jumps.
+   - Void Slime  | Deals piercing damage on hit. Drops Void Essence.
+   - Battle Colloseum - a wave-based battle challenge that grants rewards at the end. Refreshes every 30 in-game days.
+   - Omega Slime - omega color paleletee with crown
+
+End Progression:
+  - Defeat Ender Dragon
+  - Explore for Elytra
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  Tier C Content:
+    Bosses:
+      - Omega Slime Emperor - spawns when enough End/Void slimes are defeated
+            Omega Slime // todo name that goes purple -> green and back?
+      - Void Matrix - summoned at the void platform
+      - Ruin Warden - summoned at ruins
+           Edgy steampunk style
+            Nebula Gear - primary material
+            Ruin Bringer
+            Apocalypse
+            Cataclysm[?]
+      -
+    Dungeons:
+      - Colosseum
+      - Ruin C
+      - Horizon Singularity
+
+    Sub-content:
+       Chilled Void: an Ice-infused void variant.
+           Items:
+               Sword - Zero Abyss => applies slow & has armor-piercing properties
+               Bow   - Blank Blizzard => applies slow & has armor-piercing properties
+               Lance - Frostbuster -> ice-void lance => Absolute Frostbuster
+               Armor: Chilled Void
+
+           Mobs:
+               Frosted Enderman => always aggressive, applies slowness on hit, teleports icicles on top of you
+               Zero Voidvern => flying Wyvern
+
+       Blazing Void: a Fire-infused void variant.
+           Items:
+               Sword - Infernal End
+               Lance - Blazebuster => Resolute Blazebuster
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  Tier B Content:
+    Bosses:
+      - Enigma King
+      - Dual Dragon - only responds to the summons of the Enigma King (or you, when you wear an Enigma King artifact / weapon)
+      - "Dark" Angel-like girl with one very large wing and side of mask, has a giant dark-electric lance
+            Shadowbuster - dark-electric lance
+            Wings of Night - allow limited flight
+    Dungeons:
+      -
+      - Ruin B
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  Tier A Content:
+    - Xamias, Guardian of Gods (giant worm-like creature, devour of gods)
+    - Derenius, Protector of the Depths (face at the bottom of the void)
+    - Rayzen, The Rift (giant square rift that stays in place)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  Tier S Content:
+    - Grand Omega
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Hyper end-game:
+ - Signaritus
+ - Galaxy Buster
+ - Beyond Omega
+ - Big Bang

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "intotheomega:bejeweled_obsidian"
+    },
+    {
+      "item": "intotheomega:molten_obsidian"
+    },
+    {
+      "item": "intotheomega:gilded_obsidian"
+    }
+  ],
+  "result": {
+    "item": "intotheomega:rainbow_obsidian",
+    "count": 3
+  }
+}

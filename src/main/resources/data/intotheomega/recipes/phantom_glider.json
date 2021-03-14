@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " e ",
+    "ese",
+    "ese"
+  ],
+  "key": {
+    "e": {
+      "item": "minecraft:phantom_membrane"
+    },
+    "s": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "intotheomega:phantom_glider"
+  }
+}

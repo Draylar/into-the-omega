@@ -1,0 +1,29 @@
+{
+  "display": {
+    "title": {
+      "text": "Into The Ω",
+      "color": "dark_purple",
+      "bold": true
+    },
+    "description": {
+      "text": "Visit The End and begin your true journey."
+    },
+    "icon": {
+      "item": "intotheomega:omega_crystal"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "intotheomega:textures/block/rainbow_obsidian.png"
+  },
+  "criteria": {
+    "visitend": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "from": "overworld",
+        "to": "the_end"
+      }
+    }
+  }
+}

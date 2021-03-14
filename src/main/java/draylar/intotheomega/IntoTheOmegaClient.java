@@ -1,39 +1,59 @@
 package draylar.intotheomega;
 
 import draylar.intotheomega.api.HandheldModelRegistry;
-import draylar.intotheomega.api.StatueRegistry;
-import draylar.intotheomega.client.StatueBlockEntityRenderer;
-import draylar.intotheomega.registry.OmegaBlocks;
-import draylar.intotheomega.registry.OmegaEntities;
-import draylar.intotheomega.registry.OmegaItems;
-import draylar.intotheomega.registry.OmegaKeys;
+import draylar.intotheomega.api.SetBonusProvider;
+import draylar.intotheomega.client.PhasePadUtils;
+import draylar.intotheomega.client.be.*;
+import draylar.intotheomega.client.entity.renderer.*;
+import draylar.intotheomega.client.item.MatriteOrbitalItemRenderer;
+import draylar.intotheomega.entity.OmegaSlimeMountEntity;
+import draylar.intotheomega.entity.block.PhasePadBlockEntity;
+import draylar.intotheomega.network.ClientNetworking;
+import draylar.intotheomega.registry.*;
 import draylar.intotheomega.ui.ConquestForgeScreen;
-import net.devtech.arrp.api.RRPCallback;
-import net.devtech.arrp.api.RuntimeResourcePack;
-import net.devtech.arrp.json.blockstate.JState;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.EnderDragonEntityRenderer;
-import net.minecraft.client.render.entity.model.EndermanEntityModel;
+import net.minecraft.client.render.entity.SlimeEntityRenderer;
 import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.ai.goal.PrioritizedGoal;
+import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class IntoTheOmegaClient implements ClientModInitializer {
 
-    public static final RuntimeResourcePack RESOURCE_PACK = RuntimeResourcePack.create("intotheomega:resource_pack");
+    public static final Map<Integer, List<PrioritizedGoal>> DEVELOPMENT_AI_SYNC = new HashMap<>();
+    public static final Map<Integer, Path> DEVELOPMENT_PATH_SYNC = new HashMap<>();
+    public static boolean inIceIsland = false;
 
     @Override
     public void onInitializeClient() {
         OmegaKeys.init();
+        OmegaClientPackets.init();
+        OmegaRendering.init();
+        ClientNetworking.init();
 
         // screens
         ScreenRegistry.register(IntoTheOmega.CF_SCREEN_HANDLER, ConquestForgeScreen::new);
@@ -41,30 +61,98 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         // entity renderers
 //        EntityRendererRegistry.INSTANCE.register(OmegaEntities.TRUE_EYE_OF_ENDER, (dispatcher, context) -> new TrueEyeOfEntityRenderer(dispatcher));
 //        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_GOD, (dispatcher, context) -> new OmegaGodEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.CHORUS_COW, (dispatcher, context) -> new ChorusCowEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.INANIS, (dispatcher, context) -> new InanisEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX, (dispatcher, context) -> new VoidMatrixEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.ENIGMA_KING, (dispatcher, context) -> new EnigmaKingEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.MATRITE, (dispatcher, context) -> new MatriteEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.MATRIX_BOMB, (dispatcher, context) -> new MatrixBombEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OBSIDIAN_THORN, (dispatcher, context) -> new ObsidianThornEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME_EMPEROR, (dispatcher, context) -> new OmegaSlimeEmperorRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME_MOUNT, (dispatcher, context) -> new OmegaSlimeMountRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME, (dispatcher, context) -> new OmegaSlimeRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_EYE, (dispatcher, context) -> new FrostedEyeEntityRenderer(dispatcher));
+
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ETERNAL_PILLAR, EternalPillarBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ENIGMA_STAND, EnigmaStandBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.INVISIBLE_DUNGEON_BRICK, InvisibleDungeonBrickBlockEntityRenderer::new);
 
         // block render layers
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OBSIDIAN_GLASS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OMEGA_GLASS, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OBSIDISHROOM, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.ENDERSHROOM, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.VOID_MATRIX_SPAWN_BLOCK, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.ENIGMA_STAND, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.THORN_AIR, RenderLayer.getTranslucent());
+//        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.INVISIBLE_DUNGEON_BRICK, RenderLayer.getCutout());
 
-        // bers
-        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.STATUE, StatueBlockEntityRenderer::new);
+        BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.MATRITE_ORBITAL, new MatriteOrbitalItemRenderer());
 
-        // statues
-        StatueRegistry.register(OmegaBlocks.ENDER_DRAGON_STATUE, StatueRegistry.StatueData.of(EntityType.ENDER_DRAGON, () -> {
-            EnderDragonEntityRenderer.DragonEntityModel model = new EnderDragonEntityRenderer.DragonEntityModel();
-            EnderDragonEntity dragon = new EnderDragonEntity(EntityType.ENDER_DRAGON, MinecraftClient.getInstance().world);
-            model.animateModel(dragon, 0, 0, 0);
+        FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pull"), (itemStack, clientWorld, livingEntity) -> {
+            if (livingEntity == null) {
+                return 0.0F;
+            } else {
+                return livingEntity.getActiveItem() != itemStack ? 0.0F : (float)(itemStack.getMaxUseTime() - livingEntity.getItemUseTimeLeft()) / 20.0F;
+            }
+        });
 
-            return model;
-        }, .25f));
-
-        StatueRegistry.register(OmegaBlocks.ENDERMAN_STATUE, StatueRegistry.StatueData.of(EntityType.ENDERMAN, () -> new EndermanEntityModel<>(0), .5f));
+        FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pulling"), (itemStack, clientWorld, livingEntity) -> {
+            return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
+        });
 
         // Register 16x variants of 32x tools for inventories
         HandheldModelRegistry.registerWithVariant(OmegaItems.INANIS, new ModelIdentifier("intotheomega:inanis#custom"), IntoTheOmega.id("item/inanis_gui"));
 
-        // register rrp
-        RRPCallback.EVENT.register(a -> a.add(RESOURCE_PACK));
+        // set bonus tooltips
+        ItemTooltipCallback.EVENT.register((itemStack, context, list) -> {
+            if(itemStack.getItem() instanceof SetBonusProvider) {
+                list.add(new LiteralText(""));
+                list.add(new LiteralText("Set Bonus:").formatted(Formatting.GRAY));
+                ((SetBonusProvider) itemStack.getItem()).appendSetBonusTooltip(itemStack, MinecraftClient.getInstance().world, list, context);
+            }
+        });
+
+        ClientTickEvents.START_CLIENT_TICK.register(client -> {
+            if(client.world == null) {
+                return;
+            }
+
+            if(!client.world.getBlockState(client.player.getBlockPos().down()).getBlock().equals(OmegaBlocks.PHASE_PAD)) {
+                PhasePadUtils.reset();
+            } else {
+                PhasePadUtils.stepOn(client.world, client.player.getBlockPos().down());
+
+                Vec3d originPos = client.cameraEntity.getPos().multiply(1, 0, 1).add(0, client.cameraEntity.getEyeY(), 0);
+                Vec3d rotationVector = client.player.getRotationVector();
+
+                for(int i = 0; i < 32; i++) {
+                    Vec3d offsetPos = originPos.add(rotationVector.multiply(i));
+                    BlockPos offsetBlockPos = new BlockPos(offsetPos);
+
+                    if(client.world.getBlockState(offsetBlockPos).getBlock().equals(OmegaBlocks.PHASE_PAD)) {
+                        BlockEntity entity = client.world.getBlockEntity(offsetBlockPos);
+
+                        if(entity != null) {
+                            ((PhasePadBlockEntity) entity).highlight();
+                            PhasePadUtils.setHighlighting(offsetBlockPos);
+                        }
+                    }
+                }
+            }
+        });
+
+        AttackBlockCallback.EVENT.register((playerEntity, world, hand, blockPos, direction) -> {
+            if(world.isClient) {
+                if(PhasePadUtils.hasHighlight()) {
+                    return ActionResult.FAIL;
+                }
+            }
+
+            return ActionResult.PASS;
+        });
     }
 
 

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "intotheomega:block/chiseled_obsidian",
+    "side": "intotheomega:block/obsidian_bookshelf"
+  }
+}

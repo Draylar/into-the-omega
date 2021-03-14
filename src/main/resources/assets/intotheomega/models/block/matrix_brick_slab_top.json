@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "intotheomega:block/matrix_brick"s,
+    "top": "intotheomega:block/matrix_bricks",
+    "side": "intotheomega:block/matrix_bricks"
+  }
+}

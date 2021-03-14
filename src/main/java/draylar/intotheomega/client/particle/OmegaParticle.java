@@ -2,6 +2,7 @@ package draylar.intotheomega.client.particle;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import draylar.intotheomega.api.Color;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
@@ -20,7 +21,7 @@ public class OmegaParticle extends SpriteBillboardParticle {
         @Override
         public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
             RenderSystem.depthMask(false);
-            textureManager.bindTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX);
+            textureManager.bindTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
             RenderSystem.alphaFunc(516, 0.003921569F);
@@ -51,16 +52,18 @@ public class OmegaParticle extends SpriteBillboardParticle {
     public static class OmegaParticleFactory implements ParticleFactory<DefaultParticleType> {
 
         private final SpriteProvider spriteProvider;
+        private final Color color;
 
-        public OmegaParticleFactory(SpriteProvider spriteProvider) {
+        public OmegaParticleFactory(SpriteProvider spriteProvider, Color color) {
             this.spriteProvider = spriteProvider;
+            this.color = color;
         }
 
         @Environment(EnvType.CLIENT)
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
             OmegaParticle particle = new OmegaParticle(clientWorld, d, e + 0.5D, f);
             particle.setSprite(this.spriteProvider);
-            particle.setColor(0.9F, 0.1F, 0.9F);
+            particle.setColor(color.r, color.g, color.b);
             return particle;
         }
     }

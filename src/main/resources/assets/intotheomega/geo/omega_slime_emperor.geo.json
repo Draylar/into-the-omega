@@ -1,0 +1,31 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.omega_slime_emperor",
+				"texture_width": 512,
+				"texture_height": 512,
+				"visible_bounds_width": 7,
+				"visible_bounds_height": 10.5,
+				"visible_bounds_offset": [0, 4.75, 0]
+			},
+			"bones": [
+				{
+					"name": "crown",
+					"pivot": [0, 96, 0],
+					"cubes": [
+						{"origin": [-42, 96, -42], "size": [84, 47, 84], "uv": [0, 192]}
+					]
+				},
+				{
+					"name": "base",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-48, 0, -48], "size": [96, 96, 96], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

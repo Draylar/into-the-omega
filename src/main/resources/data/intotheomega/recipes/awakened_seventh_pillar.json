@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "intotheomega:seventh_pillar"
+  },
+  "addition": {
+    "item": "intotheomega:dark_soul"
+  },
+  "result": {
+    "item": "intotheomega:awakened_seventh_pillar"
+  }
+}

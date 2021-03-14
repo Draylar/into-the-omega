@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " g ",
+    "g g",
+    " r "
+  ],
+  "key": {
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "r": {
+      "item": "intotheomega:matrix_rune"
+    }
+  },
+  "result": {
+    "item": "intotheomega:matrix_charm"
+  }
+}
