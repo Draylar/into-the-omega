@@ -127,7 +127,7 @@
   "intotheomega.explosion_in_a_bottle.description.1": "Remember to wear blast-proof",
   "intotheomega.explosion_in_a_bottle.description.2": "boots before jumping too much.",
 
-  "__comment": "--------------------- Omega Slime ---------------------",
+  "__comment": "--------------------- Ice ---------------------",
   "item.intotheomega.zero_abyss": "Zero Abyss",
   "item.intotheomega.blank_blizzard": "Blank Blizzard",
   "item.intotheomega.frostbuster": "Frostbuster",
@@ -137,9 +137,16 @@
   "item.intotheomega.chilled_void_leggings": "Chilled Void Leggings",
   "item.intotheomega.chilled_void_boots": "Chilled Void Boots",
 
+  "__comment": "--------------------- Chorus ---------------------",
+
   "intotheomega.chorus_armor.1": "Provides immunity to chorus fruit",
   "intotheomega.chorus_armor.2": "teleportation. Chorus fruit products provides",
   "intotheomega.chorus_armor.3": "double hunger and saturation.",
+  "block.intotheomega.chorus_grass_block": "Chorus Grass Block",
+  "block.intotheomega.chorus_block": "Chorus Block",
+
+
+
   "intotheomega.warding_omega.1": "A small fragment of the Omega,",
   "intotheomega.warding_omega.2": "contained in a single ring...",
   "intotheomega.omega_shield.1": "Unyielding endless Shield,",

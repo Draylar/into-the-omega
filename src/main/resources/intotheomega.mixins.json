@@ -5,6 +5,7 @@
   "mixins": [
     "AnvilScreenHandlerMixin",
     "ArrowMixin",
+    "BakedModelManagerAccessor",
     "BowItemMixin",
     "ClientPlayerEntityMixin",
     "ClientPlayerEntityRidingMixin",
