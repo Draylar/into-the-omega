@@ -128,6 +128,9 @@ public class OmegaBlocks {
     public static final Block THORN_AIR = register("thorn_air", new ThornAirBlock(FabricBlockSettings.copyOf(Blocks.AIR)));
     public static final Block INVISIBLE_DUNGEON_BRICK = register("invisible_dungeon_brick", new InvisibleDungeonBrick(FabricBlockSettings.copyOf(Blocks.BEDROCK).nonOpaque()), new Item.Settings().group(IntoTheOmega.GROUP));
 
+    // Chorus
+    public static final Block CHORUS_GRASS = register("chorus_grass_block", new Block(FabricBlockSettings.copyOf(Blocks.GRASS_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block CHORUS_BLOCK = register("chorus_block", new Block(FabricBlockSettings.copyOf(Blocks.STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, IntoTheOmega.id(name), block);

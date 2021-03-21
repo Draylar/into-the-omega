@@ -86,6 +86,7 @@ public class OmegaItems {
     public static final Item CHORUS_CHESTPLATE = register("chorus_chestplate", new ChorusArmorItem(ChorusArmorMaterial.INSTANCE, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item CHORUS_LEGGINGS = register("chorus_leggings", new ChorusArmorItem(ChorusArmorMaterial.INSTANCE, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item CHORUS_BOOTS = register("chorus_boots", new ChorusArmorItem(ChorusArmorMaterial.INSTANCE, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item CHORUS_SWORD = register("chorus_sword", new SwordItem(ToolMaterials.IRON, 5, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP)));
 
     // ender-pearl content
     public static final Item PEARL_HELMET = register("pearl_helmet", new ArmorItem(PearlArmorMaterial.INSTANCE, EquipmentSlot.HEAD, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
@@ -136,6 +137,17 @@ public class OmegaItems {
     public static final Item CHILLED_VOID_CHESTPLATE = register("chilled_void_chestplate", new ArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item CHILLED_VOID_LEGGINGS = register("chilled_void_leggings", new ArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item CHILLED_VOID_BOOTS = register("chilled_void_boots", new ArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+
+    // ruin warden
+    public static final Item NEBULA_GEAR = register("nebula_gear", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item RUIN_BRINGER = register("ruin_bringer", new PickaxeItem(ToolMaterials.IRON, 4, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item APOCALYPSE = register("apocalypse", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item CATACLYSM = register("cataclysm", new SwordItem(ToolMaterials.IRON, 4, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item RUINATION = register("ruination", new CrossbowItem(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item NEBULA_GEAR_HELMET = register("nebula_gear_helmet", new ArmorItem(ArmorMaterials.IRON, EquipmentSlot.HEAD, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item NEBULA_GEAR_CHESTPLATE = register("nebula_gear_chestplate", new ArmorItem(ArmorMaterials.IRON, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item NEBULA_GEAR_LEGGINGS = register("nebula_gear_leggings", new ArmorItem(ArmorMaterials.IRON, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item NEBULA_GEAR_BOOTS = register("nebula_gear_boots", new ArmorItem(ArmorMaterials.IRON, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP)));
 
     // stuff
     // misc
