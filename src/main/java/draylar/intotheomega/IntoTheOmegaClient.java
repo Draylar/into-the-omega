@@ -6,6 +6,7 @@ import draylar.intotheomega.client.PhasePadUtils;
 import draylar.intotheomega.client.be.*;
 import draylar.intotheomega.client.entity.renderer.*;
 import draylar.intotheomega.client.item.MatriteOrbitalItemRenderer;
+import draylar.intotheomega.client.item.NebulaGearItemRenderer;
 import draylar.intotheomega.entity.OmegaSlimeMountEntity;
 import draylar.intotheomega.entity.block.PhasePadBlockEntity;
 import draylar.intotheomega.network.ClientNetworking;
@@ -17,6 +18,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
@@ -90,6 +92,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
 //        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.INVISIBLE_DUNGEON_BRICK, RenderLayer.getCutout());
 
         BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.MATRITE_ORBITAL, new MatriteOrbitalItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.NEBULA_GEAR, new NebulaGearItemRenderer());
 
         FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pull"), (itemStack, clientWorld, livingEntity) -> {
             if (livingEntity == null) {
@@ -113,6 +116,10 @@ public class IntoTheOmegaClient implements ClientModInitializer {
                 list.add(new LiteralText("Set Bonus:").formatted(Formatting.GRAY));
                 ((SetBonusProvider) itemStack.getItem()).appendSetBonusTooltip(itemStack, MinecraftClient.getInstance().world, list, context);
             }
+        });
+
+        ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
+            out.accept(IntoTheOmega.id("item/nebula_gear_inventory"));
         });
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
