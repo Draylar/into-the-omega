@@ -28,6 +28,13 @@ public class OmegaItems {
     public static final Item INANIS = register("inanis", new InanisItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1), "inanis"));
     public static final Item DUAL_INANIS = register("dual_inanis", new InanisItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1), "dual_inanis"));
     public static final Item DUAL_CORE = register("dual_core", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item SECOND_FUSION = register("second_fusion", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item VIOLET_UNION = register("violet_union", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item DUAL_DRAGON_HELMET = register("dual_dragon_helmet", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item DUAL_DRAGON_CHESTPLATE = register("dual_dragon_chestplate", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item DUAL_DRAGON_LEGGINGS = register("dual_dragon_leggings", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item DUAL_DRAGON_BOOTS = register("dual_dragon_boots", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+
     public static final Item FORGOTTEN_EYE = register("forgotten_eye", new ForgottenEyeItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item FERLIOUS = register("ferlious", new FerliousItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item HORIZON = register("horizon", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));

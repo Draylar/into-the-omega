@@ -64,33 +64,10 @@ Obsidian Tower: (theme: obsidian and flaming purple soul)
 
  Obsidian glider? Night glider?
 
- Blocks:
-   - Obsidian Torch with an Omega Flame
-   - Obsidian Bookshelf
-   - Obsidian Stairs
-   - Chiseled Obsidian
-   - Obsidian Pillar
-   - Themed Obsidiano
-
- Trinkets:
-   - Eternal Stand - when you are killed by an attack, you will revive at 10% health and gain 50% damage reduction, 25% physical damage increase, and slowness 25% for 10 seconds. Breaks on usage.
-   // - Brave Flame - 15% physical damage reduction, up to 25% with protection 4.
-   - Midnight Heart - 4 extra hearts
-   - Obsidian Core - 20% physical damage increase, 35% movement reduction, 10% physical damage taken reduction
-   - Ebony Eye - 20% attack speed reduction, 20% physical damage increase
-
- Weapons:
-   - Seventh Pillar
-   - Awakened Seventh Pillar
-   - Dark Flame Blaster (similar to the red flame gun from hypixel smash game, with a purple flame nozzle and purple flame bullets)
 
 ------------- EVENTS / MINI-BOSSES -------------
 
 Omega Rift:
-
-
-
-
 
 
 
@@ -112,17 +89,20 @@ End Progression:
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  Tier C Content:
+
+  Tier C Content - 1_000 to 15_000 blocks out:
     Bosses:
       - Omega Slime Emperor - spawns when enough End/Void slimes are defeated
-            Omega Slime // todo name that goes purple -> green and back?
+            Boss Drops:
+                - Omega Slime - used to repair and craft Omega Slime items // todo name that goes purple -> green and back?
+                - Omega Jam -  supplies food as long as you have slime in your inventory
       - Void Matrix - summoned at the void platform
       - Ruin Warden - summoned at ruins
            Edgy steampunk style
             Nebula Gear - primary material
-            Ruin Bringer
-            Apocalypse
-            Cataclysm[?]
+            Ruin Bringer - Pickaxe
+            Apocalypse - Lance
+            Cataclysm  - Greatsword
       -
     Dungeons:
       - Colosseum
@@ -140,37 +120,83 @@ End Progression:
            Mobs:
                Frosted Enderman => always aggressive, applies slowness on hit, teleports icicles on top of you
                Zero Voidvern => flying Wyvern
-
        Blazing Void: a Fire-infused void variant.
-           Items:
-               Sword - Infernal End
-               Lance - Blazebuster => Resolute Blazebuster
+            Items:
+                - Infernal End: Blazing sword
+                - Blazebuster - a lance of blazing infernos, imbued with the dark powers of the void.
+                                Right-click to launch a blazing comet, which inflicts heavy fire damage to enemies.
+                                => Resolute Blazebuster => Heavenly Blazebuster OR Shadowbuster => Grand Buster
+                - First Flame: Crossbow
+                                Applies Chaos Flame attribute to projectiles, which deals armor-piercing damage to entities
 
+                - Kindled Omega: purple/red artifact
+                -
 
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  Tier B Content:
+  Tier B Content - 15_000 to 25_000 blocks out:
     Bosses:
       - Enigma King
-      - Dual Dragon - only responds to the summons of the Enigma King (or you, when you wear an Enigma King artifact / weapon)
+             Weapons:
+               - Seventh Pillar
+               - Awakened Seventh Pillar
+               - Dark Flame Blaster (similar to the red flame gun from hypixel smash game, with a purple flame nozzle and purple flame bullets)
+
+            Blocks:
+                - Obsidian Torch with an Omega Flame
+                - Obsidian Bookshelf
+                - Obsidian Stairs
+                - Chiseled Obsidian
+                - Obsidian Pillar
+                - Themed Obsidiano
+
+            Trinkets:
+               - Eternal Stand - when you are killed by an attack, you will revive at 10% health and gain 50% damage reduction, 25% physical damage increase, and slowness 25% for 10 seconds. Breaks on usage.
+               - Brave Flame - 15% physical damage reduction, up to 25% with protection 4.
+               - Midnight Heart - 4 extra hearts
+               - Obsidian Core - 20% physical damage increase, 35% movement reduction, 10% physical damage taken reduction
+               - Ebony Eye - 20% attack speed reduction, 20% physical damage increase
+      - Ancatia, Dual Dragon - only responds to the summons of the Enigma King (or you, when you wear an Enigma King artifact / weapon)
+            Weapons:
+                - Awakened Dragonslayer Tools
+                - Dual Inanis
+                - Violet Union - magical BOOK that fires streams of blue and pink energy at foes from around their position (like gilgamesh attack in fgo)
+                - Second Fusion - magical gun that fires swirling purple and blue particles
+
+                - synergy [?]
+            Armor:
+                - Awakaned Dragonslayer Armor - 15% lance damage, 15% dragon damage
+            Items:
+                - Dual Core
+            Mounts:
+                - Wyvern Mount
+
       - "Dark" Angel-like girl with one very large wing and side of mask, has a giant dark-electric lance
-            Shadowbuster - dark-electric lance
-            Wings of Night - allow limited flight
+            Weapons:
+                - Thunderbuster - A dark-electric lance that sparks fear in all creatures, friend and foe alike.
+                                 Right-click to launch a thundering spear that delivers a crashing blow on impact, stunning all hit mobs.
+                                 Press ability to imbue your lance with extra power, giving you a massive power-up for the next
+                                   10 seconds.
+
+                                 => Storming Thunderbuster => Heavenly Thunderbuster OR Shadowbuster => Grand Buster.
+
+            Other Drops:
+                - Wings of Night - allows limited flight
     Dungeons:
       -
       - Ruin B
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  Tier A Content:
+  Tier A Content - 25_000 to 50_000 blocks out:
     - Xamias, Guardian of Gods (giant worm-like creature, devour of gods)
     - Derenius, Protector of the Depths (face at the bottom of the void)
     - Rayzen, The Rift (giant square rift that stays in place)
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  Tier S Content:
+  Tier S Content - 75_000+ blocks out:
     - Grand Omega
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
