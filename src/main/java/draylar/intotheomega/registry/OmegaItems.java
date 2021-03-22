@@ -149,6 +149,17 @@ public class OmegaItems {
     public static final Item NEBULA_GEAR_LEGGINGS = register("nebula_gear_leggings", new ArmorItem(ArmorMaterials.IRON, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item NEBULA_GEAR_BOOTS = register("nebula_gear_boots", new ArmorItem(ArmorMaterials.IRON, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP)));
 
+    // fire
+    public static final Item INFERNAL_END = register("infernal_end", new SwordItem(ToolMaterials.DIAMOND, 5, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item BLAZEBUSTER = register("blazebuster", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item FIRST_FLAME = register("first_flame", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item BLAZING_VOID_EMBLEM = register("blazing_void_emblem", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item ORIGIN_BLAZE = register("origin_blaze", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item BLAZING_VOID_HELMET = register("blazing_void_helmet", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item BLAZING_VOID_CHESTPLATE = register("blazing_void_chestplate", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item BLAZING_VOID_LEGGINGS = register("blazing_void_leggings", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item BLAZING_VOID_BOOTS = register("blazing_void_boots", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+
     // stuff
     // misc
 //    public static final Item TRUE_EOE_SPAWN_EGG = register("true_eye_of_ender_spawn_egg", new SpawnEggItem(OmegaEntities.TRUE_EYE_OF_ENDER, 0, 0, new Item.Settings().group(IntoTheOmega.GROUP)));
