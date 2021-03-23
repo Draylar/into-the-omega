@@ -29,7 +29,6 @@
   "item.intotheomega.beneath_crystalia": "Beneath Crystalia",
   "item.intotheomega.dragon_eye": "Dragon Eye",
   "item.intotheomega.inanis": "Inanis",
-  "item.intotheomega.dual_inanis": "§bDual §dInanis",
   "item.intotheomega.dragon_scale": "Dragon Scale",
   "item.intotheomega.dragonslayer_helmet": "Dragonslayer Helmet",
   "item.intotheomega.dragonslayer_chestplate": "Dragonslayer Chestplate",
@@ -145,6 +144,13 @@
   "block.intotheomega.chorus_grass_block": "Chorus Grass Block",
   "block.intotheomega.chorus_block": "Chorus Block",
 
+  "__comment": "--------------------- Dual Dragon ---------------------",
+  "item.intotheomega.dual_inanis": "§bDual §dInanis",
+  "item.intotheomega.variant_spark": "Variant Spark",
+  "item.intotheomega.variant_spark.0": "Mode: Void Tide Vanquisher",
+  "item.intotheomega.variant_spark.1": "Mode: Grand Spark Buster",
+  "item.intotheomega.second_fusion": "Second Fusion",
+  "item.intotheomega.violet_union": "Violet Union",
 
 
   "intotheomega.warding_omega.1": "A small fragment of the Omega,",

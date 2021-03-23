@@ -1,0 +1,12 @@
+{
+  "map": [
+    {
+      "predicate": {
+        "materialPredicate": {
+          "renderLayerName": "entity_translucent_cull"
+        }
+      },
+      "material": "canvas:emissive_transform"
+    }
+  ]
+}

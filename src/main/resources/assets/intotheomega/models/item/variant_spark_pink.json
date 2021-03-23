@@ -1,0 +1,6 @@
+{
+  "parent": "intotheomega:item/variant_spark",
+  "textures": {
+    "layer0": "intotheomega:item/variant_spark_pink"
+  }
+}

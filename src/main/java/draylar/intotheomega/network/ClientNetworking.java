@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 
+// TODO: merge with omegaclientpackets
 public class ClientNetworking implements Networking {
 
     public static void requestPhasePadTeleport(BlockPos to) {

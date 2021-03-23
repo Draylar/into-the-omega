@@ -1,9 +1,6 @@
 package draylar.intotheomega.registry;
 
-import draylar.intotheomega.entity.InanisEntity;
-import draylar.intotheomega.entity.MatrixBombEntity;
-import draylar.intotheomega.entity.ObsidianThornEntity;
-import draylar.intotheomega.entity.OmegaSlimeMountEntity;
+import draylar.intotheomega.entity.*;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
@@ -28,6 +25,22 @@ public class OmegaClientPackets {
                 inanis.setEntityId(entityId);
                 inanis.setUuid(uuid);
                 MinecraftClient.getInstance().world.addEntity(entityId, inanis);
+            });
+        });
+
+        ClientSidePacketRegistry.INSTANCE.register(VioletUnionBladeEntity.ENTITY_ID, (context, packet) -> {
+            double x = packet.readDouble();
+            double y = packet.readDouble();
+            double z = packet.readDouble();
+
+            int entityId = packet.readInt();
+            UUID uuid = packet.readUuid();
+
+            context.getTaskQueue().execute(() -> {
+                VioletUnionBladeEntity blade = new VioletUnionBladeEntity(MinecraftClient.getInstance().world, x, y, z);
+                blade.setEntityId(entityId);
+                blade.setUuid(uuid);
+                MinecraftClient.getInstance().world.addEntity(entityId, blade);
             });
         });
 

@@ -1,0 +1,29 @@
+{
+  "parent": "item/handheld",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 0, -90, 55 ],
+      "translation": [ 0, 11.0, 0.5 ],
+      "scale": [ 1.5, 1.5, 1.5 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 0, 90, -55 ],
+      "translation": [ 0, 11.0, 0.5 ],
+      "scale": [ 1.5, 1.5, 1.5 ]
+    }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "mode": 0
+      },
+      "model": "intotheomega:item/variant_spark_blue"
+    },
+    {
+      "predicate": {
+        "mode": 1
+      },
+      "model": "intotheomega:item/variant_spark_pink"
+    }
+  ]
+}

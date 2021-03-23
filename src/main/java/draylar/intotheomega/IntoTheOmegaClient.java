@@ -74,6 +74,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME_MOUNT, (dispatcher, context) -> new OmegaSlimeMountRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME, (dispatcher, context) -> new OmegaSlimeRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_EYE, (dispatcher, context) -> new FrostedEyeEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VIOLET_UNION_BLADE, (dispatcher, context) -> new VioletUnionBladeRenderer(dispatcher));
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ETERNAL_PILLAR, EternalPillarBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
@@ -120,6 +121,8 @@ public class IntoTheOmegaClient implements ClientModInitializer {
 
         ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
             out.accept(IntoTheOmega.id("item/nebula_gear_inventory"));
+            out.accept(IntoTheOmega.id("item/violet_union_blue"));
+            out.accept(IntoTheOmega.id("item/violet_union_pink"));
         });
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
@@ -159,6 +162,10 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             }
 
             return ActionResult.PASS;
+        });
+
+        FabricModelPredicateProviderRegistry.register(OmegaItems.VARIANT_SPARK, new Identifier("mode"), (stack, world, entity) -> {
+            return stack.getOrCreateSubTag("Data").getInt("Mode");
         });
     }
 
