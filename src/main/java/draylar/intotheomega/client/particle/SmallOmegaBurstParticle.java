@@ -18,9 +18,9 @@ public class SmallOmegaBurstParticle extends SpriteBillboardParticle {
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
-        this.colorRed = MathHelper.nextFloat(this.random, 0.7176471F, 0.8745098F);
-        this.colorGreen = MathHelper.nextFloat(this.random, 0.0F, 0.0F);
-        this.colorBlue = MathHelper.nextFloat(this.random, 0.8235294F, 0.9764706F);
+        this.colorRed = 1;
+        this.colorGreen = 1;
+        this.colorBlue = 1;
         this.scale *= 2;
         this.maxAge = 10 + world.random.nextInt(5);
         this.reachedGround = false;

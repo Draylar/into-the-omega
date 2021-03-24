@@ -21,7 +21,23 @@ public class OmegaClientPackets {
             UUID uuid = packet.readUuid();
 
             context.getTaskQueue().execute(() -> {
-                InanisEntity inanis = new InanisEntity(MinecraftClient.getInstance().world, x, y, z);
+                InanisEntity inanis = new InanisEntity(OmegaEntities.INANIS, MinecraftClient.getInstance().world, x, y, z);
+                inanis.setEntityId(entityId);
+                inanis.setUuid(uuid);
+                MinecraftClient.getInstance().world.addEntity(entityId, inanis);
+            });
+        });
+
+        ClientSidePacketRegistry.INSTANCE.register(DualInanisEntity.ENTITY_ID, (context, packet) -> {
+            double x = packet.readDouble();
+            double y = packet.readDouble();
+            double z = packet.readDouble();
+
+            int entityId = packet.readInt();
+            UUID uuid = packet.readUuid();
+
+            context.getTaskQueue().execute(() -> {
+                DualInanisEntity inanis = new DualInanisEntity(MinecraftClient.getInstance().world, x, y, z);
                 inanis.setEntityId(entityId);
                 inanis.setUuid(uuid);
                 MinecraftClient.getInstance().world.addEntity(entityId, inanis);

@@ -132,6 +132,10 @@ public class OmegaBlocks {
     public static final Block CHORUS_GRASS = register("chorus_grass_block", new Block(FabricBlockSettings.copyOf(Blocks.GRASS_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block CHORUS_BLOCK = register("chorus_block", new Block(FabricBlockSettings.copyOf(Blocks.STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
 
+    // variant
+    public static final Block VARIANT_BLOCK = register("variant_block", new Block(FabricBlockSettings.copyOf(Blocks.STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
+
+
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, IntoTheOmega.id(name), block);
         Registry.register(Registry.ITEM, IntoTheOmega.id(name), new BlockItem(registeredBlock, settings));

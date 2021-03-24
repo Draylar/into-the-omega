@@ -26,7 +26,7 @@ public class OmegaItems {
 
     // themed end loot
     public static final Item INANIS = register("inanis", new InanisItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1), "inanis"));
-    public static final Item DUAL_INANIS = register("dual_inanis", new InanisItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1), "dual_inanis"));
+    public static final Item DUAL_INANIS = register("dual_inanis", new DualInanisItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1), "dual_inanis"));
     public static final Item DUAL_CORE = register("dual_core", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item SECOND_FUSION = register("second_fusion", new SecondFusionItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item VIOLET_UNION = register("violet_union", new VioletUnionItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));

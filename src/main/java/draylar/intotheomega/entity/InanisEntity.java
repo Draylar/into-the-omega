@@ -6,6 +6,8 @@ import draylar.intotheomega.registry.OmegaEntities;
 import draylar.intotheomega.registry.OmegaParticles;
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.BlockState;
@@ -39,22 +41,22 @@ import java.util.Arrays;
 public class InanisEntity extends PersistentProjectileEntity {
 
     public static final Identifier ENTITY_ID = IntoTheOmega.id("inanis");
-    private ItemStack source;
+    protected ItemStack source;
     private double damage = 8.0;
 
     public InanisEntity(EntityType<? extends InanisEntity> type, World world) {
         super(type, world);
     }
 
-    public InanisEntity(World world, LivingEntity owner, ItemStack source) {
-        super(OmegaEntities.INANIS, owner, world);
+    public InanisEntity(EntityType<? extends InanisEntity> type, World world, LivingEntity owner, ItemStack source) {
+        super(type, owner, world);
         this.source = source;
         this.pickupType = PickupPermission.DISALLOWED;
     }
 
-    // client constructor
-    public InanisEntity(World world, double x, double y, double z) {
-        super(OmegaEntities.INANIS, world);
+    @Environment(EnvType.CLIENT)
+    public InanisEntity(EntityType<? extends InanisEntity> type, World world, double x, double y, double z) {
+        super(type, world);
         this.updatePosition(x, y, z);
         this.updateTrackedPosition(x, y, z);
     }

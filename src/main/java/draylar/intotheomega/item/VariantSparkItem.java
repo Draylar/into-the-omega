@@ -1,9 +1,11 @@
 package draylar.intotheomega.item;
 
+import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -26,8 +28,15 @@ public class VariantSparkItem extends Item {
 
         if(user.isSneaking()) {
            if(!world.isClient) {
-                int mode = stack.getOrCreateSubTag("Data").getInt("Mode");
-                stack.getOrCreateSubTag("Data").putInt("Mode", mode == 0 ? 1 : 0);
+               int mode = stack.getOrCreateSubTag("Data").getInt("Mode");
+               stack.getOrCreateSubTag("Data").putInt("Mode", mode == 0 ? 1 : 0);
+
+               // sound
+
+               // particles
+               for(int i = 0; i < 100; i++) {
+                   ((ServerWorld) world).spawnParticles(OmegaParticles.VARIANT_FUSION, user.getX(), user.getY() + .5, user.getZ(), 1, 1 - world.random.nextInt(3), 0, 1 - world.random.nextInt(3), 0);
+               }
            }
 
             return TypedActionResult.success(stack);

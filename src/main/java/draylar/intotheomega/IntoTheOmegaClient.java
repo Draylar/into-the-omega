@@ -65,6 +65,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
 //        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_GOD, (dispatcher, context) -> new OmegaGodEntityRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.CHORUS_COW, (dispatcher, context) -> new ChorusCowEntityRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.INANIS, (dispatcher, context) -> new InanisEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.DUAL_INANIS, (dispatcher, context) -> new DualInanisEntityRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX, (dispatcher, context) -> new VoidMatrixEntityRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.ENIGMA_KING, (dispatcher, context) -> new EnigmaKingEntityRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.MATRITE, (dispatcher, context) -> new MatriteEntityRenderer(dispatcher));

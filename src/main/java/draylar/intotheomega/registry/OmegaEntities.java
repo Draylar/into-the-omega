@@ -43,6 +43,10 @@ public class OmegaEntities {
             "inanis",
             FabricEntityTypeBuilder.<InanisEntity>create(SpawnGroup.MISC, InanisEntity::new).dimensions(EntityDimensions.fixed(.5f, .5f)).build());
 
+    public static final EntityType<DualInanisEntity> DUAL_INANIS = register(
+            "dual_inanis",
+            FabricEntityTypeBuilder.<DualInanisEntity>create(SpawnGroup.MISC, DualInanisEntity::new).dimensions(EntityDimensions.fixed(.5f, .5f)).build());
+
     public static final EntityType<VioletUnionBladeEntity> VIOLET_UNION_BLADE = register(
             "violet_union_blade",
             FabricEntityTypeBuilder.<VioletUnionBladeEntity>create(SpawnGroup.MISC, VioletUnionBladeEntity::new).dimensions(EntityDimensions.fixed(.5f, .5f)).build());
