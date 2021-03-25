@@ -1,6 +1,7 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.world.abyss_flower.AbyssFlowerIslandStructure;
 import draylar.intotheomega.world.api.BaseIslandStructure;
 import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
 import draylar.intotheomega.world.ice_island.IceIslandStructure;
@@ -38,6 +39,8 @@ public class OmegaWorld {
     public static final StructureFeature<DefaultFeatureConfig> GENERIC_ISLAND = new GenericIslandStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> ICE_ISLAND = new IceIslandStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> CHORUS_ISLAND = new ChorusIslandStructure(DefaultFeatureConfig.CODEC);
+
+    public static final StructureFeature<DefaultFeatureConfig> ABYSS_FLOWER_ISLAND = new AbyssFlowerIslandStructure(DefaultFeatureConfig.CODEC);
 
     // TODO: phantom tower -> phantom outpost -> phantom [?]
 
@@ -106,56 +109,50 @@ public class OmegaWorld {
                 .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
                 .defaultConfig(20, 16, 814857)
                 .register();
+
+        FabricStructureBuilder
+                .create(IntoTheOmega.id("abyss_flower_island"), ABYSS_FLOWER_ISLAND)
+                .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
+                .defaultConfig(1, 0, 0)
+                .register();
     }
 
     public static void registerAdditions() {
-        BiomeModifications
-                .create(IntoTheOmega.id("eye_altar_addition"))
-                .add(ModificationPhase.ADDITIONS,
-                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.EYE_ALTAR));
-
-        BiomeModifications
-                .create(IntoTheOmega.id("small_phantom_tower_addition"))
-                .add(ModificationPhase.ADDITIONS,
-                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.SMALL_PHANTOM_TOWER));
-
-        BiomeModifications
-                .create(IntoTheOmega.id("medium_phantom_tower_addition"))
-                .add(ModificationPhase.ADDITIONS,
-                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.MEDIUM_PHANTOM_TOWER));
-
-        BiomeModifications
-                .create(IntoTheOmega.id("base_island"))
-                .add(ModificationPhase.ADDITIONS,
-                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_BASE_ISLAND));
-
 //        BiomeModifications
-//                .create(IntoTheOmega.id("island"))
+//                .create(IntoTheOmega.id("eye_altar_addition"))
 //                .add(ModificationPhase.ADDITIONS,
 //                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ISLAND));
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.EYE_ALTAR));
 //
 //        BiomeModifications
-//                .create(IntoTheOmega.id("ice_island"))
+//                .create(IntoTheOmega.id("small_phantom_tower_addition"))
 //                .add(ModificationPhase.ADDITIONS,
-//                        BiomeSelectors.foundInTheEnd(),
-//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ICE_ISLAND));
+//                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.SMALL_PHANTOM_TOWER));
 //
 //        BiomeModifications
-//                .create(IntoTheOmega.id("chorus_island"))
+//                .create(IntoTheOmega.id("medium_phantom_tower_addition"))
 //                .add(ModificationPhase.ADDITIONS,
-//                        BiomeSelectors.foundInTheEnd(),
-//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_CHORUS_ISLAND));
+//                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.MEDIUM_PHANTOM_TOWER));
 
+//        BiomeModifications
+//                .create(IntoTheOmega.id("base_island"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_BASE_ISLAND));
+
+//        BiomeModifications
+//                .create(IntoTheOmega.id("spike"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        BiomeSelectors.foundInTheEnd(),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_SPIKE));
+//
         BiomeModifications
-                .create(IntoTheOmega.id("spike"))
+                .create(IntoTheOmega.id("abyss_flower_island"))
                 .add(ModificationPhase.ADDITIONS,
-                        BiomeSelectors.foundInTheEnd(),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_SPIKE));
+                        BiomeSelectors.includeByKey(OmegaBiomes.ABYSSAL_CORE_KEY),
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.ABYSS_FLOWER_ISLAND));
     }
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {

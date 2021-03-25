@@ -23,6 +23,8 @@ public class OmegaConfiguredFeatures {
     public static final ConfiguredStructureFeature<?, ?> CONFIGURED_ICE_ISLAND = register("ice_island", OmegaWorld.ICE_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
     public static final ConfiguredStructureFeature<?, ?> CONFIGURED_CHORUS_ISLAND = register("chorus_island", OmegaWorld.CHORUS_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
 
+    public static final ConfiguredStructureFeature<?, ?> ABYSS_FLOWER_ISLAND = register("abyss_flower_island", OmegaWorld.ABYSS_FLOWER_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
+
     // Standard Features
     public static final ConfiguredFeature<?, ?> OBISDIAN_SPIKE = register("obsidian_spike", OmegaWorld.OBSIDIAN_SPIKE.configure(FeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeat(1));
     public static final ConfiguredFeature<?, ?> OMEGA_ORE = register("ore_diamond", OmegaWorld.OMEGA_ORE.configure(DefaultFeatureConfig.INSTANCE).method_30377(8).spreadHorizontally());

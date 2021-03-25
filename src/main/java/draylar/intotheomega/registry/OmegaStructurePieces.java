@@ -1,6 +1,7 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.world.abyss_flower.AbyssFlowerIslandStructure;
 import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
 import draylar.intotheomega.world.generator.EyeAltarGenerator;
 import draylar.intotheomega.world.generator.MediumPhantomTowerGenerator;
@@ -22,6 +23,7 @@ public class OmegaStructurePieces {
     public static final StructurePieceType ISLAND = register("island", GenericIslandStructure.Piece::new);
     public static final StructurePieceType ICE_ISLAND = register("ice_island", IceIslandStructure.Piece::new);
     public static final StructurePieceType CHORUS_ISLAND = register("chorus_island", ChorusIslandStructure.Piece::new);
+    public static final StructurePieceType ABYSS_FLOWER_ISLAND = register("abyss_flower_island", AbyssFlowerIslandStructure.Piece::new);
 
     public static void init() {
 

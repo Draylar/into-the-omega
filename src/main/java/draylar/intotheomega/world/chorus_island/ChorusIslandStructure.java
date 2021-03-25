@@ -2,7 +2,6 @@ package draylar.intotheomega.world.chorus_island;
 
 import com.mojang.serialization.Codec;
 import draylar.intotheomega.registry.OmegaStructurePieces;
-import draylar.intotheomega.world.api.BaseIslandStructure;
 import draylar.intotheomega.world.api.SiftingStructureGenerator;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.StructureManager;
@@ -23,10 +22,6 @@ public class ChorusIslandStructure extends StructureFeature<DefaultFeatureConfig
     }
 
     public static class Piece extends SiftingStructureGenerator {
-
-        public Piece(Random random, int x, int z) {
-            super(OmegaStructurePieces.CHORUS_ISLAND, random, x, z);
-        }
 
         public Piece(StructureManager manager, CompoundTag tag) {
             super(OmegaStructurePieces.CHORUS_ISLAND, manager, tag);
