@@ -1,0 +1,6 @@
+# Blender MTL File: 'None'
+# Material Count: 1
+
+newmtl abyssalrift
+emissive true
+texture minecraft:block/obsidian

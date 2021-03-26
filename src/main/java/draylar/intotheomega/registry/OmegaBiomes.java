@@ -85,7 +85,7 @@ public class OmegaBiomes {
                 .category(Biome.Category.NONE)
                 .depth(0)
                 .scale(0)
-                .temperature(-1.0f)
+                .temperature(0.5f)
                 .downfall(0.0f)
                 .effects(new BiomeEffects.Builder()
                         .waterColor(4159204)

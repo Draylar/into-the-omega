@@ -76,6 +76,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME, (dispatcher, context) -> new OmegaSlimeRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_EYE, (dispatcher, context) -> new FrostedEyeEntityRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VIOLET_UNION_BLADE, (dispatcher, context) -> new VioletUnionBladeRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSSAL_RIFT, (dispatcher, context) -> new AbyssalRiftEntityRenderer(dispatcher));
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ETERNAL_PILLAR, EternalPillarBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);

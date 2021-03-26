@@ -35,6 +35,8 @@ repositories {
         name = "dblsaiko"
         url = "https://maven.dblsaiko.net/"
     }
+
+    maven { url = "https://hephaestus.dev/release" }
 }
 
 dependencies {
@@ -87,6 +89,9 @@ dependencies {
     modImplementation "grondag:canvas-mc116:1.0.+"
 //    modImplementation "grondag:frex-mc116:4.8.207"
 //    modImplementation "grondag:jmx-mc116:1.19.+"
+
+    modImplementation "dev.monarkhes:myron:1.5.2"
+    include "dev.monarkhes:myron:1.5.2"
 }
 
 processResources {
