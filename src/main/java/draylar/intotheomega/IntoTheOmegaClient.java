@@ -8,6 +8,7 @@ import draylar.intotheomega.client.entity.renderer.*;
 import draylar.intotheomega.client.item.MatriteOrbitalItemRenderer;
 import draylar.intotheomega.client.item.NebulaGearItemRenderer;
 import draylar.intotheomega.entity.OmegaSlimeMountEntity;
+import draylar.intotheomega.entity.block.AbyssChainBlockEntity;
 import draylar.intotheomega.entity.block.PhasePadBlockEntity;
 import draylar.intotheomega.network.ClientNetworking;
 import draylar.intotheomega.registry.*;
@@ -83,6 +84,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ENIGMA_STAND, EnigmaStandBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.INVISIBLE_DUNGEON_BRICK, InvisibleDungeonBrickBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSS_CHAIN, AbyssChainBlockEntityRenderer::new);
 
         // block render layers
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OBSIDIAN_GLASS, RenderLayer.getCutout());

@@ -2,10 +2,7 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.entity.*;
-import draylar.intotheomega.entity.block.EnigmaStandBlockEntity;
-import draylar.intotheomega.entity.block.EternalPillarBlockEntity;
-import draylar.intotheomega.entity.block.PhasePadBlockEntity;
-import draylar.intotheomega.entity.block.VoidMatrixSpawnBlockEntity;
+import draylar.intotheomega.entity.block.*;
 import draylar.intotheomega.entity.dungeon.InvisibleDungeonBrickBlockEntity;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
@@ -106,6 +103,10 @@ public class OmegaEntities {
     public static final EntityType<AbyssalRiftEntity> ABYSSAL_RIFT = register(
             "abyssal_rift",
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, AbyssalRiftEntity::new).trackRangeBlocks(1000).dimensions(EntityDimensions.fixed(5, 5)).build());
+
+    public static final BlockEntityType<AbyssChainBlockEntity> ABYSS_CHAIN = register(
+            "abyss_chain",
+            BlockEntityType.Builder.create(AbyssChainBlockEntity::new, OmegaBlocks.ABYSS_CHAIN).build(null));
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);

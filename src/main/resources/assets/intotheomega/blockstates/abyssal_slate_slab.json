@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "intotheomega:block/abyssal_slate_slab"
+    },
+    "type=double": {
+      "model": "intotheomega:block/abyssal_slate"
+    },
+    "type=top": {
+      "model": "intotheomega:block/abyssal_slate_slab_top"
+    }
+  }
+}

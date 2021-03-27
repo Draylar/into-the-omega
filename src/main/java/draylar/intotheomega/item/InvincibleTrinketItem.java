@@ -8,6 +8,9 @@ import dev.emi.trinkets.api.Trinket;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -32,5 +35,11 @@ public class InvincibleTrinketItem extends Item implements Trinket {
         objs.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIER_UUID, "infinite", Double.MAX_VALUE, EntityAttributeModifier.Operation.ADDITION));
         objs.put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier(MODIFIER_UUID, "infinite", Double.MAX_VALUE, EntityAttributeModifier.Operation.ADDITION));
         return objs;
+    }
+
+    @Override
+    public void tick(PlayerEntity player, ItemStack stack) {
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 100, true, false));
+        player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 100, true, true));
     }
 }

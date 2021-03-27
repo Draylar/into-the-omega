@@ -135,6 +135,11 @@ public class OmegaBlocks {
     // variant
     public static final Block VARIANT_BLOCK = register("variant_block", new Block(FabricBlockSettings.copyOf(Blocks.STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
 
+    // abyss
+    public static final Block ABYSS_CHAIN = register("abyss_chain", new AbyssChainBlock(FabricBlockSettings.of(Material.STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block ABYSSAL_SLATE = register("abyssal_slate", new Block(FabricBlockSettings.copy(Blocks.PURPUR_BLOCK).luminance(b -> 5)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block ABYSSAL_SLATE_SLAB = register("abyssal_slate_slab", new SlabBlock(FabricBlockSettings.copy(Blocks.PURPUR_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block ABYSSAL_KEY = register("abyssal_key", new AbyssalKeyBlock(FabricBlockSettings.copyOf(Blocks.END_STONE_BRICKS)), new Item.Settings().group(IntoTheOmega.GROUP));
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, IntoTheOmega.id(name), block);

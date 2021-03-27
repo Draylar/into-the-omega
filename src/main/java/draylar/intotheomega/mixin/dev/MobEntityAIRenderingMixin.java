@@ -25,7 +25,7 @@ public abstract class MobEntityAIRenderingMixin extends LivingEntityRenderer {
             method = "render",
             at = @At("RETURN"))
     private void renderDebugInfo(MobEntity mob, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, CallbackInfo ci) {
-        DebugAIRenderer.render(mob, matrixStack, vertexConsumerProvider, light);
-        PathRenderer.render(mob, matrixStack, vertexConsumerProvider, light);
+//        DebugAIRenderer.render(mob, matrixStack, vertexConsumerProvider, light);
+//        PathRenderer.render(mob, matrixStack, vertexConsumerProvider, light);
     }
 }

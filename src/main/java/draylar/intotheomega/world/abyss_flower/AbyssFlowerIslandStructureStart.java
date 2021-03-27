@@ -10,6 +10,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
@@ -63,17 +64,11 @@ public class AbyssFlowerIslandStructureStart extends SiftingStructureStart {
                 double realX = origin.getX() + x;
                 double realZ = origin.getZ() + z;
 
-                // Evaluate noise at this position for island shape
-                double eval = noise.noise2(realX / 50f, realZ / 50f) * 15;
-
-                // The maximum/minimum value of each x/z pairing is adjusted up to 1 by a general noise call.
-                // This makes floors/ceilings not flat.
-                double minNoise = Math.max(0, noise.noise2(realX / 25f, realZ / 25f)) * 2f;
-                double instMinY = minY - minNoise;
-                double instMaxY = maxY - minNoise;
+                double instMinY = minY;
+                double instMaxY = maxY;
 
                 // For each x/z pairing, store the point if it is within the noise radius and not near walls.
-                double distance2d = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2)) - eval;
+                double distance2d = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2));
                 if (distance2d <= evalRadius * 0.7) {
                     flatPositions.add(new Pos2D((int) realX, (int) realZ));
                 } else if(distance2d >= evalRadius * .8 && distance2d <= evalRadius) {
@@ -82,19 +77,23 @@ public class AbyssFlowerIslandStructureStart extends SiftingStructureStart {
 
                 // Check each vertical position at this x/z pairing.
                 for (double y = instMinY; y <= instMaxY * 1.05; y++) {
-                    double distance = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2) + Math.pow(y, 2)) - eval;
-                    double positionNoise = noise.noise3_XZBeforeY(realX / 50f, y / 25f, realZ / 50f);
-                    double evalYOffset = evalRadius - positionNoise * 10;
+                    double distance = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2) + Math.pow(y, 2));
 
                     // Place island blocks
-                    if (distance <= evalYOffset) {
-//                        if (y >= instMaxY * .9 - (positionNoise * .2)) {
-//                            blocks.put(new BlockPos(realX, y + height, realZ), new BlockInfo(OmegaBlocks.CHORUS_GRASS.getDefaultState(), null));
-//                        } else {
-//                            blocks.put(new BlockPos(realX, y + height, realZ), new BlockInfo(Blocks.END_STONE.getDefaultState(), null));
-//                        }
+                    if (distance <= (double) evalRadius) {
+                        if (y <= instMaxY * .9) {
+                            blocks.put(new BlockPos(realX, y + height, realZ), new BlockInfo(Blocks.END_STONE.getDefaultState(), null));
+                        } else if (y <= instMaxY) {
+                            int absX = Math.abs(x);
+                            int absZ = Math.abs(z);
+                            int offset = (absX > 10) && (absZ > 10) ? -1 : 0;
 
-                        blocks.put(new BlockPos(realX, y + height, realZ), new BlockInfo(Blocks.END_STONE.getDefaultState(), null));
+                            if(distance >= evalRadius * .97 || (Math.abs(x) == 10 || Math.abs(z) == 10) || Math.abs(x) == Math.abs(z)) {
+                                blocks.put(new BlockPos(realX, y + height + offset, realZ), new BlockInfo(OmegaBlocks.ABYSSAL_SLATE.getDefaultState(), null));
+                            } else {
+                                blocks.put(new BlockPos(realX, y + height + offset, realZ), new BlockInfo(Blocks.END_STONE_BRICKS.getDefaultState(), null));
+                            }
+                        }
                     }
                 }
             }
@@ -112,19 +111,47 @@ public class AbyssFlowerIslandStructureStart extends SiftingStructureStart {
                     double realX = origin.getX() + x;
                     double realZ = origin.getZ() + z;
 
-                    // place block at bottom
-                    double v = noise.noise2(realX / 50f, realZ / 50f);
+                    // work inside circle
+                    if(distance <= downRadius) {
 
-                    // inside radius, place blocks down
-                    if (distance <= downRadius - v * 3) {
-                        for (int y = 0; y < (15 - size); y++) {
-                            blocks.put(new BlockPos(realX, height + maxY - y, realZ), new BlockInfo(Blocks.AIR.getDefaultState(), null));
+                        // Operate on edges first.
+                        if (distance >= downRadius * .96) {
+                            for (int y = 0; y < (15 - size); y++) {
+                                blocks.put(new BlockPos(realX, height + maxY - y, realZ), new BlockInfo(Blocks.AIR.getDefaultState(), null));
+                            }
+
+                            // place purpur/abyssal lining on each layer at the very front
+                            if (size != 10) {
+                                if (size % 2 == 0) {
+                                    blocks.put(new BlockPos(realX, height + maxY - (15 - size) + 1, realZ), new BlockInfo(OmegaBlocks.ABYSSAL_SLATE.getDefaultState(), null));
+                                } else {
+                                    blocks.put(new BlockPos(realX, height + maxY - (15 - size) + 1, realZ), new BlockInfo(Blocks.PURPUR_BLOCK.getDefaultState(), null));
+                                }
+                            }
+
+                            // lip on far outer edge
+                            else {
+                                int absX = Math.abs(x);
+                                int absZ = Math.abs(z);
+                                int offset = (absX > 10) && (absZ > 10) ? -1 : 0;
+
+                                blocks.put(new BlockPos(realX, height + maxY - (15 - size), realZ), new BlockInfo(Blocks.END_STONE_BRICKS.getDefaultState(), null));
+                                blocks.put(new BlockPos(realX, height + maxY - (15 - size) + 1, realZ), new BlockInfo(Blocks.END_STONE_BRICKS.getDefaultState(), null));
+                                blocks.put(new BlockPos(realX, height + maxY - (15 - size) + 2, realZ), new BlockInfo(Blocks.END_STONE_BRICKS.getDefaultState(), null));
+                                blocks.put(new BlockPos(realX, height + maxY - (15 - size) + 3, realZ), new BlockInfo(Blocks.END_STONE_BRICKS.getDefaultState(), null));
+                                blocks.put(new BlockPos(realX, height + maxY - (15 - size) + 4, realZ), new BlockInfo(Blocks.END_STONE_BRICKS.getDefaultState(), null));
+                                blocks.put(new BlockPos(realX, height + maxY - (15 - size) + offset + 5, realZ), new BlockInfo(OmegaBlocks.ABYSSAL_SLATE.getDefaultState(), null));
+                            }
                         }
 
-                        if(size != 10) {
-                            if (v > .25) {
-                                blocks.put(new BlockPos(realX, height + maxY - (15 - size), realZ), new BlockInfo(Blocks.END_STONE_BRICKS.getDefaultState(), null));
-                            } else {
+                        // operate on inside
+                        else {
+                            for (int y = 0; y < (15 - size); y++) {
+                                blocks.put(new BlockPos(realX, height + maxY - y, realZ), new BlockInfo(Blocks.AIR.getDefaultState(), null));
+                            }
+
+                            // only place endstone flooring for layers that are not the far outer edge
+                            if (size != 10) {
                                 blocks.put(new BlockPos(realX, height + maxY - (15 - size), realZ), new BlockInfo(Blocks.END_STONE.getDefaultState(), null));
                             }
                         }
@@ -157,31 +184,67 @@ public class AbyssFlowerIslandStructureStart extends SiftingStructureStart {
                 }
             }
         }
+//
+//        // generate pillars
+//        for(int i = 0; i < 15; i++) {
+//            Pos2D pos2D = pillarPositions.get(random.nextInt(pillarPositions.size()));
+//
+//            // make a tall rectangle
+//            int pillarRadius = 1 + random.nextInt(2);
+//            for(int pillarX = -pillarRadius; pillarX <= pillarRadius; pillarX++) {
+//                for(int pillarZ = -pillarRadius; pillarZ <= pillarRadius; pillarZ++) {
+//                    int pillarHeight = 20 + random.nextInt(10);
+//
+//                    // Determine the TRUE world position of these positions.
+//                    double realX = pillarX + pos2D.x;
+//                    double realZ = pillarZ + pos2D.z;
+//
+//                    for(int y = -10; y < pillarHeight; y++) {
+//                        blocks.put(new BlockPos(realX, height + maxY + y, realZ), new BlockInfo(OmegaBlocks.ABYSSAL_SLATE.getDefaultState(), null));
+//                    }
+//                }
+//            }
+//        }
 
-        // generate pillars
-        for(int i = 0; i < 15; i++) {
-            Pos2D pos2D = pillarPositions.get(random.nextInt(pillarPositions.size()));
-
-            // make a tall rectangle
-            int pillarRadius = 1 + random.nextInt(2);
-            for(int pillarX = -pillarRadius; pillarX <= pillarRadius; pillarX++) {
-                for(int pillarZ = -pillarRadius; pillarZ <= pillarRadius; pillarZ++) {
-                    int pillarHeight = 20 + random.nextInt(10);
-
-                    // Determine the TRUE world position of these positions.
-                    double realX = pillarX + pos2D.x;
-                    double realZ = pillarZ + pos2D.z;
-
-                    for(int y = -10; y < pillarHeight; y++) {
-                        blocks.put(new BlockPos(realX, height + maxY + y, realZ), new BlockInfo(Blocks.PURPUR_BLOCK.getDefaultState(), null));
-                    }
-                }
-            }
-        }
+        // place 4 pillars
+        placePillars(blocks, origin.add(0, 15, 87));
+        placePillars(blocks, origin.add(0, 15, -87));
+        placePillars(blocks, origin.add(87, 15, 0));
+        placePillars(blocks, origin.add(-87, 15, 0));
 
         System.out.println("Time to generate Abyss Flower: " + (System.currentTimeMillis() - ms));
 
         return blocks;
+    }
+
+    public void placePillars(Map<BlockPos, BlockInfo> blocks, BlockPos origin) {
+        // center endstone
+        for(int x = -1; x <= 1; x++){
+            for(int z = -1; z <= 1; z++){
+                for(int y = 0; y < 8; y++) {
+                    blocks.put(origin.add(x, y, z), new BlockInfo(Blocks.END_STONE_BRICKS.getDefaultState(), null));
+                }
+            }
+        }
+
+        // outer corner
+        for(int i = 2; i <= 5; i++) {
+            Direction direction = Direction.byId(i);
+            Direction right = direction.rotateYClockwise();
+            BlockPos base = origin.offset(right, 2).offset(direction, 2);
+
+            // place
+            for(int y = 0; y < 8; y++) {
+                blocks.put(base.add(0, y, 0), new BlockInfo(OmegaBlocks.ABYSSAL_SLATE.getDefaultState(), null));
+            }
+        }
+
+        // ceiling
+        for(int x = -1; x <= 1; x++) {
+            for(int z = -1; z <= 1; z++) {
+                blocks.put(origin.add(x, 8, z), new BlockInfo(OmegaBlocks.ABYSSAL_SLATE_SLAB.getDefaultState(), null));
+            }
+        }
     }
 
     @Override

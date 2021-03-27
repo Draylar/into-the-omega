@@ -1,0 +1,6 @@
+{
+  "emissive": true,
+  "disableAo": true,
+  "vertexSource": "canvas:shaders/material/default.vert",
+  "fragmentSource": "intotheomega:shaders/material/intense_glow.frag"
+}
