@@ -90,11 +90,14 @@ public class OmegaItems {
     public static final Item OMEGA_CHESTPLATE = register("omega_chestplate", new ArmorItem(OmegaArmorMaterial.INSTANCE, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item OMEGA_LEGGINGS = register("omega_leggings", new ArmorItem(OmegaArmorMaterial.INSTANCE, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item OMEGA_BOOTS = register("omega_boots", new ArmorItem(OmegaArmorMaterial.INSTANCE, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+
+    // chorus
     public static final Item CHORUS_HELMET = register("chorus_helmet", new ChorusArmorItem(ChorusArmorMaterial.INSTANCE, EquipmentSlot.HEAD, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item CHORUS_CHESTPLATE = register("chorus_chestplate", new ChorusArmorItem(ChorusArmorMaterial.INSTANCE, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item CHORUS_LEGGINGS = register("chorus_leggings", new ChorusArmorItem(ChorusArmorMaterial.INSTANCE, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item CHORUS_BOOTS = register("chorus_boots", new ChorusArmorItem(ChorusArmorMaterial.INSTANCE, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item CHORUS_SWORD = register("chorus_sword", new SwordItem(ToolMaterials.IRON, 5, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item KNOWLEDGE_OF_THE_END = register("knowledge_of_the_end", new KnowledgeOfEndItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
 
     // ender-pearl content
     public static final Item PEARL_HELMET = register("pearl_helmet", new ArmorItem(PearlArmorMaterial.INSTANCE, EquipmentSlot.HEAD, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));

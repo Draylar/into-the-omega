@@ -72,7 +72,11 @@
   "block.intotheomega.phase_pad": "Phase Pad",
 
   "entity.intotheomega.true_eye_of_ender": "True Eye of Ender",
+
+
+  "__comment": "--------------------- Chorus Content ---------------------",
   "entity.intotheomega.chorus_cow": "Chorus Cow",
+  "item.intotheomega.knowledge_of_the_end": "Knowledge of The End",
 
   "__comment": "--------------------- Void Matrix Content ---------------------",
   "item.intotheomega.void_matrix_spawn_egg": "Void Matrix Spawn Egg",
