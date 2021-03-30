@@ -130,18 +130,41 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
     public boolean damage(DamageSource source, float amount) {
         if (this.isInvulnerableTo(source)) {
             return false;
-        } else {
-            this.scheduleVelocityUpdate();
-            Entity entity = source.getAttacker();
+        }
 
-            if (entity != null) {
-                Vec3d vec3d = entity.getRotationVector();
-                this.setVelocity(vec3d);
-                this.setOwner(entity);
-                return true;
-            } else {
-                return false;
+        // If the projectile is hit by an arrow while it is flying, direct it back towards the source
+        if(source.isProjectile()) {
+            Entity owner = getOwner();
+            this.scheduleVelocityUpdate();
+
+            // if the owner is not null, send the projectile back at them
+            if(owner != null) {
+                Vec3d towardsOwner = getPos().subtract(owner.getPos()).normalize().multiply(-1);
+                setVelocity(towardsOwner);
             }
+
+            // owner is null, just reverse velocity
+            else {
+                setVelocity(getVelocity().multiply(-1));
+            }
+
+            // re-assign owner
+            setOwner(source.getAttacker());
+            shootAt = -1;
+            return true;
+        }
+
+        // melee attacks
+        this.scheduleVelocityUpdate();
+        Entity entity = source.getAttacker();
+
+        if (entity != null) {
+            Vec3d vec3d = entity.getRotationVector();
+            this.setVelocity(vec3d);
+            this.setOwner(entity);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -159,6 +182,10 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
 
     @Override
     public void onEntityHit(EntityHitResult hit) {
+        if(world.isClient) {
+            return;
+        }
+
         Entity entity = hit.getEntity();
         float damage = 10;
 
@@ -179,7 +206,8 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
         // If this entity hit a Void Matrix but was deflected by a player,
             // increase damage done to 25 and allow the hit.
         if(entity instanceof VoidMatrixEntity) {
-            damage = 20;
+            damage = 25;
+            ((VoidMatrixEntity) entity).incrementStun();
         }
 
         if(!(entity instanceof MatriteEntity)) {
@@ -210,19 +238,10 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
                         EnchantmentHelper.onTargetDamaged(source, livingEntity);
                     }
                 }
-
-                explode();
-                this.remove();
-            } else {
-                entity.setFireTicks(fireTicks);
-                this.setVelocity(this.getVelocity().multiply(-0.1D));
-                this.yaw += 180.0F;
-                this.prevYaw += 180.0F;
-                if (!this.world.isClient && this.getVelocity().lengthSquared() < 1.0E-7D) {
-                    explode();
-                    this.remove();
-                }
             }
+
+            explode();
+            remove();
         }
     }
 

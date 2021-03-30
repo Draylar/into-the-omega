@@ -21,14 +21,7 @@ public class RandomSpinGoal extends StageGoal {
         super.tick();
 
         if(currentCooldown <= 0) {
-            // Trigger spin
-            AnimationController<VoidMatrixEntity> controller = vm.getFactory().getOrCreateAnimationData(vm.hashCode()).getAnimationControllers().get("spin");
-
-            if(controller.getAnimationState() == AnimationState.Stopped) {
-                controller.markNeedsReload();
-                controller.setAnimation(new AnimationBuilder().addAnimation("animation.void_matrix.rotate", false));
-            }
-
+            world.sendEntityStatus(vm, VoidMatrixEntity.SINGLE_SPIN);
             currentCooldown = maxCooldown;
         }
 

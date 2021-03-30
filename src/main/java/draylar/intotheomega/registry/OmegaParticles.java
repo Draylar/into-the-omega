@@ -12,6 +12,7 @@ public class OmegaParticles {
     public static final DefaultParticleType SMALL_BLUE_OMEGA_BURST = ParticleTypesAccessor.callRegister("intotheomega:small_blue_omega_burst", false);
     public static final DefaultParticleType SMALL_PINK_OMEGA_BURST = ParticleTypesAccessor.callRegister("intotheomega:small_pink_omega_burst", false);
     public static final DefaultParticleType VARIANT_FUSION = ParticleTypesAccessor.callRegister("intotheomega:variant_fusion", false);
+    public static final DefaultParticleType MATRIX_EXPLOSION = ParticleTypesAccessor.callRegister("intotheomega:matrix_explosion", false);
 
     public static void init() {
 

@@ -5,15 +5,15 @@ import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 
 public class VoidMatrixLookControl extends FreeLookControl {
 
-    private final VoidMatrixEntity entity;
+    private final VoidMatrixEntity vm;
 
-    public VoidMatrixLookControl(VoidMatrixEntity entity) {
-        super(entity);
-        this.entity = entity;
+    public VoidMatrixLookControl(VoidMatrixEntity vm) {
+        super(vm);
+        this.vm = vm;
     }
 
     @Override
     public boolean shouldStayHorizontal() {
-        return entity.getStage().equals(VoidMatrixEntity.Stage.ONE);
+        return vm.getStage().equals(VoidMatrixEntity.Stage.ONE) || vm.isStunned() || vm.isFiringLaser();
     }
 }

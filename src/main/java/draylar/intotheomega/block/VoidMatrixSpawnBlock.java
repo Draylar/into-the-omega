@@ -27,15 +27,14 @@ public class VoidMatrixSpawnBlock extends Block implements BlockEntityProvider {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-        if(!world.isClient) {
+        if(!world.isClient && hand == Hand.MAIN_HAND) {
             VoidMatrixEntity voidMatrixEntity = OmegaEntities.VOID_MATRIX.create(world);
-            voidMatrixEntity.setPos(pos.getX() + .5, pos.getY() + .5, pos.getZ() + .5);
-            world.setBlockState(pos, Blocks.AIR.getDefaultState());
+            voidMatrixEntity.updatePosition(pos.getX() + .5, pos.getY() + 10, pos.getZ() + .5);
             voidMatrixEntity.setHome(pos);
             world.spawnEntity(voidMatrixEntity);
         }
 
-        return super.onUse(state, world, pos, player, hand, hit);
+        return ActionResult.SUCCESS;
     }
 
     @Override

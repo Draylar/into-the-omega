@@ -7,8 +7,6 @@ import draylar.intotheomega.client.be.*;
 import draylar.intotheomega.client.entity.renderer.*;
 import draylar.intotheomega.client.item.MatriteOrbitalItemRenderer;
 import draylar.intotheomega.client.item.NebulaGearItemRenderer;
-import draylar.intotheomega.entity.OmegaSlimeMountEntity;
-import draylar.intotheomega.entity.block.AbyssChainBlockEntity;
 import draylar.intotheomega.entity.block.PhasePadBlockEntity;
 import draylar.intotheomega.network.ClientNetworking;
 import draylar.intotheomega.registry.*;
@@ -29,7 +27,6 @@ import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredica
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.SlimeEntityRenderer;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.ai.pathing.Path;
@@ -78,6 +75,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_EYE, (dispatcher, context) -> new FrostedEyeEntityRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VIOLET_UNION_BLADE, (dispatcher, context) -> new VioletUnionBladeRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSSAL_RIFT, (dispatcher, context) -> new AbyssalRiftEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_BEAM, (dispatcher, context) -> new VoidMatrixBeamRenderer(dispatcher));
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ETERNAL_PILLAR, EternalPillarBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);

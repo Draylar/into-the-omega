@@ -1,6 +1,6 @@
 # Blender MTL File: 'None'
 # Material Count: 1
 
-newmtl abyssalrift
+newmtl vmbeam
 emissive true
-texture minecraft:block/white_concrete
+texture minecraft:block/obsidian

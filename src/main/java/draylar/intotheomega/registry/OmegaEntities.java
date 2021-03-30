@@ -7,6 +7,7 @@ import draylar.intotheomega.entity.dungeon.InvisibleDungeonBrickBlockEntity;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.slime.OmegaSlimeEmperorEntity;
+import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
@@ -18,7 +19,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.util.registry.Registry;
 
@@ -50,7 +50,7 @@ public class OmegaEntities {
 
     public static final EntityType<VoidMatrixEntity> VOID_MATRIX = register(
             "void_matrix",
-            FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, VoidMatrixEntity::new).dimensions(EntityDimensions.fixed(4, 4)).build());
+            FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, VoidMatrixEntity::new).forceTrackedVelocityUpdates(true).dimensions(EntityDimensions.fixed(4, 4)).build());
 
     public static final EntityType<EnigmaKingEntity> ENIGMA_KING = register(
             "enigma_king",
@@ -107,6 +107,10 @@ public class OmegaEntities {
     public static final BlockEntityType<AbyssChainBlockEntity> ABYSS_CHAIN = register(
             "abyss_chain",
             BlockEntityType.Builder.create(AbyssChainBlockEntity::new, OmegaBlocks.ABYSS_CHAIN).build(null));
+
+    public static final EntityType<VoidMatrixBeamEntity> VOID_MATRIX_BEAM = register(
+            "void_matrix_beam",
+            FabricEntityTypeBuilder.<VoidMatrixBeamEntity>create(SpawnGroup.MISC, VoidMatrixBeamEntity::new).dimensions(EntityDimensions.fixed(.25f, .25f)).build());
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);

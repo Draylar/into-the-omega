@@ -1,6 +1,6 @@
 package draylar.intotheomega.item;
 
-import me.crimsondawn45.fabricshieldlib.object.AbstractShield;
+import me.crimsondawn45.fabricshieldlib.lib.object.FabricShield;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
@@ -13,10 +13,10 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class OmegaShieldItem extends AbstractShield {
+public class OmegaShieldItem extends FabricShield {
 
     public OmegaShieldItem(Settings settings, int cooldownTicks, int durability, Item repairItem) {
-        super(settings, cooldownTicks, durability, repairItem);
+        super(settings, cooldownTicks, durability, 15, repairItem);
     }
 
     @Override
@@ -27,6 +27,4 @@ public class OmegaShieldItem extends AbstractShield {
         tooltip.add(new TranslatableText("intotheomega.omega_shield.1").formatted(Formatting.GRAY));
         tooltip.add(new TranslatableText("intotheomega.omega_shield.2").formatted(Formatting.GRAY));
     }
-
-
 }

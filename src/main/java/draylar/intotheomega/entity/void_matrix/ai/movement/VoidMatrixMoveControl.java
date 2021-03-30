@@ -18,7 +18,7 @@ public class VoidMatrixMoveControl extends MoveControl {
 
     @Override
     public void tick() {
-        if (this.state == MoveControl.State.MOVE_TO) {
+        if (this.state == MoveControl.State.MOVE_TO && !vm.isStunned()) {
             if (this.collisionCheckCooldown-- <= 0) {
                 this.collisionCheckCooldown += this.vm.getRandom().nextInt(5) + 2;
 
@@ -28,10 +28,15 @@ public class VoidMatrixMoveControl extends MoveControl {
                 double distance = distanceToTarget.length();
                 distanceToTarget = distanceToTarget.normalize();
 
-                if (this.willCollide(distanceToTarget, MathHelper.ceil(distance))) {
-                    this.vm.setVelocity(this.vm.getVelocity().add(distanceToTarget.multiply(0.1D)));
-                } else {
+                if(distance <= .3) {
+                    this.state = State.WAIT;
+                    return;
+                }
+
+                if (!this.willCollide(distanceToTarget, MathHelper.ceil(distance))) {
                     this.state = MoveControl.State.WAIT;
+                } else {
+                    this.vm.setVelocity(this.vm.getVelocity().add(distanceToTarget.multiply(0.1D)));
                 }
             }
 

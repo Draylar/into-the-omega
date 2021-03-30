@@ -1,6 +1,7 @@
 package draylar.intotheomega.item;
 
 import draylar.intotheomega.registry.OmegaParticles;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -53,7 +54,7 @@ public class OmegaSwordItem extends SwordItem {
                 cur = cur.add(per);
 
                 // Damage entities
-                world.getEntitiesByClass(HostileEntity.class, new Box(cur.add(-.5, -.5, -.5), cur.add(.5, .5, .5)), entity -> !hitEntities.contains(entity.getUuid())).forEach(entity -> {
+                world.getEntitiesByClass(Entity.class, new Box(cur.add(-.5, -.5, -.5), cur.add(.5, .5, .5)), entity -> entity != user && !hitEntities.contains(entity.getUuid())).forEach(entity -> {
                     entity.damage(DamageSource.player(user), getAttackDamage());
 //
 //                    world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), GOBSounds.KATANA_SWOOP, SoundCategory.PLAYERS, 2F, 1.5F + (float) world.random.nextDouble() * .5f);

@@ -1,0 +1,12 @@
+{
+  "map": [
+    {
+      "predicate": {
+        "materialPredicate": {
+          "renderLayerName": "entity_solid"
+        }
+      },
+      "material": "canvas:emissive_transform"
+    }
+  ]
+}

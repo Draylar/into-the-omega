@@ -10,6 +10,7 @@ import draylar.intotheomega.world.spike.SpikeStructure;
 import draylar.intotheomega.world.structure.EyeAltarStructure;
 import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
 import draylar.intotheomega.world.feature.OmegaCrystalOreFeature;
+import draylar.intotheomega.world.structure.MatrixPedestalStructure;
 import draylar.intotheomega.world.structure.MediumPhantomTowerStructure;
 import draylar.intotheomega.world.structure.SmallPhantomTowerStructure;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -34,6 +35,7 @@ public class OmegaWorld {
     public static final StructureFeature<DefaultFeatureConfig> SMALL_PHANTOM_TOWER = new SmallPhantomTowerStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> MEDIUM_PHANTOM_TOWER = new MediumPhantomTowerStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> SPIKE = new SpikeStructure(DefaultFeatureConfig.CODEC);
+    public static final StructureFeature<DefaultFeatureConfig> MATRIX_PEDESTAL = new MatrixPedestalStructure(DefaultFeatureConfig.CODEC);
 
     public static final StructureFeature<DefaultFeatureConfig> BASE_ISLAND = new BaseIslandStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> GENERIC_ISLAND = new GenericIslandStructure(DefaultFeatureConfig.CODEC);
@@ -115,26 +117,39 @@ public class OmegaWorld {
                 .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
                 .defaultConfig(1, 0, 0)
                 .register();
+
+        FabricStructureBuilder
+                .create(IntoTheOmega.id("matrix_pedestal"), MATRIX_PEDESTAL)
+                .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+                .defaultConfig(new StructureConfig(20, 11, 5145242))
+                .adjustsSurface()
+                .register();
     }
 
     public static void registerAdditions() {
-//        BiomeModifications
-//                .create(IntoTheOmega.id("eye_altar_addition"))
-//                .add(ModificationPhase.ADDITIONS,
-//                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.EYE_ALTAR));
-//
-//        BiomeModifications
-//                .create(IntoTheOmega.id("small_phantom_tower_addition"))
-//                .add(ModificationPhase.ADDITIONS,
-//                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.SMALL_PHANTOM_TOWER));
-//
-//        BiomeModifications
-//                .create(IntoTheOmega.id("medium_phantom_tower_addition"))
-//                .add(ModificationPhase.ADDITIONS,
-//                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.MEDIUM_PHANTOM_TOWER));
+        BiomeModifications
+                .create(IntoTheOmega.id("eye_altar_addition"))
+                .add(ModificationPhase.ADDITIONS,
+                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.EYE_ALTAR));
+
+        BiomeModifications
+                .create(IntoTheOmega.id("matrix_pedestal"))
+                .add(ModificationPhase.ADDITIONS,
+                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.MATRIX_PEDESTAL));
+
+        BiomeModifications
+                .create(IntoTheOmega.id("small_phantom_tower_addition"))
+                .add(ModificationPhase.ADDITIONS,
+                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.SMALL_PHANTOM_TOWER));
+
+        BiomeModifications
+                .create(IntoTheOmega.id("medium_phantom_tower_addition"))
+                .add(ModificationPhase.ADDITIONS,
+                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.MEDIUM_PHANTOM_TOWER));
 
 //        BiomeModifications
 //                .create(IntoTheOmega.id("base_island"))

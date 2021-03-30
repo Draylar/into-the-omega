@@ -2,10 +2,7 @@ package draylar.intotheomega.mixin;
 
 import com.google.common.collect.ImmutableList;
 import draylar.intotheomega.api.Color;
-import draylar.intotheomega.client.particle.OmegaParticle;
-import draylar.intotheomega.client.particle.OmegaSlimeParticle;
-import draylar.intotheomega.client.particle.SmallOmegaBurstParticle;
-import draylar.intotheomega.client.particle.VariantFusionParticle;
+import draylar.intotheomega.client.particle.*;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.ParticleTextureSheet;
@@ -42,6 +39,7 @@ public abstract class ParticleManagerMixin {
         this.registerFactory(OmegaParticles.SMALL_BLUE_OMEGA_BURST, SmallOmegaBurstParticle.Factory::new);
         this.registerFactory(OmegaParticles.SMALL_PINK_OMEGA_BURST, SmallOmegaBurstParticle.Factory::new);
         this.registerFactory(OmegaParticles.VARIANT_FUSION, VariantFusionParticle.Factory::new);
+        this.registerFactory(OmegaParticles.MATRIX_EXPLOSION, MatrixExplosionParticle.Factory::new);
     }
 
     static {

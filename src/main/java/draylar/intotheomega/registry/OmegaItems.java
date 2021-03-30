@@ -3,8 +3,8 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.item.*;
 import draylar.intotheomega.material.*;
-import me.crimsondawn45.fabricshieldlib.util.ShieldRegistry;
-import me.crimsondawn45.fabricshieldlib.util.event.ShieldEvent;
+import me.crimsondawn45.fabricshieldlib.lib.ShieldRegistry;
+import me.crimsondawn45.fabricshieldlib.lib.event.ShieldEvent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -180,12 +180,12 @@ public class OmegaItems {
     }
 
     public static void init() {
-        ShieldRegistry.registerItemEvent(OMEGA_SHIELD, new ShieldEvent(true, true, true) {
-            @Override
-            public void whileHolding(LivingEntity defender, int level, Hand hand, ItemStack shield) {
-                defender.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 22 * 5, 0, false, false));
-            }
-        });
+//        ShieldRegistry.register(OMEGA_SHIELD, new ShieldEvent(true, true, true) {
+//            @Override
+//            public void whileHolding(LivingEntity defender, int level, Hand hand, ItemStack shield) {
+//                defender.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 22 * 5, 0, false, false));
+//            }
+//        });
     }
 
     private OmegaItems() {
