@@ -1,0 +1,18 @@
+{
+  "parent": "item/handheld",
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 0, -90, 55 ],
+      "translation": [ 0, 5.0, 0.5 ],
+      "scale": [ 1.1, 1.1, 1.1 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 0, 90, -55 ],
+      "translation": [ 0, 5.0, 0.5 ],
+      "scale": [ 1.1, 1.1, 1.1 ]
+    }
+  },
+  "textures": {
+    "layer0": "intotheomega:item/voids_refuge"
+  }
+}
