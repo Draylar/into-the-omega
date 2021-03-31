@@ -69,10 +69,10 @@ dependencies {
     modImplementation "me.shedaniel:RoughlyEnoughItems:5.2.10"
 
     // CCA
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.5.4"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.5.4"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.5.4"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.5.4"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.7.12"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.7.12"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.7.12"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.7.12"
 
     // Attributed
     modImplementation 'com.github.Draylar:attributed:1.0.1-1.16.2'
