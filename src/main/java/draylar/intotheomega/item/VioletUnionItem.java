@@ -1,18 +1,18 @@
 package draylar.intotheomega.item;
 
 import draylar.intotheomega.entity.VioletUnionBladeEntity;
+import draylar.intotheomega.item.api.TelosUseItem;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.minecraft.command.argument.EntityAnchorArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class VioletUnionItem extends Item {
+public class VioletUnionItem extends TelosUseItem {
 
     private static final String DATA_KEY = "Data";
     private static final String CHARGE_KEY = "Charge";
@@ -22,7 +22,7 @@ public class VioletUnionItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public TypedActionResult<ItemStack> telosUse(World world, PlayerEntity user, Hand hand) {
         ItemStack stack = user.getStackInHand(hand);
 
         if(getCharge(stack) > 0) {
@@ -57,6 +57,11 @@ public class VioletUnionItem extends Item {
         }
 
         return super.use(world, user, hand);
+    }
+
+    @Override
+    public int getTelosCost() {
+        return 50;
     }
 
     @Override

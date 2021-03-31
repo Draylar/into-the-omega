@@ -18,6 +18,7 @@
     "EntityTypeTagsAccessor",
     "ExperienceOrbEntityMixin",
     "GenerationSettingsAccessor",
+    "InGameHudTelosMixin",
     "ItemRendererAccessor",
     "LivingEntityAccessor",
     "LivingEntityMixin",

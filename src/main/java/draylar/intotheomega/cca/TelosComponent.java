@@ -2,6 +2,7 @@ package draylar.intotheomega.cca;
 
 import dev.onyxstudios.cca.api.v3.component.ComponentV3;
 import dev.onyxstudios.cca.api.v3.component.sync.AutoSyncedComponent;
+import dev.onyxstudios.cca.api.v3.component.tick.ServerTickingComponent;
 import draylar.intotheomega.api.TelosProvider;
 import draylar.intotheomega.registry.OmegaComponents;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TelosComponent implements ComponentV3, AutoSyncedComponent {
+public class TelosComponent implements ComponentV3, AutoSyncedComponent, ServerTickingComponent {
 
     private static final String TELOS_KEY = "Telos";
     private final PlayerEntity player;
@@ -24,17 +25,21 @@ public class TelosComponent implements ComponentV3, AutoSyncedComponent {
     }
 
     public void give(double telos) {
-        this.telos = Math.min(maxTelos, telos);
+        this.telos = Math.min(maxTelos, this.telos + telos);
         OmegaComponents.TELOS.sync(player);
     }
 
     public void revoke(double telos) {
-        this.telos = Math.max(0, this.telos - 1);
+        this.telos = Math.max(0, this.telos - telos);
         OmegaComponents.TELOS.sync(player);
     }
 
     public double getTelos() {
         return telos;
+    }
+
+    public int getMaxTelos() {
+        return maxTelos;
     }
 
     @Override
@@ -45,5 +50,11 @@ public class TelosComponent implements ComponentV3, AutoSyncedComponent {
     @Override
     public void writeToNbt(CompoundTag tag) {
         tag.putDouble(TELOS_KEY, telos);
+    }
+
+
+    @Override
+    public void serverTick() {
+        give(perTick);
     }
 }
