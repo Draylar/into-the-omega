@@ -2,5 +2,5 @@
 #include frex:shaders/lib/math.glsl
 
 void frx_startFragment(inout frx_FragmentData fragData) {
-    fragData.emissivity = 2;
+    fragData.emissivity = 1;
 }

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "intotheomega:block/bejeweled_obsidian_streak_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "intotheomega:block/bejeweled_obsidian_streak"
+    },
+    "axis=z": {
+      "model": "intotheomega:block/bejeweled_obsidian_streak_horizontal",
+      "x": 90
+    }
+  }
+}

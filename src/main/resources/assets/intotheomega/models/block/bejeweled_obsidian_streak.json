@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "intotheomega:block/bejeweled_obsidian",
+    "side": "intotheomega:block/bejeweled_obsidian_streak"
+  }
+}
