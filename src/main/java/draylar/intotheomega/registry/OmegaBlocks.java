@@ -142,6 +142,8 @@ public class OmegaBlocks {
     public static final Block ABYSSAL_SLATE_SLAB = register("abyssal_slate_slab", new SlabBlock(FabricBlockSettings.copy(Blocks.PURPUR_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block ABYSSAL_KEY = register("abyssal_key", new AbyssalKeyBlock(FabricBlockSettings.copyOf(Blocks.END_STONE_BRICKS)), new Item.Settings().group(IntoTheOmega.GROUP));
 
+    public static final Block BEJEWELED_LOCK = register("bejeweled_lock", new BejeweledLockBlock(FabricBlockSettings.of(Material.STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
+
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, IntoTheOmega.id(name), block);
         Registry.register(Registry.ITEM, IntoTheOmega.id(name), new BlockItem(registeredBlock, settings));

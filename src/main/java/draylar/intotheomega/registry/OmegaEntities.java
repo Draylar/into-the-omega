@@ -3,6 +3,7 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.entity.*;
 import draylar.intotheomega.entity.block.*;
+import draylar.intotheomega.entity.dungeon.BejeweledLockBlockEntity;
 import draylar.intotheomega.entity.dungeon.InvisibleDungeonBrickBlockEntity;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
@@ -111,6 +112,10 @@ public class OmegaEntities {
     public static final EntityType<VoidMatrixBeamEntity> VOID_MATRIX_BEAM = register(
             "void_matrix_beam",
             FabricEntityTypeBuilder.<VoidMatrixBeamEntity>create(SpawnGroup.MISC, VoidMatrixBeamEntity::new).dimensions(EntityDimensions.fixed(.25f, .25f)).build());
+
+    public static final BlockEntityType<BejeweledLockBlockEntity> BEJEWELED_LOCK = register(
+            "bejeweled_lock",
+            BlockEntityType.Builder.create(BejeweledLockBlockEntity::new, OmegaBlocks.BEJEWELED_LOCK).build(null));
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);

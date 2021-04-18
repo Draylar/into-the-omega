@@ -34,6 +34,7 @@ public class OmegaRenderers {
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ENIGMA_STAND, EnigmaStandBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.INVISIBLE_DUNGEON_BRICK, InvisibleDungeonBrickBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSS_CHAIN, AbyssChainBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.BEJEWELED_LOCK, BejeweledLockBlockEntityRenderer::new);
     }
 
     private OmegaRenderers() {
