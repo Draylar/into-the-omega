@@ -7,12 +7,9 @@ import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
 import draylar.intotheomega.world.ice_island.IceIslandStructure;
 import draylar.intotheomega.world.island.GenericIslandStructure;
 import draylar.intotheomega.world.spike.SpikeStructure;
-import draylar.intotheomega.world.structure.EyeAltarStructure;
+import draylar.intotheomega.world.structure.*;
 import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
 import draylar.intotheomega.world.feature.OmegaCrystalOreFeature;
-import draylar.intotheomega.world.structure.MatrixPedestalStructure;
-import draylar.intotheomega.world.structure.MediumPhantomTowerStructure;
-import draylar.intotheomega.world.structure.SmallPhantomTowerStructure;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
@@ -36,6 +33,7 @@ public class OmegaWorld {
     public static final StructureFeature<DefaultFeatureConfig> MEDIUM_PHANTOM_TOWER = new MediumPhantomTowerStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> SPIKE = new SpikeStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> MATRIX_PEDESTAL = new MatrixPedestalStructure(DefaultFeatureConfig.CODEC);
+    public static final StructureFeature<DefaultFeatureConfig> BEJEWELED_DUNGEON = new BejeweledDungeonStructure(DefaultFeatureConfig.CODEC);
 
     public static final StructureFeature<DefaultFeatureConfig> BASE_ISLAND = new BaseIslandStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> GENERIC_ISLAND = new GenericIslandStructure(DefaultFeatureConfig.CODEC);
@@ -124,6 +122,13 @@ public class OmegaWorld {
                 .defaultConfig(new StructureConfig(20, 11, 5145242))
                 .adjustsSurface()
                 .register();
+
+        FabricStructureBuilder
+                .create(IntoTheOmega.id("bejeweled_dungeon"), BEJEWELED_DUNGEON)
+                .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+                .defaultConfig(new StructureConfig(15, 10, 151245))
+                .adjustsSurface()
+                .register();
     }
 
     public static void registerAdditions() {
@@ -138,6 +143,12 @@ public class OmegaWorld {
                 .add(ModificationPhase.ADDITIONS,
                         context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
                         context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.MATRIX_PEDESTAL));
+
+        BiomeModifications
+                .create(IntoTheOmega.id("bejeweled_dungeon"))
+                .add(ModificationPhase.ADDITIONS,
+                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.BEJEWELED_DUNGEON));
 
         BiomeModifications
                 .create(IntoTheOmega.id("small_phantom_tower_addition"))

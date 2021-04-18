@@ -9,6 +9,7 @@ import draylar.intotheomega.world.generator.SmallPhantomTowerGenerator;
 import draylar.intotheomega.world.ice_island.IceIslandStructure;
 import draylar.intotheomega.world.island.GenericIslandStructure;
 import draylar.intotheomega.world.spike.SpikeStructureGenerator;
+import draylar.intotheomega.world.structure.BejeweledDungeonStructure;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.registry.Registry;
 
@@ -17,6 +18,7 @@ public class OmegaStructurePieces {
     public static final StructurePieceType SMALL_PHANTOM_TOWER = register("small_phantom_tower", SmallPhantomTowerGenerator.Piece::new);
     public static final StructurePieceType MEDIUM_PHANTOM_TOWER = register("medium_phantom_tower", MediumPhantomTowerGenerator.Piece::new);
     public static final StructurePieceType EYE_ALTAR = register("eye_altar", EyeAltarGenerator.Piece::new);
+    public static final StructurePieceType BEJEWELED_DUNGEON = register("bejeweled_dungeon", BejeweledDungeonStructure.Generator.Piece::new);
     public static final StructurePieceType SPIKE = register("spike", SpikeStructureGenerator::new);
 
     // sifting structures

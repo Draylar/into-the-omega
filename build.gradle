@@ -92,6 +92,9 @@ dependencies {
 
     modImplementation "dev.monarkhes:myron:1.5.2"
     include "dev.monarkhes:myron:1.5.2"
+
+    modCompileOnly 'com.github.Draylar:visible-structure-void:b4ad15c4d7'
+    modRuntime 'com.github.Draylar:visible-structure-void:b4ad15c4d7'
 }
 
 processResources {
