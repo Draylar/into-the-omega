@@ -174,7 +174,7 @@ public class OmegaItems {
     // dungeons
     public static final Item BEJEWELED_CHARM = register("bejeweled_totem", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
     public static final Item BEJEWELED_ARROW = register("bejeweled_arrow", new ArrowItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
-    public static final Item BEJEWELED_MIRROR = register("bejeweled_mirror", new ArrowItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item BEJEWELED_MIRROR = register("bejeweled_mirror", new BejeweledMirrorItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
 
     // stuff
     // misc

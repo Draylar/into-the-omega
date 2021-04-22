@@ -46,8 +46,12 @@
     "dev.DebugInfoSenderMixin",
     "dev.FillCommandMixin",
     "dev.MobEntityAIRenderingMixin",
+    "dungeon.BlockItemMixin",
     "dungeon.LivingNotificationMixin",
     "theme.WorldRendererSnowMixin",
+    "trinkets.EndermanBewitchMixin",
+    "trinkets.EndermanChaseBewitchMixin",
+    "trinkets.EndermanTeleportBewitchMixin",
     "trinkets.ExplosionDamageMixin",
     "world.EndBiomeSourceMixin"
   ],

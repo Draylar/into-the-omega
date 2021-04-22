@@ -29,3 +29,6 @@ accessible field net/minecraft/client/render/RenderPhase SMOOTH_SHADE_MODEL Lnet
 accessible field net/minecraft/client/render/RenderPhase ENABLE_LIGHTMAP Lnet/minecraft/client/render/RenderPhase$Lightmap;
 accessible field net/minecraft/client/render/RenderPhase MIPMAP_BLOCK_ATLAS_TEXTURE Lnet/minecraft/client/render/RenderPhase$Texture;
 accessible field net/minecraft/client/render/RenderPhase ALWAYS_DEPTH_TEST Lnet/minecraft/client/render/RenderPhase$DepthTest;
+
+accessible class net/minecraft/entity/mob/EndermanEntity$ChasePlayerGoal
+accessible class net/minecraft/entity/mob/EndermanEntity$TeleportTowardsPlayerGoal

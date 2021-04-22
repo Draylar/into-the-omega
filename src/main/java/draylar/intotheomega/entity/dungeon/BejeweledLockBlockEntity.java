@@ -4,21 +4,19 @@ import draylar.intotheomega.api.BlockEntityNotifiable;
 import draylar.intotheomega.api.EntityDeathNotifier;
 import draylar.intotheomega.registry.OmegaBlocks;
 import draylar.intotheomega.registry.OmegaEntities;
+import draylar.intotheomega.registry.OmegaParticles;
+import draylar.intotheomega.registry.OmegaStatusEffects;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -28,8 +26,9 @@ import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-import java.util.*;
-import java.util.function.Supplier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, BlockEntityClientSerializable, BlockEntityNotifiable {
@@ -72,6 +71,18 @@ public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, B
             if (unlockTicks >= 0) {
                 sync();
 
+                // spawn particles
+                for(Direction direction : Direction.values()) {
+                    if(!direction.getAxis().equals(Direction.Axis.Y)) {
+                        BlockPos origin = pos.offset(direction, 5);
+
+                        // go up
+                        for(int i = 0; i < 10; i++) {
+                            ((ServerWorld) world).spawnParticles(OmegaParticles.SMALL_BLUE_OMEGA_BURST, origin.getX() + .5, origin.getY() + i, origin.getZ() + .5, 1, 0, 1, 0, 0);
+                        }
+                    }
+                }
+
                 // break blocks
                 if(unlockTicks == 0) {
                     // replace bejeweled obsidian 2 blocks up
@@ -100,17 +111,14 @@ public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, B
                 markRemoved();
             }
 
+            List<PlayerEntity> players = new ArrayList<>(world.getEntitiesByClass(PlayerEntity.class, new Box(getPos().add(-16, 0, -16), getPos().add(16, 16, 16)), player -> !player.isSpectator()));
+            players.forEach(player -> player.addStatusEffect(new StatusEffectInstance(OmegaStatusEffects.DUNGEON_LOCK, 15, 0, true, false)));
+
             // Summon mobs around the pedestal if a player is nearby.
             if(age % 20 == 0 && !(unlockTicks >= 0)) {
                 if(world.random.nextInt(3) == 0) {
                     // Ensure a player is nearby before spawning.
-                    boolean isPlayerNearby = false;
-                    List<PlayerEntity> players = new ArrayList<>(world.getEntitiesByClass(PlayerEntity.class, new Box(getPos().add(-16, 0, -16), getPos().add(16, 16, 16)), player -> !player.isSpectator()));
                     if(!players.isEmpty()) {
-                        isPlayerNearby = true;
-                    }
-
-                    if(isPlayerNearby) {
                         // Next, ensure we have not hit the local mob-cap.
                         long nearby = world.getEntitiesByClass(HostileEntity.class, new Box(getPos().add(-16, 0, -16), getPos().add(16, 16, 16)), hostile -> true).size();
                         if(nearby < 12) {

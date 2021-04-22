@@ -55,7 +55,6 @@
   "item.intotheomega.voids_refuge": "Void's Refuge",
   "item.intotheomega.bejeweled_totem": "Bejeweled Totem",
   "item.intotheomega.bejeweled_arrow": "Bejeweled Arrow",
-  "item.intotheomega.bejeweled_mirror": "Bejeweled Mirror",
 
   "block.intotheomega.end_stone_bookshelf": "End Stone Bookshelf",
   "block.intotheomega.obsidian_bookshelf": "Obsidian Bookshelf",
@@ -176,6 +175,11 @@
   "intotheomega.abyssal_boots.description_2": "these gravity-defying boots.",
   "intotheomega.matrix_lens.description_1": "This shiny mirror boosts the damage of",
   "intotheomega.matrix_lens.description_2": "explosive attacks. Stay away from your house!",
+
+  "item.intotheomega.bejeweled_mirror": "Bejeweled Mirror",
+  "intotheomega.bejeweled_mirror.1": "When equipped, looking into the eyes of Enderman",
+  "intotheomega.bejeweled_mirror.2": "will bewitch them, causing them to attack",
+  "intotheomega.bejeweled_mirror.3": "any enemy you attack for the next 10 seconds.",
 
   "enchantment.intotheomega.bane_of_the_end": "Bane of The End"
 }
