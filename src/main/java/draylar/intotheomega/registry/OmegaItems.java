@@ -172,9 +172,9 @@ public class OmegaItems {
     public static final Item BLAZING_VOID_BOOTS = register("blazing_void_boots", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
 
     // dungeons
-    public static final Item BEJEWELED_CHARM = register("bejeweled_totem", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item BEJEWELED_CHARM = register("bejeweled_totem", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE).maxCount(1)));
     public static final Item BEJEWELED_ARROW = register("bejeweled_arrow", new ArrowItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
-    public static final Item BEJEWELED_MIRROR = register("bejeweled_mirror", new BejeweledMirrorItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item BEJEWELED_MIRROR = register("bejeweled_mirror", new BejeweledMirrorItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE).maxCount(1)));
 
     // stuff
     // misc
