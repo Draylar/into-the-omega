@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "intotheomega:block/omega_lantern"
+    },
+    "hanging=true": {
+      "model": "intotheomega:block/omega_lantern_hanging"
+    }
+  }
+}

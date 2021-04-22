@@ -94,7 +94,6 @@ public class BejeweledDungeonStructure extends StructureFeature<DefaultFeatureCo
     public static class Generator {
 
         private static final Identifier TEMPLATE = IntoTheOmega.id("bejeweled_dungeon");
-        private static final Identifier METADATA = IntoTheOmega.id("loot");
 
         public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation, List<StructurePiece> pieces, Random random) {
             pieces.add(new draylar.intotheomega.world.generator.MatrixPedestalGenerator.Piece(manager, TEMPLATE, pos, rotation));
@@ -135,10 +134,8 @@ public class BejeweledDungeonStructure extends StructureFeature<DefaultFeatureCo
             }
 
             @Override
-            protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess access, Random random, BlockBox boundingBox) {
-                if (metadata.equals(METADATA.toString())) {
-                    LootableContainerBlockEntity.setLootTable(access, random, pos.down(), LootTables.ABANDONED_MINESHAFT_CHEST);
-                }
+            protected void handleMetadata(String metadata, BlockPos pos, ServerWorldAccess serverWorldAccess, Random random, BlockBox boundingBox) {
+
             }
         }
     }

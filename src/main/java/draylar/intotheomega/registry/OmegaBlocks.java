@@ -143,6 +143,7 @@ public class OmegaBlocks {
     public static final Block ABYSSAL_KEY = register("abyssal_key", new AbyssalKeyBlock(FabricBlockSettings.copyOf(Blocks.END_STONE_BRICKS)), new Item.Settings().group(IntoTheOmega.GROUP));
 
     public static final Block BEJEWELED_LOCK = register("bejeweled_lock", new BejeweledLockBlock(FabricBlockSettings.of(Material.STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block OMEGA_LANTERN = register("omega_lantern", new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance((state) -> 12).nonOpaque()), new Item.Settings().group(IntoTheOmega.GROUP));
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, IntoTheOmega.id(name), block);
