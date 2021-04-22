@@ -1,0 +1,373 @@
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 3,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:diamond",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:omega_crystal",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:gold_ingot",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 16
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:gold_block",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:ender_pearl",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:ender_eye",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:chiseled_obsidian",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:obsidian_pillar",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:obsidian",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 16
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:end_stone",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 32
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:end_stone_bricks",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 12
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:bejeweled_obsidian",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:endershroom",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:obsidishroom",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "random_chance",
+          "chance": 0.75
+        }
+      ],
+      "entries": [
+        {
+          "type": "item",
+          "weight": 3,
+          "name": "intotheomega:void_air_in_a_bottle"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "name": "intotheomega:abyss_boots"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:bejeweled_totem"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "name": "intotheomega:bejeweled_arrow",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 48,
+                "max": 64
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:bejeweled_mirror"
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "intotheomega:bound_eye"
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "name": "intotheomega:warding_omega"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:omega_shield"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "random_chance",
+          "chance": 0.5
+        }
+      ],
+      "entries": [
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "intotheomega:pearl_helmet"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "intotheomega:pearl_chestplate"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "intotheomega:pearl_leggings"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "intotheomega:pearl_boots"
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "intotheomega:pearl_sword"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:omega_helmet"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:omega_chestplate"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:omega_leggings"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:omega_boots"
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "intotheomega:omega_sword"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "random_chance",
+          "chance": 0.3
+        }
+      ],
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:enchanted_book",
+          "functions": [
+            {
+              "function": "enchant_randomly",
+              "enchantments": [
+                "intotheomega:bane_of_the_end"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:book",
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": {
+                "min": 25,
+                "max": 35
+              },
+              "treasure": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
