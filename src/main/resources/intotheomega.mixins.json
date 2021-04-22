@@ -46,6 +46,7 @@
     "dev.DebugInfoSenderMixin",
     "dev.FillCommandMixin",
     "dev.MobEntityAIRenderingMixin",
+    "dungeon.LivingNotificationMixin",
     "theme.WorldRendererSnowMixin",
     "trinkets.ExplosionDamageMixin",
     "world.EndBiomeSourceMixin"

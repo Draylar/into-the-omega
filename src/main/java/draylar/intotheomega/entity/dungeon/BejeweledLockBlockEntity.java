@@ -1,11 +1,21 @@
 package draylar.intotheomega.entity.dungeon;
 
+import draylar.intotheomega.api.BlockEntityNotifiable;
+import draylar.intotheomega.api.EntityDeathNotifier;
 import draylar.intotheomega.registry.OmegaBlocks;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.EndermanEntity;
+import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -14,16 +24,32 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.World;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, BlockEntityClientSerializable {
+public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, BlockEntityClientSerializable, BlockEntityNotifiable {
 
+    private static final int MAX_DAMAGE = 25;
+    private static final List<MobSupplier> MOBS = new ArrayList<>();
+
+    static {
+        MOBS.add((world, pos, player) -> {
+            EndermanEntity enderman = new EndermanEntity(EntityType.ENDERMAN, world);
+            enderman.updatePosition(pos.getX(), pos.getY(), pos.getZ());
+            enderman.setTarget(player);
+            enderman.setAngryAt(player.getUuid());
+            return enderman;
+        });
+    }
+
+    private int damage = 0;
     private int unlockTicks = -1;
+    private int age;
 
     public BejeweledLockBlockEntity() {
         super(OmegaEntities.BEJEWELED_LOCK);
@@ -40,6 +66,7 @@ public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, B
 
         if(!world.isClient) {
             ServerWorld sWorld = (ServerWorld) world;
+            age++;
 
             // Tick the unlock counter.
             if (unlockTicks >= 0) {
@@ -72,6 +99,44 @@ public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, B
                 world.setBlockState(pos.up(2), OmegaBlocks.BEJEWELED_OBSIDIAN.getDefaultState());
                 markRemoved();
             }
+
+            // Summon mobs around the pedestal if a player is nearby.
+            if(age % 20 == 0 && !(unlockTicks >= 0)) {
+                if(world.random.nextInt(3) == 0) {
+                    // Ensure a player is nearby before spawning.
+                    boolean isPlayerNearby = false;
+                    List<PlayerEntity> players = new ArrayList<>(world.getEntitiesByClass(PlayerEntity.class, new Box(getPos().add(-16, 0, -16), getPos().add(16, 16, 16)), player -> !player.isSpectator()));
+                    if(!players.isEmpty()) {
+                        isPlayerNearby = true;
+                    }
+
+                    if(isPlayerNearby) {
+                        // Next, ensure we have not hit the local mob-cap.
+                        long nearby = world.getEntitiesByClass(HostileEntity.class, new Box(getPos().add(-16, 0, -16), getPos().add(16, 16, 16)), hostile -> true).size();
+                        if(nearby < 12) {
+                            // Requirements have been hit. Spawn in a random mob and tell it to notify us when it dies.
+
+                            // Attempt to find a random position nearby to spawn our mob at
+                            BlockPos spawnPos = null;
+                            for(int i = 0; i < 10; i++) {
+                                BlockPos potentialPos = getPos().add(world.random.nextInt(32) - 16, world.random.nextInt(5), world.random.nextInt(32) - 16);
+                                if(world.getBlockState(potentialPos).isAir()) {
+                                    spawnPos = potentialPos;
+                                    break;
+                                }
+                            }
+
+                            // if a proper spawn position was found, add in our entity
+                            if(spawnPos != null) {
+                                MobSupplier found = MOBS.get(world.random.nextInt(MOBS.size()));
+                                LivingEntity created = found.create(world, spawnPos, players.get(world.random.nextInt(players.size())));
+                                ((EntityDeathNotifier) created).setTarget(world.getRegistryKey(), pos);
+                                world.spawnEntity(created);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -103,5 +168,22 @@ public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, B
     @Override
     public CompoundTag toClientTag(CompoundTag tag) {
         return toTag(tag);
+    }
+
+    @Override
+    public void notify(LivingEntity from) {
+        damage++;
+
+        if(world != null) {
+            world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_GRINDSTONE_USE, SoundCategory.BLOCKS, 1.0f, -5.0f);
+        }
+
+        if(damage > MAX_DAMAGE) {
+            unlock();
+        }
+    }
+
+    public interface MobSupplier {
+        LivingEntity create(World world, BlockPos pos, PlayerEntity target);
     }
 }
