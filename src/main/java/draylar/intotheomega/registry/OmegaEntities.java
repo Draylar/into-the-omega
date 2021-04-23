@@ -117,6 +117,10 @@ public class OmegaEntities {
             "bejeweled_lock",
             BlockEntityType.Builder.create(BejeweledLockBlockEntity::new, OmegaBlocks.BEJEWELED_LOCK).build(null));
 
+    public static final EntityType<VoidWalkerEntity> VOID_WALKER = register(
+            "void_walker",
+            FabricEntityTypeBuilder.<VoidWalkerEntity>create(SpawnGroup.MISC, VoidWalkerEntity::new).dimensions(EntityDimensions.fixed(1f, 1.8f)).build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }
@@ -135,6 +139,7 @@ public class OmegaEntities {
         FabricDefaultAttributeRegistry.register(OMEGA_SLIME, HostileEntity.createHostileAttributes());
         FabricDefaultAttributeRegistry.register(FROSTED_EYE, HostileEntity.createHostileAttributes());
         FabricDefaultAttributeRegistry.register(ABYSSAL_RIFT, HostileEntity.createHostileAttributes());
+        FabricDefaultAttributeRegistry.register(VOID_WALKER, VoidWalkerEntity.createVoidWalkerAttributes());
     }
 
     private OmegaEntities() {

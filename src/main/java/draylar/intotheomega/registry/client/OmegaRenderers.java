@@ -27,6 +27,7 @@ public class OmegaRenderers {
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VIOLET_UNION_BLADE, (dispatcher, context) -> new VioletUnionBladeRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSSAL_RIFT, (dispatcher, context) -> new AbyssalRiftEntityRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_BEAM, (dispatcher, context) -> new VoidMatrixBeamRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_WALKER, (dispatcher, context) -> new VoidWalkerRenderer(dispatcher));
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ETERNAL_PILLAR, EternalPillarBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);

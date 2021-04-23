@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "intotheomega:item/enigma_king_spawn_egg"
+  }
+}

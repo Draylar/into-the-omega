@@ -73,6 +73,7 @@ public class OmegaItems {
     public static final Item DARK_SOUL_LEGGINGS = register("dark_soul_leggings", new ArmorItem(OmegaArmorMaterial.INSTANCE, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item DARK_SOUL_BOOTS = register("dark_soul_boots", new ArmorItem(OmegaArmorMaterial.INSTANCE, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item DARK_ENIGMA = register("dark_enigma", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item ENIGMA_KING_SPAWN_EGG = register("enigma_king_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.ENIGMA_KING, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
 
     // standard dragonslayer set
     public static final Item DRAGONSLAYER_HELMET = register("dragonslayer_helmet", new DragonslayerArmorItem(EquipmentSlot.HEAD, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
