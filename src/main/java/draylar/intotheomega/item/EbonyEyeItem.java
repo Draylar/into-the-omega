@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketItem;
+import draylar.intotheomega.item.api.EyeTrinketItem;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -13,7 +14,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.UUID;
 
-public class EbonyEyeItem extends TrinketItem {
+public class EbonyEyeItem extends EyeTrinketItem {
 
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
@@ -26,12 +27,7 @@ public class EbonyEyeItem extends TrinketItem {
 
         this.attributeModifiers = builder.build();
     }
-
-    @Override
-    public boolean canWearInSlot(String group, String slot) {
-        return group.equals(SlotGroups.HEAD) && slot.equals("eye");
-    }
-
+    
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getTrinketModifiers(String group, String slot, UUID uuid, ItemStack stack) {
         return group.equals(SlotGroups.CHEST) && slot.equals(Slots.NECKLACE) ? attributeModifiers : super.getTrinketModifiers(group, slot, uuid, stack);

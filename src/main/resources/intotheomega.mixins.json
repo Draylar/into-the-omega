@@ -50,6 +50,7 @@
     "dungeon.LivingNotificationMixin",
     "theme.WorldRendererSnowMixin",
     "trinkets.EndermanBewitchMixin",
+    "trinkets.EndermanBoundEyeMixin",
     "trinkets.EndermanChaseBewitchMixin",
     "trinkets.EndermanTeleportBewitchMixin",
     "trinkets.ExplosionDamageMixin",

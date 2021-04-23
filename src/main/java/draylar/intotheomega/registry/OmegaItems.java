@@ -106,7 +106,7 @@ public class OmegaItems {
     public static final Item PEARL_LEGGINGS = register("pearl_leggings", new ArmorItem(PearlArmorMaterial.INSTANCE, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item PEARL_BOOTS = register("pearl_boots", new ArmorItem(PearlArmorMaterial.INSTANCE, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item PEARL_SWORD = register("pearl_sword", new SwordItem(ToolMaterials.DIAMOND, 5, -2.2f, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
-    public static final Item BOUND_EYE = register("bound_eye", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item BOUND_EYE = register("bound_eye", new BoundEyeItem(new Item.Settings().group(IntoTheOmega.GROUP).maxCount(1)));
 
 
     // materials

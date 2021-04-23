@@ -52,6 +52,8 @@
   "item.intotheomega.pearl_boots": "Pearl Boots",
   "item.intotheomega.pearl_sword": "Pearl Sword",
   "item.intotheomega.bound_eye": "Bound Eye",
+  "intotheomega.bound_eye.1": "Any Enderman in your line-of-sight",
+  "intotheomega.bound_eye.2": "will be unable to teleport away.",
   "item.intotheomega.voids_refuge": "Void's Refuge",
   "item.intotheomega.bejeweled_totem": "Bejeweled Totem",
   "item.intotheomega.bejeweled_arrow": "Bejeweled Arrow",
