@@ -29,7 +29,7 @@ public class OmegaConfiguredFeatures {
 
     // Standard Features
     public static final ConfiguredFeature<?, ?> OBISDIAN_SPIKE = register("obsidian_spike", OmegaWorld.OBSIDIAN_SPIKE.configure(FeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeat(1));
-    public static final ConfiguredFeature<?, ?> OMEGA_ORE = register("ore_diamond", OmegaWorld.OMEGA_ORE.configure(DefaultFeatureConfig.INSTANCE).method_30377(8).spreadHorizontally());
+    public static final ConfiguredFeature<?, ?> OMEGA_ORE = register("omega_ore", OmegaWorld.OMEGA_ORE.configure(DefaultFeatureConfig.INSTANCE).rangeOf(8).spreadHorizontally());
     public static final ConfiguredFeature<?, ?> END_PATCH = register("cracked_end_stone_patch", OmegaWorld.END_PATCH.configure(new DiskFeatureConfig(Blocks.COARSE_DIRT.getDefaultState(), UniformIntDistribution.of(4, 3), 3, ImmutableList.of(Blocks.END_STONE.getDefaultState()))).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeat(2));
     public static final ConfiguredFeature<?, ?> OBSIDISHROOM_PATCH = register("obisishroom_patch", Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(OmegaBlocks.OBSIDISHROOM.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(64).build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(8));
     public static final ConfiguredFeature<?, ?> ENDERSHROOM_PATCH = register("endershroom_patch", Feature.RANDOM_PATCH.configure(new RandomPatchFeatureConfig.Builder(new SimpleBlockStateProvider(OmegaBlocks.ENDERSHROOM.getDefaultState()), SimpleBlockPlacer.INSTANCE).tries(64).build()).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE).applyChance(8));

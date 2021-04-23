@@ -30,7 +30,7 @@ public class OmegaItems {
     public static final Item DUAL_CORE = register("dual_core", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item SECOND_FUSION = register("second_fusion", new SecondFusionItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item VIOLET_UNION = register("violet_union", new VioletUnionItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
-    public static final Item VARIANT_SPARK = register("variant_spark", new VariantSparkItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item VARIANT_SPARK = register("variant_spark", new VariantSparkItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxDamage(2000)));
     public static final Item DUAL_DRAGON_HELMET = register("dual_dragon_helmet", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item DUAL_DRAGON_CHESTPLATE = register("dual_dragon_chestplate", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item DUAL_DRAGON_LEGGINGS = register("dual_dragon_leggings", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));

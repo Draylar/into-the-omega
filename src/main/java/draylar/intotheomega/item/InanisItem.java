@@ -90,7 +90,7 @@ public class InanisItem extends Item {
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        tooltip.add(new TranslatableText("intotheomega.%s.1", description).formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText(String.format("intotheomega.%s.1", description)).formatted(Formatting.GRAY));
     }
 
     @Override

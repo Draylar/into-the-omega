@@ -3,6 +3,7 @@ package draylar.intotheomega.registry;
 import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketsApi;
+import draylar.intotheomega.api.AttackHandler;
 import draylar.intotheomega.api.BewitchedHelper;
 import draylar.intotheomega.api.event.ExplosionDamageEntityCallback;
 import draylar.intotheomega.api.event.PlayerDamageCallback;
@@ -32,6 +33,7 @@ public class OmegaEventHandlers {
         registerIceIslandLocationUpdater();
         registerDungeonLockHandlers();
         registerBewitchedEndermanAggression();
+        registerItemAttackHandler();
     }
 
     private static void registerIceIslandLocationUpdater() {
@@ -100,6 +102,16 @@ public class OmegaEventHandlers {
                     enderman.setAngryAt(entity.getUuid());
                     enderman.setAngerTime(20 * 10);
                 });
+            }
+
+            return ActionResult.PASS;
+        });
+    }
+
+    private static void registerItemAttackHandler() {
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, entityHitResult) -> {
+            if(entity instanceof LivingEntity && player.getStackInHand(hand).getItem() instanceof AttackHandler) {
+                ((AttackHandler) player.getStackInHand(hand).getItem()).onAttack(world, player, player.getStackInHand(hand), (LivingEntity) entity);
             }
 
             return ActionResult.PASS;

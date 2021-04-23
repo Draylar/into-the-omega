@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.5-SNAPSHOT'
+    id 'fabric-loom' version '0.7-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -37,36 +37,46 @@ repositories {
     }
 
     maven { url = "https://hephaestus.dev/release" }
+    maven { url "https://maven.shedaniel.me/" }
 }
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
-    modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-//    modCompile "com.github.FabricMC.fabric:fabric-api:1.16-SNAPSHOT"
+    modCompile ("net.fabricmc.fabric-api:fabric-api:0.30.3+1.16") {
+        exclude(module: "fabric-rendering-v1")
+    }
 
     // dev testing
     modImplementation ('com.github.Draylar:wolves-with-armor:1.5.2-1.16.2') {
         exclude group: "com.github.OnyxStudios.Cardinal-Components-API"
+        exclude group: "net.fabricmc.fabric-api"
     }
 
     // gecko lib
-    modImplementation "software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.20:dev"
+    modImplementation ("software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.20:dev") {
+        exclude group: "net.fabricmc.fabric-api"
+    }
     include "software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.20:dev"
 
     // trinkets
     modImplementation ("com.github.emilyploszaj:trinkets:${trinkets_version}") {
         exclude group: "io.github.onyxstudios.Cardinal-Components-API"
+        exclude group: "net.fabricmc.fabric-api"
     }
     include "com.github.emilyploszaj:trinkets:${trinkets_version}"
 
     //  shield lib
-    modImplementation "com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}"
+    modImplementation ("com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}") {
+        exclude group: "net.fabricmc.fabric-api"
+    }
     include "com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}"
 
     // REI
-    modImplementation "me.shedaniel:RoughlyEnoughItems:5.2.10"
+    modImplementation ("me.shedaniel:RoughlyEnoughItems:5.2.10") {
+        exclude group: "net.fabricmc.fabric-api"
+    }
 
     // CCA
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.7.12"
@@ -83,18 +93,32 @@ dependencies {
     include 'com.github.Draylar:angerable-patch:1.0.0'
 
     // Dev building utils
-    modImplementation 'com.github.Draylar:staff-of-building:1.2.4-1.16.2'
+    modImplementation ('com.github.Draylar:staff-of-building:1.2.4-1.16.2') {
+        exclude group: "net.fabricmc.fabric-api"
+    }
 
     // cool rendering
-    modImplementation "grondag:canvas-mc116:1.0.+"
-//    modImplementation "grondag:frex-mc116:4.8.207"
-//    modImplementation "grondag:jmx-mc116:1.19.+"
+    modImplementation ("grondag:canvas-mc116-configurable-pipeline:1.0.+") {
+        exclude group: "com.terraformersmc"
+        exclude group: "net.fabricmc.fabric-api"
+    }
 
-    modImplementation "dev.monarkhes:myron:1.5.2"
+    modImplementation ("dev.monarkhes:myron:1.5.2") {
+        exclude group: "net.fabricmc.fabric-api"
+    }
     include "dev.monarkhes:myron:1.5.2"
 
-    modCompileOnly 'com.github.Draylar:visible-structure-void:b4ad15c4d7'
-    modRuntime 'com.github.Draylar:visible-structure-void:b4ad15c4d7'
+    modCompileOnly ('com.github.Draylar:visible-structure-void:b4ad15c4d7') {
+        exclude group: "net.fabricmc.fabric-api"
+    }
+    modRuntime ('com.github.Draylar:visible-structure-void:b4ad15c4d7') {
+        exclude group: "net.fabricmc.fabric-api"
+    }
+
+    modImplementation ('com.github.Draylar:dynamic-attributes:ac2e490347') {
+        exclude group: "net.fabricmc.fabric-api"
+    }
+    include 'com.github.Draylar:dynamic-attributes:ac2e490347'
 }
 
 processResources {
