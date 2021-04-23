@@ -103,6 +103,8 @@ public class VariantSparkItem extends Item implements DynamicModifiersTool, Atta
     @Override
     public void onAttack(World world, PlayerEntity holder, ItemStack stack, LivingEntity target) {
         if(!world.isClient) {
+            stack.damage(1, holder, playerEntity -> playerEntity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
+
             // If the mode of this Variant Spark is "Void Tide Vanquisher," chain-attack nearby enemies.
             int mode = stack.getOrCreateSubTag("Data").getInt("Mode");
             if(mode == 0) {
@@ -132,6 +134,8 @@ public class VariantSparkItem extends Item implements DynamicModifiersTool, Atta
                         chained.add(closest);
                     }
                 }
+            } else {
+                ((ServerWorld) world).spawnParticles(OmegaParticles.SMALL_PINK_OMEGA_BURST, target.getX(), target.getY() + 1, target.getZ(), 10, .1, .3, .1, .1);
             }
         }
     }
