@@ -2,5 +2,27 @@
   "parent": "item/handheld",
   "textures": {
     "layer0": "intotheomega:item/dark_flame_blaster"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "rotation": [ 0, -90, 0 ],
+      "translation": [ 0, 3.0, 0.0 ],
+      "scale": [ 1.11, 1.11, 1.15 ]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [ 0, 90, 0 ],
+      "translation": [ 0, 3.0, 0.0 ],
+      "scale": [ 1.11, 1.11, 1.11 ]
+    },
+    "firstperson_righthand": {
+      "rotation": [ 0, -90, 25 ],
+      "translation": [ 1.13, 3.2, 1.13 ],
+      "scale": [ 0.68, 0.68, 0.68 ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [ 0, 90, -25 ],
+      "translation": [ 1.13, 3.2, 1.13 ],
+      "scale": [ 0.68, 0.68, 0.68 ]
+    }
   }
-}b
+}

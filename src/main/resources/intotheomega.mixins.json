@@ -48,6 +48,7 @@
     "dev.MobEntityAIRenderingMixin",
     "dungeon.BlockItemMixin",
     "dungeon.LivingNotificationMixin",
+    "entity.EndermanParticleMixin",
     "theme.WorldRendererSnowMixin",
     "trinkets.EndermanBewitchMixin",
     "trinkets.EndermanBoundEyeMixin",

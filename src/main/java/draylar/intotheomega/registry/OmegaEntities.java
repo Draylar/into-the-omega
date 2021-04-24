@@ -18,6 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.CowEntity;
@@ -121,6 +122,10 @@ public class OmegaEntities {
             "void_walker",
             FabricEntityTypeBuilder.<VoidWalkerEntity>create(SpawnGroup.MISC, VoidWalkerEntity::new).dimensions(EntityDimensions.fixed(1f, 1.8f)).build());
 
+    public static final EntityType<FrostedEndermanEntity> FROSTED_ENDERMAN = register(
+            "frosted_enderman",
+            FabricEntityTypeBuilder.<FrostedEndermanEntity>create(SpawnGroup.MISC, FrostedEndermanEntity::new).dimensions(EntityDimensions.fixed(0.6F, 2.9F)).build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }
@@ -140,6 +145,7 @@ public class OmegaEntities {
         FabricDefaultAttributeRegistry.register(FROSTED_EYE, HostileEntity.createHostileAttributes());
         FabricDefaultAttributeRegistry.register(ABYSSAL_RIFT, HostileEntity.createHostileAttributes());
         FabricDefaultAttributeRegistry.register(VOID_WALKER, VoidWalkerEntity.createVoidWalkerAttributes());
+        FabricDefaultAttributeRegistry.register(FROSTED_ENDERMAN, EndermanEntity.createEndermanAttributes());
     }
 
     private OmegaEntities() {

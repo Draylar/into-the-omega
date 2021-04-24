@@ -40,6 +40,7 @@ public abstract class ParticleManagerMixin {
         this.registerFactory(OmegaParticles.SMALL_PINK_OMEGA_BURST, SmallOmegaBurstParticle.Factory::new);
         this.registerFactory(OmegaParticles.VARIANT_FUSION, VariantFusionParticle.Factory::new);
         this.registerFactory(OmegaParticles.MATRIX_EXPLOSION, MatrixExplosionParticle.Factory::new);
+        this.registerFactory(OmegaParticles.ICE_FLAKE, IceFlakeParticle.Factory::new);
     }
 
     static {

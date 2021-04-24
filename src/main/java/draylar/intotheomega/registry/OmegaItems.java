@@ -2,6 +2,7 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.item.*;
+import draylar.intotheomega.item.spike.DarkFlameBlasterItem;
 import draylar.intotheomega.material.*;
 import me.crimsondawn45.fabricshieldlib.lib.ShieldRegistry;
 import me.crimsondawn45.fabricshieldlib.lib.event.ShieldEvent;
@@ -67,7 +68,7 @@ public class OmegaItems {
     public static final Item MIDNIGHT_HEART = register("midnight_heart", new MidnightHeartItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1), 8)); // todo: custom heart trinket slot?
     public static final Item ETERNAL_STAND = register("eternal_stand", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item EBONY_EYE = register("ebony_eye", new EbonyEyeItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
-    public static final Item DARK_FLAME_BLASTER = register("dark_flame_blaster", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
+    public static final Item DARK_FLAME_BLASTER = register("dark_flame_blaster", new DarkFlameBlasterItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1).maxDamage(5)));
     public static final Item DARK_SOUL_HELMET = register("dark_soul_helmet", new ArmorItem(OmegaArmorMaterial.INSTANCE, EquipmentSlot.HEAD, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item DARK_SOUL_CHESTPLATE = register("dark_soul_chestplate", new ArmorItem(OmegaArmorMaterial.INSTANCE, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item DARK_SOUL_LEGGINGS = register("dark_soul_leggings", new ArmorItem(OmegaArmorMaterial.INSTANCE, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));

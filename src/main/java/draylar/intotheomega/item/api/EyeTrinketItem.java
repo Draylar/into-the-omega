@@ -30,7 +30,7 @@ public class EyeTrinketItem extends TrinketItem {
         matrixStack.push();
         Trinket.translateToFace(matrixStack, model, player, headYaw, headPitch);
         matrixStack.scale(.3f, .3f, .3f);
-        matrixStack.translate(-.35, .1, 0);
+        matrixStack.translate(-.35, .1, .15);
         MinecraftClient.getInstance().getItemRenderer().renderItem(
                 TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.HEAD, "eye"),
                 ModelTransformation.Mode.FIXED,
