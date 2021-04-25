@@ -125,6 +125,7 @@ public class OmegaItems {
     // spawn eggs
     public static final Item CHORUS_COW_SPAWN_eGG = register("chorus_cow_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.CHORUS_COW, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item FROSTED_EYE_SPAWN_EGG = register("frosted_eye_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.FROSTED_EYE, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item FROSTED_ENDERMAN_SPAWN_EGG = register("frosted_enderman_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.FROSTED_ENDERMAN, new Item.Settings().group(IntoTheOmega.GROUP)));
 
     // omega slime
     public static final Item OMEGA_SLIME = register("omega_slime", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
