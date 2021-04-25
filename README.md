@@ -32,4 +32,5 @@ This is the functional equivelant of Sharpness 6. Can you create the very best t
 
 ### License
 
-MIT
+This branch's license is TBD, assume ARR while the project is in-progress. 
+For the time being, I am fine with you using snippets of the repository code, but __not__ the assets (== assets are blanket ARR until I finish the project and figure out a better attribution license)
