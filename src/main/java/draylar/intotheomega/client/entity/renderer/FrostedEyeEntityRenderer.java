@@ -8,6 +8,7 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 
 public class FrostedEyeEntityRenderer extends MobEntityRenderer<FrostedEyeEntity, FrostedEyeModel> {
 
@@ -18,8 +19,11 @@ public class FrostedEyeEntityRenderer extends MobEntityRenderer<FrostedEyeEntity
     }
 
     @Override
-    public void render(FrostedEyeEntity slimeEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
-        super.render(slimeEntity, f, g, matrixStack, vertexConsumerProvider, i);
+    public void render(FrostedEyeEntity eye, float f, float delta, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+        matrixStack.push();
+        matrixStack.translate(0, Math.sin(MathHelper.lerp(delta, eye.age, eye.age + 1) / 10f) / 5f, 0);
+        super.render(eye, f, delta, matrixStack, vertexConsumerProvider, i);
+        matrixStack.pop();
     }
 
     @Override

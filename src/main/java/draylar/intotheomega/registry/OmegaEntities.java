@@ -100,7 +100,7 @@ public class OmegaEntities {
 
     public static final EntityType<FrostedEyeEntity> FROSTED_EYE = register(
             "frosted_eye",
-            FabricEntityTypeBuilder.<FrostedEyeEntity>create(SpawnGroup.MONSTER, FrostedEyeEntity::new).dimensions(EntityDimensions.fixed(1, 1)).build());
+            FabricEntityTypeBuilder.<FrostedEyeEntity>create(SpawnGroup.MONSTER, FrostedEyeEntity::new).dimensions(EntityDimensions.fixed(2, 2)).build());
 
     public static final EntityType<AbyssalRiftEntity> ABYSSAL_RIFT = register(
             "abyssal_rift",
