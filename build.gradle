@@ -90,10 +90,10 @@ dependencies {
     include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.7.12"
 
     // Attributed
-    modImplementation ('com.github.Draylar:attributed:1.0.1-1.16.2') {
+    modImplementation ('com.github.Draylar:attributed:1.0.4.1-1.16.5') {
         exclude group: "net.fabricmc.fabric-api"
     }
-    include ('com.github.Draylar:attributed:1.0.1-1.16.2') {
+    include ('com.github.Draylar:attributed:1.0.4.1-1.16.5') {
         exclude group: "net.fabricmc.fabric-api"
     }
 

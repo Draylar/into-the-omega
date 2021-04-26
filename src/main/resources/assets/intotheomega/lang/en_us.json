@@ -4,6 +4,8 @@
   "trinkets.slot.head.eye": "Eye",
   "trinkets.slot.hand.orbital": "Orbital",
 
+  "intotheomega.set_bonus": "Set bonus:",
+
   "intotheomega.explosion_reduction": " Explosion Damage Reduction: %f",
   "intotheomega.explosion_boost": " Explosion Damage Boost: %f",
 
@@ -145,6 +147,11 @@
   "item.intotheomega.chilled_void_chestplate": "Chilled Void Chestplate",
   "item.intotheomega.chilled_void_leggings": "Chilled Void Leggings",
   "item.intotheomega.chilled_void_boots": "Chilled Void Boots",
+  "intotheomega.chilled_void.0": "+15% Critical Chance",
+  "intotheomega.chilled_void.1": "+10% Critical Damage",
+  "intotheomega.chilled_void.2": "Against 'Abyssal Frostbite':",
+  "intotheomega.chilled_void.3": " +25% Critical Chance",
+  "intotheomega.chilled_void.4": " +15% Critical Damage",
 
   "__comment": "--------------------- Chorus ---------------------",
 

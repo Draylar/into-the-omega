@@ -3,22 +3,27 @@ package draylar.intotheomega.registry;
 import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketsApi;
+import draylar.attributed.event.CriticalHitEvents;
 import draylar.intotheomega.api.AttackHandler;
 import draylar.intotheomega.api.BewitchedHelper;
 import draylar.intotheomega.api.event.ExplosionDamageEntityCallback;
 import draylar.intotheomega.api.event.PlayerDamageCallback;
+import draylar.intotheomega.item.ChilledVoidArmorItem;
 import draylar.intotheomega.item.MatrixCharmItem;
 import draylar.intotheomega.item.MatrixLensItem;
+import draylar.intotheomega.item.api.SetArmorItem;
 import draylar.intotheomega.network.ServerNetworking;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
@@ -34,6 +39,7 @@ public class OmegaEventHandlers {
         registerDungeonLockHandlers();
         registerBewitchedEndermanAggression();
         registerItemAttackHandler();
+        registerChilledVoidBonuses();
     }
 
     private static void registerIceIslandLocationUpdater() {
@@ -115,6 +121,79 @@ public class OmegaEventHandlers {
             }
 
             return ActionResult.PASS;
+        });
+    }
+
+    private static void registerChilledVoidBonuses() {
+        // Apply +15% bonus Critical Rate for the Chilled Void set
+        CriticalHitEvents.BEFORE.register((player, target, stack, chance) -> {
+            ItemStack equippedStack = player.getEquippedStack(EquipmentSlot.HEAD);
+            if(equippedStack.getItem() instanceof ChilledVoidArmorItem) {
+                SetArmorItem set = (SetArmorItem) equippedStack.getItem();
+
+                // Only apply the bonus if the player has the full set equipped.
+                if(set.hasFullSet(player)) {
+                    double bonus = .15;
+
+                    // If the target has the Abyssal Frostbite status, apply an additional .10 bonus.
+                    if(target instanceof LivingEntity) {
+                        if(((LivingEntity) target).hasStatusEffect(OmegaStatusEffects.ABYSSAL_FROSTBITE)) {
+                            bonus += 0.10;
+                        }
+                    }
+
+                    return TypedActionResult.pass(chance + bonus);
+                }
+            }
+
+            return TypedActionResult.pass(chance);
+        });
+
+        // The Chilled Void set has a base +10% bonus on Critical Hits.
+        CriticalHitEvents.CALCULATE_MODIFIER.register((player, target, stack, modifier) -> {
+            ItemStack equippedStack = player.getEquippedStack(EquipmentSlot.HEAD);
+            if(equippedStack.getItem() instanceof ChilledVoidArmorItem) {
+                SetArmorItem set = (SetArmorItem) equippedStack.getItem();
+
+                // Only apply the bonus if the player has the full set equipped.
+                if(set.hasFullSet(player)) {
+                    double bonus = .10;
+
+                    // If the target has the Abyssal Frostbite status, apply an additional .05 bonus.
+                    if(target instanceof LivingEntity) {
+                        if(((LivingEntity) target).hasStatusEffect(OmegaStatusEffects.ABYSSAL_FROSTBITE)) {
+                            bonus += 0.05;
+                        }
+                    }
+
+                    return modifier + bonus;
+                }
+            }
+
+            return modifier;
+        });
+
+        // When a player with the Chilled Void set lands a Critical Hit, display a particle shower.
+        CriticalHitEvents.AFTER.register((player, target, stack) -> {
+            ItemStack equippedStack = player.getEquippedStack(EquipmentSlot.HEAD);
+            if(equippedStack.getItem() instanceof ChilledVoidArmorItem) {
+                SetArmorItem set = (SetArmorItem) equippedStack.getItem();
+
+                // Only show the effect if the player has the set.
+                if(set.hasFullSet(player)) {
+                    for(int i = 0; i < 25; i++) {
+                        player.world.addParticle(
+                                OmegaParticles.ICE_FLAKE,
+                                target.getParticleX(0.5D),
+                                target.getRandomBodyY() - 0.25D,
+                                target.getParticleZ(0.5D),
+                                (player.world.random.nextDouble() - 0.5D) * 2.0D,
+                                -player.world.random.nextDouble(),
+                                (player.world.random.nextDouble() - 0.5D) * 2.0D
+                        );
+                    }
+                }
+            }
         });
     }
 
