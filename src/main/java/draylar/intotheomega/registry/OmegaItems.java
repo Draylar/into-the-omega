@@ -2,6 +2,7 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.item.*;
+import draylar.intotheomega.item.ice.HeartOfIceItem;
 import draylar.intotheomega.item.spike.DarkFlameBlasterItem;
 import draylar.intotheomega.material.*;
 import me.crimsondawn45.fabricshieldlib.lib.ShieldRegistry;
@@ -153,6 +154,7 @@ public class OmegaItems {
     public static final Item CHILLED_VOID_LEGGINGS = register("chilled_void_leggings", new ChilledVoidArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item CHILLED_VOID_BOOTS = register("chilled_void_boots", new ChilledVoidArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item PIERCING_BITE = register("piercing_bite", new PiercingBiteItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
+    public static final Item HEART_OF_ICE = register("heart_of_ice", new HeartOfIceItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
 
     // ruin warden
     public static final Item NEBULA_GEAR = register("nebula_gear", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));

@@ -12,6 +12,7 @@ import draylar.intotheomega.item.ChilledVoidArmorItem;
 import draylar.intotheomega.item.MatrixCharmItem;
 import draylar.intotheomega.item.MatrixLensItem;
 import draylar.intotheomega.item.api.SetArmorItem;
+import draylar.intotheomega.item.ice.HeartOfIceItem;
 import draylar.intotheomega.network.ServerNetworking;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
@@ -19,6 +20,8 @@ import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -40,6 +43,7 @@ public class OmegaEventHandlers {
         registerBewitchedEndermanAggression();
         registerItemAttackHandler();
         registerChilledVoidBonuses();
+        registerHeartOfIceHandlers();
     }
 
     private static void registerIceIslandLocationUpdater() {
@@ -193,6 +197,25 @@ public class OmegaEventHandlers {
                         );
                     }
                 }
+            }
+        });
+    }
+
+    private static void registerHeartOfIceHandlers() {
+        // Players with the "Heart of Ice" cannot be Critical Hit.
+        CriticalHitEvents.BEFORE.register((player, target, stack, chance) -> {
+            if(TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.CHEST, Slots.NECKLACE).getItem() instanceof HeartOfIceItem) {
+                return TypedActionResult.fail(0.0);
+            }
+
+            return TypedActionResult.pass(chance);
+        });
+
+        // Players with the "Heart of Ice" who land a Critical Hit gain a short buff.
+        CriticalHitEvents.AFTER.register((player, target, stack) -> {
+            if(TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.CHEST, Slots.NECKLACE).getItem() instanceof HeartOfIceItem) {
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20 * 5, 0, true, false));
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 5, 0, true, false));
             }
         });
     }
