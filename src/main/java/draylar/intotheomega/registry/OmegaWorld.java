@@ -4,16 +4,17 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.world.abyss_flower.AbyssFlowerIslandStructure;
 import draylar.intotheomega.world.api.BaseIslandStructure;
 import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
+import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
+import draylar.intotheomega.world.feature.OmegaCrystalOreFeature;
 import draylar.intotheomega.world.ice_island.IceIslandStructure;
 import draylar.intotheomega.world.island.GenericIslandStructure;
 import draylar.intotheomega.world.spike.SpikeStructure;
 import draylar.intotheomega.world.structure.*;
-import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
-import draylar.intotheomega.world.feature.OmegaCrystalOreFeature;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
+import net.fabricmc.fabric.impl.biome.modification.BiomeSelectionContextImpl;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
@@ -35,10 +36,12 @@ public class OmegaWorld {
     public static final StructureFeature<DefaultFeatureConfig> MATRIX_PEDESTAL = new MatrixPedestalStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> BEJEWELED_DUNGEON = new BejeweledDungeonStructure(DefaultFeatureConfig.CODEC);
 
-    public static final StructureFeature<DefaultFeatureConfig> BASE_ISLAND = new BaseIslandStructure(DefaultFeatureConfig.CODEC);
+    // Island Structure Features
+    // These islands are pooled up when spawning to prevent overlapping/too-close islands.
     public static final StructureFeature<DefaultFeatureConfig> GENERIC_ISLAND = new GenericIslandStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> ICE_ISLAND = new IceIslandStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> CHORUS_ISLAND = new ChorusIslandStructure(DefaultFeatureConfig.CODEC);
+
 
     public static final StructureFeature<DefaultFeatureConfig> ABYSS_FLOWER_ISLAND = new AbyssFlowerIslandStructure(DefaultFeatureConfig.CODEC);
 
@@ -87,30 +90,6 @@ public class OmegaWorld {
                 .register();
 
         FabricStructureBuilder
-                .create(IntoTheOmega.id("base_island"), BASE_ISLAND)
-                .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
-                .defaultConfig(5, 3, 62326)
-                .register();
-
-        FabricStructureBuilder
-                .create(IntoTheOmega.id("generic_island"), GENERIC_ISLAND)
-                .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
-                .defaultConfig(20, 16, 62326)
-                .register();
-
-        FabricStructureBuilder
-                .create(IntoTheOmega.id("ice_island"), ICE_ISLAND)
-                .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
-                .defaultConfig(20, 16, 14213)
-                .register();
-
-        FabricStructureBuilder
-                .create(IntoTheOmega.id("chorus_island"), CHORUS_ISLAND)
-                .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
-                .defaultConfig(20, 16, 814857)
-                .register();
-
-        FabricStructureBuilder
                 .create(IntoTheOmega.id("abyss_flower_island"), ABYSS_FLOWER_ISLAND)
                 .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
                 .defaultConfig(1, 0, 0)
@@ -129,6 +108,12 @@ public class OmegaWorld {
                 .defaultConfig(new StructureConfig(15, 10, 151245))
                 .adjustsSurface()
                 .register();
+
+        BaseIslandStructure.ALL_ISLANDS.forEach(island -> FabricStructureBuilder
+                .create(IntoTheOmega.id(island.getId()), island)
+                .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+                .defaultConfig(new StructureConfig(1, 0, 82508))
+                .register());
     }
 
     public static void registerAdditions() {
@@ -162,11 +147,23 @@ public class OmegaWorld {
                         context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
                         context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.MEDIUM_PHANTOM_TOWER));
 
-//        BiomeModifications
-//                .create(IntoTheOmega.id("base_island"))
-//                .add(ModificationPhase.ADDITIONS,
-//                        context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
-//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_BASE_ISLAND));
+        BiomeModifications
+                .create(IntoTheOmega.id("ice_island"))
+                .add(ModificationPhase.ADDITIONS,
+                        BiomeSelectors.foundInTheEnd(),
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ICE_ISLAND));
+
+        BiomeModifications
+                .create(IntoTheOmega.id("chorus_island"))
+                .add(ModificationPhase.ADDITIONS,
+                        BiomeSelectors.foundInTheEnd(),
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_CHORUS_ISLAND));
+
+        BiomeModifications
+                .create(IntoTheOmega.id("generic_island"))
+                .add(ModificationPhase.ADDITIONS,
+                        BiomeSelectors.foundInTheEnd(),
+                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_GENERIC_ISLAND));
 
 //        BiomeModifications
 //                .create(IntoTheOmega.id("spike"))

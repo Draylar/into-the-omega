@@ -20,7 +20,6 @@ public class OmegaConfiguredFeatures {
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> MATRIX_PEDESTAL = register("matrix_pedestal", OmegaWorld.MATRIX_PEDESTAL.configure(new DefaultFeatureConfig()));
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> BEJEWELED_DUNGEON = register("bejeweled_dungeon", OmegaWorld.BEJEWELED_DUNGEON.configure(new DefaultFeatureConfig()));
 
-    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_BASE_ISLAND = register("base_island", OmegaWorld.BASE_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
     public static final ConfiguredStructureFeature<?, ?> CONFIGURED_GENERIC_ISLAND = register("generic_island", OmegaWorld.GENERIC_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
     public static final ConfiguredStructureFeature<?, ?> CONFIGURED_ICE_ISLAND = register("ice_island", OmegaWorld.ICE_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
     public static final ConfiguredStructureFeature<?, ?> CONFIGURED_CHORUS_ISLAND = register("chorus_island", OmegaWorld.CHORUS_ISLAND.configure(DefaultFeatureConfig.INSTANCE));

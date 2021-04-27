@@ -2,6 +2,7 @@ package draylar.intotheomega.world.ice_island;
 
 import com.mojang.serialization.Codec;
 import draylar.intotheomega.registry.OmegaStructurePieces;
+import draylar.intotheomega.world.api.BaseIslandStructure;
 import draylar.intotheomega.world.api.SiftingStructureGenerator;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.StructureManager;
@@ -12,10 +13,15 @@ import net.minecraft.world.gen.feature.StructureFeature;
 import java.util.List;
 import java.util.Random;
 
-public class IceIslandStructure extends StructureFeature<DefaultFeatureConfig> {
+public class IceIslandStructure extends BaseIslandStructure {
 
     public IceIslandStructure(Codec<DefaultFeatureConfig> codec) {
         super(codec);
+    }
+
+    @Override
+    public String getId() {
+        return "ice_island";
     }
 
     @Override

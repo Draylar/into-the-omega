@@ -1,71 +1,56 @@
 package draylar.intotheomega.world.api;
 
 import com.mojang.serialization.Codec;
-import draylar.intotheomega.registry.OmegaWorld;
-import draylar.intotheomega.world.chorus_island.ChorusIslandStructureStart;
-import draylar.intotheomega.world.ice_island.IceIslandStructureStart;
-import draylar.intotheomega.world.island.IslandStructureStart;
-import net.minecraft.structure.StructureManager;
-import net.minecraft.structure.StructureStart;
-import net.minecraft.util.Pair;
-import net.minecraft.util.math.BlockBox;
+import draylar.intotheomega.api.OpenSimplex2F;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.StructureConfig;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
-public class BaseIslandStructure extends StructureFeature<DefaultFeatureConfig> {
+public abstract class BaseIslandStructure extends StructureFeature<DefaultFeatureConfig> {
 
-    private final List<Pair<StructureFeature<DefaultFeatureConfig>, StructureStartFactory<DefaultFeatureConfig>>> factories
-            = Arrays.asList(
-                    new Pair<StructureFeature<DefaultFeatureConfig>, StructureStartFactory<DefaultFeatureConfig>>(OmegaWorld.CHORUS_ISLAND, ChorusIslandStructureStart::new),
-                    new Pair<StructureFeature<DefaultFeatureConfig>, StructureStartFactory<DefaultFeatureConfig>>(OmegaWorld.ICE_ISLAND, IceIslandStructureStart::new),
-                    new Pair<StructureFeature<DefaultFeatureConfig>, StructureStartFactory<DefaultFeatureConfig>>(OmegaWorld.BASE_ISLAND, IslandStructureStart::new));
+    public static final List<BaseIslandStructure> ALL_ISLANDS = new ArrayList<>();
+    private static OpenSimplex2F NOISE = null;
 
     public BaseIslandStructure(Codec<DefaultFeatureConfig> codec) {
         super(codec);
+        ALL_ISLANDS.add(this);
     }
-
-    private StructureFeature<DefaultFeatureConfig> findFeature(StructureStartFactory<DefaultFeatureConfig> factory) {
-        for (Pair<StructureFeature<DefaultFeatureConfig>, StructureStartFactory<DefaultFeatureConfig>> pair : factories) {
-            if (pair.getRight().equals(factory)) {
-                return pair.getLeft();
-            }
-        }
-
-        return null;
-    }
-
-    private StructureStart<DefaultFeatureConfig> createStart(int chunkX, int chunkZ, BlockBox boundingBox, int referenceCount, long worldSeed) {
-        StructureStartFactory<DefaultFeatureConfig> factory = this.getStructureStartFactory();
-        return factory.create(findFeature(factory), chunkX, chunkZ, boundingBox, referenceCount, worldSeed);
-    }
-//
-//    @Override
-//    public StructureStart<?> tryPlaceStart(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, BiomeSource biomeSource, StructureManager structureManager, long worldSeed, ChunkPos chunkPos, Biome biome, int referenceCount, ChunkRandom chunkRandom, StructureConfig structureConfig, DefaultFeatureConfig featureConfig) {
-//        ChunkPos chunkPos2 = this.getStartChunk(structureConfig, worldSeed, chunkRandom, chunkPos.x, chunkPos.z);
-//        if (chunkPos.x == chunkPos2.x && chunkPos.z == chunkPos2.z && this.shouldStartAt(chunkGenerator, biomeSource, worldSeed, chunkRandom, chunkPos.x, chunkPos.z, biome, chunkPos2, featureConfig)) {
-//            StructureStart<DefaultFeatureConfig> structureStart = this.createStart(chunkPos.x, chunkPos.z, BlockBox.empty(), referenceCount, worldSeed);
-//            structureStart.init(dynamicRegistryManager, chunkGenerator, structureManager, chunkPos.x, chunkPos.z, biome, featureConfig);
-//            if (structureStart.hasChildren()) {
-//                return structureStart;
-//            }
-//        }
-//
-//        return StructureStart.DEFAULT;
-//    }
 
     @Override
-    public StructureStartFactory<DefaultFeatureConfig> getStructureStartFactory() {
-        return factories.get(new Random().nextInt(factories.size())).getRight();
+    public boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long worldSeed, ChunkRandom random, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, DefaultFeatureConfig config) {
+        if(NOISE == null) {
+            NOISE = new OpenSimplex2F(worldSeed);
+        }
+
+        // For now, Island structures should only spawn on ChunkPosses divisible by 5.
+        // TODO: Use the noise type kdot talked about for spreading out islands.
+
+        // When an island attempts to spawn, the general "all islands" map is polled.
+        // A random value is selected, and only the island that fits that value will win.
+        // All islands will return true for the grid/area selection, but only 1 will return true for this method.
+        if(chunkX % 25 == 0 && chunkZ % 25 == 0) {
+            double noise = NOISE.noise2(chunkX, chunkZ);
+            int index = ALL_ISLANDS.indexOf(this);
+
+            // In a collection 3 islands, the indexes are 0, 1, and 2.
+            // We add 1 to the noise (which is from [-1, 1]) and divide by 2 to get [0, 1].
+            // The noise value is then multiplied by the size of all values. In this case, we would get a value between [0, 3].
+            // We then round the noise value down to get (0, 1, 2). The element at that index in the array is selected to be valid.
+            noise = (noise + 1) / 2; // => [0, 1]
+            noise = noise * ALL_ISLANDS.size();
+            int searchIndex = (int) Math.floor(noise);
+            return index == searchIndex;
+        }
+
+        return false;
     }
+
+    public abstract String getId();
 }
