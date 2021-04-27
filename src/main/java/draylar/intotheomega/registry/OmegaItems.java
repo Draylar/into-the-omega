@@ -152,6 +152,7 @@ public class OmegaItems {
     public static final Item CHILLED_VOID_CHESTPLATE = register("chilled_void_chestplate", new ChilledVoidArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item CHILLED_VOID_LEGGINGS = register("chilled_void_leggings", new ChilledVoidArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item CHILLED_VOID_BOOTS = register("chilled_void_boots", new ChilledVoidArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item PIERCING_BITE = register("piercing_bite", new PiercingBiteItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
 
     // ruin warden
     public static final Item NEBULA_GEAR = register("nebula_gear", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
