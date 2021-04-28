@@ -81,6 +81,25 @@
 
   "entity.intotheomega.true_eye_of_ender": "True Eye of Ender",
 
+  "__comment": "--------------------- Voiding End ---------------------",
+  "item.intotheomega.voiding_end_geode": "Voiding End Geode",
+  "item.intotheomega.void_pulse": "Void Pulse",
+  "item.intotheomega.voids_edge": "Void's Edge",
+  "item.intotheomega.piercng_end": "Piercing End",
+  "item.intotheomega.voiding_end_helmet": "Voiding End Helmet",
+  "item.intotheomega.voiding_end_chestplate": "Voiding End Chestplate",
+  "item.intotheomega.voiding_end_leggings": "Voiding End Leggings",
+  "item.intotheomega.voiding_end_boots": "Voiding End Boots",
+
+  "__comment": "--------------------- Blazing Void ---------------------",
+  "item.intotheomega.origin_blaze": "Origin Blaze",
+  "item.intotheomega.first_flame": "First Flame",
+  "item.intotheomega.infernal_end": "Infernal End",
+  "item.intotheomega.blazebuster": "Blazebuster",
+  "item.intotheomega.blazing_void_helmet": "Blazing Void Helmet",
+  "item.intotheomega.blazing_void_chestplate": "Blazing Void Chestplate",
+  "item.intotheomega.blazing_void_leggings": "Blazing Void Leggings",
+  "item.intotheomega.blazing_void_boots": "Blazing Void Boots",
 
   "__comment": "--------------------- Chorus Content ---------------------",
   "entity.intotheomega.chorus_cow": "Chorus Cow",
