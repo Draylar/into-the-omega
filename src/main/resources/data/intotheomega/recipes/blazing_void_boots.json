@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "intotheomega:voiding_end_boots"
+  },
+  "addition": {
+    "item": "intotheomega:origin_blaze"
+  },
+  "result": {
+    "item": "intotheomega:blazing_void_boots"
+  }
+}

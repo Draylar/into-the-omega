@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "intotheomega:voiding_end_boots"
+  },
+  "addition": {
+    "item": "intotheomega:blizzard_abyss_core"
+  },
+  "result": {
+    "item": "intotheomega:chilled_void_boots"
+  }
+}
