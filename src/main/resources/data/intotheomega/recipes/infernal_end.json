@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "intotheomega:voids_edge"
+  },
+  "addition": {
+    "item": "intotheomega:origin_blaze"
+  },
+  "result": {
+    "item": "intotheomega:infernal_end"
+  }
+}
