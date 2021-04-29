@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "intotheomega:void_pulse"
+  },
+  "addition": {
+    "item": "intotheomega:blizzard_abyss_core"
+  },
+  "result": {
+    "item": "intotheomega:blank_blizzard"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "intotheomega:piercing_end"
+  },
+  "addition": {
+    "item": "intotheomega:blizzard_abyss_core"
+  },
+  "result": {
+    "item": "intotheomega:frostbuster"
+  }
+}
