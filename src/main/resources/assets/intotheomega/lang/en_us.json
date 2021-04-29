@@ -101,6 +101,17 @@
   "item.intotheomega.blazing_void_leggings": "Blazing Void Leggings",
   "item.intotheomega.blazing_void_boots": "Blazing Void Boots",
 
+  "__comment": "--------------------- Nebula Gear ---------------------",
+  "item.intotheomega.nebula_gear": "Nebula Gear",
+  "item.intotheomega.ruin_bringer": "Ruin Bringer",
+  "item.intotheomega.apocalypse": "Apocalypse",
+  "item.intotheomega.cataclysm": "Cataclysm",
+  "item.intotheomega.ruination": "Ruination",
+  "item.intotheomega.nebula_gear_helmet": "Nebula Gear Helmet",
+  "item.intotheomega.nebula_gear_chestplate": "Nebula Gear Chestplate",
+  "item.intotheomega.nebula_gear_leggings": "Nebula Gear Leggings",
+  "item.intotheomega.nebula_gear_boots": "Nebula Gear Boots",
+
   "__comment": "--------------------- Chorus Content ---------------------",
   "entity.intotheomega.chorus_cow": "Chorus Cow",
   "item.intotheomega.knowledge_of_the_end": "Knowledge of The End",
