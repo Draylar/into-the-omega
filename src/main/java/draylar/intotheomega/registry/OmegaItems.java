@@ -160,7 +160,7 @@ public class OmegaItems {
     // the end
     public static final Item PIERCING_END = register("piercing_end", new Item(new Item.Settings().group(IntoTheOmega.GROUP).maxCount(1)));
     public static final Item VOIDS_EDGE = register("voids_edge", new Item(new Item.Settings().group(IntoTheOmega.GROUP).maxCount(1)));
-    public static final Item VOIDING_END_GEODE = register("voiding_end_geode", new Item(new Item.Settings().group(IntoTheOmega.GROUP).maxCount(1)));
+    public static final Item VOIDING_END_GEODE = register("voiding_end_geode", new Item(new Item.Settings().group(IntoTheOmega.GROUP).maxCount(64)));
     public static final Item VOID_PULSE = register("void_pulse", new Item(new Item.Settings().group(IntoTheOmega.GROUP).maxCount(1)));
     public static final Item VOIDING_END_HELMET = register("voiding_end_helmet", new ArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.HEAD, new Item.Settings().group(IntoTheOmega.GROUP).maxCount(1)));
     public static final Item VOIDING_END_CHESTPLATE = register("voiding_end_chestplate", new ArmorItem(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP).maxCount(1)));

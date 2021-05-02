@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:bow"
+  },
+  "addition": {
+    "item": "intotheomega:voiding_end_geode"
+  },
+  "result": {
+    "item": "intotheomega:void_pulse"
+  }
+}

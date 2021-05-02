@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  e",
+    " b ",
+    "b  "
+  ],
+  "key": {
+    "e": {
+      "item": "intotheomega:voiding_end_geode"
+    },
+    "b": {
+      "item": "minecraft:end_stone"
+    }
+  },
+  "result": {
+    "item": "intotheomega:piercing_end"
+  }
+}
