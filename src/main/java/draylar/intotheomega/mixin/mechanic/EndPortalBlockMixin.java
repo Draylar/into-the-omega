@@ -7,6 +7,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,6 +32,8 @@ public class EndPortalBlockMixin {
                 ie.setStack(newStack);
                 ie.setVelocity(0, .05, 0);
                 ie.setNoGravity(true);
+                world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.BLOCKS, 1, 0);
+                ci.cancel();
             } else if (stack.getItem().equals(OmegaItems.VOIDING_END_GEODE)) {
                 ci.cancel();
             }
