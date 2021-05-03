@@ -5,6 +5,7 @@ import draylar.intotheomega.entity.*;
 import draylar.intotheomega.entity.block.*;
 import draylar.intotheomega.entity.dungeon.BejeweledLockBlockEntity;
 import draylar.intotheomega.entity.dungeon.InvisibleDungeonBrickBlockEntity;
+import draylar.intotheomega.entity.dungeon.SlimeObeliskBlockEntity;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.slime.OmegaSlimeEmperorEntity;
@@ -125,6 +126,10 @@ public class OmegaEntities {
     public static final EntityType<FrostedEndermanEntity> FROSTED_ENDERMAN = register(
             "frosted_enderman",
             FabricEntityTypeBuilder.<FrostedEndermanEntity>create(SpawnGroup.MISC, FrostedEndermanEntity::new).dimensions(EntityDimensions.fixed(0.6F, 2.9F)).build());
+
+    public static final BlockEntityType<SlimeObeliskBlockEntity> SLIME_OBELISK = register(
+            "slime_obelisk",
+            BlockEntityType.Builder.create(SlimeObeliskBlockEntity::new, OmegaBlocks.SLIME_OBELISK).build(null));
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);

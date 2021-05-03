@@ -13,6 +13,7 @@ public class OmegaStatusEffects {
     public static final StatusEffect ABYSSAL_FROSTBITE = register("abyssal_frostbite", (new StatusEffect(StatusEffectType.HARMFUL, 0x42f5ec) {})
             .addAttributeModifier(EntityAttributes.GENERIC_MOVEMENT_SPEED, "03C3C89D-7037-4B42-869F-B146BCB64D2E", -0.25D, EntityAttributeModifier.Operation.MULTIPLY_TOTAL)
             .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, "03C3C89D-7037-4B42-869F-B146BCB64D2E", -0.25D, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
+    public static final StatusEffect SWIRLED = register("swirled", new StatusEffect(StatusEffectType.HARMFUL, 0x1fa641) {});
 
     private static StatusEffect register(String id, StatusEffect entry) {
         return  Registry.register(Registry.STATUS_EFFECT, IntoTheOmega.id(id), entry);

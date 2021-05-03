@@ -4,6 +4,7 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.block.*;
 import draylar.intotheomega.block.air.ThornAirBlock;
 import draylar.intotheomega.block.dungeon.InvisibleDungeonBrick;
+import draylar.intotheomega.block.dungeon.SlimeObeliskBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
@@ -120,7 +121,9 @@ public class OmegaBlocks {
     public static final Block RAINBOW_OBSIDIAN = register("rainbow_obsidian", new Block(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block BEJEWELED_OBSIDIAN_STREAK = register("bejeweled_obsidian_streak", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
 
+    // Omega Slime
     public static final Block OMEGA_SLIME_BLOCK = register("omega_slime_block", new Block(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)));
+    public static final Block SLIME_OBELISK = register("slime_obelisk", new SlimeObeliskBlock(FabricBlockSettings.copy(Blocks.STONE).strength(1000000, 1000000)), new Item.Settings().group(IntoTheOmega.GROUP));
 
     public static final Block PHASE_PAD = register("phase_pad", new PhasePadBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block ENIGMA_STAND = register("enigma_stand", new EnigmaStandBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).nonOpaque()), new Item.Settings().group(IntoTheOmega.GROUP));
