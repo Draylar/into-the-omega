@@ -3,6 +3,7 @@ package draylar.intotheomega.entity.dungeon;
 import draylar.intotheomega.api.BlockEntityNotifiable;
 import draylar.intotheomega.api.EntityDeathNotifier;
 import draylar.intotheomega.entity.OmegaSlimeEntity;
+import draylar.intotheomega.registry.OmegaBlockEntities;
 import draylar.intotheomega.registry.OmegaEntities;
 import draylar.intotheomega.registry.OmegaStatusEffects;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
@@ -44,7 +45,7 @@ public class SlimeObeliskBlockEntity extends BlockEntity implements Tickable, Bl
     private boolean active = true;
 
     public SlimeObeliskBlockEntity() {
-        super(OmegaEntities.SLIME_OBELISK);
+        super(OmegaBlockEntities.SLIME_OBELISK);
     }
 
     @Override

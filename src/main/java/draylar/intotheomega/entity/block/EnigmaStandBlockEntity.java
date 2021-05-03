@@ -1,6 +1,7 @@
 package draylar.intotheomega.entity.block;
 
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
+import draylar.intotheomega.registry.OmegaBlockEntities;
 import draylar.intotheomega.registry.OmegaEntities;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
@@ -23,7 +24,7 @@ public class EnigmaStandBlockEntity extends BlockEntity implements BlockEntityCl
     private int activationTicks = 0;
 
     public EnigmaStandBlockEntity() {
-        super(OmegaEntities.ENIGMA_STAND);
+        super(OmegaBlockEntities.ENIGMA_STAND);
     }
 
     public void activate() {

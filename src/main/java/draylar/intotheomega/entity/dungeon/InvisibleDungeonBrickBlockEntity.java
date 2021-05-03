@@ -1,11 +1,11 @@
 package draylar.intotheomega.entity.dungeon;
 
-import draylar.intotheomega.registry.OmegaEntities;
+import draylar.intotheomega.registry.OmegaBlockEntities;
 import net.minecraft.block.entity.BlockEntity;
 
 public class InvisibleDungeonBrickBlockEntity extends BlockEntity {
 
     public InvisibleDungeonBrickBlockEntity() {
-        super(OmegaEntities.INVISIBLE_DUNGEON_BRICK);
+        super(OmegaBlockEntities.INVISIBLE_DUNGEON_BRICK);
     }
 }

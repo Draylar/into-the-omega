@@ -1,11 +1,11 @@
 package draylar.intotheomega.entity.block;
 
-import draylar.intotheomega.registry.OmegaEntities;
+import draylar.intotheomega.registry.OmegaBlockEntities;
 import net.minecraft.block.entity.BlockEntity;
 
 public class VoidMatrixSpawnBlockEntity extends BlockEntity {
 
     public VoidMatrixSpawnBlockEntity() {
-        super(OmegaEntities.VOID_MATRIX_SPAWN_BLOCK);
+        super(OmegaBlockEntities.VOID_MATRIX_SPAWN_BLOCK);
     }
 }

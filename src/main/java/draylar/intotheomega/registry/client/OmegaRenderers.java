@@ -2,6 +2,7 @@ package draylar.intotheomega.registry.client;
 
 import draylar.intotheomega.client.be.*;
 import draylar.intotheomega.client.entity.renderer.*;
+import draylar.intotheomega.registry.OmegaBlockEntities;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -30,13 +31,13 @@ public class OmegaRenderers {
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_WALKER, (dispatcher, context) -> new VoidWalkerRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_ENDERMAN, (dispatcher, context) -> new FrostedEndermanEntityRenderer(dispatcher));
 
-        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ETERNAL_PILLAR, EternalPillarBlockEntityRenderer::new);
-        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
-        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);
-        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ENIGMA_STAND, EnigmaStandBlockEntityRenderer::new);
-        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.INVISIBLE_DUNGEON_BRICK, InvisibleDungeonBrickBlockEntityRenderer::new);
-        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSS_CHAIN, AbyssChainBlockEntityRenderer::new);
-        BlockEntityRendererRegistry.INSTANCE.register(OmegaEntities.BEJEWELED_LOCK, BejeweledLockBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.ETERNAL_PILLAR, EternalPillarBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.ENIGMA_STAND, EnigmaStandBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.INVISIBLE_DUNGEON_BRICK, InvisibleDungeonBrickBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.ABYSS_CHAIN, AbyssChainBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.BEJEWELED_LOCK, BejeweledLockBlockEntityRenderer::new);
     }
 
     private OmegaRenderers() {

@@ -31,14 +31,6 @@ public class OmegaEntities {
             "chorus_cow",
             FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, ChorusCowEntity::new).dimensions(EntityDimensions.fixed(0.9F, 1.4F)).build());
 
-    public static final BlockEntityType<WatchingEyeBlockEntity> WATCHING_EYE = register(
-            "watching_eye",
-            BlockEntityType.Builder.create(WatchingEyeBlockEntity::new, OmegaBlocks.WATCHING_EYE).build(null));
-
-    public static final BlockEntityType<EnigmaStandBlockEntity> ENIGMA_STAND = register(
-            "enigma_stand",
-            BlockEntityType.Builder.create(EnigmaStandBlockEntity::new, OmegaBlocks.ENIGMA_STAND).build(null));
-
     public static final EntityType<InanisEntity> INANIS = register(
             "inanis",
             FabricEntityTypeBuilder.<InanisEntity>create(SpawnGroup.MISC, InanisEntity::new).dimensions(EntityDimensions.fixed(.5f, .5f)).build());
@@ -79,22 +71,6 @@ public class OmegaEntities {
             "obsidian_thorn",
             FabricEntityTypeBuilder.<ObsidianThornEntity>create(SpawnGroup.MISC, ObsidianThornEntity::new).dimensions(EntityDimensions.changing(.25f, .25f)).build());
 
-    public static final BlockEntityType<EternalPillarBlockEntity> ETERNAL_PILLAR = register(
-            "eternal_pillar",
-            BlockEntityType.Builder.create(EternalPillarBlockEntity::new, OmegaBlocks.ETERNAL_PILLAR).build(null));
-
-    public static final BlockEntityType<VoidMatrixSpawnBlockEntity> VOID_MATRIX_SPAWN_BLOCK = register(
-            "void_matrix_spawn_block",
-            BlockEntityType.Builder.create(VoidMatrixSpawnBlockEntity::new, OmegaBlocks.VOID_MATRIX_SPAWN_BLOCK).build(null));
-
-    public static final BlockEntityType<PhasePadBlockEntity> PHASE_PAD = register(
-            "phase_pad",
-            BlockEntityType.Builder.create(PhasePadBlockEntity::new, OmegaBlocks.PHASE_PAD).build(null));
-
-    public static final BlockEntityType<InvisibleDungeonBrickBlockEntity> INVISIBLE_DUNGEON_BRICK = register(
-            "invisible_dungeon_brick",
-            BlockEntityType.Builder.create(InvisibleDungeonBrickBlockEntity::new, OmegaBlocks.INVISIBLE_DUNGEON_BRICK).build(null));
-
     public static final EntityType<OmegaSlimeMountEntity> OMEGA_SLIME_MOUNT = register(
             "omega_slime_mount",
             FabricEntityTypeBuilder.<OmegaSlimeMountEntity>create(SpawnGroup.MISC, OmegaSlimeMountEntity::new).trackRangeBlocks(128).trackedUpdateRate(4).dimensions(EntityDimensions.fixed(.75f, .75f)).build());
@@ -107,17 +83,9 @@ public class OmegaEntities {
             "abyssal_rift",
             FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, AbyssalRiftEntity::new).trackRangeBlocks(1000).dimensions(EntityDimensions.fixed(5, 5)).build());
 
-    public static final BlockEntityType<AbyssChainBlockEntity> ABYSS_CHAIN = register(
-            "abyss_chain",
-            BlockEntityType.Builder.create(AbyssChainBlockEntity::new, OmegaBlocks.ABYSS_CHAIN).build(null));
-
     public static final EntityType<VoidMatrixBeamEntity> VOID_MATRIX_BEAM = register(
             "void_matrix_beam",
             FabricEntityTypeBuilder.<VoidMatrixBeamEntity>create(SpawnGroup.MISC, VoidMatrixBeamEntity::new).dimensions(EntityDimensions.fixed(.25f, .25f)).build());
-
-    public static final BlockEntityType<BejeweledLockBlockEntity> BEJEWELED_LOCK = register(
-            "bejeweled_lock",
-            BlockEntityType.Builder.create(BejeweledLockBlockEntity::new, OmegaBlocks.BEJEWELED_LOCK).build(null));
 
     public static final EntityType<VoidWalkerEntity> VOID_WALKER = register(
             "void_walker",
@@ -127,21 +95,11 @@ public class OmegaEntities {
             "frosted_enderman",
             FabricEntityTypeBuilder.<FrostedEndermanEntity>create(SpawnGroup.MISC, FrostedEndermanEntity::new).dimensions(EntityDimensions.fixed(0.6F, 2.9F)).build());
 
-    public static final BlockEntityType<SlimeObeliskBlockEntity> SLIME_OBELISK = register(
-            "slime_obelisk",
-            BlockEntityType.Builder.create(SlimeObeliskBlockEntity::new, OmegaBlocks.SLIME_OBELISK).build(null));
-
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }
 
-    private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> entity) {
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, IntoTheOmega.id(name), entity);
-    }
-
     public static void init() {
-//        FabricDefaultAttributeRegistry.register(TRUE_EYE_OF_ENDER, MobEntity.createMobAttributes());
-//        FabricDefaultAttributeRegistry.register(OMEGA_GOD, MobEntity.createMobAttributes());
         FabricDefaultAttributeRegistry.register(CHORUS_COW, CowEntity.createCowAttributes());
         FabricDefaultAttributeRegistry.register(VOID_MATRIX, VoidMatrixEntity.createVoidMatrixAttributes());
         FabricDefaultAttributeRegistry.register(ENIGMA_KING, EnigmaKingEntity.createAttributes());

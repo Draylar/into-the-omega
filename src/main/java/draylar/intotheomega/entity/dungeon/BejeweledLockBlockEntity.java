@@ -2,10 +2,7 @@ package draylar.intotheomega.entity.dungeon;
 
 import draylar.intotheomega.api.BlockEntityNotifiable;
 import draylar.intotheomega.api.EntityDeathNotifier;
-import draylar.intotheomega.registry.OmegaBlocks;
-import draylar.intotheomega.registry.OmegaEntities;
-import draylar.intotheomega.registry.OmegaParticles;
-import draylar.intotheomega.registry.OmegaStatusEffects;
+import draylar.intotheomega.registry.*;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -51,7 +48,7 @@ public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, B
     private int age;
 
     public BejeweledLockBlockEntity() {
-        super(OmegaEntities.BEJEWELED_LOCK);
+        super(OmegaBlockEntities.BEJEWELED_LOCK);
     }
 
     @Override

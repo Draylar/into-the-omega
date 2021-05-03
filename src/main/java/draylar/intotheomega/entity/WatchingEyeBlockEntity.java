@@ -1,7 +1,7 @@
 package draylar.intotheomega.entity;
 
 import draylar.intotheomega.block.WatchingEyeBlock;
-import draylar.intotheomega.registry.OmegaEntities;
+import draylar.intotheomega.registry.OmegaBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +16,7 @@ import java.util.List;
 public class WatchingEyeBlockEntity extends BlockEntity implements Tickable {
 
     public WatchingEyeBlockEntity() {
-        super(OmegaEntities.WATCHING_EYE);
+        super(OmegaBlockEntities.WATCHING_EYE);
     }
 
     @Override

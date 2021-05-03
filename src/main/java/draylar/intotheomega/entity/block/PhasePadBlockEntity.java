@@ -1,6 +1,6 @@
 package draylar.intotheomega.entity.block;
 
-import draylar.intotheomega.registry.OmegaEntities;
+import draylar.intotheomega.registry.OmegaBlockEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,7 +11,7 @@ public class PhasePadBlockEntity extends BlockEntity {
     private boolean highlight = false;
 
     public PhasePadBlockEntity() {
-        super(OmegaEntities.PHASE_PAD);
+        super(OmegaBlockEntities.PHASE_PAD);
     }
 
     @Environment(EnvType.CLIENT)
