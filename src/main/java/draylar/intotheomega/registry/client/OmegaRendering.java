@@ -1,9 +1,12 @@
-package draylar.intotheomega.registry;
+package draylar.intotheomega.registry.client;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormats;
 
+@Environment(EnvType.CLIENT)
 public class OmegaRendering {
 
     public static final RenderLayer SOLID = RenderLayer.of(

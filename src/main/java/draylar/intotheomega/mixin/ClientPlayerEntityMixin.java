@@ -3,7 +3,7 @@ package draylar.intotheomega.mixin;
 import com.mojang.authlib.GameProfile;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.intotheomega.impl.DoubleJumpTrinket;
-import draylar.intotheomega.registry.OmegaClientPackets;
+import draylar.intotheomega.registry.client.OmegaClientPackets;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;

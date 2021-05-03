@@ -1,12 +1,9 @@
 package draylar.intotheomega.client.be;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import draylar.intotheomega.entity.block.PhasePadBlockEntity;
 import draylar.intotheomega.registry.OmegaBlocks;
-import draylar.intotheomega.registry.OmegaRendering;
-import net.minecraft.block.Blocks;
+import draylar.intotheomega.registry.client.OmegaRendering;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
