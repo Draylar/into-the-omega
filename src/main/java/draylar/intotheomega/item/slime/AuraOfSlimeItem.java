@@ -36,19 +36,19 @@ public class AuraOfSlimeItem extends TrinketItem implements TrinketEventHandler 
         tooltip.add(new TranslatableText("intotheomega.aura_of_slime.0").formatted(Formatting.GRAY));
         tooltip.add(new TranslatableText("intotheomega.aura_of_slime.1").formatted(Formatting.GRAY));
         tooltip.add(new LiteralText(""));
-        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.2").formatted(Formatting.GREEN));
+        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.2").formatted(Formatting.GRAY));
         tooltip.add(new TranslatableText("intotheomega.aura_of_slime.3").formatted(Formatting.GRAY));
         tooltip.add(new TranslatableText("intotheomega.aura_of_slime.4").formatted(Formatting.GRAY));
     }
 
     @Override
     public boolean canWearInSlot(String group, String slot) {
-        return group.equals(SlotGroups.HEAD) && slot.equals(Slots.MASK);
+        return group.equals(SlotGroups.CHEST) && slot.equals(Slots.CAPE);
     }
 
     @Override
     public void onAttackEnemy(ItemStack stack, LivingEntity source, LivingEntity target) {
-        target.addStatusEffect(new StatusEffectInstance(OmegaStatusEffects.SWIRLED, 15, 0, true, true));
+        target.addStatusEffect(new StatusEffectInstance(OmegaStatusEffects.SWIRLED, 20 * 5, 0, false, true));
     }
 
     @Override
