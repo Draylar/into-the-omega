@@ -39,22 +39,24 @@ public class EndBiomeSourceMixin {
     @Unique private static JVoronoi voronoi = new JVoronoi(0, 250);
     @Unique private static List<RegistryKey<Biome>> biomeSections = new ArrayList<>();
 
-    static {
-        biomeSections.add(OmegaBiomes.OMEGA_SLIME_WASTES_KEY);
-        biomeSections.add(BiomeKeys.JUNGLE);
-
-        // 3/5 do not have content rn
-        biomeSections.add(null);
-        biomeSections.add(null);
-        biomeSections.add(null);
-    }
-
     @Inject(method = "getBiomeForNoiseGen",at = @At("HEAD"))
     private void initializeNoise(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
         if(cachedSeed != seed) {
             cachedSeed = seed;
             voronoi = new JVoronoi(cachedSeed, 250);
             NOISE = new OpenSimplex2F(cachedSeed);
+
+            // initialize biome sections
+            // we previously did this in a static block, but that was causing some sort of registry race condition
+            // I think biome sources are loaded super early compared to everything else[??]
+            biomeSections.clear();
+            biomeSections.add(OmegaBiomes.OMEGA_SLIME_WASTES_KEY);
+            biomeSections.add(BiomeKeys.JUNGLE);
+
+            // 3/5 do not have content rn
+            biomeSections.add(null);
+            biomeSections.add(null);
+            biomeSections.add(null);
         }
     }
 

@@ -38,14 +38,14 @@ public class IntoTheOmega implements ModInitializer {
         GeckoLib.initialize();
 
         OmegaEnchantments.init();
-        OmegaItems.init();
         OmegaBlocks.init();
+        OmegaItems.init();
         OmegaEntities.init();
-//        OmegaBiomes.init();
-//        OmegaWorld.init();
-//        OmegaSurfaceBuilders.init();
-//        OmegaConfiguredFeatures.init();
-//        OmegaStructurePieces.init();
+        OmegaBiomes.init();
+        OmegaWorld.init();
+        OmegaSurfaceBuilders.init();
+        OmegaConfiguredFeatures.init();
+        OmegaStructurePieces.init();
         OmegaTags.init();
         OmegaParticles.init();
         OmegaServerPackets.init();

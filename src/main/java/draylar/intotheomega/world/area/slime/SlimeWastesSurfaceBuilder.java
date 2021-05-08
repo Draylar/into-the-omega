@@ -35,19 +35,29 @@ public class SlimeWastesSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConf
         double distanceToEdge = Math.min(1, (voronoi.getDistanceToEdge(x / 4f, z / 4f) - 100) / 5); // [0, 1], where 0 is on edges
 
         // bottom & top endstone
-        for (int bottomY = 40; bottomY < (60 + openSimplex.noise2(x / 100f, z / 100f) * 3) * distanceToEdge; bottomY++) chunk.setBlockState(new BlockPos(x, bottomY, z), Blocks.END_STONE.getDefaultState(), false);
-        for (int bottomY = 120; bottomY < (140 + openSimplex.noise2(x / 100f, z / 100f) * 3) * distanceToEdge; bottomY++) chunk.setBlockState(new BlockPos(x, bottomY, z), Blocks.END_STONE.getDefaultState(), false);
+        double baseNoise = openSimplex.noise2(x / 100f, z / 100f) * 3;
+        for (int bottomY = 40; bottomY < (60 + baseNoise) * distanceToEdge; bottomY++)
+            chunk.setBlockState(new BlockPos(x, bottomY, z), Blocks.END_STONE.getDefaultState(), false);
+        for (int bottomY = 120; bottomY < (140 + baseNoise) * distanceToEdge; bottomY++)
+            chunk.setBlockState(new BlockPos(x, bottomY, z), Blocks.END_STONE.getDefaultState(), false);
 
         // slime bottom & top
-        for(double i = 0; i < openSimplex.noise2(x / 100f, z / 100f) * 3 * distanceToEdge; i++) {
-            if(openSimplex.noise3_Classic(x / 25f, 200, z / 25f) > 0) {
-                chunk.setBlockState(new BlockPos(x, 59 + i, z), OmegaBlocks.OBSIDIAN_BOOKSHELF.getDefaultState(), false);
+        double slimeRiverNoise = openSimplex.noise3_Classic(x / 50f, 1000, z / 50f) * distanceToEdge;
+        double omegaSlimeRiverNoise = openSimplex.noise3_Classic(x / 25f, 2000, z / 25f) * distanceToEdge;
+
+        if (slimeRiverNoise < .1 && distanceToEdge == 1) {
+            if(random.nextDouble() > .5) {
+                chunk.setBlockState(new BlockPos(x, 60 + baseNoise, z), OmegaBlocks.CONGEALED_SLIME.getDefaultState(), false);
             } else {
-                chunk.setBlockState(new BlockPos(x, 59 + i, z), Blocks.GLOWSTONE.getDefaultState(), false);
+                chunk.setBlockState(new BlockPos(x, 60 + baseNoise, z), Blocks.SLIME_BLOCK.getDefaultState(), false);
             }
         }
 
-        for(double i = 0; i < openSimplex.noise2(x / 100f, z / 100f) * 3 * distanceToEdge; i++) {
+        if(omegaSlimeRiverNoise < .025 && distanceToEdge == 1) {
+            chunk.setBlockState(new BlockPos(x, 60 + baseNoise, z), OmegaBlocks.CONGEALED_OMEGA_SLIME.getDefaultState(), false);
+        }
+
+        for (double i = 0; i < openSimplex.noise2(x / 100f, z / 100f) * 3 * distanceToEdge; i++) {
             chunk.setBlockState(new BlockPos(x, 120 - i, z), Blocks.SLIME_BLOCK.getDefaultState(), false);
         }
     }
