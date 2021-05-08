@@ -45,6 +45,7 @@ public class SlimeWastesSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConf
         double slimeRiverNoise = openSimplex.noise3_Classic(x / 50f, 1000, z / 50f) * distanceToEdge;
         double omegaSlimeRiverNoise = openSimplex.noise3_Classic(x / 25f, 2000, z / 25f) * distanceToEdge;
 
+        // bottom green
         if (slimeRiverNoise < .1 && distanceToEdge == 1) {
             if(random.nextDouble() > .5) {
                 chunk.setBlockState(new BlockPos(x, 60 + baseNoise, z), OmegaBlocks.CONGEALED_SLIME.getDefaultState(), false);
@@ -53,10 +54,12 @@ public class SlimeWastesSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConf
             }
         }
 
+        // bottom purple
         if(omegaSlimeRiverNoise < .025 && distanceToEdge == 1) {
             chunk.setBlockState(new BlockPos(x, 60 + baseNoise, z), OmegaBlocks.CONGEALED_OMEGA_SLIME.getDefaultState(), false);
         }
 
+        // top
         for (double i = 0; i < openSimplex.noise2(x / 100f, z / 100f) * 3 * distanceToEdge; i++) {
             chunk.setBlockState(new BlockPos(x, 120 - i, z), Blocks.SLIME_BLOCK.getDefaultState(), false);
         }

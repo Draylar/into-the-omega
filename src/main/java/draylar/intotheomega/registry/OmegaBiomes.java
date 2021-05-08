@@ -2,6 +2,8 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
 import net.fabricmc.fabric.api.biome.v1.TheEndBiomes;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.registry.BuiltinRegistries;
@@ -103,7 +105,8 @@ public class OmegaBiomes {
 
     public static Biome createSlimeWastes() {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
-        DefaultBiomeFeatures.addEndMobs(spawnSettings);
+        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(EntityType.SLIME, 10, 1, 4));
+        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(OmegaEntities.OMEGA_SLIME, 10, 1, 4));
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
         generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CONFIGURED_SLIME_WASTES);
