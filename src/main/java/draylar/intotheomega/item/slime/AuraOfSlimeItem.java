@@ -5,14 +5,40 @@ import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketItem;
 import draylar.intotheomega.api.TrinketEventHandler;
 import draylar.intotheomega.registry.OmegaStatusEffects;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.world.World;
+
+import java.util.List;
 
 public class AuraOfSlimeItem extends TrinketItem implements TrinketEventHandler {
 
     public AuraOfSlimeItem(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        if(player == null) {
+            return;
+        }
+
+        tooltip.add(new LiteralText(""));
+        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.0").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.1").formatted(Formatting.GRAY));
+        tooltip.add(new LiteralText(""));
+        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.2").formatted(Formatting.GREEN));
+        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.3").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.4").formatted(Formatting.GRAY));
     }
 
     @Override
