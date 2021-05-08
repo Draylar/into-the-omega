@@ -3,6 +3,7 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.world.abyss_flower.AbyssFlowerIslandStructure;
 import draylar.intotheomega.world.api.BaseIslandStructure;
+import draylar.intotheomega.world.area.slime.SlimePillarFeature;
 import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
 import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
 import draylar.intotheomega.world.feature.OmegaCrystalOreFeature;
@@ -14,7 +15,6 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
-import net.fabricmc.fabric.impl.biome.modification.BiomeSelectionContextImpl;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
@@ -51,6 +51,7 @@ public class OmegaWorld {
     public static final Feature<DefaultFeatureConfig> OBSIDIAN_SPIKE = register("obsidian_spike", new ObsidianSpikeFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> OMEGA_ORE = Registry.register(Registry.FEATURE, IntoTheOmega.id("ore"), new OmegaCrystalOreFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DiskFeatureConfig> END_PATCH = register("cracked_end_stone_patch", new DiskFeature(DiskFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SLIME_PILLAR = register("slime_pillar", new SlimePillarFeature(DefaultFeatureConfig.CODEC));
 
     // Config / Biome Cache
     public static final List<RegistryKey<Biome>> VALID_EYE_ALTAR_BIOMES = Arrays.asList(BiomeKeys.END_HIGHLANDS);
