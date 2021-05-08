@@ -57,6 +57,7 @@
     "trinkets.EndermanChaseBewitchMixin",
     "trinkets.EndermanTeleportBewitchMixin",
     "trinkets.ExplosionDamageMixin",
+    "trinkets.PlayerEntityDamageMixin",
     "world.EndBiomeSourceMixin"
   ],
   "client": [

@@ -6,7 +6,9 @@ import dev.emi.trinkets.api.TrinketsApi;
 import draylar.attributed.event.CriticalHitEvents;
 import draylar.intotheomega.api.AttackHandler;
 import draylar.intotheomega.api.BewitchedHelper;
+import draylar.intotheomega.api.TrinketEventHandler;
 import draylar.intotheomega.api.event.ExplosionDamageEntityCallback;
+import draylar.intotheomega.api.event.PlayerAttackCallback;
 import draylar.intotheomega.api.event.PlayerDamageCallback;
 import draylar.intotheomega.item.ChilledVoidArmorItem;
 import draylar.intotheomega.item.MatrixCharmItem;
@@ -24,9 +26,9 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.TypedActionResult;
@@ -44,6 +46,7 @@ public class OmegaEventHandlers {
         registerItemAttackHandler();
         registerChilledVoidBonuses();
         registerHeartOfIceHandlers();
+        registerTrinketEventHandler();
     }
 
     private static void registerIceIslandLocationUpdater() {
@@ -120,11 +123,80 @@ public class OmegaEventHandlers {
 
     private static void registerItemAttackHandler() {
         AttackEntityCallback.EVENT.register((player, world, hand, entity, entityHitResult) -> {
+            // If the player is holding an AttackHandler item, trigger the "onAttack" method now.
             if(entity instanceof LivingEntity && player.getStackInHand(hand).getItem() instanceof AttackHandler) {
                 ((AttackHandler) player.getStackInHand(hand).getItem()).onAttack(world, player, player.getStackInHand(hand), (LivingEntity) entity);
             }
 
             return ActionResult.PASS;
+        });
+    }
+
+    private static void registerTrinketEventHandler() {
+        // If the player has a TrinketEventHandler Trinket equipped, trigger the "onAttackEnemy" method.
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, entityHitResult) -> {
+            Inventory inventory = TrinketsApi.getTrinketsInventory(player);
+            if(entity instanceof LivingEntity) {
+                for (int i = 0; i < inventory.size(); i++) {
+                    ItemStack stack = inventory.getStack(i);
+                    if (stack.getItem() instanceof TrinketEventHandler) {
+                        ((TrinketEventHandler) stack.getItem()).onAttackEnemy(stack, player, (LivingEntity) entity);
+                    }
+                }
+            }
+
+            return ActionResult.PASS;
+        });
+
+        // Run Critical Hit bonus modifier checks on Trinkets
+        CriticalHitEvents.CALCULATE_MODIFIER.register((player, target, stack, modifier) -> {
+            double bonus = 0.0;
+
+            Inventory inventory = TrinketsApi.getTrinketsInventory(player);
+            if(target instanceof LivingEntity) {
+                for (int i = 0; i < inventory.size(); i++) {
+                    ItemStack trinketStack = inventory.getStack(i);
+                    if (trinketStack.getItem() instanceof TrinketEventHandler) {
+                        bonus += ((TrinketEventHandler) trinketStack.getItem()).getCriticalChanceBonusAgainst((LivingEntity) target);
+                    }
+                }
+            }
+
+            return modifier + bonus;
+        });
+
+        // Calculate damage bonus multiplier
+        PlayerAttackCallback.EVENT.register((hit, player, amount) -> {
+            float multiplier = 1.0f;
+
+            Inventory inventory = TrinketsApi.getTrinketsInventory(player);
+            if(hit instanceof LivingEntity) {
+                for (int i = 0; i < inventory.size(); i++) {
+                    ItemStack trinketStack = inventory.getStack(i);
+                    if (trinketStack.getItem() instanceof TrinketEventHandler) {
+                        multiplier *= ((TrinketEventHandler) trinketStack.getItem()).getDamageMultiplierAgainst((LivingEntity) hit);
+                    }
+                }
+            }
+
+            return amount * multiplier;
+        });
+
+        // Run raw damage bonus
+        PlayerAttackCallback.EVENT.register((hit, player, amount) -> {
+            float bonus = 0.0f;
+
+            Inventory inventory = TrinketsApi.getTrinketsInventory(player);
+            if(hit instanceof LivingEntity) {
+                for (int i = 0; i < inventory.size(); i++) {
+                    ItemStack trinketStack = inventory.getStack(i);
+                    if (trinketStack.getItem() instanceof TrinketEventHandler) {
+                        bonus += ((TrinketEventHandler) trinketStack.getItem()).getDamageBonusAgainst((LivingEntity) hit);
+                    }
+                }
+            }
+
+            return amount + bonus;
         });
     }
 
