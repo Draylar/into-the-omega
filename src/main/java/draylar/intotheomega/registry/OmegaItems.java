@@ -138,7 +138,7 @@ public class OmegaItems {
     public static final Item OMEGA_SLIME_BLOCK = register("omega_slime_block", new BlockItem(OmegaBlocks.OMEGA_SLIME_BLOCK, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item OMEGA_SLIME_EMPEROR_SPAWN_EGG = register("omega_slime_emperor_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.OMEGA_SLIME_EMPEROR, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item OMEGA_SLIME_SPAWN_EGG = register("omega_slime_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.OMEGA_SLIME, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
-    public static final Item OMEGA_SLIME_MOUNT = register("omega_slime_mount", new SlimeMountItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item SLIME_MOUNT = register("slime_mount", new SlimeMountItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item SLIME_TIME = register("slime_time", new MusicDiscItem(1, SoundEvents.BLOCK_SLIME_BLOCK_BREAK, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)) {});
     public static final Item DESTINY_SWIRL = register("destiny_swirl", new DestinySwirlItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item AURA_OF_SLIME = register("aura_of_slime", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
