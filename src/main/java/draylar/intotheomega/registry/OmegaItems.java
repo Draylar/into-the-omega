@@ -3,18 +3,12 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.item.*;
 import draylar.intotheomega.item.ice.HeartOfIceItem;
-import draylar.intotheomega.item.slime.AuraOfSlimeItem;
+import draylar.intotheomega.item.slime.DestinySwirlItem;
 import draylar.intotheomega.item.spike.DarkFlameBlasterItem;
 import draylar.intotheomega.material.*;
-import me.crimsondawn45.fabricshieldlib.lib.ShieldRegistry;
-import me.crimsondawn45.fabricshieldlib.lib.event.ShieldEvent;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
@@ -146,8 +140,8 @@ public class OmegaItems {
     public static final Item OMEGA_SLIME_SPAWN_EGG = register("omega_slime_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.OMEGA_SLIME, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item OMEGA_SLIME_MOUNT = register("omega_slime_mount", new SlimeMountItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item SLIME_TIME = register("slime_time", new MusicDiscItem(1, SoundEvents.BLOCK_SLIME_BLOCK_BREAK, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)) {});
-    public static final Item DESTINY_SWIRL = register("destiny_swirl", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
-    public static final Item AURA_OF_SLIME = register("aura_of_slime", new AuraOfSlimeItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
+    public static final Item DESTINY_SWIRL = register("destiny_swirl", new DestinySwirlItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
+    public static final Item AURA_OF_SLIME = register("aura_of_slime", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
 
     // ice
     public static final Item ZERO_ABYSS = register("zero_abyss", new SwordItem(ToolMaterials.DIAMOND, 10, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));

@@ -19,9 +19,9 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class AuraOfSlimeItem extends TrinketItem implements TrinketEventHandler {
+public class DestinySwirlItem extends TrinketItem implements TrinketEventHandler {
 
-    public AuraOfSlimeItem(Settings settings) {
+    public DestinySwirlItem(Settings settings) {
         super(settings);
     }
 
@@ -33,12 +33,12 @@ public class AuraOfSlimeItem extends TrinketItem implements TrinketEventHandler 
         }
 
         tooltip.add(new LiteralText(""));
-        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.0").formatted(Formatting.GRAY));
-        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.1").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("intotheomega.destiny_swirl.0").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("intotheomega.destiny_swirl.1").formatted(Formatting.GRAY));
         tooltip.add(new LiteralText(""));
-        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.2").formatted(Formatting.GRAY));
-        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.3").formatted(Formatting.GRAY));
-        tooltip.add(new TranslatableText("intotheomega.aura_of_slime.4").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("intotheomega.destiny_swirl.2").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("intotheomega.destiny_swirl.3").formatted(Formatting.GRAY));
+        tooltip.add(new TranslatableText("intotheomega.destiny_swirl.4").formatted(Formatting.GRAY));
     }
 
     @Override

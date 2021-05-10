@@ -172,15 +172,15 @@
   "item.intotheomega.omega_slime_spawn_egg": "Omega Slime Spawn Egg",
   "item.intotheomega.slime_time": "Music Disc",
   "item.intotheomega.slime_time.desc": "Slime Time",
-  "item.intotheomega.destiny_swirl": "Destiny Swirl",
+  "item.intotheomega.aura_of_slime": "Aura of Slime",
   "block.intotheomega.omega_slime_block": "Block of Omega Slime",
 
-  "item.intotheomega.aura_of_slime": "Aura of Slime",
-  "intotheomega.aura_of_slime.0": "Immune to §aSwirled§r",
-  "intotheomega.aura_of_slime.1": "Deal §aSwirled§r to enemies",
-  "intotheomega.aura_of_slime.2": "Against §aSwirled§r:",
-  "intotheomega.aura_of_slime.3": " +10% Damage",
-  "intotheomega.aura_of_slime.4": " +10% Critical Chance",
+  "item.intotheomega.destiny_swirl": "Destiny Swirl",
+  "intotheomega.destiny_swirl.0": "Immune to §aSwirled§r",
+  "intotheomega.destiny_swirl.1": "Deal §aSwirled§r to enemies",
+  "intotheomega.destiny_swirl.2": "Against §aSwirled§r:",
+  "intotheomega.destiny_swirl.3": " +10% Damage",
+  "intotheomega.destiny_swirl.4": " +10% Critical Chance",
 
 
   "intotheomega.explosion_in_a_bottle.description.1": "Remember to wear blast-proof",
