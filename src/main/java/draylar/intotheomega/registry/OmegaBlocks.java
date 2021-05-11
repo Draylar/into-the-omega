@@ -126,6 +126,7 @@ public class OmegaBlocks {
     public static final Block SLIME_OBELISK = register("slime_obelisk", new SlimeObeliskBlock(FabricBlockSettings.copy(Blocks.STONE).strength(1000000, 1000000)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block CONGEALED_OMEGA_SLIME = register("congealed_omega_slime", new Block(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block CONGEALED_SLIME = register("congealed_slime", new Block(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block OMEGA_SLIME_FLUID = register("omega_slime_fluid", new FluidBlock(OmegaFluids.OMEGA_SLIME_STILL, FabricBlockSettings.of(Material.WATER).noCollision().ticksRandomly().strength(25.0F)) {});
 
     public static final Block PHASE_PAD = register("phase_pad", new PhasePadBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block ENIGMA_STAND = register("enigma_stand", new EnigmaStandBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).nonOpaque()), new Item.Settings().group(IntoTheOmega.GROUP));
