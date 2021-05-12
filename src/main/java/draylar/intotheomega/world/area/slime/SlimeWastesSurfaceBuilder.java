@@ -36,9 +36,29 @@ public class SlimeWastesSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConf
 
         // bottom & top endstone
         double baseNoise = openSimplex.noise2(x / 100f, z / 100f) * 3;
-        for (int bottomY = 40; bottomY < (60 + baseNoise) * distanceToEdge; bottomY++)
-            chunk.setBlockState(new BlockPos(x, bottomY, z), Blocks.END_STONE.getDefaultState(), false);
-        for (int bottomY = 120; bottomY < (140 + baseNoise) * distanceToEdge; bottomY++)
+        double mountainNoise = openSimplex.noise3_Classic(x / 25f, 100, z / 25f) * 30 + openSimplex.noise3_Classic(x / 5f, 50, z / 5f) * 2;
+        double topNoise = openSimplex.noise2((x + 1000) / 100f, (z + 1000) / 100f) * 3;
+
+        if(baseNoise <= 0.7) {
+            mountainNoise = 0;
+        } else {
+            mountainNoise = Math.max(0, mountainNoise);
+        }
+
+        for (int bottomY = 40; bottomY < (60 + baseNoise + mountainNoise) * distanceToEdge; bottomY++) {
+            // 60 + baseNoise -> mountainNoise => mix
+            if(bottomY >= 60 + baseNoise) {
+                if(random.nextDouble() <= .4) {
+                    chunk.setBlockState(new BlockPos(x, bottomY, z), Blocks.END_STONE.getDefaultState(), false);
+                } else {
+                    chunk.setBlockState(new BlockPos(x, bottomY, z), Blocks.END_STONE_BRICKS.getDefaultState(), false);
+                }
+            } else {
+                // 40-60 + baseNoise = end stone
+                chunk.setBlockState(new BlockPos(x, bottomY, z), Blocks.END_STONE.getDefaultState(), false);
+            }
+        }
+        for (int bottomY = (int) (120 - topNoise); bottomY < (140 + baseNoise) * distanceToEdge; bottomY++)
             chunk.setBlockState(new BlockPos(x, bottomY, z), Blocks.END_STONE.getDefaultState(), false);
 
         // slime bottom & top

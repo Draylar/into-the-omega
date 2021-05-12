@@ -3,6 +3,8 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.world.abyss_flower.AbyssFlowerIslandStructure;
 import draylar.intotheomega.world.api.BaseIslandStructure;
+import draylar.intotheomega.world.area.slime.SlimeDungeonFeature;
+import draylar.intotheomega.world.area.slime.SlimeLakeFeature;
 import draylar.intotheomega.world.area.slime.SlimePillarFeature;
 import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
 import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
@@ -52,6 +54,8 @@ public class OmegaWorld {
     public static final Feature<DefaultFeatureConfig> OMEGA_ORE = Registry.register(Registry.FEATURE, IntoTheOmega.id("ore"), new OmegaCrystalOreFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DiskFeatureConfig> END_PATCH = register("cracked_end_stone_patch", new DiskFeature(DiskFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_PILLAR = register("slime_pillar", new SlimePillarFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SLIME_LAKE = register("slime_lake", new SlimeLakeFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> SLIME_DUNGEON = register("slime_dungeon", new SlimeDungeonFeature(DefaultFeatureConfig.CODEC));
 
     // Config / Biome Cache
     public static final List<RegistryKey<Biome>> VALID_EYE_ALTAR_BIOMES = Arrays.asList(BiomeKeys.END_HIGHLANDS);

@@ -111,6 +111,8 @@ public class OmegaBiomes {
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
         generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CONFIGURED_SLIME_WASTES);
         generationSettings.feature(GenerationStep.Feature.RAW_GENERATION, OmegaConfiguredFeatures.SLIME_PILLAR);
+        generationSettings.feature(GenerationStep.Feature.LAKES, OmegaConfiguredFeatures.SLIME_LAKE);
+        generationSettings.feature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, OmegaConfiguredFeatures.SLIME_DUNGEON);
 
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)

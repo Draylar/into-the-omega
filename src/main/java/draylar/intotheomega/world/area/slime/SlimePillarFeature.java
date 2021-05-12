@@ -2,6 +2,8 @@ package draylar.intotheomega.world.area.slime;
 
 import com.mojang.serialization.Codec;
 import draylar.intotheomega.api.OpenSimplex2F;
+import draylar.intotheomega.registry.OmegaBlocks;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
@@ -21,8 +23,8 @@ public class SlimePillarFeature extends Feature<DefaultFeatureConfig> {
     public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
         OpenSimplex2F noise = new OpenSimplex2F(world.getSeed());
 
-        // only 33% of pillars spawn
-        if(random.nextInt(3) != 0) {
+        // only 25% of pillars spawn
+        if(random.nextInt(4) != 0) {
             return false;
         }
 
@@ -60,8 +62,16 @@ public class SlimePillarFeature extends Feature<DefaultFeatureConfig> {
             }
         }
         BlockPos top = check.mutableCopy().toImmutable();
-        int height = top.getY() - bottom.getY();
         double size = 0.5 + random.nextDouble() * .75;
+        double rand = random.nextDouble();
+
+        // select a random block for the pillar
+        BlockState block = Blocks.SLIME_BLOCK.getDefaultState();
+        if(rand < .3) {
+            block = OmegaBlocks.CONGEALED_OMEGA_SLIME.getDefaultState();
+        } else if (rand < .6) {
+            block = OmegaBlocks.CONGEALED_SLIME.getDefaultState();
+        }
 
         // Place pillar
         for(int i = bottom.getY(); i < top.getY(); i++) {
@@ -75,7 +85,7 @@ public class SlimePillarFeature extends Feature<DefaultFeatureConfig> {
 
                     double distance = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2));
                     if(distance <= radius - noise.noise3_Classic(realX / 10f, i / 10f, realZ / 10f) * 2) {
-                        world.setBlockState(new BlockPos(realX, i, realZ), Blocks.SLIME_BLOCK.getDefaultState(), 3);
+                        world.setBlockState(new BlockPos(realX, i, realZ), block, 3);
                     }
                 }
             }
