@@ -2,6 +2,7 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.enchantment.BaneOfTheEndEnchantment;
+import draylar.intotheomega.enchantment.SwirlAspectEnchantment;
 import draylar.intotheomega.impl.OmegaManipulator;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.EquipmentSlot;
@@ -54,6 +55,7 @@ public class OmegaEnchantments {
 
     // custom enchantments
     public static final Enchantment BANE_OF_THE_END = register("bane_of_the_end", new BaneOfTheEndEnchantment());
+    public static final Enchantment SWIRL_ASPECT = register("swirl_aspect", new SwirlAspectEnchantment());
 
     private static Enchantment register(String name, Enchantment enchantment) {
         return Registry.register(Registry.ENCHANTMENT, IntoTheOmega.id(name), enchantment);
