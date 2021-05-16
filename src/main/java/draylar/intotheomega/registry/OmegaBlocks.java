@@ -94,8 +94,6 @@ public class OmegaBlocks {
             new Item.Settings().group(IntoTheOmega.GROUP)
     );
 
-    public static final Block ETERNAL_PILLAR = register("eternal_pillar", new EternalPillarBlock(FabricBlockSettings.of(Material.STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
-
     public static final Block OBSIDISHROOM = register("obsidishroom", new EndMushroomBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block ENDERSHROOM = register("endershroom", new EndMushroomBlock(FabricBlockSettings.copyOf(Blocks.RED_MUSHROOM)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block END_STONE_BOOKSHELF = register("end_stone_bookshelf", new Block(AbstractBlock.Settings.of(Material.STONE).strength(1.5F).sounds(BlockSoundGroup.WOOD)), new Item.Settings().group(IntoTheOmega.GROUP));

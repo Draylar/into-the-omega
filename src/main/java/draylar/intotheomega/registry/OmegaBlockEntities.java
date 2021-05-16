@@ -20,10 +20,6 @@ public class OmegaBlockEntities {
             "enigma_stand",
             BlockEntityType.Builder.create(EnigmaStandBlockEntity::new, OmegaBlocks.ENIGMA_STAND).build(null));
 
-    public static final BlockEntityType<EternalPillarBlockEntity> ETERNAL_PILLAR = register(
-            "eternal_pillar",
-            BlockEntityType.Builder.create(EternalPillarBlockEntity::new, OmegaBlocks.ETERNAL_PILLAR).build(null));
-
     public static final BlockEntityType<VoidMatrixSpawnBlockEntity> VOID_MATRIX_SPAWN_BLOCK = register(
             "void_matrix_spawn_block",
             BlockEntityType.Builder.create(VoidMatrixSpawnBlockEntity::new, OmegaBlocks.VOID_MATRIX_SPAWN_BLOCK).build(null));
