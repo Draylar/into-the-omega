@@ -31,8 +31,6 @@ public class IntoTheOmega implements ModInitializer {
     public static final ItemGroup GROUP = FabricItemGroupBuilder.build(id("group"), () -> new ItemStack(OmegaItems.OMEGA_CRYSTAL));
     public static final String OMEGA = "Ω";
     public static final ScreenHandlerType<ConquestForgeScreenHandler> CF_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(id("conquest_forge"), ConquestForgeScreenHandler::new);
-    public static final EntityGroup END_CREATURE = new EntityGroup();
-    public static final EntityGroup SLIME_CREATURE = new EntityGroup();
 
     @Override
     public void onInitialize() {

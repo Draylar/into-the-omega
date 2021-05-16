@@ -1,8 +1,11 @@
 package draylar.intotheomega.mixin;
 
-import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.registry.OmegaEntityGroups;
 import draylar.intotheomega.registry.OmegaTags;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityGroup;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,11 +26,11 @@ public abstract class LivingEntityMixin extends Entity {
     )
     private void addCustomEntityGroups(CallbackInfoReturnable<EntityGroup> cir) {
         if(OmegaTags.END_CREATURE.contains(this.getType())) {
-            cir.setReturnValue(IntoTheOmega.END_CREATURE);
+            cir.setReturnValue(OmegaEntityGroups.END_CREATURE);
         }
 
         if(OmegaTags.SLIME_CREATURE.contains(this.getType())) {
-            cir.setReturnValue(IntoTheOmega.SLIME_CREATURE);
+            cir.setReturnValue(OmegaEntityGroups.SLIME_CREATURE);
         }
     }
 }

@@ -1,6 +1,6 @@
 package draylar.intotheomega.enchantment;
 
-import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.registry.OmegaEntityGroups;
 import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentTarget;
@@ -41,7 +41,7 @@ public class PurificationEnchantment extends Enchantment {
 
     @Override
     public float getAttackDamage(int level, EntityGroup group) {
-        if(group == IntoTheOmega.SLIME_CREATURE) {
+        if(group == OmegaEntityGroups.SLIME_CREATURE) {
             return level * 2.5F;
         }
 
