@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:slime",
+    "intotheomega:omega_slime",
+    "intotheomega:omega_slime_emperor"
+  ]
+}
