@@ -201,7 +201,7 @@ public class OmegaItems {
     public static final Item VOIDS_REFUGE = register("voids_refuge", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
 
     // creative items
-    public static final Item INFINITE_OMEGA_GOD_SEAL = register("infinite_omega_god_seal", new InvincibleTrinketItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item INFINITE_OMEGA_GOD_SEAL = register("infinite_omega_god_seal", new InvincibleTrinketItem(new Item.Settings().rarity(Rarity.EPIC)));
 
     private static <T extends Item> T register(String name, T item) {
         return Registry.register(Registry.ITEM, IntoTheOmega.id(name), item);
