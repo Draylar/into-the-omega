@@ -14,6 +14,7 @@ import draylar.intotheomega.world.island.GenericIslandStructure;
 import draylar.intotheomega.world.spike.SpikeStructure;
 import draylar.intotheomega.world.structure.*;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
@@ -27,6 +28,7 @@ import net.minecraft.world.gen.feature.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class OmegaWorld {
 
@@ -155,19 +157,19 @@ public class OmegaWorld {
         BiomeModifications
                 .create(IntoTheOmega.id("ice_island"))
                 .add(ModificationPhase.ADDITIONS,
-                        BiomeSelectors.foundInTheEnd(),
+                        anyEndNotSpecial(),
                         context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ICE_ISLAND));
 
         BiomeModifications
                 .create(IntoTheOmega.id("chorus_island"))
                 .add(ModificationPhase.ADDITIONS,
-                        BiomeSelectors.foundInTheEnd(),
+                        anyEndNotSpecial(),
                         context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_CHORUS_ISLAND));
 
         BiomeModifications
                 .create(IntoTheOmega.id("generic_island"))
                 .add(ModificationPhase.ADDITIONS,
-                        BiomeSelectors.foundInTheEnd(),
+                        anyEndNotSpecial(),
                         context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_GENERIC_ISLAND));
 
 //        BiomeModifications
@@ -185,6 +187,12 @@ public class OmegaWorld {
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {
         return Registry.register(Registry.FEATURE, IntoTheOmega.id(name), feature);
+    }
+
+    private static final List<RegistryKey<Biome>> SPECIAL = Arrays.asList(OmegaBiomes.ABYSSAL_CORE_KEY, OmegaBiomes.OMEGA_SLIME_WASTES_KEY);
+
+    public static Predicate<BiomeSelectionContext> anyEndNotSpecial() {
+        return context -> context.getBiome().getCategory() == Biome.Category.THEEND && !SPECIAL.contains(context.getBiomeKey());
     }
 
     private OmegaWorld() {
