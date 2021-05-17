@@ -13,6 +13,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.SnowballEntity;
 import net.minecraft.item.Item;
@@ -66,6 +67,7 @@ public class InanisItem extends Item {
             inanis.setProperties(user, user.pitch, user.yaw, 0.0F, 4F, 0.0F); // last param = variance/divergence, modifierZ = speed
             world.spawnEntity(inanis);
             world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 1, 0);
+            user.removeStatusEffect(StatusEffects.SLOW_FALLING);
 
             if (user instanceof PlayerEntity) {
                 ((PlayerEntity) user).getItemCooldownManager().set(OmegaItems.INANIS, 20 * 3);

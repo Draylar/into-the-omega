@@ -90,6 +90,14 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             }
         });
 
+        FabricModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("charge"), (itemStack, clientWorld, livingEntity) -> {
+            if (livingEntity == null) {
+                return 0.0F;
+            } else {
+                return (float)(96 - itemStack.getOrCreateSubTag("Frostbuster").getInt("Charge")) / 6;
+            }
+        });
+
         FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pulling"), (itemStack, clientWorld, livingEntity) -> {
             return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
         });

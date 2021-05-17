@@ -2,6 +2,7 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.item.*;
+import draylar.intotheomega.item.ice.FrostbusterItem;
 import draylar.intotheomega.item.ice.HeartOfIceItem;
 import draylar.intotheomega.item.slime.DestinySwirlItem;
 import draylar.intotheomega.item.slime.OmegaSlimeSlayerItem;
@@ -148,7 +149,7 @@ public class OmegaItems {
     // ice
     public static final Item ZERO_ABYSS = register("zero_abyss", new SwordItem(ToolMaterials.DIAMOND, 10, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
     public static final Item BLANK_BLIZZARD = register("blank_blizzard", new BowItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE).maxCount(1)));
-    public static final Item FROSTBUSTER = register("frostbuster", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE).maxCount(1)));
+    public static final Item FROSTBUSTER = register("frostbuster", new FrostbusterItem(ChilledVoidToolMaterial.INSTANCE, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE).maxCount(1)));
     public static final Item BLIZZARD_ABYSS_CORE = register("blizzard_abyss_core", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(16)));
     public static final Item CHILLED_VOID_HELMET = register("chilled_void_helmet", new ChilledVoidArmorItem(ChilledVoidArmorMaterial.INSTANCE, EquipmentSlot.HEAD, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
     public static final Item CHILLED_VOID_CHESTPLATE = register("chilled_void_chestplate", new ChilledVoidArmorItem(ChilledVoidArmorMaterial.INSTANCE, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));

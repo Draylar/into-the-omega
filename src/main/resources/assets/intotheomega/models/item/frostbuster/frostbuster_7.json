@@ -1,0 +1,6 @@
+{
+  "parent": "intotheomega:item/frostbuster",
+  "textures": {
+    "layer0": "intotheomega:item/frostbuster/frostbuster_7"
+  }
+}

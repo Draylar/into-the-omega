@@ -24,5 +24,103 @@
       "translation": [ 1.13, 3.2, 1.13 ],
       "scale": [ 0.68, 0.68, 0.68 ]
     }
-  }
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "charge": 1
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_1"
+    },
+    {
+      "predicate": {
+        "charge": 2
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_2"
+    },
+    {
+      "predicate": {
+        "charge": 3
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_3"
+    },
+    {
+      "predicate": {
+        "charge": 4
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_4"
+    },
+    {
+      "predicate": {
+        "charge": 5
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_5"
+    },
+    {
+      "predicate": {
+        "charge": 6
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_6"
+    },
+    {
+      "predicate": {
+        "charge": 7
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_7"
+    },
+    {
+      "predicate": {
+        "charge": 8
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_8"
+    },
+    {
+      "predicate": {
+        "charge": 9
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_9"
+    },
+    {
+      "predicate": {
+        "charge": 10
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_10"
+    },
+    {
+      "predicate": {
+        "charge": 11
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_11"
+    },
+    {
+      "predicate": {
+        "charge": 12
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_12"
+    },
+    {
+      "predicate": {
+        "charge": 13
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_13"
+    },
+    {
+      "predicate": {
+        "charge": 14
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_14"
+    },
+    {
+      "predicate": {
+        "charge": 15
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_15"
+    },
+    {
+      "predicate": {
+        "charge": 16
+      },
+      "model": "intotheomega:item/frostbuster/frostbuster_16"
+    }
+  ]
 }
