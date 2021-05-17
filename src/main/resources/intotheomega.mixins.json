@@ -37,6 +37,7 @@
     "SimpleRegistryAccessor",
     "SpawnEggItemAccessor",
     "TridentEntityMixin",
+    "armor.ArmorFeatureRendererMixin",
     "armor.ChorusFruitMixin",
     "armor.LivingEntityGravityMixin",
     "armor.PlayerEntityEatMixin",

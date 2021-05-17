@@ -1,0 +1,12 @@
+{
+  "map": [
+    {
+      "predicate": {
+        "materialPredicate": {
+          "renderLayerName": "chilled_void_armor"
+        }
+      },
+      "material": "canvas:emissive_transform"
+    }
+  ]
+}

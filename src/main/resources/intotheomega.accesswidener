@@ -32,3 +32,12 @@ accessible field net/minecraft/client/render/RenderPhase ALWAYS_DEPTH_TEST Lnet/
 
 accessible class net/minecraft/entity/mob/EndermanEntity$ChasePlayerGoal
 accessible class net/minecraft/entity/mob/EndermanEntity$TeleportTowardsPlayerGoal
+
+# Render Phase fields
+accessible field net/minecraft/client/render/RenderPhase NO_TRANSPARENCY Lnet/minecraft/client/render/RenderPhase$Transparency;
+accessible field net/minecraft/client/render/RenderPhase ENABLE_DIFFUSE_LIGHTING Lnet/minecraft/client/render/RenderPhase$DiffuseLighting;
+accessible field net/minecraft/client/render/RenderPhase ONE_TENTH_ALPHA Lnet/minecraft/client/render/RenderPhase$Alpha;
+accessible field net/minecraft/client/render/RenderPhase DISABLE_CULLING Lnet/minecraft/client/render/RenderPhase$Cull;
+accessible field net/minecraft/client/render/RenderPhase ENABLE_LIGHTMAP Lnet/minecraft/client/render/RenderPhase$Lightmap;
+accessible field net/minecraft/client/render/RenderPhase ENABLE_OVERLAY_COLOR Lnet/minecraft/client/render/RenderPhase$Overlay;
+accessible field net/minecraft/client/render/RenderPhase VIEW_OFFSET_Z_LAYERING Lnet/minecraft/client/render/RenderPhase$Layering;
