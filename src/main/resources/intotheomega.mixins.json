@@ -40,6 +40,7 @@
     "armor.ChorusFruitMixin",
     "armor.LivingEntityGravityMixin",
     "armor.PlayerEntityEatMixin",
+    "armor.PlayerEntityRendererSetMixin",
     "armor.PlayerEntitySetMixin",
     "biome.ClientWorldBiomeParticleMixin",
     "boss.BossBarHudMixin",

@@ -2,11 +2,13 @@ package draylar.intotheomega;
 
 import draylar.intotheomega.api.HandheldModelRegistry;
 import draylar.intotheomega.api.SetBonusProvider;
+import draylar.intotheomega.api.client.ArmorSetDisplayRegistry;
 import draylar.intotheomega.client.OmegaSlimeRenderingHandler;
 import draylar.intotheomega.client.PhasePadUtils;
 import draylar.intotheomega.client.item.MatriteOrbitalItemRenderer;
 import draylar.intotheomega.client.item.NebulaGearItemRenderer;
 import draylar.intotheomega.entity.block.PhasePadBlockEntity;
+import draylar.intotheomega.item.ChilledVoidArmorItem;
 import draylar.intotheomega.network.ClientNetworking;
 import draylar.intotheomega.registry.*;
 import draylar.intotheomega.registry.client.OmegaClientPackets;
@@ -22,23 +24,20 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
-import net.fabricmc.fabric.api.event.client.ClientSpriteRegistryCallback;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.ai.pathing.Path;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.HashMap;
@@ -154,6 +153,20 @@ public class IntoTheOmegaClient implements ClientModInitializer {
 
         FabricModelPredicateProviderRegistry.register(OmegaItems.VARIANT_SPARK, new Identifier("mode"), (stack, world, entity) -> {
             return stack.getOrCreateSubTag("Data").getInt("Mode");
+        });
+
+        ArmorSetDisplayRegistry.register(ChilledVoidArmorItem.class, (player, world, delta) -> {
+            double age = MathHelper.lerp(delta, player.age, player.age + 1) / 10f;
+            double x = Math.sin(age) * 2;
+            double z = Math.cos(age) * 2;
+            double y = Math.sin(age / 10) + 1;
+
+            double secondAge = MathHelper.lerp(delta, player.age, player.age + 1) / 10f + 135;
+            double secondX = Math.sin(secondAge) * 2;
+            double secondZ = Math.cos(secondAge) * 2;
+
+            world.addParticle(OmegaParticles.ICE_FLAKE, player.getX() + x, player.getY() + y, player.getZ() + z, 0, 0, 0);
+            world.addParticle(OmegaParticles.ICE_FLAKE, player.getX() + secondX, player.getY() + y, player.getZ() + secondZ, 0, 0, 0);
         });
     }
 
