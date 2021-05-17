@@ -53,6 +53,7 @@
     "dungeon.LivingNotificationMixin",
     "entity.EndermanParticleMixin",
     "mechanic.EndPortalBlockMixin",
+    "mechanic.LivingEntityJumpMixin",
     "theme.WorldRendererSnowMixin",
     "trinkets.EndermanBewitchMixin",
     "trinkets.EndermanBoundEyeMixin",

@@ -50,6 +50,7 @@ public class IntoTheOmega implements ModInitializer {
         OmegaServerPackets.init();
         OmegaEventHandlers.init();
         ServerNetworking.init();
+        OmegaStatusEffects.init();
 
         registerDragonLootAppender();
 

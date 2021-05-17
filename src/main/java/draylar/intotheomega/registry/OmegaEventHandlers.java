@@ -4,17 +4,21 @@ import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.attributed.event.CriticalHitEvents;
+import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.api.AttackHandler;
 import draylar.intotheomega.api.BewitchedHelper;
 import draylar.intotheomega.api.TrinketEventHandler;
+import draylar.intotheomega.api.event.EntityJumpCallback;
 import draylar.intotheomega.api.event.ExplosionDamageEntityCallback;
 import draylar.intotheomega.api.event.PlayerAttackCallback;
 import draylar.intotheomega.api.event.PlayerDamageCallback;
 import draylar.intotheomega.item.ChilledVoidArmorItem;
+import draylar.intotheomega.item.InanisItem;
 import draylar.intotheomega.item.MatrixCharmItem;
 import draylar.intotheomega.item.MatrixLensItem;
 import draylar.intotheomega.item.api.SetArmorItem;
 import draylar.intotheomega.item.ice.HeartOfIceItem;
+import draylar.intotheomega.mixin.mechanic.LivingEntityJumpMixin;
 import draylar.intotheomega.network.ServerNetworking;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
@@ -47,6 +51,38 @@ public class OmegaEventHandlers {
         registerChilledVoidBonuses();
         registerHeartOfIceHandlers();
         registerTrinketEventHandler();
+        registerInanisLeapAttack();
+        registerHeartOfIceCriticalHandlers();
+    }
+
+    private static void registerHeartOfIceCriticalHandlers() {
+        CriticalHitEvents.BEFORE.register((player, target, stack, chance) -> {
+            if(TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.CHEST, Slots.NECKLACE).getItem().equals(OmegaItems.HEART_OF_ICE)) {
+                return TypedActionResult.fail(chance);
+            }
+
+            return TypedActionResult.pass(chance);
+        });
+
+        CriticalHitEvents.AFTER.register((player, target, stack) -> {
+            if(TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.CHEST, Slots.NECKLACE).getItem().equals(OmegaItems.HEART_OF_ICE)) {
+                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 5, 0, true, false));
+                player.addStatusEffect(new StatusEffectInstance(OmegaStatusEffects.PURE_STRENGTH, 20 * 5, 0, true, false));
+            }
+        });
+    }
+
+    private static void registerInanisLeapAttack() {
+        EntityJumpCallback.EVENT.register((entity, velocity) -> {
+            if(entity instanceof PlayerEntity && entity.getMainHandStack().getItem() instanceof InanisItem) {
+                if(entity.isUsingItem()) {
+                    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 20 * 3, 0, true, false));
+                    return TypedActionResult.success(velocity * 3);
+                }
+            }
+
+            return TypedActionResult.pass(velocity);
+        });
     }
 
     private static void registerIceIslandLocationUpdater() {
