@@ -204,6 +204,8 @@
   "item.intotheomega.chilled_void_boots": "Chilled Void Boots",
   "item.intotheomega.piercing_bite": "Piercing Bite",
   "item.intotheomega.heart_of_ice": "Heart of Ice",
+  "intotheomega.heart_of_ice.1": "Your gaze is ice,",
+  "intotheomega.heart_of_ice.2": "and your heart feels no warmth.",
   "item.intotheomega.frosted_resolve": "Frosted Resolve",
   "intotheomega.chilled_void.0": "+15% Critical Chance",
   "intotheomega.chilled_void.1": "+10% Critical Damage",
