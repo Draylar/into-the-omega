@@ -2,6 +2,9 @@ package draylar.intotheomega.item.ice;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
+import draylar.intotheomega.api.client.Stance;
+import draylar.intotheomega.api.client.StanceProvider;
+import draylar.intotheomega.api.client.Stances;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -26,7 +29,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class FrostbusterItem extends ToolItem {
+public class FrostbusterItem extends ToolItem implements StanceProvider {
 
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
 
@@ -45,8 +48,8 @@ public class FrostbusterItem extends ToolItem {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
+    public Stance getUseStance(ItemStack stack) {
+        return Stances.HANDS_UP;
     }
 
     @Override
@@ -56,7 +59,7 @@ public class FrostbusterItem extends ToolItem {
             user.setCurrentHand(hand);
         }
 
-        return TypedActionResult.consume(user.getStackInHand(hand));
+        return TypedActionResult.pass(user.getStackInHand(hand));
     }
 
     @Override
