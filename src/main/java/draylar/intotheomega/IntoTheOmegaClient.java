@@ -32,6 +32,7 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.ai.pathing.Path;
+import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -99,11 +100,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         });
 
         FabricModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("using"), (itemStack, clientWorld, livingEntity) -> {
-            if (livingEntity == null) {
-                return 0.0F;
-            } else {
-                return (float)(96 - itemStack.getOrCreateSubTag("Frostbuster").getInt("Charge")) / 6;
-            }
+            return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
         });
 
         FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pulling"), (itemStack, clientWorld, livingEntity) -> {

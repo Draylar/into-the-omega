@@ -41,3 +41,11 @@ accessible field net/minecraft/client/render/RenderPhase DISABLE_CULLING Lnet/mi
 accessible field net/minecraft/client/render/RenderPhase ENABLE_LIGHTMAP Lnet/minecraft/client/render/RenderPhase$Lightmap;
 accessible field net/minecraft/client/render/RenderPhase ENABLE_OVERLAY_COLOR Lnet/minecraft/client/render/RenderPhase$Overlay;
 accessible field net/minecraft/client/render/RenderPhase VIEW_OFFSET_Z_LAYERING Lnet/minecraft/client/render/RenderPhase$Layering;
+
+# Model Element deserializers
+accessible method net/minecraft/client/render/model/json/ModelTransformation$Deserializer <init> ()V
+accessible method net/minecraft/client/render/model/json/ModelElement$Deserializer <init> ()V
+accessible method net/minecraft/client/render/model/json/ModelElementFace$Deserializer <init> ()V
+accessible method net/minecraft/client/render/model/json/ModelElementTexture$Deserializer <init> ()V
+accessible method net/minecraft/client/render/model/json/Transformation$Deserializer <init> ()V
+accessible method net/minecraft/client/render/model/json/ModelOverride$Deserializer <init> ()V

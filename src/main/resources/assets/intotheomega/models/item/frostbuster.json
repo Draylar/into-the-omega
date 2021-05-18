@@ -25,6 +25,25 @@
       "scale": [ 0.68, 0.68, 0.68 ]
     }
   },
+  "transformation_overrides": [
+    {
+      "predicate": {
+        "using": 1
+      },
+      "display": {
+        "firstperson_righthand": {
+          "rotation": [ 0, -90, 125 ],
+          "translation": [ 1.13, 3.2, 1.13 ],
+          "scale": [ 0.68, 0.68, 0.68 ]
+        },
+        "firstperson_lefthand": {
+          "rotation": [ 0, 90, -125 ],
+          "translation": [ 1.13, 3.2, 1.13 ],
+          "scale": [ 0.68, 0.68, 0.68 ]
+        }
+      }
+    }
+  ],
   "overrides": [
     {
       "predicate": {
