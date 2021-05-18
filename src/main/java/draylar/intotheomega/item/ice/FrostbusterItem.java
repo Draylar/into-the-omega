@@ -5,6 +5,7 @@ import com.google.common.collect.Multimap;
 import draylar.intotheomega.api.client.Stance;
 import draylar.intotheomega.api.client.StanceProvider;
 import draylar.intotheomega.api.client.Stances;
+import draylar.intotheomega.registry.OmegaDamageSources;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -13,6 +14,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
@@ -26,18 +28,23 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FrostbusterItem extends ToolItem implements StanceProvider {
 
     private final Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers;
+    private final double attackDamage = 13.0d;
 
     public FrostbusterItem(ToolMaterial material, Settings settings) {
         super(material, settings);
 
         ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 13.0D, EntityAttributeModifier.Operation.ADDITION));
+        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", attackDamage, EntityAttributeModifier.Operation.ADDITION));
         builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2.0f, EntityAttributeModifier.Operation.ADDITION));
         this.attributeModifiers = builder.build();
     }
@@ -75,10 +82,22 @@ public class FrostbusterItem extends ToolItem implements StanceProvider {
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_SNOW_PLACE, SoundCategory.PLAYERS, 1.0f, 0.0f);
                 world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.0f, 2.0f);
 
-                for(double i = 0; i <= 100; i++) {
+                List<Entity> hit = new ArrayList<>();
+                for(double i = 0; i <= 10; i += .10) {
                     origin = origin.add(rotation);
                     ((ServerWorld) world).spawnParticles(OmegaParticles.SMALL_BLUE_OMEGA_BURST, origin.getX(), origin.getY(), origin.getZ(), 5, .1, .1, .1, 0);
                     ((ServerWorld) world).spawnParticles(OmegaParticles.ICE_FLAKE, origin.getX(), origin.getY(), origin.getZ(), 5, .1, .1, .1, 0);
+
+                    // hit entities
+                    Vec3d finalOrigin = origin;
+                    world.getEntitiesByClass(LivingEntity.class, new Box(new BlockPos(origin).add(-1, -1, -1), new BlockPos(origin).add(1, 1, 1)), it -> !hit.contains(it) && !it.equals(user)).forEach(entity -> {
+                        entity.damage(OmegaDamageSources.createFrostbuster(user), (float) attackDamage);
+                        hit.add(entity);
+
+                        // sfx
+                        ((ServerWorld) world).spawnParticles(OmegaParticles.SMALL_BLUE_OMEGA_BURST, finalOrigin.getX(), finalOrigin.getY(), finalOrigin.getZ(), 50, .5, .5, .5, .25);
+                        ((ServerWorld) world).spawnParticles(OmegaParticles.ICE_FLAKE, finalOrigin.getX(), finalOrigin.getY(), finalOrigin.getZ(), 50, .5, .5, .5, .25);
+                    });
                 }
             }
         }
