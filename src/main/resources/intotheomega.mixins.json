@@ -75,7 +75,8 @@
     "trinkets.EndermanTeleportBewitchMixin",
     "trinkets.ExplosionDamageMixin",
     "trinkets.PlayerEntityDamageMixin",
-    "world.EndBiomeSourceMixin"
+    "world.EndBiomeSourceMixin",
+    "world.SpawnHelperMixin"
   ],
   "client": [
     "ItemRendererMixin",

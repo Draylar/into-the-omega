@@ -93,7 +93,7 @@ public class OmegaEntities {
 
     public static final EntityType<FrostedEndermanEntity> FROSTED_ENDERMAN = register(
             "frosted_enderman",
-            FabricEntityTypeBuilder.<FrostedEndermanEntity>create(SpawnGroup.MISC, FrostedEndermanEntity::new).dimensions(EntityDimensions.fixed(0.6F, 2.9F)).build());
+            FabricEntityTypeBuilder.<FrostedEndermanEntity>create(SpawnGroup.MONSTER, FrostedEndermanEntity::new).dimensions(EntityDimensions.fixed(0.6F, 2.9F)).build());
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);

@@ -32,7 +32,7 @@ public class IceIslandStructureStart extends SiftingStructureStart {
 
         this.boundingBox = new BlockBox(new int[] {
                 realX - 100, 150, realZ - 100,
-                realX + 100, 200, realZ + 100
+                realX + 100, 235, realZ + 100
         });
     }
 
