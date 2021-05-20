@@ -2,11 +2,20 @@ package draylar.intotheomega.entity;
 
 import draylar.intotheomega.entity.ai.LookAtTargetGoal;
 import draylar.intotheomega.registry.OmegaParticles;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class FrostedEyeEntity extends MobEntity {
 
@@ -20,6 +29,12 @@ public class FrostedEyeEntity extends MobEntity {
 
         goalSelector.add(0, new LookAtTargetGoal(this));
         targetSelector.add(0, new FollowTargetGoal<>(this, PlayerEntity.class, true));
+    }
+
+    public static boolean canSpawnAt(EntityType<FrostedEyeEntity> type, ServerWorldAccess serverWorldAccess, SpawnReason spawnReason, BlockPos pos, Random random) {
+        boolean validLight = serverWorldAccess.getDifficulty() != Difficulty.PEACEFUL && HostileEntity.isSpawnDark(serverWorldAccess, pos, random) && canMobSpawn(type, serverWorldAccess, spawnReason, pos, random);
+        boolean validPosition = pos.getY() >= 170;
+        return validLight && validPosition;
     }
 
     @Override

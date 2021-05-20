@@ -15,15 +15,13 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.*;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Heightmap;
 
 public class OmegaEntities {
 
@@ -77,7 +75,13 @@ public class OmegaEntities {
 
     public static final EntityType<FrostedEyeEntity> FROSTED_EYE = register(
             "frosted_eye",
-            FabricEntityTypeBuilder.<FrostedEyeEntity>create(SpawnGroup.MONSTER, FrostedEyeEntity::new).dimensions(EntityDimensions.fixed(2, 2)).build());
+            FabricEntityTypeBuilder
+                    .createMob()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .entityFactory(FrostedEyeEntity::new)
+                    .spawnRestriction(SpawnRestriction.Location.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, FrostedEyeEntity::canSpawnAt)
+                    .dimensions(EntityDimensions.fixed(2, 2))
+                    .build());
 
     public static final EntityType<AbyssalRiftEntity> ABYSSAL_RIFT = register(
             "abyssal_rift",
@@ -93,7 +97,13 @@ public class OmegaEntities {
 
     public static final EntityType<FrostedEndermanEntity> FROSTED_ENDERMAN = register(
             "frosted_enderman",
-            FabricEntityTypeBuilder.<FrostedEndermanEntity>create(SpawnGroup.MONSTER, FrostedEndermanEntity::new).dimensions(EntityDimensions.fixed(0.6F, 2.9F)).build());
+            FabricEntityTypeBuilder
+                    .createMob()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .entityFactory(FrostedEndermanEntity::new)
+                    .spawnRestriction(SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, HostileEntity::canSpawnInDark)
+                    .dimensions(EntityDimensions.fixed(0.6F, 2.9F))
+                    .build());
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
