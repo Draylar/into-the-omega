@@ -1,4 +1,4 @@
-package draylar.intotheomega.world.ice_island;
+package draylar.intotheomega.world.ice;
 
 import draylar.intotheomega.api.BlockInfo;
 import draylar.intotheomega.api.OpenSimplex2F;
@@ -98,7 +98,7 @@ public class IceIslandStructureStart extends SiftingStructureStart {
 
             // top is ~180
             BlockPos icicleOrigin = new BlockPos(randPos.x, 180, randPos.z);
-            placeIcicle(random, iciclePositions, icicleOrigin, 1);
+            placeIcicle(random, blocks, iciclePositions, icicleOrigin, 1);
         }
 
         // upside-down icicles!
@@ -107,7 +107,7 @@ public class IceIslandStructureStart extends SiftingStructureStart {
 
             // bottom is ~160
             BlockPos icicleOrigin = new BlockPos(randPos.x, 165, randPos.z);
-            placeIcicle(random, iciclePositions, icicleOrigin, -1);
+            placeIcicle(random, blocks, iciclePositions, icicleOrigin, -1);
         }
 
         blocks.putAll(iciclePositions);
@@ -115,7 +115,7 @@ public class IceIslandStructureStart extends SiftingStructureStart {
         return blocks;
     }
 
-    public void placeIcicle(ChunkRandom random, Map<BlockPos, BlockInfo> blocks, BlockPos origin, int polarity) {
+    public void placeIcicle(ChunkRandom random, Map<BlockPos, BlockInfo> island, Map<BlockPos, BlockInfo> blocks, BlockPos origin, int polarity) {
         // 1/5 icicles are large.
         boolean large = random.nextInt(5) == 0;
 
@@ -130,10 +130,14 @@ public class IceIslandStructureStart extends SiftingStructureStart {
         int topX = random.nextInt(top) - top / 2;
         int topZ = random.nextInt(top) - top / 2;
 
+        // Large icicles with a positive polarity are occasionally hollow with loot inside.
+        boolean hollow = large && polarity == 1 && random.nextInt(6) == 0;
+
         // Radius is the size of the base of the icicle.
         // To is the end tip of the icicle in real-world space.
         int radius = radiusMin + random.nextInt(radiusRand);
         Vec3d to = new Vec3d(origin.getX() + topX, origin.getY() + top, origin.getZ() + topZ);
+        Vec3d originVec = new Vec3d(origin.getX(), origin.getY(), origin.getZ());
 
         // Iterate over a box at the base of the icicle.
         for (int x = -radius; x <= radius; x++) {
@@ -146,6 +150,13 @@ public class IceIslandStructureStart extends SiftingStructureStart {
 
                 // Position is inside the line, draw line now.
                 if (fromCenter <= radius) {
+                    // If this icicle is hollow, skip the interior.
+                    if(hollow) {
+                        if(fromCenter <= radius * .8) {
+                            continue;
+                        }
+                    }
+
                     // From is the starting position of the line in real-world space.
                     // We calculate the distance to travel over each iteration between the source
                     //   and target position and store it in 'per'.
@@ -170,6 +181,27 @@ public class IceIslandStructureStart extends SiftingStructureStart {
                     }
                 }
             }
+        }
+
+        // If this icicle was hollow, we want to place an entrance for it.
+        // To do this, we empty out an area towards the base of the icicle.
+        if(hollow) {
+            for(int x = -3; x <= 3; x++) {
+                for(int y = -3; y <= 3; y++) {
+                    for(int z = -3; z <= 3; z++) {
+                        blocks.remove(new BlockPos(x, y + 5, z).add(origin));
+                    }
+                }
+            }
+
+            // place spawner inside
+            Vec3d direction = originVec.subtract(to).normalize().multiply(-5);
+            BlockPos attempt = new BlockPos(origin.getX() + direction.getX(), 180, origin.getZ() + direction.getZ());
+            while(island.containsKey(attempt)) {
+                attempt = attempt.up();
+            }
+            blocks.put(attempt, new BlockInfo(Blocks.CHEST.getDefaultState(), null));
+            blocks.put(attempt.up(), new BlockInfo(Blocks.SPAWNER.getDefaultState(), null));
         }
     }
 

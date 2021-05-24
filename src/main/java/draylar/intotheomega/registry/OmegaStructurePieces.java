@@ -6,7 +6,7 @@ import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
 import draylar.intotheomega.world.generator.EyeAltarGenerator;
 import draylar.intotheomega.world.generator.MediumPhantomTowerGenerator;
 import draylar.intotheomega.world.generator.SmallPhantomTowerGenerator;
-import draylar.intotheomega.world.ice_island.IceIslandStructure;
+import draylar.intotheomega.world.ice.IceIslandStructure;
 import draylar.intotheomega.world.island.GenericIslandStructure;
 import draylar.intotheomega.world.spike.SpikeStructureGenerator;
 import draylar.intotheomega.world.structure.BejeweledDungeonStructure;

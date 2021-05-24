@@ -9,7 +9,7 @@ import draylar.intotheomega.world.area.slime.SlimePillarFeature;
 import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
 import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
 import draylar.intotheomega.world.feature.OmegaCrystalOreFeature;
-import draylar.intotheomega.world.ice_island.IceIslandStructure;
+import draylar.intotheomega.world.ice.IceIslandStructure;
 import draylar.intotheomega.world.island.GenericIslandStructure;
 import draylar.intotheomega.world.spike.SpikeStructure;
 import draylar.intotheomega.world.structure.*;

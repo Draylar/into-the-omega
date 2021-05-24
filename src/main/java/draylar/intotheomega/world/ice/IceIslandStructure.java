@@ -1,4 +1,4 @@
-package draylar.intotheomega.world.ice_island;
+package draylar.intotheomega.world.ice;
 
 import com.mojang.serialization.Codec;
 import draylar.intotheomega.registry.OmegaEntities;
