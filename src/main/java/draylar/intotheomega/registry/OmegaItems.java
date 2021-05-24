@@ -191,6 +191,12 @@ public class OmegaItems {
     public static final Item BLAZING_VOID_LEGGINGS = register("blazing_void_leggings", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item BLAZING_VOID_BOOTS = register("blazing_void_boots", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
 
+    // Oblivion Temple
+    public static final Item SHATTERED_OBLIVION = register("shattered_oblivion", new SwordItem(ToolMaterials.DIAMOND, 7, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item TEARS_OF_OBLIVION = register("tears_of_oblivion", new BowItem(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item CHALICE_OF_NULLITY = register("chalice_of_nullity", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item CORRUPTED_CRIMSON_THIRST = register("corrupted_crimson_thirst", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+
     // dungeons
     public static final Item BEJEWELED_CHARM = register("bejeweled_totem", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE).maxCount(1)));
     public static final Item BEJEWELED_ARROW = register("bejeweled_arrow", new ArrowItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
