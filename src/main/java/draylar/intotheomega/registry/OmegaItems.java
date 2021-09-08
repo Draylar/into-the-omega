@@ -2,6 +2,8 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.item.*;
+import draylar.intotheomega.item.dragon.EmperealFerliousItem;
+import draylar.intotheomega.item.dragon.FerliousItem;
 import draylar.intotheomega.item.ice.FrostbusterItem;
 import draylar.intotheomega.item.ice.HeartOfIceItem;
 import draylar.intotheomega.item.slime.DestinySwirlItem;
@@ -38,6 +40,7 @@ public class OmegaItems {
 
     public static final Item FORGOTTEN_EYE = register("forgotten_eye", new ForgottenEyeItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item FERLIOUS = register("ferlious", new FerliousItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
+    public static final Item EMPEREAL_FERLIOUS = register("empereal_ferlious", new EmperealFerliousItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item HORIZON = register("horizon", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
 //    public static final Item DRAZELIA = register("drazelia", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item ABYSS_WALKERS = register("abyss_boots", new AbyssWalkersItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
