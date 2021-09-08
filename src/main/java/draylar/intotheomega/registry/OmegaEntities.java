@@ -1,6 +1,7 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.enchantment.EndSlimeEntity;
 import draylar.intotheomega.entity.*;
 import draylar.intotheomega.entity.block.*;
 import draylar.intotheomega.entity.dungeon.BejeweledLockBlockEntity;
@@ -19,6 +20,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
@@ -154,6 +156,15 @@ public class OmegaEntities {
                     .dimensions(EntityDimensions.fixed(0.6F, 2.9F))
                     .build());
 
+    public static final EntityType<EndSlimeEntity> END_SLIME = register(
+            "end_slime",
+            FabricEntityTypeBuilder
+                    .createMob()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .entityFactory(EndSlimeEntity::new)
+                    .dimensions(EntityDimensions.changing(2.04F, 2.04F))
+                    .build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }
@@ -168,6 +179,7 @@ public class OmegaEntities {
         FabricDefaultAttributeRegistry.register(ABYSSAL_RIFT, HostileEntity.createHostileAttributes());
         FabricDefaultAttributeRegistry.register(VOID_WALKER, VoidWalkerEntity.createVoidWalkerAttributes());
         FabricDefaultAttributeRegistry.register(FROSTED_ENDERMAN, EndermanEntity.createEndermanAttributes());
+        FabricDefaultAttributeRegistry.register(END_SLIME, HostileEntity.createHostileAttributes());
     }
 
     private OmegaEntities() {

@@ -30,6 +30,7 @@ public class OmegaRenderers {
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_BEAM, (dispatcher, context) -> new VoidMatrixBeamRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_WALKER, (dispatcher, context) -> new VoidWalkerRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_ENDERMAN, (dispatcher, context) -> new FrostedEndermanEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.END_SLIME, (dispatcher, context) -> new EndSlimeRenderer(dispatcher));
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);
