@@ -1,6 +1,6 @@
 package draylar.intotheomega.item.api;
 
-import draylar.da.api.DynamicModifiersTool;
+import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -15,13 +15,12 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import java.util.Collections;
 import java.util.List;
 
-public abstract class SetArmorItem extends ArmorItem implements DynamicModifiersTool {
+public abstract class SetArmorItem extends ArmorItem implements DynamicAttributeTool {
 
     private final String name;
     private final int lines;

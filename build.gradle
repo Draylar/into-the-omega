@@ -117,11 +117,6 @@ dependencies {
         exclude group: "net.fabricmc.fabric-api"
     }
 
-    modImplementation ('com.github.Draylar:dynamic-attributes:ac2e490347') {
-        exclude group: "net.fabricmc.fabric-api"
-    }
-    include 'com.github.Draylar:dynamic-attributes:ac2e490347'
-
     include 'draylar:jvoronoi:1.0.2'
     modImplementation ('draylar:jvoronoi:1.0.2') {
         exclude group: "org.openjfx"

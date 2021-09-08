@@ -2,9 +2,7 @@ package draylar.intotheomega.item;
 
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Multimap;
-import draylar.da.api.DynamicModifiersTool;
 import draylar.intotheomega.api.AttackHandler;
-import draylar.intotheomega.impl.AttackingItem;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
 import net.minecraft.client.item.TooltipContext;
@@ -37,7 +35,7 @@ import java.util.List;
 
 // NBT 0: Void Tide Vanquisher
 // NBT 1: Grand Spark Buster
-public class VariantSparkItem extends Item implements DynamicModifiersTool, AttackHandler {
+public class VariantSparkItem extends Item implements DynamicAttributeTool, AttackHandler {
 
     public VariantSparkItem(Settings settings) {
         super(settings);
@@ -96,7 +94,7 @@ public class VariantSparkItem extends Item implements DynamicModifiersTool, Atta
             return builder.build();
         }
 
-        return DynamicModifiersTool.super.getDynamicModifiers(slot, stack, user);
+        return DynamicAttributeTool.super.getDynamicModifiers(slot, stack, user);
     }
 
 
