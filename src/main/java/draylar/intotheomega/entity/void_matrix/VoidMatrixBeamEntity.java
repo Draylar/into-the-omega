@@ -98,4 +98,9 @@ public class VoidMatrixBeamEntity extends Entity {
     public void pushAwayFrom(Entity entity) {
 
     }
+
+    @Override
+    public boolean shouldRender(double distance) {
+        return true;
+    }
 }
