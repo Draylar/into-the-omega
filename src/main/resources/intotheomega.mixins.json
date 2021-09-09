@@ -58,6 +58,7 @@
     "dev.MobEntityAIRenderingMixin",
     "dungeon.BlockItemMixin",
     "dungeon.LivingNotificationMixin",
+    "entity.ClientPlayNetworkHandlerSpawnMixin",
     "entity.EndermanParticleMixin",
     "mechanic.EndPortalBlockMixin",
     "mechanic.LivingEntityJumpMixin",

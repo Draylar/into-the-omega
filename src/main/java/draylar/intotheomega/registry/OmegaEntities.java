@@ -4,6 +4,7 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.enchantment.EndSlimeEntity;
 import draylar.intotheomega.entity.*;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
+import draylar.intotheomega.entity.ice.AbyssGlobeEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.slime.OmegaSlimeEmperorEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
@@ -165,6 +166,15 @@ public class OmegaEntities {
                     .spawnGroup(SpawnGroup.MONSTER)
                     .entityFactory(VoidBeetleEntity::new)
                     .dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+                    .build());
+
+    public static final EntityType<AbyssGlobeEntity> ABYSS_GLOBE = register(
+            "abyss_globe",
+            FabricEntityTypeBuilder
+                    .create()
+                    .spawnGroup(SpawnGroup.MISC)
+                    .entityFactory(AbyssGlobeEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
                     .build());
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {

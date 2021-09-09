@@ -1,6 +1,7 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.biome.GlitterBiome;
 import net.fabricmc.fabric.api.biome.v1.TheEndBiomes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -38,10 +39,15 @@ public class OmegaBiomes {
         Registry.register(BuiltinRegistries.BIOME, ABYSSAL_VOID_KEY.getValue(), ABYSSAL_VOID);
         Registry.register(BuiltinRegistries.BIOME, ABYSSAL_CORE_KEY.getValue(), ABYSSAL_CORE);
         Registry.register(BuiltinRegistries.BIOME, OMEGA_SLIME_WASTES_KEY.getValue(), OMEGA_SLIME_WASTES);
+        Registry.register(BuiltinRegistries.BIOME, GlitterBiome.REGISTRY_KEY.getValue(), GlitterBiome.create());
 
         TheEndBiomes.addHighlandsBiome(BLACK_THORN_FOREST_KEY, 1.0f);
         TheEndBiomes.addMidlandsBiome(BLACK_THORN_FOREST_KEY, BLACK_THORN_FOREST_KEY, 1.0f);
         TheEndBiomes.addBarrensBiome(BLACK_THORN_FOREST_KEY, BLACK_THORN_FOREST_KEY, 1.0f);
+
+        TheEndBiomes.addHighlandsBiome(GlitterBiome.REGISTRY_KEY, 1.0f);
+        TheEndBiomes.addMidlandsBiome(GlitterBiome.REGISTRY_KEY, GlitterBiome.REGISTRY_KEY, 1.0f);
+        TheEndBiomes.addBarrensBiome(GlitterBiome.REGISTRY_KEY, GlitterBiome.REGISTRY_KEY, 1.0f);
     }
 
     public static Biome createBlackThornForest() {

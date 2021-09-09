@@ -22,6 +22,17 @@ public class Stances {
         model.torso.yaw = .25f;
     };
 
+    public static final Stance SWORD_DOWN = (player, model) -> {
+//        model.rightArm.pitch = 100;
+        // 4169
+        model.rightArm.yaw = 2.9f;
+        model.rightArm.roll = 0f;
+        model.rightArm.pitch = 1.5f;
+        model.leftArm.yaw = 3.8f;
+        model.leftArm.pitch = 1.5f;
+        model.torso.yaw = .25f;
+    };
+
     public static void set(PlayerEntity player, Stance stance) {
         ((StanceAccessor) player).setStance(stance);
     }
