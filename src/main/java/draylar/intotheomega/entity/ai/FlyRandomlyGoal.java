@@ -16,12 +16,7 @@ public class FlyRandomlyGoal extends Goal {
     private final float zVariance;
 
     public FlyRandomlyGoal(MobEntity entity) {
-        this.entity = entity;
-        this.setControls(EnumSet.of(Goal.Control.MOVE));
-        speed = 1.0f;
-        xVariance = 16f;
-        yVariance = 16f;
-        zVariance = 16f;
+        this(entity, 1.0f, 16f, 16f, 16f);
     }
 
     public FlyRandomlyGoal(MobEntity entity, float speed, float xVariance, float yVariance, float zVariance) {

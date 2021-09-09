@@ -3,10 +3,6 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.enchantment.EndSlimeEntity;
 import draylar.intotheomega.entity.*;
-import draylar.intotheomega.entity.block.*;
-import draylar.intotheomega.entity.dungeon.BejeweledLockBlockEntity;
-import draylar.intotheomega.entity.dungeon.InvisibleDungeonBrickBlockEntity;
-import draylar.intotheomega.entity.dungeon.SlimeObeliskBlockEntity;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.slime.OmegaSlimeEmperorEntity;
@@ -14,13 +10,10 @@ import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
@@ -165,6 +158,15 @@ public class OmegaEntities {
                     .dimensions(EntityDimensions.changing(2.04F, 2.04F))
                     .build());
 
+    public static final EntityType<VoidBeetleEntity> VOID_BEETLE = register(
+            "void_beetle",
+            FabricEntityTypeBuilder
+                    .createMob()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .entityFactory(VoidBeetleEntity::new)
+                    .dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+                    .build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }
@@ -180,6 +182,7 @@ public class OmegaEntities {
         FabricDefaultAttributeRegistry.register(VOID_WALKER, VoidWalkerEntity.createVoidWalkerAttributes());
         FabricDefaultAttributeRegistry.register(FROSTED_ENDERMAN, EndermanEntity.createEndermanAttributes());
         FabricDefaultAttributeRegistry.register(END_SLIME, HostileEntity.createHostileAttributes());
+        FabricDefaultAttributeRegistry.register(VOID_BEETLE, VoidBeetleEntity.createBeetleAttributes());
     }
 
     private OmegaEntities() {
