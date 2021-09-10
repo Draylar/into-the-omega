@@ -1,18 +1,18 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "intotheomega:item/horizon_sheet"
+    "layer0": "intotheomega:item/triumphant_horizon_sheet"
   },
   "display": {
     "thirdperson_righthand": {
       "rotation": [ 0, -90, 55 ],
       "translation": [ 0, 8.0, 0.5 ],
-      "scale": [ 1.25, 1.25, 1.25 ]
+      "scale": [ 1.5, 1.5, 1.5 ]
     },
     "thirdperson_lefthand": {
       "rotation": [ 0, 90, -55 ],
       "translation": [ 0, 8.0, 0.5 ],
-      "scale": [ 1.25, 1.25, 1.25 ]
+      "scale": [ 1.5, 1.5, 1.5 ]
     }
   }
 }

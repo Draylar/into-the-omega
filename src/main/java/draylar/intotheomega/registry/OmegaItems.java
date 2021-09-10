@@ -43,6 +43,7 @@ public class OmegaItems {
     public static final Item FERLIOUS = register("ferlious", new FerliousItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item EMPEREAL_FERLIOUS = register("empereal_ferlious", new EmperealFerliousItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item HORIZON = register("horizon", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
+    public static final Item TRIUMPHANT_HORIZON = register("triumphant_horizon", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
 //    public static final Item DRAZELIA = register("drazelia", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item ABYSS_WALKERS = register("abyss_boots", new AbyssWalkersItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
 
