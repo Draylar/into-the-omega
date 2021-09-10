@@ -59,7 +59,7 @@ public class ZeroAbyssItem extends SwordItem implements StanceProvider {
                 globe.requestTeleport(user.getX(), user.getY(), user.getZ());
                 globe.setOwner(user.getUuid());
                 world.spawnEntity(globe);
-                ((PlayerEntity) user).getItemCooldownManager().set(this, 20 * 5);
+                ((PlayerEntity) user).getItemCooldownManager().set(this, 20 * 60);
             }
         }
 
