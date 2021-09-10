@@ -27,17 +27,15 @@ public abstract class BossBarHudMixin extends DrawableHelper {
     @Shadow @Final private MinecraftClient client;
     @Shadow @Final private static Identifier BARS_TEXTURE;
 
-    @Unique
-    private static final Identifier ENIGMA_KING_TEXTURE = IntoTheOmega.id("textures/gui/enigma_king_boss_bars.png");
-
-    @Unique
-    private static final Identifier VOID_MATRIX_TEXTURE = IntoTheOmega.id("textures/gui/void_matrix_bar.png");
+    @Unique private static final Identifier ENIGMA_KING_TEXTURE = IntoTheOmega.id("textures/gui/enigma_king_boss_bars.png");
+    @Unique private static final Identifier VOID_MATRIX_TEXTURE = IntoTheOmega.id("textures/gui/void_matrix_bar.png");
+    @Unique private static final Identifier OMEGA_SLIME_EMPEROR_TEXTURE = IntoTheOmega.id("textures/gui/omega_slime_boss_bars.png");
 
     @Redirect(
             method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;drawWithShadow(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Text;FFI)I"))
     private int onDrawBossBarName(TextRenderer textRenderer, MatrixStack matrices, Text text, float x, float y, int color) {
-        if(text.toString().contains("enigma_king")) {
+        if(text.toString().contains("enigma_king") || text.toString().contains("omega_slime_emperor")) {
             return 0;
         } else {
             return this.client.textRenderer.drawWithShadow(matrices, text, x, y , color);
@@ -49,61 +47,103 @@ public abstract class BossBarHudMixin extends DrawableHelper {
             at = @At("HEAD"),
             cancellable = true
     )
-    private void renderCustomBossBar(MatrixStack matrixStack, int i, int j, BossBar bossBar, CallbackInfo ci) {
+    private void renderCustomBossBar(MatrixStack matrices, int x, int y, BossBar bossBar, CallbackInfo ci) {
         // Prevent issues with non-translatable text boss bar titles
         if(!(bossBar.getName() instanceof TranslatableText)) {
             return;
         }
 
         if(bossBar instanceof ClientBossBar && ((TranslatableText) bossBar.getName()).getKey().contains("enigma_king")) {
-            this.client.getTextureManager().bindTexture(ENIGMA_KING_TEXTURE);
-
-            int a = this.client.getWindow().getScaledWidth();
-            this.client.getTextureManager().bindTexture(ENIGMA_KING_TEXTURE);
-            double healthPercentage = bossBar.getPercent();
-            int amount = (int) (185 * healthPercentage);
-
-            // draw empty background bar
-            this.drawTexture(matrixStack, i, j, 0, 21, 185, 33);
-            this.drawTexture(matrixStack, i, j, 0, 0, amount, 15);
-            LiteralText text = new LiteralText("The Enigma King");
-            int m = this.client.textRenderer.getWidth(text);
-            int x = a / 2 - m / 2;
-            int y = j - 9 + 23;
-            this.client.textRenderer.drawWithShadow(matrixStack, text, (float)x, (float)y, 16777215);
-
-            matrixStack.push();
-            matrixStack.scale(0.875f, 0.875f, 0.875f);
-            matrixStack.translate(34, 1.99, 0);
-            this.drawTexture(matrixStack, a / 2 - 2, j + 1, 35, 55 , 9, 9);
-            matrixStack.pop();
-
-            // percentage -> texture width
-//            int overlayBarWidth = (int)(bossBar.getPercent() * 185.0F);
-
-            // draw overlay
-//            this.drawTexture(matrixStack, i, j, 0, 24, overlayBarWidth, 9);
-
+            renderEnigmaKingBar(matrices, x, y, bossBar);
             ci.cancel();
         }
 
         else if(bossBar instanceof ClientBossBar && ((TranslatableText) bossBar.getName()).getKey().contains("void_matrix")) {
-            this.client.getTextureManager().bindTexture(VOID_MATRIX_TEXTURE);
-
-            // draw empty background bar
-            this.drawTexture(matrixStack, i, j, 0, 0, 185, 7);
-
-            // percentage -> texture width
-            int overlayBarWidth = (int) (bossBar.getPercent() * 185.0F);
-
-            // draw overlay
-            this.drawTexture(matrixStack, i, j, 0, 7, overlayBarWidth, 7);
-
+            renderVoidMatrixBar(matrices, x, y, bossBar);
             ci.cancel();
         }
 
-        this.client.getTextureManager().bindTexture(BARS_TEXTURE);
+        else if (bossBar instanceof ClientBossBar && ((TranslatableText) bossBar.getName()).getKey().contains("omega_slime_emperor")) {
+            renderOmegaSlimeEmperor(matrices, x, y, bossBar);
+            ci.cancel();
+        }
+
+        client.getTextureManager().bindTexture(BARS_TEXTURE);
     }
 
+    @Unique
+    private void renderEnigmaKingBar(MatrixStack matrices, int x, int y, BossBar bossBar) {
+        this.client.getTextureManager().bindTexture(ENIGMA_KING_TEXTURE);
 
+        int a = this.client.getWindow().getScaledWidth();
+        this.client.getTextureManager().bindTexture(ENIGMA_KING_TEXTURE);
+        double healthPercentage = bossBar.getPercent();
+        int amount = (int) (185 * healthPercentage);
+
+        // draw empty background bar
+        this.drawTexture(matrices, x, y, 0, 21, 185, 33);
+        this.drawTexture(matrices, x, y, 0, 0, amount, 15);
+        LiteralText text = new LiteralText("The Enigma King");
+        int m = this.client.textRenderer.getWidth(text);
+        x = a / 2 - m / 2;
+        y = y - 9 + 23;
+        this.client.textRenderer.drawWithShadow(matrices, text, (float)x, (float)y, 16777215);
+
+        matrices.push();
+        matrices.scale(0.875f, 0.875f, 0.875f);
+        matrices.translate(34, 1.99, 0);
+        this.drawTexture(matrices, a / 2 - 2, y + 1, 35, 55 , 9, 9);
+        matrices.pop();
+
+        // percentage -> texture width
+//            int overlayBarWidth = (int)(bossBar.getPercent() * 185.0F);
+
+        // draw overlay
+//            this.drawTexture(matrixStack, i, j, 0, 24, overlayBarWidth, 9);
+    }
+
+    @Unique
+    private void renderOmegaSlimeEmperor(MatrixStack matrices, int x, int y, BossBar bossBar) {
+        this.client.getTextureManager().bindTexture(OMEGA_SLIME_EMPEROR_TEXTURE);
+
+        int a = this.client.getWindow().getScaledWidth();
+        this.client.getTextureManager().bindTexture(OMEGA_SLIME_EMPEROR_TEXTURE);
+        double healthPercentage = bossBar.getPercent();
+        int amount = (int) (185 * healthPercentage);
+
+        // draw empty background bar
+        this.drawTexture(matrices, x, y, 0, 21, 185, 33);
+        this.drawTexture(matrices, x, y, 0, 0, amount, 15);
+        LiteralText text = new LiteralText("Omega Slime Emperor");
+        int m = this.client.textRenderer.getWidth(text);
+        x = a / 2 - m / 2;
+        y = y - 9 + 23;
+        this.client.textRenderer.drawWithShadow(matrices, text, (float)x, (float)y, 16777215);
+
+        matrices.push();
+        matrices.scale(0.875f, 0.875f, 0.875f);
+        matrices.translate(34, 1.99, 0);
+        this.drawTexture(matrices, a / 2 - 2, y + 1, 35, 55 , 9, 9);
+        matrices.pop();
+
+        // percentage -> texture width
+//            int overlayBarWidth = (int)(bossBar.getPercent() * 185.0F);
+
+        // draw overlay
+//            this.drawTexture(matrixStack, i, j, 0, 24, overlayBarWidth, 9);
+    }
+
+    @Unique
+    private void renderVoidMatrixBar(MatrixStack matrices, int x, int y, BossBar bossBar) {
+        client.getTextureManager().bindTexture(VOID_MATRIX_TEXTURE);
+
+        // draw empty background bar
+        drawTexture(matrices, x, y, 0, 0, 185, 7);
+
+        // percentage -> texture width
+        int overlayBarWidth = (int) (bossBar.getPercent() * 185.0F);
+
+        // draw overlay
+        drawTexture(matrices, x, y, 0, 7, overlayBarWidth, 7);
+    }
 }

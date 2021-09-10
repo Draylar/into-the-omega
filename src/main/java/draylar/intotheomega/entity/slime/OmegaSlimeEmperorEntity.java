@@ -7,9 +7,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.boss.BossBar;
+import net.minecraft.entity.boss.ServerBossBar;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -33,6 +37,7 @@ public class OmegaSlimeEmperorEntity extends SlimeEntity implements IAnimatable 
     private static final String SQUISH = "animation.omega_slime_emperor.squish";
     private static final Map<String, Byte> registeredAnimations = new HashMap<>();
 
+    private final ServerBossBar bossBar;
     private final Queue<String> queuedAnimations = new ArrayDeque<>();
     private final AnimationFactory factory = new AnimationFactory(this);
     private String currentQueuedAnimation = null;
@@ -44,6 +49,7 @@ public class OmegaSlimeEmperorEntity extends SlimeEntity implements IAnimatable 
 
     public OmegaSlimeEmperorEntity(EntityType<? extends SlimeEntity> type, World world) {
         super(type, world);
+        this.bossBar = (ServerBossBar) new ServerBossBar(this.getDisplayName(), BossBar.Color.PURPLE, BossBar.Style.PROGRESS).setDarkenSky(true);
     }
 
     @Override
@@ -53,6 +59,15 @@ public class OmegaSlimeEmperorEntity extends SlimeEntity implements IAnimatable 
         this.goalSelector.add(3, new SlimeEntity.RandomLookGoal(this));
         this.goalSelector.add(5, new OmegaSlimeEmperorMoveGoal(this));
         this.targetSelector.add(0, new FollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, living -> Math.abs(living.getY() - this.getY()) <= 4.0D));
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if(!world.isClient) {
+            bossBar.setPercent(getHealth() / getMaxHealth());
+        }
     }
 
     @Override
@@ -135,5 +150,23 @@ public class OmegaSlimeEmperorEntity extends SlimeEntity implements IAnimatable 
     @Override
     public AnimationFactory getFactory() {
         return factory;
+    }
+
+    @Override
+    public void onStartedTrackingBy(ServerPlayerEntity player) {
+        super.onStartedTrackingBy(player);
+        bossBar.addPlayer(player);
+    }
+
+    @Override
+    public void onStoppedTrackingBy(ServerPlayerEntity player) {
+        super.onStoppedTrackingBy(player);
+        bossBar.removePlayer(player);
+    }
+
+    // prevent slime from splitting up on death
+    @Override
+    public void remove() {
+        this.removed = true;
     }
 }
