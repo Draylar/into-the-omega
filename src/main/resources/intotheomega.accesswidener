@@ -49,3 +49,9 @@ accessible method net/minecraft/client/render/model/json/ModelElementFace$Deseri
 accessible method net/minecraft/client/render/model/json/ModelElementTexture$Deserializer <init> ()V
 accessible method net/minecraft/client/render/model/json/Transformation$Deserializer <init> ()V
 accessible method net/minecraft/client/render/model/json/ModelOverride$Deserializer <init> ()V
+
+# Slime Stuff
+accessible class net/minecraft/entity/mob/SlimeEntity$SlimeMoveControl
+accessible class net/minecraft/entity/mob/SlimeEntity$SwimmingGoal
+accessible class net/minecraft/entity/mob/SlimeEntity$FaceTowardTargetGoal
+accessible class net/minecraft/entity/mob/SlimeEntity$RandomLookGoal

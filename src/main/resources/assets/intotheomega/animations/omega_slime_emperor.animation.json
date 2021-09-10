@@ -1,6 +1,51 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
+		"animation.omega_slime_emperor.squish": {
+			"animation_length": 0.4,
+			"bones": {
+				"crown": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.04": {
+							"vector": [0, 0, 0]
+						},
+						"0.28": {
+							"vector": [0, -24, 0]
+						},
+						"0.36": {
+							"vector": [0, 10, 0],
+							"easing": "easeInQuad"
+						},
+						"0.4": {
+							"vector": [0, 0, 0],
+							"easing": "easeInSine"
+						}
+					}
+				},
+				"base": {
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1]
+						},
+						"0.24": {
+							"vector": [1, 0.75, 1],
+							"easing": "easeOutExpo"
+						},
+						"0.36": {
+							"vector": [1, 1.1, 1],
+							"easing": "easeInQuad"
+						},
+						"0.4": {
+							"vector": [1, 1, 1],
+							"easing": "easeInQuad"
+						}
+					}
+				}
+			}
+		},
 		"animation.omega_slime_emperor.crown": {
 			"animation_length": 3.56,
 			"bones": {
@@ -110,6 +155,24 @@
 							"vector": [0, 360, 0],
 							"easing": "linear"
 						}
+					}
+				}
+			}
+		},
+		"animation.omega_slime_emperor.idle": {
+			"loop": true,
+			"bones": {
+				"crown": {
+					"position": {
+						"vector": [0, "math.sin(query.anim_time * 100) * 2.5", 0]
+					},
+					"scale": {
+						"vector": [1, "math.sin(query.anim_time * 100) * 0.025 + 1", 1]
+					}
+				},
+				"base": {
+					"scale": {
+						"vector": [1, "math.sin(query.anim_time * 100) * 0.025 + 1", 1]
 					}
 				}
 			}
