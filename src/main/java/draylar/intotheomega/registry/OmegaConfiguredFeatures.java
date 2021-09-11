@@ -37,6 +37,7 @@ public class OmegaConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> SLIME_PILLAR = register("slime_pillar", OmegaWorld.SLIME_PILLAR.configure(FeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeat(1));
     public static final ConfiguredFeature<?, ?> SLIME_LAKE = register("slime_lake", OmegaWorld.SLIME_LAKE.configure(FeatureConfig.DEFAULT).decorate(Decorator.WATER_LAKE.configure(new ChanceDecoratorConfig(4))));
     public static final ConfiguredFeature<?, ?> SLIME_DUNGEON = register("slime_dungeon", OmegaWorld.SLIME_DUNGEON.configure(FeatureConfig.DEFAULT).decorate(Decorator.WATER_LAKE.configure(new ChanceDecoratorConfig(25))));
+    public static final ConfiguredFeature<?, ?> END_ISLAND_RIVER = register("end_river", OmegaWorld.END_ISLAND_RIVER.configure(FeatureConfig.DEFAULT));
 
     private static <FC extends FeatureConfig, F extends StructureFeature<FC>> ConfiguredStructureFeature<FC, F> register(String id, ConfiguredStructureFeature<FC, F> configuredStructureFeature) {
         return BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, IntoTheOmega.id(id), configuredStructureFeature);

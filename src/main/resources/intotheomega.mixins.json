@@ -35,6 +35,7 @@
     "PersistentProjectileEntityMixin",
     "PlayerEntityDamageCallbackMixin",
     "PlayerEntityMixin",
+    "ServerChunkManagerAccessor",
     "ServerPlayerPreviousPositionMixin",
     "ServerWorldAccessor",
     "SimpleRegistryAccessor",
@@ -78,6 +79,8 @@
     "trinkets.ExplosionDamageMixin",
     "trinkets.PlayerEntityDamageMixin",
     "world.EndBiomeSourceMixin",
+    "world.EndPillarDesignMixin",
+    "world.EndPillarSpikeCacheMixin",
     "world.SpawnHelperMixin"
   ],
   "client": [

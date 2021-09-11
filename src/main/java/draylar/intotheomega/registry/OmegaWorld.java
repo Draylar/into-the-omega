@@ -7,6 +7,7 @@ import draylar.intotheomega.world.area.slime.SlimeDungeonFeature;
 import draylar.intotheomega.world.area.slime.SlimeLakeFeature;
 import draylar.intotheomega.world.area.slime.SlimePillarFeature;
 import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
+import draylar.intotheomega.world.feature.EndIslandRiverFeature;
 import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
 import draylar.intotheomega.world.feature.OmegaCrystalOreFeature;
 import draylar.intotheomega.world.ice.IceIslandStructure;
@@ -58,6 +59,7 @@ public class OmegaWorld {
     public static final Feature<DefaultFeatureConfig> SLIME_PILLAR = register("slime_pillar", new SlimePillarFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_LAKE = register("slime_lake", new SlimeLakeFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_DUNGEON = register("slime_dungeon", new SlimeDungeonFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> END_ISLAND_RIVER = register("end_island_river", new EndIslandRiverFeature(DefaultFeatureConfig.CODEC));
 
     // Config / Biome Cache
     public static final List<RegistryKey<Biome>> VALID_EYE_ALTAR_BIOMES = Arrays.asList(BiomeKeys.END_HIGHLANDS);
@@ -183,6 +185,12 @@ public class OmegaWorld {
                 .add(ModificationPhase.ADDITIONS,
                         BiomeSelectors.includeByKey(OmegaBiomes.ABYSSAL_CORE_KEY),
                         context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.ABYSS_FLOWER_ISLAND));
+
+//        BiomeModifications
+//                .create(IntoTheOmega.id("end_island_river"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        BiomeSelectors.foundInTheEnd(),
+//                        context -> context.getGenerationSettings().addBuiltInFeature(GenerationStep.Feature.LAKES, OmegaConfiguredFeatures.END_ISLAND_RIVER));
     }
 
     private static <C extends FeatureConfig, F extends Feature<C>> F register(String name, F feature) {

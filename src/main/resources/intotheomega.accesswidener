@@ -55,3 +55,6 @@ accessible class net/minecraft/entity/mob/SlimeEntity$SlimeMoveControl
 accessible class net/minecraft/entity/mob/SlimeEntity$SwimmingGoal
 accessible class net/minecraft/entity/mob/SlimeEntity$FaceTowardTargetGoal
 accessible class net/minecraft/entity/mob/SlimeEntity$RandomLookGoal
+
+# General End
+accessible class net/minecraft/world/gen/feature/EndSpikeFeature$SpikeCache

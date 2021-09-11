@@ -3,6 +3,7 @@ package draylar.intotheomega;
 import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketSlots;
+import draylar.intotheomega.command.GeneratePillarCommand;
 import draylar.intotheomega.mixin.SimpleRegistryAccessor;
 import draylar.intotheomega.network.ServerNetworking;
 import draylar.intotheomega.registry.*;
@@ -51,6 +52,9 @@ public class IntoTheOmega implements ModInitializer {
         OmegaEventHandlers.init();
         ServerNetworking.init();
         OmegaStatusEffects.init();
+
+        // commands - // TODO: new registry class
+        GeneratePillarCommand.initialize();
 
         registerDragonLootAppender();
 

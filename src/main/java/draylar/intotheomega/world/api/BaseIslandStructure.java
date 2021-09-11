@@ -29,6 +29,11 @@ public abstract class BaseIslandStructure extends StructureFeature<DefaultFeatur
             NOISE = new OpenSimplex2F(worldSeed);
         }
 
+        // No islands should spawn within 1,000 blocks of the main island.
+        if(Math.sqrt(Math.pow(chunkX * 16, 2) + Math.pow(chunkZ * 16, 2)) <= 1_000) {
+            return false;
+        }
+
         // For now, Island structures should only spawn on ChunkPosses divisible by 5.
         // TODO: Use the noise type kdot talked about for spreading out islands.
 
