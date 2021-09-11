@@ -212,6 +212,7 @@ public class OmegaItems {
     // misc
 //    public static final Item TRUE_EOE_SPAWN_EGG = register("true_eye_of_ender_spawn_egg", new SpawnEggItem(OmegaEntities.TRUE_EYE_OF_ENDER, 0, 0, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item VOIDS_REFUGE = register("voids_refuge", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item ENDERANG = register("enderang", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
 
     // creative items
     public static final Item INFINITE_OMEGA_GOD_SEAL = register("infinite_omega_god_seal", new InvincibleTrinketItem(new Item.Settings().rarity(Rarity.EPIC)));
