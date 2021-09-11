@@ -44,6 +44,10 @@ public class OmegaBlockEntities {
             "slime_obelisk",
             BlockEntityType.Builder.create(SlimeObeliskBlockEntity::new, OmegaBlocks.SLIME_OBELISK).build(null));
 
+    public static final BlockEntityType<SwirledMixerBlockEntity> SWIRLED_MIXER = register(
+            "swirled_mixer",
+            BlockEntityType.Builder.create(SwirledMixerBlockEntity::new, OmegaBlocks.SWIRLED_MIXER).build(null));
+
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> entity) {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }

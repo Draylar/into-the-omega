@@ -6,7 +6,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.damage.DamageSource;
@@ -162,6 +165,13 @@ public class OmegaSlimeEmperorEntity extends SlimeEntity implements IAnimatable 
     public void onStoppedTrackingBy(ServerPlayerEntity player) {
         super.onStoppedTrackingBy(player);
         bossBar.removePlayer(player);
+    }
+
+    public static DefaultAttributeContainer.Builder createEmperorAttributes() {
+        return LivingEntity.createLivingAttributes()
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 64.0D)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 1000.0D)
+                .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK);
     }
 
     // prevent slime from splitting up on death

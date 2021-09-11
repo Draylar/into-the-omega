@@ -40,6 +40,7 @@ public class OmegaRenderers {
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.INVISIBLE_DUNGEON_BRICK, InvisibleDungeonBrickBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.ABYSS_CHAIN, AbyssChainBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.BEJEWELED_LOCK, BejeweledLockBlockEntityRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.SWIRLED_MIXER, SwirledMixerRenderer::new);
     }
 
     private OmegaRenderers() {

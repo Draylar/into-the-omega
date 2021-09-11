@@ -39,6 +39,7 @@
     "ServerWorldAccessor",
     "SimpleRegistryAccessor",
     "SpawnEggItemAccessor",
+    "StatusEffectInstanceAccessor",
     "TridentEntityMixin",
     "armor.ArmorFeatureRendererMixin",
     "armor.ChorusFruitMixin",

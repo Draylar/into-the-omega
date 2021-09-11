@@ -185,7 +185,7 @@ public class OmegaEntities {
         FabricDefaultAttributeRegistry.register(CHORUS_COW, CowEntity.createCowAttributes());
         FabricDefaultAttributeRegistry.register(VOID_MATRIX, VoidMatrixEntity.createVoidMatrixAttributes());
         FabricDefaultAttributeRegistry.register(ENIGMA_KING, EnigmaKingEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(OMEGA_SLIME_EMPEROR, HostileEntity.createHostileAttributes());
+        FabricDefaultAttributeRegistry.register(OMEGA_SLIME_EMPEROR, OmegaSlimeEmperorEntity.createEmperorAttributes());
         FabricDefaultAttributeRegistry.register(OMEGA_SLIME, HostileEntity.createHostileAttributes());
         FabricDefaultAttributeRegistry.register(FROSTED_EYE, HostileEntity.createHostileAttributes());
         FabricDefaultAttributeRegistry.register(ABYSSAL_RIFT, HostileEntity.createHostileAttributes());
