@@ -7,6 +7,7 @@ import draylar.intotheomega.item.dragon.FerliousItem;
 import draylar.intotheomega.item.ice.FrostbusterItem;
 import draylar.intotheomega.item.ice.HeartOfIceItem;
 import draylar.intotheomega.item.ice.ZeroAbyssItem;
+import draylar.intotheomega.item.memory.MemoryItem;
 import draylar.intotheomega.item.slime.DestinySwirlItem;
 import draylar.intotheomega.item.slime.OmegaSlimeSlayerItem;
 import draylar.intotheomega.item.spike.DarkFlameBlasterItem;
@@ -216,6 +217,13 @@ public class OmegaItems {
 
     // creative items
     public static final Item INFINITE_OMEGA_GOD_SEAL = register("infinite_omega_god_seal", new InvincibleTrinketItem(new Item.Settings().rarity(Rarity.EPIC)));
+
+    // Memory Fragments
+    public static final MemoryItem MEMORY_OF_DISTORTION = register("memory_of_distortion", new MemoryItem(new Item.Settings().rarity(Rarity.EPIC).group(IntoTheOmega.GROUP)));
+    public static final MemoryItem MEMORY_OF_DUALITY = register("memory_of_duality", new MemoryItem(new Item.Settings().rarity(Rarity.EPIC).group(IntoTheOmega.GROUP)));
+    public static final MemoryItem MEMORY_OF_FLAMES = register("memory_of_flames", new MemoryItem(new Item.Settings().rarity(Rarity.EPIC).group(IntoTheOmega.GROUP)));
+    public static final MemoryItem MEMORY_OF_SHATTERING = register("memory_of_shattering", new MemoryItem(new Item.Settings().rarity(Rarity.EPIC).group(IntoTheOmega.GROUP)));
+    public static final MemoryFocusItem MEMORY_FOCUS = register("memory_focus", new MemoryFocusItem(new Item.Settings().rarity(Rarity.EPIC).group(IntoTheOmega.GROUP)));
 
     private static <T extends Item> T register(String name, T item) {
         return Registry.register(Registry.ITEM, IntoTheOmega.id(name), item);
