@@ -81,6 +81,7 @@
     "world.EndBiomeSourceMixin",
     "world.EndPillarDesignMixin",
     "world.EndPillarSpikeCacheMixin",
+    "world.EndPortalRedesignMixin",
     "world.SpawnHelperMixin"
   ],
   "client": [
