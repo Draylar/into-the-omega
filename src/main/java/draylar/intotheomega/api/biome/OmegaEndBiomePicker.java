@@ -2,9 +2,10 @@ package draylar.intotheomega.api.biome;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.BiomeKeys;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class OmegaEndBiomePicker {
@@ -15,7 +16,7 @@ public class OmegaEndBiomePicker {
             .barrens(BiomeKeys.END_BARRENS)
             .build();
 
-    private static final NavigableMap<Double, IslandBiomeData> ALL_ISLAND_BIOMES = new TreeMap<>();
+    private static final Map<IslandBiomeData, Double> ISLANDS = new HashMap<>();
     private static final Random random = new Random();
     private static double totalWeight = 0.0d;
 
@@ -25,7 +26,7 @@ public class OmegaEndBiomePicker {
             return;
         }
 
-        ALL_ISLAND_BIOMES.put(weight, biome);
+        ISLANDS.put(biome, weight);
         totalWeight += weight;
     }
 
@@ -37,16 +38,19 @@ public class OmegaEndBiomePicker {
 
         // TODO: WHAT IF EMPTY????????
 
-        NavigableMap<Double, IslandBiomeData> filteredOptions =
-                new TreeMap<>(ALL_ISLAND_BIOMES.entrySet().stream().filter(entry -> entry.getValue().canSpawnAt(at)).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue)));
+        Map<IslandBiomeData, Double> filteredOptions =
+                ISLANDS.entrySet().stream().filter(entry -> entry.getKey().canSpawnAt(at)).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
-        double index = random.nextDouble() * totalWeight;
-        @Nullable Map.Entry<Double, IslandBiomeData> value = filteredOptions.higherEntry(index);
+        double picked = random.nextDouble() * totalWeight;
+        double cumulativeSum = 0.0d;
+        for(Map.Entry<IslandBiomeData, Double> entry : filteredOptions.entrySet()) {
+            if(picked >= cumulativeSum) {
+                return entry.getKey();
+            }
 
-        if(value != null) {
-            return value.getValue();
-        } else {
-            return DEFAULT;
+            cumulativeSum += entry.getValue();
         }
+
+        return DEFAULT;
     }
 }

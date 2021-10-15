@@ -49,6 +49,8 @@
     "armor.PlayerEntityRendererSetMixin",
     "armor.PlayerEntitySetMixin",
     "biome.ClientWorldBiomeParticleMixin",
+    "biome.chorus.ChorusPlantBlockMixin",
+    "biome.chorus.ChorusPlantFeatureMixin",
     "boss.BossBarHudMixin",
     "boss.DamageVelocityMixin",
     "canvas.CanvasItemRenderContextMixin",
