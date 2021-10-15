@@ -22,9 +22,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import sun.security.provider.SHA;
-
-import java.util.function.Consumer;
 
 public class ChorusCowEntity extends CowEntity implements Shearable {
 

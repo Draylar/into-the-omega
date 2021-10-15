@@ -1,9 +1,11 @@
 package draylar.intotheomega.mixin.world;
 
-import draylar.intotheomega.api.EndBiomeHelper;
-import draylar.intotheomega.api.OpenSimplex2F;
+import draylar.intotheomega.api.Vec2i;
+import draylar.intotheomega.api.biome.IslandBiomeData;
+import draylar.intotheomega.api.biome.OmegaEndBiomePicker;
 import draylar.intotheomega.registry.OmegaBiomes;
-import draylar.jvoronoi.JVoronoi;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -17,34 +19,57 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Fabric API provides an API for manipulating end biomes, but it is limited in control.
  * For specific cases where we need to control exactly how biomes spawn,
- *      this mixin takes priority over the Fabric API.
+ * this mixin takes priority over the Fabric API.
  */
 @Mixin(TheEndBiomeSource.class)
-public class EndBiomeSourceMixin {
+public abstract class EndBiomeSourceMixin {
 
-    @Shadow @Final private long seed;
+    @Shadow
+    @Final
+    private long seed;
+
+    @Shadow
+    @Final
+    private Biome centerBiome;
+
+    @Shadow
+    @Final
+    private SimplexNoiseSampler noise;
+
+    @Shadow
+    @Final
+    private Biome smallIslandsBiome;
 
     @Shadow @Final private Registry<Biome> biomeRegistry;
+    @Unique
+    private static long cachedSeed = Integer.MAX_VALUE;
 
-    @Unique private static OpenSimplex2F NOISE = new OpenSimplex2F(0);
-    @Unique private static long cachedSeed = Integer.MAX_VALUE;
-    @Unique private static JVoronoi voronoi = new JVoronoi(0, 250);
-    @Unique private static List<RegistryKey<Biome>> biomeSections = new ArrayList<>();
+    @Unique
+    private static List<RegistryKey<Biome>> biomeSections = new ArrayList<>();
 
-    @Inject(method = "getBiomeForNoiseGen",at = @At("HEAD"))
+    @Unique
+    private static Map<Vec2i, Biome> cachedBiomePositions = new ConcurrentHashMap<>();
+
+    @Unique
+    private static Map<Vec2i, Float> cachedNoise = new ConcurrentHashMap<>();
+
+    @Unique
+    private static Random random = new Random();
+
+    @Unique
+    private static final Direction[] HORIZONTAL_DIRECTIONS = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
+
+    @Inject(method = "getBiomeForNoiseGen", at = @At("HEAD"))
     private void initializeNoise(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
         if(cachedSeed != seed) {
             cachedSeed = seed;
-            voronoi = new JVoronoi(cachedSeed, 250);
-            NOISE = new OpenSimplex2F(cachedSeed);
 
             // initialize biome sections
             // we previously did this in a static block, but that was causing some sort of registry race condition
@@ -60,61 +85,117 @@ public class EndBiomeSourceMixin {
         }
     }
 
-    @Inject(method = "getBiomeForNoiseGen", at = @At("RETURN"), cancellable = true)
-    private void addVoronoiBiomes(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
-        // Check distance from center.
-        double fromCenter = Math.sqrt(Math.pow(biomeX, 2) + Math.pow(biomeZ, 2));
+    /**
+     * @author Draylar
+     */
+    // Coordinates passed in are the real-world coordinates divided by 4.
+    // eg. (100, 50, 100) is (25, ?, 25), and we skip 4 blocks per biome sample.
+    @Inject(at = @At("HEAD"), method = "getBiomeForNoiseGen", cancellable = true)
+    public void getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
+        int chunkX = biomeX / 4;
+        int chunkZ = biomeZ / 4;
 
-        // Ensure our position is valid before proceeding.
-        if(fromCenter >= 1_000) {
-            // [0, 1]
-            double value = voronoi.tesselateWithEdge(biomeX, biomeZ, 100);
+        // If we are within the central area of The End, use the standard End biome for the main island.
+        if((long) chunkX * (long) chunkX + (long) chunkZ * (long) chunkZ <= 4096L) {
+            cir.setReturnValue(centerBiome);
+        }
 
-            // Ignore Voronoi edges to add proper borders between biome zones.
-            if(value > 0) {
-                int index = (int) (value * biomeSections.size());
-                RegistryKey<Biome> found = biomeSections.get(index);
+        // Outside the central island.
+        else {
+            Vec2i current = new Vec2i(biomeX, biomeZ);
 
-                if(found != null) {
-                    cir.setReturnValue(biomeRegistry.get(found));
+            // If we assigned this column position previously, use that value.
+            if(cachedBiomePositions.containsKey(current)) {
+                Biome biome = cachedBiomePositions.get(current);
+                cir.setReturnValue(biome);
+                return;
+            }
+
+            // Cached void
+            if(cachedNoise.containsKey(current) && !cachedBiomePositions.containsKey(current)) {
+                cir.setReturnValue(smallIslandsBiome);
+                return;
+            }
+
+            // We have not yet assigned a value.
+            // If the noise value is above our threshold,
+            float chunkNoise = TheEndBiomeSource.getNoiseAt(this.noise, chunkX * 2 + 1, chunkZ * 2 + 1);
+
+            // Void.
+            if(chunkNoise < -20.0f) {
+                cir.setReturnValue(smallIslandsBiome);
+                return;
+            }
+
+            // Unselected island. Pick one now.
+            IslandBiomeData islandBiome = OmegaEndBiomePicker.pick(new BlockPos(biomeX * 4, 0, biomeZ * 4));
+
+            // IF we are in an island, print out the collected noise group.
+            // This should be always be a high number because cached values return earlier.
+            if(chunkNoise >= -20.0f) {
+                Set<Vec2i> yeet = locateIslandBlocks(current);
+
+                // cache the starting biome to prevent it from potentially double checking in the future - probably not needed
+                cachedBiomePositions.put(current, biomeRegistry.get(getBiomeFor(islandBiome, chunkNoise)));
+
+                // assign cache biomes after processing island
+                yeet.forEach(pos -> {
+                    // TODO: cached biome based on posNoise
+                    // TODO: combine with down
+                    cachedBiomePositions.put(pos, biomeRegistry.get(getBiomeFor(islandBiome, cachedNoise.get(pos))));
+                    // TODO: WE CAN CLEAR CACHED NOISE HERE
+                });
+            }
+
+            // Fallback for the first block in an island.
+            // TODO: combine with ^^
+            cir.setReturnValue(biomeRegistry.get(getBiomeFor(islandBiome, chunkNoise)));
+        }
+    }
+
+    private RegistryKey<Biome> getBiomeFor(IslandBiomeData islandBiome, float noise) {
+        if(noise > 40.0F) {
+            return islandBiome.getHighlands();
+        } else if(noise >= 0.0F) {
+            return islandBiome.getMidlands();
+        } else {
+            return islandBiome.getBarrens();
+        }
+    }
+
+    private Set<Vec2i> locateIslandBlocks(Vec2i from) {
+        Set<Vec2i> island = new HashSet<>(); // contains every valid position
+        List<Vec2i> toProcess = new ArrayList<>(); // every position we NEED to process
+        Set<Vec2i> finished = new HashSet<>(); // contains every position we have FINISHED processing
+
+        toProcess.add(from);
+        island.add(from);
+        finished.add(from);
+
+        ListIterator<Vec2i> iterator = toProcess.listIterator();
+        while (iterator.hasNext()) {
+            Vec2i next = iterator.next();
+            iterator.remove();
+            finished.add(next);
+
+            // are we in the island?
+            float offsetNoise = TheEndBiomeSource.getNoiseAt(noise, (next.x / 4) * 2 + 1, (next.z / 4) * 2 + 1);
+            cachedNoise.put(next, offsetNoise);
+
+            if(offsetNoise >= -20.0f) {
+                island.add(next);
+
+                // check neighbors
+                for (Direction direction : HORIZONTAL_DIRECTIONS) {
+                    Vec2i offset = new Vec2i(next.x + direction.getOffsetX(), next.z + direction.getOffsetZ());
+                    if(!finished.contains(offset)) {
+                        iterator.add(offset);
+                        iterator.previous();
+                    }
                 }
             }
         }
-    }
 
-    /**
-     * The Abyssal Biomes are home to the Abyss Flower Island, which needs to spawn in a very empty area.
-     * To accomplish this, we place a circle of empty biomes in random spots around the end,
-     *      which gives us the empty area we need to work with.
-     *
-     * @param biomeX  x position of the biome check
-     * @param biomeY  y position of the biome check
-     * @param biomeZ  z position of the biome check
-     * @param cir     mixin callback information
-     */
-    @Inject(method = "getBiomeForNoiseGen", at = @At("RETURN"), cancellable = true)
-    private void addAbyssalBiomes(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
-        // Check distance from center.
-        double fromCenter = Math.sqrt(Math.pow(biomeX, 2) + Math.pow(biomeZ, 2));
-
-        // 1. ensure we are not near spawn
-        // 2. ensure noise evaluation succeeds
-        //    => place Abyssal Void
-        int distance = EndBiomeHelper.distanceToZone(biomeX * 4, biomeZ * 4);
-        if(fromCenter >= 10_000) {
-            if(distance < 6) {
-                cir.setReturnValue(biomeRegistry.get(OmegaBiomes.ABYSSAL_CORE_KEY));
-            } else if (distance < 250) {
-                cir.setReturnValue(biomeRegistry.get(OmegaBiomes.ABYSSAL_VOID_KEY));
-            }
-        }
-    }
-
-    @Inject(method = "getNoiseAt", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;abs(F)F", ordinal = 0), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private static void cancelIslandsInAbyssalAreas(SimplexNoiseSampler simplexNoiseSampler, int columnX, int columnZ, CallbackInfoReturnable<Float> cir, int k, int l, int m, int n, float f, int o, int p, long q, long r) {
-        // eval noise to cancel islands
-        if(EndBiomeHelper.distanceToZone((columnX - 1) * 8, (columnZ - 1) * 8) < 250) {
-            cir.setReturnValue(f);
-        }
+        return island;
     }
 }

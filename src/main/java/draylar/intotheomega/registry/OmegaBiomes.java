@@ -1,8 +1,9 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.api.biome.IslandBiomeData;
+import draylar.intotheomega.api.biome.OmegaEndBiomePicker;
 import draylar.intotheomega.biome.GlitterBiome;
-import net.fabricmc.fabric.api.biome.v1.TheEndBiomes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.particle.ParticleTypes;
@@ -41,13 +42,9 @@ public class OmegaBiomes {
         Registry.register(BuiltinRegistries.BIOME, OMEGA_SLIME_WASTES_KEY.getValue(), OMEGA_SLIME_WASTES);
         Registry.register(BuiltinRegistries.BIOME, GlitterBiome.REGISTRY_KEY.getValue(), GlitterBiome.create());
 
-        TheEndBiomes.addHighlandsBiome(BLACK_THORN_FOREST_KEY, 1.0f);
-        TheEndBiomes.addMidlandsBiome(BLACK_THORN_FOREST_KEY, BLACK_THORN_FOREST_KEY, 1.0f);
-        TheEndBiomes.addBarrensBiome(BLACK_THORN_FOREST_KEY, BLACK_THORN_FOREST_KEY, 1.0f);
-
-        TheEndBiomes.addHighlandsBiome(GlitterBiome.REGISTRY_KEY, 1.0f);
-        TheEndBiomes.addMidlandsBiome(GlitterBiome.REGISTRY_KEY, GlitterBiome.REGISTRY_KEY, 1.0f);
-        TheEndBiomes.addBarrensBiome(GlitterBiome.REGISTRY_KEY, GlitterBiome.REGISTRY_KEY, 1.0f);
+        // Zone 1 goes out to 15,000.
+        // The default End Island will spawn 50% of the time, regardless of weight.
+        OmegaEndBiomePicker.register(IslandBiomeData.builder().singleBiome(BLACK_THORN_FOREST_KEY).maxDistance(15_000).build(), 1.0d);
     }
 
     public static Biome createBlackThornForest() {
