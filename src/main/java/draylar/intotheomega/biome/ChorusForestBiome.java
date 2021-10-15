@@ -2,7 +2,10 @@ package draylar.intotheomega.biome;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.registry.OmegaConfiguredFeatures;
+import draylar.intotheomega.registry.OmegaEntities;
 import draylar.intotheomega.registry.OmegaSurfaceBuilders;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
@@ -21,6 +24,7 @@ public class ChorusForestBiome {
     private static Biome createChorusForestBiome() {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         DefaultBiomeFeatures.addEndMobs(spawnSettings);
+        spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(OmegaEntities.CHORUS_COW, 5, 3, 6));
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
         generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CHORUS_FOREST_BUILDER);
