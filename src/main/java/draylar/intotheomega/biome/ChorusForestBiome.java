@@ -29,7 +29,7 @@ public class ChorusForestBiome {
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
         generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CHORUS_FOREST_BUILDER);
         generationSettings
-                .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.CHORUS_PLANT)
+                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.FOREST_CHORUS_PLANT)
                 .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaConfiguredFeatures.OMEGA_ORE);
 
         return new Biome.Builder()

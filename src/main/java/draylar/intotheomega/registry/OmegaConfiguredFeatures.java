@@ -18,7 +18,7 @@ public class OmegaConfiguredFeatures {
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> EYE_ALTAR = register("eye_altar", OmegaWorld.EYE_ALTAR.configure(new DefaultFeatureConfig()));
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> SMALL_PHANTOM_TOWER = register("small_phantom_tower", OmegaWorld.SMALL_PHANTOM_TOWER.configure(new DefaultFeatureConfig()));
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> MEDIUM_PHANTOM_TOWER = register("medium_phantom_tower", OmegaWorld.MEDIUM_PHANTOM_TOWER.configure(new DefaultFeatureConfig()));
-    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_SPIKE = register("spike", OmegaWorld.SPIKE.configure(DefaultFeatureConfig.INSTANCE));
+    public static final ConfiguredStructureFeature<?, ?> ENIGMA_KING_SPIKE = register("spike", OmegaWorld.SPIKE.configure(DefaultFeatureConfig.INSTANCE));
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> MATRIX_PEDESTAL = register("matrix_pedestal", OmegaWorld.MATRIX_PEDESTAL.configure(new DefaultFeatureConfig()));
     public static final ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> BEJEWELED_DUNGEON = register("bejeweled_dungeon", OmegaWorld.BEJEWELED_DUNGEON.configure(new DefaultFeatureConfig()));
 
@@ -38,6 +38,7 @@ public class OmegaConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> SLIME_LAKE = register("slime_lake", OmegaWorld.SLIME_LAKE.configure(FeatureConfig.DEFAULT).decorate(Decorator.WATER_LAKE.configure(new ChanceDecoratorConfig(4))));
     public static final ConfiguredFeature<?, ?> SLIME_DUNGEON = register("slime_dungeon", OmegaWorld.SLIME_DUNGEON.configure(FeatureConfig.DEFAULT).decorate(Decorator.WATER_LAKE.configure(new ChanceDecoratorConfig(25))));
     public static final ConfiguredFeature<?, ?> END_ISLAND_RIVER = register("end_river", OmegaWorld.END_ISLAND_RIVER.configure(FeatureConfig.DEFAULT));
+    public static final ConfiguredFeature<?, ?> FOREST_CHORUS_PLANT = register("forest_chorus_plant", Feature.CHORUS_PLANT.configure(FeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeatRandomly(16));
 
     private static <FC extends FeatureConfig, F extends StructureFeature<FC>> ConfiguredStructureFeature<FC, F> register(String id, ConfiguredStructureFeature<FC, F> configuredStructureFeature) {
         return BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, IntoTheOmega.id(id), configuredStructureFeature);

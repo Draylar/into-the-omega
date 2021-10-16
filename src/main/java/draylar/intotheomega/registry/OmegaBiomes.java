@@ -46,8 +46,8 @@ public class OmegaBiomes {
 
         // Zone 1 goes out to 15,000.
         // The default End Island will spawn 50% of the time, regardless of weight.
-        OmegaEndBiomePicker.register(IslandBiomeData.builder().singleBiome(BLACK_THORN_FOREST_KEY).maxDistance(15_000).build(), 1.0d);
-        OmegaEndBiomePicker.register(IslandBiomeData.builder().singleBiome(ChorusForestBiome.KEY).maxDistance(15_000).build(), 1.0d);
+        OmegaEndBiomePicker.register(IslandBiomeData.builder().singleBiome(BLACK_THORN_FOREST_KEY).maxDistance(Integer.MAX_VALUE).build(), 1.0d);
+        OmegaEndBiomePicker.register(IslandBiomeData.builder().singleBiome(ChorusForestBiome.KEY).barrens(BiomeKeys.END_BARRENS).maxDistance(Integer.MAX_VALUE).build(), 1.0d);
     }
 
     public static Biome createBlackThornForest() {
@@ -57,6 +57,7 @@ public class OmegaBiomes {
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
         generationSettings.surfaceBuilder(ConfiguredSurfaceBuilders.END);
         generationSettings
+                .structureFeature(OmegaConfiguredFeatures.ENIGMA_KING_SPIKE)
                 .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.OBISDIAN_SPIKE)
                 .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.CHORUS_PLANT)
                 .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaConfiguredFeatures.OMEGA_ORE)

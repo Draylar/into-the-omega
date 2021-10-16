@@ -7,6 +7,7 @@ import draylar.attributed.event.CriticalHitEvents;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.api.AttackHandler;
 import draylar.intotheomega.api.BewitchedHelper;
+import draylar.intotheomega.api.EndBiomeSourceCache;
 import draylar.intotheomega.api.TrinketEventHandler;
 import draylar.intotheomega.api.event.EntityJumpCallback;
 import draylar.intotheomega.api.event.ExplosionDamageEntityCallback;
@@ -21,6 +22,7 @@ import draylar.intotheomega.item.ice.HeartOfIceItem;
 import draylar.intotheomega.mixin.mechanic.LivingEntityJumpMixin;
 import draylar.intotheomega.network.ServerNetworking;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -53,6 +55,7 @@ public class OmegaEventHandlers {
         registerTrinketEventHandler();
         registerInanisLeapAttack();
         registerHeartOfIceCriticalHandlers();
+        ServerWorldEvents.LOAD.register(new EndBiomeSourceCache());
     }
 
     private static void registerHeartOfIceCriticalHandlers() {

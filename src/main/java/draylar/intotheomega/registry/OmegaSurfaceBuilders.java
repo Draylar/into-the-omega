@@ -2,15 +2,15 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.world.area.slime.SlimeWastesSurfaceBuilder;
+import draylar.intotheomega.world.surface.ChorusForestSurfaceBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
-import net.minecraft.world.gen.surfacebuilder.SurfaceConfig;
-import net.minecraft.world.gen.surfacebuilder.TernarySurfaceConfig;
+import net.minecraft.world.gen.surfacebuilder.*;
 
 public class OmegaSurfaceBuilders {
+
+    public static final SurfaceBuilder<TernarySurfaceConfig> CHORUS_FOREST = register("chorus_forest", new ChorusForestSurfaceBuilder(TernarySurfaceConfig.CODEC));
 
     public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> OBSIDIAN_SURFACE_BUILDER = SurfaceBuilder.DEFAULT
             .withConfig(new TernarySurfaceConfig(
@@ -18,7 +18,7 @@ public class OmegaSurfaceBuilders {
                     Blocks.OBSIDIAN.getDefaultState(),
                     Blocks.END_STONE.getDefaultState()));
 
-    public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CHORUS_FOREST_BUILDER = SurfaceBuilder.DEFAULT
+    public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CHORUS_FOREST_BUILDER = CHORUS_FOREST
             .withConfig(new TernarySurfaceConfig(
                     OmegaBlocks.CHORUS_GRASS.getDefaultState(),
                     Blocks.END_STONE.getDefaultState(),
