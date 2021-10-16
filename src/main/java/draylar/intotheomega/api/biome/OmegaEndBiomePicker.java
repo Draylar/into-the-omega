@@ -44,11 +44,12 @@ public class OmegaEndBiomePicker {
         double picked = random.nextDouble() * totalWeight;
         double cumulativeSum = 0.0d;
         for(Map.Entry<IslandBiomeData, Double> entry : filteredOptions.entrySet()) {
-            if(picked >= cumulativeSum) {
+            cumulativeSum += entry.getValue();
+
+            if(picked <= cumulativeSum) {
+                System.out.println(entry.getKey().getBarrens().toString());
                 return entry.getKey();
             }
-
-            cumulativeSum += entry.getValue();
         }
 
         return DEFAULT;

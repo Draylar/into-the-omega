@@ -50,6 +50,12 @@ public class ObsidianSpikeFeature extends Feature<DefaultFeatureConfig> {
                 double fromCenter = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2));
                 if(fromCenter <= radius) {
                     Vec3d from = new Vec3d(pos.getX() + x, pos.getY(), pos.getZ() + z);
+
+                    // prevent spikes from generating over the void
+                    if(world.getBlockState(new BlockPos(from).down()).isAir()) {
+                        continue;
+                    }
+
                     Vec3d per = to.subtract(from).normalize();
                     Vec3d current = from.add(0, 0, 0);
                     double distance = from.distanceTo(to);

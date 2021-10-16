@@ -61,7 +61,7 @@ public class OmegaBiomes {
                 .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.OBISDIAN_SPIKE)
                 .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.CHORUS_PLANT)
                 .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaConfiguredFeatures.OMEGA_ORE)
-                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.END_PATCH)
+                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.COARSE_PATCH)
                 .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.OBSIDISHROOM_PATCH)
                 .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.ENDERSHROOM_PATCH);
 

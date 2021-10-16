@@ -4,7 +4,6 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.registry.OmegaConfiguredFeatures;
 import draylar.intotheomega.registry.OmegaEntities;
 import draylar.intotheomega.registry.OmegaSurfaceBuilders;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -13,7 +12,6 @@ import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 
 public class ChorusForestBiome {
@@ -30,6 +28,7 @@ public class ChorusForestBiome {
         generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CHORUS_FOREST_BUILDER);
         generationSettings
                 .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.FOREST_CHORUS_PLANT)
+                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.ENDSTONE_PATCH)
                 .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaConfiguredFeatures.OMEGA_ORE);
 
         return new Biome.Builder()

@@ -18,7 +18,7 @@ public class OmegaSurfaceBuilders {
                     Blocks.OBSIDIAN.getDefaultState(),
                     Blocks.END_STONE.getDefaultState()));
 
-    public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CHORUS_FOREST_BUILDER = CHORUS_FOREST
+    public static final ConfiguredSurfaceBuilder<TernarySurfaceConfig> CHORUS_FOREST_BUILDER = SurfaceBuilder.DEFAULT
             .withConfig(new TernarySurfaceConfig(
                     OmegaBlocks.CHORUS_GRASS.getDefaultState(),
                     Blocks.END_STONE.getDefaultState(),
