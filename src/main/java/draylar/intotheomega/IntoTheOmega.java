@@ -3,6 +3,7 @@ package draylar.intotheomega;
 import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketSlots;
+import draylar.intotheomega.command.EndCommand;
 import draylar.intotheomega.command.GeneratePillarCommand;
 import draylar.intotheomega.command.GeneratePortalCommand;
 import draylar.intotheomega.mixin.SimpleRegistryAccessor;
@@ -11,8 +12,10 @@ import draylar.intotheomega.registry.*;
 import draylar.intotheomega.ui.ConquestForgeScreenHandler;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityGroup;
 import net.minecraft.item.ItemGroup;
@@ -57,6 +60,11 @@ public class IntoTheOmega implements ModInitializer {
         // commands - // TODO: new registry class
         GeneratePillarCommand.initialize();
         GeneratePortalCommand.initialize();
+        if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+                EndCommand.register(dispatcher.getRoot());
+            });
+        }
 
         registerDragonLootAppender();
 
