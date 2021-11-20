@@ -30,6 +30,7 @@ public abstract class BossBarHudMixin extends DrawableHelper {
     @Unique private static final Identifier ENIGMA_KING_TEXTURE = IntoTheOmega.id("textures/gui/enigma_king_boss_bars.png");
     @Unique private static final Identifier VOID_MATRIX_TEXTURE = IntoTheOmega.id("textures/gui/void_matrix_bar.png");
     @Unique private static final Identifier OMEGA_SLIME_EMPEROR_TEXTURE = IntoTheOmega.id("textures/gui/omega_slime_boss_bars.png");
+    @Unique private static final Identifier ENDER_DRAGON_TEXTURE = IntoTheOmega.id("textures/gui/ender_dragon_boss_bars.png");
 
     @Redirect(
             method = "render",
@@ -65,6 +66,11 @@ public abstract class BossBarHudMixin extends DrawableHelper {
 
         else if (bossBar instanceof ClientBossBar && ((TranslatableText) bossBar.getName()).getKey().contains("omega_slime_emperor")) {
             renderOmegaSlimeEmperor(matrices, x, y, bossBar);
+            ci.cancel();
+        }
+
+        else if (bossBar instanceof ClientBossBar && ((TranslatableText) bossBar.getName()).getKey().contains("ender_dragon")) {
+            renderEnderDragon(matrices, x, y, bossBar);
             ci.cancel();
         }
 
@@ -145,5 +151,19 @@ public abstract class BossBarHudMixin extends DrawableHelper {
 
         // draw overlay
         drawTexture(matrices, x, y, 0, 7, overlayBarWidth, 7);
+    }
+
+    @Unique
+    private void renderEnderDragon(MatrixStack matrices, int x, int y, BossBar bossBar) {
+        client.getTextureManager().bindTexture(ENDER_DRAGON_TEXTURE);
+
+        // draw empty background bar
+        drawTexture(matrices, x, y, 0, 0, 182, 19);
+
+        // percentage -> texture width
+        int overlayBarWidth = (int) (bossBar.getPercent() * 182.0f);
+
+        // draw overlay
+        drawTexture(matrices, x, y, 0, 19, overlayBarWidth, 19);
     }
 }
