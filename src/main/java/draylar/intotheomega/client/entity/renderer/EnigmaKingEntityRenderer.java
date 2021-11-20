@@ -40,6 +40,7 @@ public class EnigmaKingEntityRenderer extends GeoEntityRenderer<EnigmaKingEntity
     @Override
     public void render(GeoModel model, EnigmaKingEntity vm, float delta, RenderLayer layer, MatrixStack matrices, VertexConsumerProvider provider, VertexConsumer consumer, int light, int overlay, float red, float green, float blue, float alpha) {
         matrices.push();
+        matrices.scale(1.25f, 1.25f, 1.25f);
         super.render(model, vm, delta, layer, matrices, provider, consumer, light, overlay, red, green, blue, alpha);
         matrices.pop();
     }
