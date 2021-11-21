@@ -2,6 +2,7 @@ package draylar.intotheomega.registry.client;
 
 import draylar.intotheomega.client.be.*;
 import draylar.intotheomega.client.entity.renderer.*;
+import draylar.intotheomega.entity.VoidFloaterEntity;
 import draylar.intotheomega.registry.OmegaBlockEntities;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.fabricmc.api.EnvType;
@@ -33,6 +34,7 @@ public class OmegaRenderers {
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.END_SLIME, (dispatcher, context) -> new EndSlimeRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_BEETLE, (dispatcher, context) -> new VoidBeetleRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSS_GLOBE, (dispatcher, context) -> new AbyssGlobeRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_FLOATER, (dispatcher, context) -> new BlankEntityRenderer(dispatcher));
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);

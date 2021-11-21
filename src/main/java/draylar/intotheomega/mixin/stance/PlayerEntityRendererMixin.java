@@ -3,6 +3,7 @@ package draylar.intotheomega.mixin.stance;
 import draylar.intotheomega.api.client.Stance;
 import draylar.intotheomega.api.client.StanceProvider;
 import draylar.intotheomega.api.client.Stances;
+import draylar.intotheomega.api.event.PlayerStanceCallback;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.item.ItemStack;
@@ -25,17 +26,6 @@ public class PlayerEntityRendererMixin {
 
     @Unique
     private static Stance getStance(AbstractClientPlayerEntity player) {
-        ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
-
-        if (stack.isEmpty() || !(stack.getItem() instanceof StanceProvider)) {
-            return Stances.NONE;
-        } else {
-            if (player.getActiveHand() == Hand.MAIN_HAND && player.getItemUseTimeLeft() > 0) {
-                StanceProvider stance = (StanceProvider) stack.getItem();
-                return stance.getUseStance(stack);
-            }
-        }
-
-        return Stances.NONE;
+        return PlayerStanceCallback.EVENT.invoker().getStance(player, Stances.NONE);
     }
 }

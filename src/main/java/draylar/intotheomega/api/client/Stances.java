@@ -22,6 +22,20 @@ public class Stances {
         model.torso.yaw = .25f;
     };
 
+    public static final Stance GLIDING = (player, model) -> {
+        model.rightArm.yaw = 3.14f;
+        model.rightArm.roll = -0.3f;
+        model.rightArm.pitch = 3f;
+
+        model.leftArm.yaw = 3.14f;
+        model.leftArm.roll = .3f;
+        model.leftArm.pitch = 3f;
+
+        // legs
+        model.leftLeg.pitch = 0.0f;
+        model.rightLeg.pitch = 0.0f;
+    };
+
     public static final Stance SWORD_DOWN = (player, model) -> {
 //        model.rightArm.pitch = 100;
         // 4169

@@ -11,6 +11,7 @@ import draylar.intotheomega.entity.block.PhasePadBlockEntity;
 import draylar.intotheomega.item.ChilledVoidArmorItem;
 import draylar.intotheomega.network.ClientNetworking;
 import draylar.intotheomega.registry.*;
+import draylar.intotheomega.registry.client.OmegaClientEventHandlers;
 import draylar.intotheomega.registry.client.OmegaClientPackets;
 import draylar.intotheomega.registry.client.OmegaRenderers;
 import draylar.intotheomega.registry.client.OmegaRendering;
@@ -58,6 +59,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         OmegaClientPackets.init();
         OmegaRendering.init();
         ClientNetworking.init();
+        OmegaClientEventHandlers.init();
 
         // screens
         ScreenRegistry.register(IntoTheOmega.CF_SCREEN_HANDLER, ConquestForgeScreen::new);
