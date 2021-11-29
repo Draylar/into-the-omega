@@ -24,6 +24,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
@@ -41,10 +42,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.noise.SimplexNoiseSampler;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Environment(EnvType.CLIENT)
 public class IntoTheOmegaClient implements ClientModInitializer {
@@ -183,6 +186,19 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             world.addParticle(OmegaParticles.ICE_FLAKE, player.getX() + x, player.getY() + y, player.getZ() + z, 0, 0, 0);
             world.addParticle(OmegaParticles.ICE_FLAKE, player.getX() + secondX, player.getY() + y, player.getZ() + secondZ, 0, 0, 0);
         });
+
+        SimplexNoiseSampler noise = new SimplexNoiseSampler(new Random());
+
+        ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
+            double rSample =(noise.sample((pos.getX() + 5000) / 100f, (pos.getZ() - 500) / 100f) + 1) / 2;
+            double sample = (noise.sample(pos.getX() / 100f, pos.getZ() / 100f) + 1) / 2;
+            double bSample = (noise.sample((pos.getX() - 5000) / 100f, (pos.getZ() + 500) / 100f) + 1) / 2;
+
+            int r = Math.min(255, Math.max(0, (int) (rSample * 255)));
+            int g = Math.min(255, Math.max(0, (int) (sample * 255)));
+            int b = Math.min(255, Math.max(0, (int) (bSample * 255)));
+            return Integer.parseInt(String.format("%02x%02x%02x", r, g, b), 16);
+        }, OmegaBlocks.CRYSTALITE);
     }
 
 

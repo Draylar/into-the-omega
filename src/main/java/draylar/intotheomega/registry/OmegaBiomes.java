@@ -32,6 +32,9 @@ public class OmegaBiomes {
     private static final Biome OMEGA_SLIME_WASTES = createSlimeWastes();
     public static final RegistryKey<Biome> OMEGA_SLIME_WASTES_KEY = RegistryKey.of(Registry.BIOME_KEY, IntoTheOmega.id("omega_slime_wastes"));
 
+    private static final Biome CRYSTALITE = createCrystaliteBiome();
+    public static final RegistryKey<Biome> CRYSTALITE_KEY = RegistryKey.of(Registry.BIOME_KEY, IntoTheOmega.id("crystalite"));
+
     private OmegaBiomes() {
         // NO-OP
     }
@@ -43,11 +46,15 @@ public class OmegaBiomes {
         Registry.register(BuiltinRegistries.BIOME, OMEGA_SLIME_WASTES_KEY.getValue(), OMEGA_SLIME_WASTES);
         Registry.register(BuiltinRegistries.BIOME, GlitterBiome.REGISTRY_KEY.getValue(), GlitterBiome.create());
         Registry.register(BuiltinRegistries.BIOME, ChorusForestBiome.KEY.getValue(), ChorusForestBiome.INSTANCE);
+        Registry.register(BuiltinRegistries.BIOME, CRYSTALITE_KEY.getValue(), CRYSTALITE);
 
         // Zone 1 goes out to 15,000.
         // The default End Island will spawn 50% of the time, regardless of weight.
         OmegaEndBiomePicker.register(IslandBiomeData.builder().singleBiome(BLACK_THORN_FOREST_KEY).maxDistance(Integer.MAX_VALUE).build(), 1.0d);
-        OmegaEndBiomePicker.register(IslandBiomeData.builder().singleBiome(ChorusForestBiome.KEY).barrens(BiomeKeys.END_BARRENS).maxDistance(Integer.MAX_VALUE).build(), 1.0d);
+        OmegaEndBiomePicker.register(IslandBiomeData.builder().singleBiome(CRYSTALITE_KEY).barrens(BiomeKeys.END_BARRENS).maxDistance(Integer.MAX_VALUE).build(), 1.0d);
+        OmegaEndBiomePicker.register(IslandBiomeData.builder().singleBiome(ChorusForestBiome.KEY).maxDistance(Integer.MAX_VALUE).build(), 1.0d);
+
+        OmegaEndBiomePicker.solo(IslandBiomeData.builder().singleBiome(BLACK_THORN_FOREST_KEY).maxDistance(Integer.MAX_VALUE).build());
     }
 
     public static Biome createBlackThornForest() {
@@ -120,6 +127,34 @@ public class OmegaBiomes {
         generationSettings.feature(GenerationStep.Feature.RAW_GENERATION, OmegaConfiguredFeatures.SLIME_PILLAR);
         generationSettings.feature(GenerationStep.Feature.LAKES, OmegaConfiguredFeatures.SLIME_LAKE);
         generationSettings.feature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, OmegaConfiguredFeatures.SLIME_DUNGEON);
+
+        return new Biome.Builder()
+                .precipitation(Biome.Precipitation.NONE)
+                .category(Biome.Category.THEEND)
+                .depth(0.125f)
+                .scale(0.5f)
+                .temperature(1.0f)
+                .downfall(0.0f)
+                .effects(new BiomeEffects.Builder()
+                        .waterColor(0x3f76e4)
+                        .waterFogColor(0x050533)
+                        .fogColor(0xc0d8ff)
+                        .skyColor(0x424242)
+                        .build())
+                .spawnSettings(spawnSettings.build())
+                .generationSettings(generationSettings.build())
+                .build();
+    }
+
+    public static Biome createCrystaliteBiome() {
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        DefaultBiomeFeatures.addEndMobs(spawnSettings);
+
+        GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
+        generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CRYSTALITE_SURFACE_BUILDER);
+        generationSettings
+                .feature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, OmegaConfiguredFeatures.CRYSTALITE_CAVERN)
+                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.CRYSTALITE_SPIKE);
 
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)

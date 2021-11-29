@@ -19,6 +19,7 @@ public class OmegaEndBiomePicker {
     private static final Map<IslandBiomeData, Double> ISLANDS = new HashMap<>();
     private static final Random random = new Random();
     private static double totalWeight = 0.0d;
+    private static IslandBiomeData solo = null;
 
     public static void register(IslandBiomeData biome, double weight) {
         // Do not allow weights of 0.0!
@@ -30,9 +31,17 @@ public class OmegaEndBiomePicker {
         totalWeight += weight;
     }
 
+    public static void solo(IslandBiomeData data) {
+        solo = data;
+    }
+
     // TODO: does it make sense to pick based off noise, so that the same area always spawns the same biome?
     public static IslandBiomeData pick(BlockPos at) {
-        if(random.nextDouble() <= 0.5) {
+        if(solo != null) {
+            return solo;
+        }
+
+        if(random.nextDouble() <= 0.3) {
             return DEFAULT;
         }
 

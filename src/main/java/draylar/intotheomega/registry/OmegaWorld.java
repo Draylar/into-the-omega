@@ -7,9 +7,7 @@ import draylar.intotheomega.world.area.slime.SlimeDungeonFeature;
 import draylar.intotheomega.world.area.slime.SlimeLakeFeature;
 import draylar.intotheomega.world.area.slime.SlimePillarFeature;
 import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
-import draylar.intotheomega.world.feature.EndIslandRiverFeature;
-import draylar.intotheomega.world.feature.ObsidianSpikeFeature;
-import draylar.intotheomega.world.feature.OmegaCrystalOreFeature;
+import draylar.intotheomega.world.feature.*;
 import draylar.intotheomega.world.ice.IceIslandStructure;
 import draylar.intotheomega.world.island.GenericIslandStructure;
 import draylar.intotheomega.world.spike.SpikeStructure;
@@ -54,12 +52,14 @@ public class OmegaWorld {
 
     // Standard Features
     public static final Feature<DefaultFeatureConfig> OBSIDIAN_SPIKE = register("obsidian_spike", new ObsidianSpikeFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> CRYSTALITE_SPIKE = register("crystalite_spike", new CrystaliteSpikeFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> OMEGA_ORE = Registry.register(Registry.FEATURE, IntoTheOmega.id("ore"), new OmegaCrystalOreFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DiskFeatureConfig> END_PATCH = register("cracked_end_stone_patch", new DiskFeature(DiskFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_PILLAR = register("slime_pillar", new SlimePillarFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_LAKE = register("slime_lake", new SlimeLakeFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_DUNGEON = register("slime_dungeon", new SlimeDungeonFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> END_ISLAND_RIVER = register("end_island_river", new EndIslandRiverFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> CRYSTALITE_CAVERN = register("crystalite_cavern", new CrystaliteCavernFeature(DefaultFeatureConfig.CODEC));
 
     // Config / Biome Cache
     public static final List<RegistryKey<Biome>> VALID_EYE_ALTAR_BIOMES = Arrays.asList(BiomeKeys.END_HIGHLANDS);
