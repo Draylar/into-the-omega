@@ -209,6 +209,11 @@ public class OmegaItems {
     public static final Item BEJEWELED_ARROW = register("bejeweled_arrow", new ArrowItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
     public static final Item BEJEWELED_MIRROR = register("bejeweled_mirror", new BejeweledMirrorItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE).maxCount(1)));
 
+    // Dark Sakura
+    public static final Item DARK_CRIMSON = register("dark_crimson", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item SAKURA_EDGE = register("sakura_edge", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+    public static final Item CHERRY_FALL = register("cherry_fall", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
+
     // stuff
     // misc
 //    public static final Item TRUE_EOE_SPAWN_EGG = register("true_eye_of_ender_spawn_egg", new SpawnEggItem(OmegaEntities.TRUE_EYE_OF_ENDER, 0, 0, new Item.Settings().group(IntoTheOmega.GROUP)));
