@@ -154,6 +154,11 @@ public class OmegaBlocks {
     public static final Block BEJEWELED_LOCK = register("bejeweled_lock", new BejeweledLockBlock(FabricBlockSettings.of(Material.STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block OMEGA_LANTERN = register("omega_lantern", new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance((state) -> 12).nonOpaque()), new Item.Settings().group(IntoTheOmega.GROUP));
 
+    // Dark Sakura
+    public static final Block DARK_SAKURA_LEAVES = register("dark_sakura_leaves", new LeavesBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).nonOpaque()), new Item.Settings());
+    public static final Block DARK_SAKURA_LEAF_PILE = register("dark_sakura_leaf_pile", new LeafPileBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).nonOpaque()), new Item.Settings());
+    public static final Block SAKURA_EMBUED_ENDSTONE = register("sakura_embued_endstone", new Block(FabricBlockSettings.copyOf(Blocks.GRASS_BLOCK)), new Item.Settings());
+
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, IntoTheOmega.id(name), block);
         Registry.register(Registry.ITEM, IntoTheOmega.id(name), new BlockItem(registeredBlock, settings));
