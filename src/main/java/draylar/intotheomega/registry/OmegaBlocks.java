@@ -124,7 +124,8 @@ public class OmegaBlocks {
     public static final Block SLIME_OBELISK = register("slime_obelisk", new SlimeObeliskBlock(FabricBlockSettings.copy(Blocks.STONE).strength(1000000, 1000000)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block CONGEALED_OMEGA_SLIME = register("congealed_omega_slime", new Block(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block CONGEALED_SLIME = register("congealed_slime", new Block(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
-    public static final Block OMEGA_SLIME_FLUID = register("omega_slime_fluid", new FluidBlock(OmegaFluids.OMEGA_SLIME_STILL, FabricBlockSettings.of(Material.WATER).noCollision().ticksRandomly().strength(25.0F)) {});
+    public static final Block OMEGA_SLIME_FLUID = register("omega_slime_fluid", new FluidBlock(OmegaFluids.OMEGA_SLIME_STILL, FabricBlockSettings.of(Material.WATER).noCollision().ticksRandomly().strength(25.0F)) {
+    });
     public static final Block SLIME_LAUNCH_PAD = register("slime_launch_pad", new SlimeLaunchPadBlock(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block SWIRLED_MIXER = register("swirled_mixer", new SwirledMixerBlock(FabricBlockSettings.copyOf(Blocks.END_STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
 
@@ -155,7 +156,7 @@ public class OmegaBlocks {
     public static final Block OMEGA_LANTERN = register("omega_lantern", new LanternBlock(AbstractBlock.Settings.of(Material.METAL).requiresTool().strength(3.5F).sounds(BlockSoundGroup.LANTERN).luminance((state) -> 12).nonOpaque()), new Item.Settings().group(IntoTheOmega.GROUP));
 
     // Dark Sakura
-    public static final Block DARK_SAKURA_LEAVES = register("dark_sakura_leaves", new LeavesBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).nonOpaque()), new Item.Settings());
+    public static final Block DARK_SAKURA_LEAVES = register("dark_sakura_leaves", new DarkSakuraLeavesBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).nonOpaque()), new Item.Settings());
     public static final Block DARK_SAKURA_LEAF_PILE = register("dark_sakura_leaf_pile", new LeafPileBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).nonOpaque()), new Item.Settings());
     public static final Block SAKURA_EMBUED_ENDSTONE = register("sakura_embued_endstone", new Block(FabricBlockSettings.copyOf(Blocks.GRASS_BLOCK)), new Item.Settings());
 
