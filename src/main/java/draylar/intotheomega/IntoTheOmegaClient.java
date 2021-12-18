@@ -80,6 +80,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.ENIGMA_STAND, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.THORN_AIR, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.DARK_SAKURA_LEAF_PILE, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.GALAXY_FURNACE, RenderLayer.getCutout());
 
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OMEGA_SLIME_FLUID, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putFluid(OmegaFluids.OMEGA_SLIME_FLOWING, RenderLayer.getTranslucent());

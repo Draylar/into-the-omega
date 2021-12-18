@@ -43,6 +43,7 @@ public class OmegaRenderers {
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.ABYSS_CHAIN, AbyssChainBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.BEJEWELED_LOCK, BejeweledLockBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.SWIRLED_MIXER, SwirledMixerRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.GALAXY_FURNACE, GalaxyFurnaceRenderer::new);
     }
 
     private OmegaRenderers() {

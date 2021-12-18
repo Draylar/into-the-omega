@@ -2,6 +2,7 @@ package draylar.intotheomega.client.be;
 
 import draylar.intotheomega.entity.block.PhasePadBlockEntity;
 import draylar.intotheomega.registry.OmegaBlocks;
+import draylar.intotheomega.registry.client.OmegaRenderLayers;
 import draylar.intotheomega.registry.client.OmegaRendering;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumer;
@@ -30,7 +31,7 @@ public class PhasePadBlockEntityRenderer extends BlockEntityRenderer<PhasePadBlo
         }
 
         if(entity.isActivated()) {
-            buffer = vertexConsumers.getBuffer(OmegaRendering.SOLID);
+            buffer = vertexConsumers.getBuffer(OmegaRenderLayers.SOLID);
 
             MinecraftClient.getInstance().getBlockRenderManager().renderBlock(
                     OmegaBlocks.PHASE_PAD.getDefaultState(),
