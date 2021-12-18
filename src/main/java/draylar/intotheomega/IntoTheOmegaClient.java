@@ -1,12 +1,15 @@
 package draylar.intotheomega;
 
+import draylar.intotheomega.api.Color;
 import draylar.intotheomega.api.HandheldModelRegistry;
 import draylar.intotheomega.api.SetBonusProvider;
 import draylar.intotheomega.api.client.ArmorSetDisplayRegistry;
+import draylar.intotheomega.api.event.ParticleEvents;
 import draylar.intotheomega.client.OmegaSlimeRenderingHandler;
 import draylar.intotheomega.client.PhasePadUtils;
 import draylar.intotheomega.client.item.MatriteOrbitalItemRenderer;
 import draylar.intotheomega.client.item.NebulaGearItemRenderer;
+import draylar.intotheomega.client.particle.*;
 import draylar.intotheomega.entity.block.PhasePadBlockEntity;
 import draylar.intotheomega.item.ChilledVoidArmorItem;
 import draylar.intotheomega.network.ClientNetworking;
@@ -201,6 +204,18 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             int b = Math.min(255, Math.max(0, (int) (bSample * 255)));
             return Integer.parseInt(String.format("%02x%02x%02x", r, g, b), 16);
         }, OmegaBlocks.CRYSTALITE);
+
+        ParticleEvents.REGISTER_FACTORIES.register(manager -> {
+            manager.registerFactory(OmegaParticles.OMEGA_PARTICLE, provider -> new OmegaParticle.OmegaParticleFactory(provider, new Color(0.9F, 0.1F, 0.9F)));
+            manager.registerFactory(OmegaParticles.DARK, provider -> new OmegaParticle.OmegaParticleFactory(provider, new Color(0.34F, 0.03F, 0.47F)));
+            manager.registerFactory(OmegaParticles.OMEGA_SLIME, provider -> new OmegaSlimeParticle());
+            manager.registerFactory(OmegaParticles.SMALL_OMEGA_BURST, SmallOmegaBurstParticle.Factory::new);
+            manager.registerFactory(OmegaParticles.SMALL_BLUE_OMEGA_BURST, SmallOmegaBurstParticle.Factory::new);
+            manager.registerFactory(OmegaParticles.SMALL_PINK_OMEGA_BURST, SmallOmegaBurstParticle.Factory::new);
+            manager.registerFactory(OmegaParticles.VARIANT_FUSION, VariantFusionParticle.Factory::new);
+            manager.registerFactory(OmegaParticles.MATRIX_EXPLOSION, MatrixExplosionParticle.Factory::new);
+            manager.registerFactory(OmegaParticles.ICE_FLAKE, IceFlakeParticle.Factory::new);
+        });
     }
 
 
