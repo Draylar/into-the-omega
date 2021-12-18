@@ -60,6 +60,7 @@ public class OmegaWorld {
     public static final Feature<DefaultFeatureConfig> SLIME_DUNGEON = register("slime_dungeon", new SlimeDungeonFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> END_ISLAND_RIVER = register("end_island_river", new EndIslandRiverFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> CRYSTALITE_CAVERN = register("crystalite_cavern", new CrystaliteCavernFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<DefaultFeatureConfig> DARK_SAKURA_TREE = register("dark_sakura_tree", new DarkSakuraTreeFeature());
 
     // Config / Biome Cache
     public static final List<RegistryKey<Biome>> VALID_EYE_ALTAR_BIOMES = Arrays.asList(BiomeKeys.END_HIGHLANDS);

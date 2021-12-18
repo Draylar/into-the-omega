@@ -100,7 +100,7 @@ dependencies {
     }
 
     // cool rendering
-    modImplementation ("grondag:canvas-mc116-configurable-pipeline:1.0.+") {
+    modCompileOnly ("grondag:canvas-mc116-configurable-pipeline:1.0.+") {
         exclude group: "com.terraformersmc"
         exclude group: "net.fabricmc.fabric-api"
         exclude group: "io.github.prospector"

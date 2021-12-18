@@ -3,6 +3,7 @@ package draylar.intotheomega;
 import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketSlots;
+import draylar.intotheomega.command.DevelopmentSpawnableCommand;
 import draylar.intotheomega.command.EndCommand;
 import draylar.intotheomega.command.GeneratePillarCommand;
 import draylar.intotheomega.command.GeneratePortalCommand;
@@ -10,6 +11,7 @@ import draylar.intotheomega.mixin.SimpleRegistryAccessor;
 import draylar.intotheomega.network.ServerNetworking;
 import draylar.intotheomega.registry.*;
 import draylar.intotheomega.ui.ConquestForgeScreenHandler;
+import draylar.intotheomega.world.feature.DarkSakuraTreeFeature;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
@@ -79,6 +81,9 @@ public class IntoTheOmega implements ModInitializer {
 //        TheEndBiomes.addHighlandsBiome(OmegaBiomes.SHALLOWS_KEY, 50);
 //        TheEndBiomes.addMidlandsBiome(OmegaBiomes.SHALLOWS_KEY, OmegaBiomes.SHALLOWS_KEY, 1000);
 //        TheEndBiomes.addBarrensBiome(OmegaBiomes.SHALLOWS_KEY, OmegaBiomes.SHALLOWS_KEY, 1000);
+
+        DevelopmentSpawnableCommand.initialize();
+        DevelopmentSpawnableCommand.registerSpawnable("dark_sakura_tree", new DarkSakuraTreeFeature());
     }
 
     public static Identifier id(String name) {

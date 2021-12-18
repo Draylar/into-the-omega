@@ -187,6 +187,16 @@ public class OmegaEntities {
                     .dimensions(EntityDimensions.fixed(1f, 1f))
                     .build());
 
+    public static final EntityType<EmptyLeafMonsterEntity> LEAF_MONSTER = register(
+            "leaf_monster",
+            FabricEntityTypeBuilder
+                    .createMob()
+                    .spawnGroup(SpawnGroup.MISC)
+                    .entityFactory(EmptyLeafMonsterEntity::new)
+                    .defaultAttributes(MobEntity::createMobAttributes)
+                    .dimensions(EntityDimensions.fixed(0.7f, 2f))
+                    .build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }

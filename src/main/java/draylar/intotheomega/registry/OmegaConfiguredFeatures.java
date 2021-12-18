@@ -42,6 +42,7 @@ public class OmegaConfiguredFeatures {
     public static final ConfiguredFeature<?, ?> FOREST_CHORUS_PLANT = register("forest_chorus_plant", Feature.CHORUS_PLANT.configure(FeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeatRandomly(16));
     public static final ConfiguredFeature<?, ?> CRYSTALITE_SPIKE = register("crystalite_spike", OmegaWorld.CRYSTALITE_SPIKE.configure(FeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP).repeat(1));
     public static final ConfiguredFeature<?, ?> CRYSTALITE_CAVERN = register("crystalite_cavern", OmegaWorld.CRYSTALITE_CAVERN.configure(FeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP_SPREAD_DOUBLE));
+    public static final ConfiguredFeature<?, ?> DARK_SAKURA_TREE = register("dark_sakura_tree", OmegaWorld.DARK_SAKURA_TREE.configure(FeatureConfig.DEFAULT).decorate(ConfiguredFeatures.Decorators.SQUARE_HEIGHTMAP));
 
     private static <FC extends FeatureConfig, F extends StructureFeature<FC>> ConfiguredStructureFeature<FC, F> register(String id, ConfiguredStructureFeature<FC, F> configuredStructureFeature) {
         return BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, IntoTheOmega.id(id), configuredStructureFeature);

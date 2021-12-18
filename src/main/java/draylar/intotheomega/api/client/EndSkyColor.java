@@ -1,5 +1,6 @@
 package draylar.intotheomega.api.client;
 
+import draylar.intotheomega.biome.DarkSakuraForestBiome;
 import draylar.intotheomega.registry.OmegaBiomes;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.RegistryKey;
@@ -14,7 +15,7 @@ public class EndSkyColor {
     public static final Map<RegistryKey<Biome>, Vec3d> BIOME_TO_COLOR = new HashMap<>();
 
     static {
-        BIOME_TO_COLOR.put(OmegaBiomes.DARK_SAKURA_FOREST, new Vec3d(150, 0, 0));
+        BIOME_TO_COLOR.put(DarkSakuraForestBiome.KEY, new Vec3d(150, 0, 0));
     }
 
     public static Vec3d getColor(RegistryKey<Biome> biome) {

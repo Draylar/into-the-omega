@@ -35,6 +35,7 @@ public class OmegaRenderers {
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_BEETLE, (dispatcher, context) -> new VoidBeetleRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSS_GLOBE, (dispatcher, context) -> new AbyssGlobeRenderer(dispatcher));
         EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_FLOATER, (dispatcher, context) -> new BlankEntityRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.LEAF_MONSTER, (dispatcher, context) -> new LeafMonsterRenderer(dispatcher));
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);
