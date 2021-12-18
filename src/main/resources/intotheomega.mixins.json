@@ -15,6 +15,7 @@
     "EnchantedBookItemMixin",
     "EnchantmentHelperMixin",
     "EnchantmentMixin",
+    "EndSkyColorMixin",
     "EntityAccessor",
     "EntityTypeTagsAccessor",
     "ExperienceOrbEntityMixin",
