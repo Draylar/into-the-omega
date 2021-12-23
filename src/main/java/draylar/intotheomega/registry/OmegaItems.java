@@ -214,6 +214,10 @@ public class OmegaItems {
     public static final Item SAKURA_EDGE = register("sakura_edge", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item CHERRY_FALL = register("cherry_fall", new Item(new Item.Settings().group(IntoTheOmega.GROUP)));
 
+    // Shulker
+    public static final Item LEVITATION_BLASTER = register("levitation_blaster", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item SHULKER_SLICER = register("shulker_slicer", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+
     // stuff
     // misc
 //    public static final Item TRUE_EOE_SPAWN_EGG = register("true_eye_of_ender_spawn_egg", new SpawnEggItem(OmegaEntities.TRUE_EYE_OF_ENDER, 0, 0, new Item.Settings().group(IntoTheOmega.GROUP)));
