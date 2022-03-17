@@ -3,6 +3,7 @@ package draylar.intotheomega.mixin.world;
 import draylar.intotheomega.api.Vec2i;
 import draylar.intotheomega.api.biome.IslandBiomeData;
 import draylar.intotheomega.api.biome.OmegaEndBiomePicker;
+import draylar.intotheomega.biome.OmegaSlimeWasteBiome;
 import draylar.intotheomega.registry.OmegaBiomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -75,7 +76,7 @@ public abstract class EndBiomeSourceMixin {
             // we previously did this in a static block, but that was causing some sort of registry race condition
             // I think biome sources are loaded super early compared to everything else[??]
             biomeSections.clear();
-            biomeSections.add(OmegaBiomes.OMEGA_SLIME_WASTES_KEY);
+            biomeSections.add(OmegaSlimeWasteBiome.KEY);
             biomeSections.add(BiomeKeys.JUNGLE);
 
             // 3/5 do not have content rn

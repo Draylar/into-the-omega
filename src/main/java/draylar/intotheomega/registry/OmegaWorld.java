@@ -1,6 +1,7 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.biome.OmegaSlimeWasteBiome;
 import draylar.intotheomega.world.abyss_flower.AbyssFlowerIslandStructure;
 import draylar.intotheomega.world.api.BaseIslandStructure;
 import draylar.intotheomega.world.area.slime.SlimeDungeonFeature;
@@ -198,7 +199,7 @@ public class OmegaWorld {
         return Registry.register(Registry.FEATURE, IntoTheOmega.id(name), feature);
     }
 
-    private static final List<RegistryKey<Biome>> SPECIAL = Arrays.asList(OmegaBiomes.ABYSSAL_CORE_KEY, OmegaBiomes.OMEGA_SLIME_WASTES_KEY);
+    private static final List<RegistryKey<Biome>> SPECIAL = Arrays.asList(OmegaBiomes.ABYSSAL_CORE_KEY, OmegaSlimeWasteBiome.KEY);
 
     public static Predicate<BiomeSelectionContext> anyEndNotSpecial() {
         return context -> context.getBiome().getCategory() == Biome.Category.THEEND && !SPECIAL.contains(context.getBiomeKey());
