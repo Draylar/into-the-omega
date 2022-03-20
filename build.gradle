@@ -50,20 +50,17 @@ dependencies {
     modImplementation ("software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.31:dev") {
         exclude group: "net.fabricmc.fabric-api"
     }
-    include "software.bernie.geckolib:geckolib-fabric-1.16.5:3.0.31:dev"
 
     // trinkets
     modImplementation ("com.github.emilyploszaj:trinkets:${trinkets_version}") {
         exclude group: "io.github.onyxstudios.Cardinal-Components-API"
         exclude group: "net.fabricmc.fabric-api"
     }
-    include "com.github.emilyploszaj:trinkets:${trinkets_version}"
 
     //  shield lib
     modImplementation ("com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}") {
         exclude group: "net.fabricmc.fabric-api"
     }
-    include "com.github.CrimsonDawn45:Fabric-Shield-Lib:${project.fabric_shield_lib_version}"
 
     // REI
     modImplementation ("me.shedaniel:RoughlyEnoughItems:5.2.10") {
@@ -74,17 +71,13 @@ dependencies {
     modImplementation ("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.8.2") {
         exclude group: "net.fabricmc.fabric-api"
     }
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.8.2"
+
     modImplementation ("io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.8.2") {
         exclude group: "net.fabricmc.fabric-api"
     }
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.8.2"
 
     // Attributed
     modImplementation ('com.github.Draylar:attributed:1.0.4.1-1.16.5') {
-        exclude group: "net.fabricmc.fabric-api"
-    }
-    include ('com.github.Draylar:attributed:1.0.4.1-1.16.5') {
         exclude group: "net.fabricmc.fabric-api"
     }
 
@@ -109,7 +102,6 @@ dependencies {
     modImplementation ("dev.monarkhes:myron:1.5.2") {
         exclude group: "net.fabricmc.fabric-api"
     }
-    include "dev.monarkhes:myron:1.5.2"
 
     modCompileOnly ('com.github.Draylar:visible-structure-void:b4ad15c4d7') {
         exclude group: "net.fabricmc.fabric-api"
