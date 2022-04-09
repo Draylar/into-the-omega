@@ -100,6 +100,7 @@ public class IntoTheOmega implements ModInitializer {
                         .with(ItemEntry.builder(OmegaItems.DRAGON_EYE))
                         .with(ItemEntry.builder(OmegaItems.SEVENTH_PILLAR))
                         .with(ItemEntry.builder(OmegaItems.INANIS))
+                        .with(ItemEntry.builder(OmegaItems.HORIZON))
                         .rolls(ConstantLootNumberProvider.create(1))
                         .build();
 
