@@ -11,6 +11,8 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class OmegaSlimeEntity extends SlimeEntity implements IAnimatable {
 
+    private final AnimationFactory factory = new AnimationFactory(this);
+
     public OmegaSlimeEntity(EntityType<? extends SlimeEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -27,6 +29,6 @@ public class OmegaSlimeEntity extends SlimeEntity implements IAnimatable {
 
     @Override
     public AnimationFactory getFactory() {
-        return null;
+        return factory;
     }
 }
