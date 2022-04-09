@@ -5,8 +5,8 @@ import draylar.intotheomega.impl.OmegaManipulator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,11 +31,7 @@ public abstract class EnchantmentHelperMixin {
      * @param stack        stack to check for enchantments on
      * @param cir          mixin callback info
      */
-    @Inject(
-            method = "getLevel",
-            at = @At("RETURN"),
-            cancellable = true
-    )
+    @Inject(method = "getLevel", at = @At("RETURN"), cancellable = true)
     private static void modifyLevel(Enchantment enchantment, ItemStack stack, CallbackInfoReturnable<Integer> cir) {
         int vanillaLevel = cir.getReturnValue();
 
@@ -67,31 +63,22 @@ public abstract class EnchantmentHelperMixin {
         }
     }
 
-    @Unique private static Optional<Enchantment> me_cachedEnchantment;
+    @Unique private static Enchantment me_cachedEnchantment;
 
-    @Inject(
-            method = "forEachEnchantment(Lnet/minecraft/enchantment/EnchantmentHelper$Consumer;Lnet/minecraft/item/ItemStack;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/ListTag;getCompound(I)Lnet/minecraft/nbt/CompoundTag;", ordinal = 1),
-            locals = LocalCapture.CAPTURE_FAILHARD
-    )
-    private static void storeData(EnchantmentHelper.Consumer action, ItemStack stack, CallbackInfo ci, ListTag listTag, int i, String id) {
-        me_cachedEnchantment = Registry.ENCHANTMENT.getOrEmpty(new Identifier(id));
+    @Inject(method = "method_17883", at = @At(value = "HEAD"), locals = LocalCapture.CAPTURE_FAILHARD)
+    private static void storeData(EnchantmentHelper.Consumer consumer, NbtCompound nbtCompound, Enchantment enchantment, CallbackInfo ci) {
+        me_cachedEnchantment = enchantment;
     }
 
-    @Redirect(
-            method = "forEachEnchantment(Lnet/minecraft/enchantment/EnchantmentHelper$Consumer;Lnet/minecraft/item/ItemStack;)V",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/CompoundTag;getInt(Ljava/lang/String;)I")
-    )
-    private static int modifyLevel(CompoundTag tag, String key) {
-        if(me_cachedEnchantment != null && me_cachedEnchantment.isPresent()) {
-            Enchantment cached = me_cachedEnchantment.get();
-
+    @Redirect(method = "method_17883", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getLevelFromNbt(Lnet/minecraft/nbt/NbtCompound;)I"))
+    private static int modifyLevel(NbtCompound nbt) {
+        if(me_cachedEnchantment != null) {
             // we can assume it is okay to add the max level to the omega enchantment level, because this is only called for enchantments on the tag
-            if(((OmegaManipulator) cached).isOmega()) {
-                return tag.getInt("lvl") + ((OmegaManipulator) cached).getVanilla().getMaxLevel();
+            if(((OmegaManipulator) me_cachedEnchantment).isOmega()) {
+                return nbt.getInt("lvl") + ((OmegaManipulator) me_cachedEnchantment).getVanilla().getMaxLevel();
             }
         }
 
-        return tag.getInt("lvl");
+        return nbt.getInt("lvl");
     }
 }

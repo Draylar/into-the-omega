@@ -25,7 +25,6 @@ mutable    field    net/minecraft/world/biome/GenerationSettings    features    
 accessible field net/minecraft/entity/projectile/PersistentProjectileEntity piercedEntities Lit/unimi/dsi/fastutil/ints/IntOpenHashSet;
 accessible field net/minecraft/entity/projectile/PersistentProjectileEntity piercingKilledEntities Ljava/util/List;
 
-accessible field net/minecraft/client/render/RenderPhase SMOOTH_SHADE_MODEL Lnet/minecraft/client/render/RenderPhase$ShadeModel;
 accessible field net/minecraft/client/render/RenderPhase ENABLE_LIGHTMAP Lnet/minecraft/client/render/RenderPhase$Lightmap;
 accessible field net/minecraft/client/render/RenderPhase MIPMAP_BLOCK_ATLAS_TEXTURE Lnet/minecraft/client/render/RenderPhase$Texture;
 accessible field net/minecraft/client/render/RenderPhase ALWAYS_DEPTH_TEST Lnet/minecraft/client/render/RenderPhase$DepthTest;
@@ -37,12 +36,16 @@ accessible class net/minecraft/entity/mob/EndermanEntity$TeleportTowardsPlayerGo
 
 # Render Phase fields
 accessible field net/minecraft/client/render/RenderPhase NO_TRANSPARENCY Lnet/minecraft/client/render/RenderPhase$Transparency;
-accessible field net/minecraft/client/render/RenderPhase ENABLE_DIFFUSE_LIGHTING Lnet/minecraft/client/render/RenderPhase$DiffuseLighting;
-accessible field net/minecraft/client/render/RenderPhase ONE_TENTH_ALPHA Lnet/minecraft/client/render/RenderPhase$Alpha;
+# accessible field net/minecraft/client/render/RenderPhase ENABLE_DIFFUSE_LIGHTING Lnet/minecraft/client/render/RenderPhase$DiffuseLighting;
+# accessible field net/minecraft/client/render/RenderPhase ONE_TENTH_ALPHA Lnet/minecraft/client/render/RenderPhase$Alpha;
 accessible field net/minecraft/client/render/RenderPhase DISABLE_CULLING Lnet/minecraft/client/render/RenderPhase$Cull;
 accessible field net/minecraft/client/render/RenderPhase ENABLE_LIGHTMAP Lnet/minecraft/client/render/RenderPhase$Lightmap;
 accessible field net/minecraft/client/render/RenderPhase ENABLE_OVERLAY_COLOR Lnet/minecraft/client/render/RenderPhase$Overlay;
 accessible field net/minecraft/client/render/RenderPhase VIEW_OFFSET_Z_LAYERING Lnet/minecraft/client/render/RenderPhase$Layering;
+accessible class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
+accessible class net/minecraft/client/render/RenderPhase$Texture
+accessible class net/minecraft/client/render/RenderLayer$MultiPhase
+extendable class net/minecraft/client/render/RenderLayer$MultiPhase
 
 # Model Element deserializers
 accessible method net/minecraft/client/render/model/json/ModelTransformation$Deserializer <init> ()V
@@ -63,3 +66,7 @@ accessible class net/minecraft/world/gen/feature/EndSpikeFeature$SpikeCache
 
 # Particles
 accessible method net/minecraft/client/particle/ParticleManager registerFactory (Lnet/minecraft/particle/ParticleType;Lnet/minecraft/client/particle/ParticleManager$SpriteAwareFactory;)V
+
+# New World Gen
+accessible class net/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRuleContext
+accessible class net/minecraft/world/gen/surfacebuilder/MaterialRules$BlockStateRule

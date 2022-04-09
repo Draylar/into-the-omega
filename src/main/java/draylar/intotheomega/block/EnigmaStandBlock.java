@@ -1,8 +1,11 @@
 package draylar.intotheomega.block;
 
 import draylar.intotheomega.entity.block.EnigmaStandBlockEntity;
+import draylar.intotheomega.registry.OmegaBlockEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -13,7 +16,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class EnigmaStandBlock extends Block implements BlockEntityProvider {
+public class EnigmaStandBlock extends BlockWithEntity {
 
     public static final VoxelShape SHAPE = Block.createCuboidShape(3.0f, 0.0f, 3.0f, 13.0f, 7.0f, 13.0f);
 
@@ -36,8 +39,14 @@ public class EnigmaStandBlock extends Block implements BlockEntityProvider {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new EnigmaStandBlockEntity();
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient ? null : checkType(type, OmegaBlockEntities.ENIGMA_STAND, EnigmaStandBlockEntity::serverTick);
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new EnigmaStandBlockEntity(pos, state);
     }
 
     @Override

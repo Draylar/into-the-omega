@@ -18,9 +18,9 @@ public class IceFlakeParticle extends SpriteBillboardParticle {
         this.velocityX = velocityX * .025;
         this.velocityY = velocityY * .025;
         this.velocityZ = velocityZ * .025;
-        this.colorRed = 1;
-        this.colorGreen = 1;
-        this.colorBlue = 1;
+        this.red = 1;
+        this.green = 1;
+        this.blue = 1;
         this.scale *= 1;
         this.maxAge = 15 + world.random.nextInt(5);
         this.reachedGround = false;
@@ -39,7 +39,7 @@ public class IceFlakeParticle extends SpriteBillboardParticle {
         // tick down transparency
         if(this.age + 3 >= this.maxAge) {
             int remaining = this.maxAge - this.age;
-            this.colorAlpha = 1 - 1f / remaining;
+            this.alpha = 1 - 1f / remaining;
         }
 
         if (this.age++ >= this.maxAge) {

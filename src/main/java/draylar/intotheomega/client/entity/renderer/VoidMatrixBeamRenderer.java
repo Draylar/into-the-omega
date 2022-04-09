@@ -4,11 +4,9 @@ import dev.monarkhes.myron.api.Myron;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
 import draylar.intotheomega.registry.OmegaParticles;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.*;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -21,8 +19,8 @@ public class VoidMatrixBeamRenderer extends EntityRenderer<VoidMatrixBeamEntity>
 
     private static final Identifier MODEL_LOCATION = IntoTheOmega.id("models/misc/void_matrix_beam");
 
-    public VoidMatrixBeamRenderer(EntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public VoidMatrixBeamRenderer(EntityRendererFactory.Context context) {
+        super(context);
     }
 
     @Override
@@ -31,7 +29,7 @@ public class VoidMatrixBeamRenderer extends EntityRenderer<VoidMatrixBeamEntity>
         double lerpedAge = MathHelper.lerp(tickDelta, entity.age - 1, entity.age);
         Camera camera = dispatcher.camera;
 
-        if (model != null) {
+        if(model != null) {
             VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getEyes(new Identifier("textures/block/white_concrete.png")));
             matrices.push();
             matrices.scale(.25f, 50, .25f);
@@ -51,7 +49,7 @@ public class VoidMatrixBeamRenderer extends EntityRenderer<VoidMatrixBeamEntity>
                 Vec3d pos = entity.getPos();
                 Random rand = entity.world.random;
 
-                for(double i = -25; i <= 25; i += 0.5) {
+                for (double i = -25; i <= 25; i += 0.5) {
                     double velX = (1 - rand.nextInt(3)) * .1;
                     double velZ = (1 - rand.nextInt(3)) * .1;
                     entity.world.addParticle(OmegaParticles.MATRIX_EXPLOSION, true, pos.getX(), pos.getY() + i, pos.getZ(), velX, 0, velZ);

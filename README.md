@@ -27,6 +27,13 @@ Support for these projects can be added upon request once ITO leaves an alpha st
 Warning: ITO is in heavy alpha. If you use it in a world now, there is a 100% chance something will break in a future update.
 Use alpha versions of this mod at your own risk and take backups frequently.
 
+### What do I do?
+
+ITO content is featured exclusively in the End dimension. 
+After defeating the Ender Dragon, you will receive a "Core Weapon" - a fragment of The End and a picture of what you have yet to encounter.
+Keep this weapon close, because it will provide you with the power boost needed to conquer early ITO content;
+each weapon also has a powerful upgrade line available in their respective areas.
+
 ### License
 
 This branch's license is TBD, which means it is ARR until further notice. The license will most likely end up being MIT or Apache 2.0 after an alpha release.

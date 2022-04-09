@@ -11,6 +11,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.Random;
 
@@ -21,7 +22,10 @@ public class SlimeDungeonFeature extends Feature<DefaultFeatureConfig> {
     }
 
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
+    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+        BlockPos pos = context.getOrigin();
+        StructureWorldAccess world = context.getWorld();
+
         // Find a position to generate our lake structure at.
         while (pos.getY() > 5 && world.isAir(pos)) {
             pos = pos.down();
@@ -34,7 +38,7 @@ public class SlimeDungeonFeature extends Feature<DefaultFeatureConfig> {
             pos = pos.down(5);
 
             // Do not overwrite Omega Slime Obelisk structures!
-            if (world.getStructures(ChunkSectionPos.from(pos), StructureFeature.VILLAGE).findAny().isPresent()) {
+            if (!world.getStructures(ChunkSectionPos.from(pos), StructureFeature.VILLAGE).isEmpty()) {
                 return false;
             } else {
                 for (int x = -10; x <= 10; x++) {

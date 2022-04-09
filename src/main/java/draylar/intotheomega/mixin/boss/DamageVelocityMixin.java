@@ -17,10 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntity.class)
 public abstract class DamageVelocityMixin extends Entity {
 
-    @Shadow public abstract void takeKnockback(float f, double d, double e);
-
-    @Unique
-    private DamageSource context = null;
+    @Shadow public abstract void takeKnockback(double strength, double x, double z);
+    @Unique private DamageSource context = null;
 
     public DamageVelocityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -28,19 +26,19 @@ public abstract class DamageVelocityMixin extends Entity {
 
     @Inject(
             method = "damage",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;takeKnockback(FDD)V"))
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;takeKnockback(DDD)V"))
     private void storeContext(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         context = source;
     }
 
     @Redirect(
             method = "damage",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;takeKnockback(FDD)V"))
-    private void cancelKnockback(LivingEntity livingEntity, float f, double d, double e) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;takeKnockback(DDD)V"))
+    private void cancelKnockback(LivingEntity instance, double strength, double x, double z) {
         if(context.getName().equals(OmegaDamageSources.MATRIX_LASER)) {
             return;
         }
 
-        this.takeKnockback(f, d, e);
+        takeKnockback(strength, x, z);
     }
 }

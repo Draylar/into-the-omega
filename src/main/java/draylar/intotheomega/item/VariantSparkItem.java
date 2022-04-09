@@ -47,8 +47,8 @@ public class VariantSparkItem extends Item implements DynamicAttributeTool, Atta
 
         if(user.isSneaking()) {
            if(!world.isClient) {
-               int mode = stack.getOrCreateSubTag("Data").getInt("Mode");
-               stack.getOrCreateSubTag("Data").putInt("Mode", mode == 0 ? 1 : 0);
+               int mode = stack.getOrCreateSubNbt("Data").getInt("Mode");
+               stack.getOrCreateSubNbt("Data").putInt("Mode", mode == 0 ? 1 : 0);
 
                // sound
 
@@ -68,20 +68,20 @@ public class VariantSparkItem extends Item implements DynamicAttributeTool, Atta
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        int mode = stack.getOrCreateSubTag("Data").getInt("Mode");
+        int mode = stack.getOrCreateSubNbt("Data").getInt("Mode");
         tooltip.add(new TranslatableText(String.format("item.intotheomega.variant_spark.%d", mode)).formatted(Formatting.GRAY));
     }
 
     @Override
     public Text getName(ItemStack stack) {
-        int mode = stack.getOrCreateSubTag("Data").getInt("Mode");
+        int mode = stack.getOrCreateSubNbt("Data").getInt("Mode");
         return new TranslatableText(this.getTranslationKey(stack)).formatted(mode == 0 ? Formatting.BLUE : Formatting.LIGHT_PURPLE);
     }
 
     @Override
     public Multimap<EntityAttribute, EntityAttributeModifier> getDynamicModifiers(EquipmentSlot slot, ItemStack stack, @Nullable LivingEntity user) {
         if(slot.equals(EquipmentSlot.MAINHAND)) {
-            int mode = stack.getOrCreateSubTag("Data").getInt("Mode");
+            int mode = stack.getOrCreateSubNbt("Data").getInt("Mode");
             ImmutableSetMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableSetMultimap.builder();
 
             if(mode == 1) {
@@ -104,7 +104,7 @@ public class VariantSparkItem extends Item implements DynamicAttributeTool, Atta
             stack.damage(1, holder, playerEntity -> playerEntity.sendEquipmentBreakStatus(EquipmentSlot.MAINHAND));
 
             // If the mode of this Variant Spark is "Void Tide Vanquisher," chain-attack nearby enemies.
-            int mode = stack.getOrCreateSubTag("Data").getInt("Mode");
+            int mode = stack.getOrCreateSubNbt("Data").getInt("Mode");
             if(mode == 0) {
                 List<HostileEntity> chained = new ArrayList<>();
                 LivingEntity last = target;

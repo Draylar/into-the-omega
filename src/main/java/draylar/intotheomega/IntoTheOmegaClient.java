@@ -1,5 +1,6 @@
 package draylar.intotheomega;
 
+import dev.emi.trinkets.api.client.TrinketRendererRegistry;
 import draylar.intotheomega.api.Color;
 import draylar.intotheomega.api.HandheldModelRegistry;
 import draylar.intotheomega.api.SetBonusProvider;
@@ -10,14 +11,12 @@ import draylar.intotheomega.client.PhasePadUtils;
 import draylar.intotheomega.client.item.MatriteOrbitalItemRenderer;
 import draylar.intotheomega.client.item.NebulaGearItemRenderer;
 import draylar.intotheomega.client.particle.*;
+import draylar.intotheomega.client.trinket.EyeTrinketRenderer;
 import draylar.intotheomega.entity.block.PhasePadBlockEntity;
 import draylar.intotheomega.item.ChilledVoidArmorItem;
 import draylar.intotheomega.network.ClientNetworking;
 import draylar.intotheomega.registry.*;
-import draylar.intotheomega.registry.client.OmegaClientEventHandlers;
-import draylar.intotheomega.registry.client.OmegaClientPackets;
-import draylar.intotheomega.registry.client.OmegaRenderers;
-import draylar.intotheomega.registry.client.OmegaRendering;
+import draylar.intotheomega.registry.client.*;
 import draylar.intotheomega.ui.ConquestForgeScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -45,6 +44,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
+import net.minecraft.world.gen.random.SimpleRandom;
 
 import java.util.HashMap;
 import java.util.List;
@@ -65,6 +65,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         OmegaRendering.init();
         ClientNetworking.init();
         OmegaClientEventHandlers.init();
+        OmegaEntityModelLayers.init();
 
         // screens
         ScreenRegistry.register(IntoTheOmega.CF_SCREEN_HANDLER, ConquestForgeScreen::new);
@@ -92,7 +93,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.MATRITE_ORBITAL, new MatriteOrbitalItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.NEBULA_GEAR, new NebulaGearItemRenderer());
 
-        FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pull"), (itemStack, clientWorld, livingEntity) -> {
+        FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pull"), (itemStack, clientWorld, livingEntity, seed) -> {
             if (livingEntity == null) {
                 return 0.0F;
             } else {
@@ -100,19 +101,19 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             }
         });
 
-        FabricModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("charge"), (itemStack, clientWorld, livingEntity) -> {
+        FabricModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("charge"), (itemStack, clientWorld, livingEntity, seed) -> {
             if (livingEntity == null) {
                 return 0.0F;
             } else {
-                return (float)(96 - itemStack.getOrCreateSubTag("Frostbuster").getInt("Charge")) / 6;
+                return (float)(96 - itemStack.getOrCreateSubNbt("Frostbuster").getInt("Charge")) / 6;
             }
         });
 
-        FabricModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("using"), (itemStack, clientWorld, livingEntity) -> {
+        FabricModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("using"), (itemStack, clientWorld, livingEntity, seed) -> {
             return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
         });
 
-        FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pulling"), (itemStack, clientWorld, livingEntity) -> {
+        FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pulling"), (itemStack, clientWorld, livingEntity, seed) -> {
             return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
         });
 
@@ -173,8 +174,8 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             return ActionResult.PASS;
         });
 
-        FabricModelPredicateProviderRegistry.register(OmegaItems.VARIANT_SPARK, new Identifier("mode"), (stack, world, entity) -> {
-            return stack.getOrCreateSubTag("Data").getInt("Mode");
+        FabricModelPredicateProviderRegistry.register(OmegaItems.VARIANT_SPARK, new Identifier("mode"), (stack, world, entity, seed) -> {
+            return stack.getOrCreateSubNbt("Data").getInt("Mode");
         });
 
         ArmorSetDisplayRegistry.register(ChilledVoidArmorItem.class, (player, world, delta) -> {
@@ -191,7 +192,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             world.addParticle(OmegaParticles.ICE_FLAKE, player.getX() + secondX, player.getY() + y, player.getZ() + secondZ, 0, 0, 0);
         });
 
-        SimplexNoiseSampler noise = new SimplexNoiseSampler(new Random());
+        SimplexNoiseSampler noise = new SimplexNoiseSampler(new SimpleRandom(new Random().nextLong()));
 
         ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
             double rSample =(noise.sample((pos.getX() + 5000) / 100f, (pos.getZ() - 500) / 100f) + 1) / 2;
@@ -216,6 +217,10 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             manager.registerFactory(OmegaParticles.ICE_FLAKE, IceFlakeParticle.Factory::new);
             manager.registerFactory(OmegaParticles.DARK_SAKURA_PETAL, DarkSakuraPetalParticle.Factory::new);
         });
+
+        TrinketRendererRegistry.registerRenderer(OmegaItems.EBONY_EYE, new EyeTrinketRenderer());
+        TrinketRendererRegistry.registerRenderer(OmegaItems.BOUND_EYE, new EyeTrinketRenderer());
+        TrinketRendererRegistry.registerRenderer(OmegaItems.DRAGON_EYE, new EyeTrinketRenderer());
     }
 
 

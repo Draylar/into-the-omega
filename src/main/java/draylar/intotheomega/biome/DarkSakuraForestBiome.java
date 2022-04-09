@@ -1,15 +1,15 @@
 package draylar.intotheomega.biome;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.registry.OmegaConfiguredFeatures;
 import draylar.intotheomega.registry.OmegaParticles;
-import net.minecraft.particle.ParticleTypes;
+import draylar.intotheomega.registry.OmegaPlacedFeatures;
+import net.minecraft.sound.BiomeMoodSound;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
+import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 
 public class DarkSakuraForestBiome {
 
@@ -17,11 +17,16 @@ public class DarkSakuraForestBiome {
     public static final RegistryKey<Biome> KEY = RegistryKey.of(Registry.BIOME_KEY, IntoTheOmega.id("dark_sakura_forest"));
 
     public static Biome create() {
+        GenerationSettings.Builder generationSettings = new GenerationSettings
+                .Builder()
+                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaPlacedFeatures.DARK_SAKURA_TREE);
+
+        SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
+        DefaultBiomeFeatures.addEndMobs(spawnSettings);
+
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)
                 .category(Biome.Category.THEEND)
-                .depth(0.125f)
-                .scale(0.5f)
                 .temperature(0.25f)
                 .downfall(0.0f)
                 .effects(new BiomeEffects.Builder()
@@ -31,19 +36,8 @@ public class DarkSakuraForestBiome {
                         .waterFogColor(0xffffff)
                         .particleConfig(new BiomeParticleConfig(OmegaParticles.DARK_SAKURA_PETAL, 0.001f))
                         .build())
-                .spawnSettings(createSpawnSettings())
-                .generationSettings(createGenerationSettings())
+                .spawnSettings(spawnSettings.build())
+                .generationSettings(generationSettings.build())
                 .build();
-    }
-
-    private static GenerationSettings createGenerationSettings() {
-        return new GenerationSettings.Builder()
-                .surfaceBuilder(ConfiguredSurfaceBuilders.END)
-                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.DARK_SAKURA_TREE)
-                .build();
-    }
-
-    private static SpawnSettings createSpawnSettings() {
-        return new SpawnSettings.Builder().build();
     }
 }

@@ -31,7 +31,7 @@ public class SwirledOmegaJamItem extends Item {
             if(entity instanceof ServerPlayerEntity) {
                 int needed = stack.getDamage();
                 ServerPlayerEntity player = (ServerPlayerEntity) entity;
-                int i = player.inventory.remove(s -> s.getItem().equals(Items.SLIME_BALL), needed, player.inventory);
+                int i = player.getInventory().remove(s -> s.getItem().equals(Items.SLIME_BALL), needed, player.getInventory());
                 stack.setDamage(stack.getDamage() - i);
             }
         }

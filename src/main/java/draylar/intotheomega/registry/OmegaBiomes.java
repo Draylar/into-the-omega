@@ -16,7 +16,6 @@ import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
-import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 
 public class OmegaBiomes {
 
@@ -61,21 +60,19 @@ public class OmegaBiomes {
         DefaultBiomeFeatures.addEndMobs(spawnSettings);
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
-        generationSettings.surfaceBuilder(ConfiguredSurfaceBuilders.END);
-        generationSettings
-                .structureFeature(OmegaConfiguredFeatures.ENIGMA_KING_SPIKE)
-                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.OBISDIAN_SPIKE)
-                .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.CHORUS_PLANT)
-                .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaConfiguredFeatures.OMEGA_ORE)
-                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.COARSE_PATCH)
-                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.OBSIDISHROOM_PATCH)
-                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.ENDERSHROOM_PATCH);
+//        generationSettings.surfaceBuilder(ConfiguredSurfaceBuilders.END);
+//        generationSettings
+//                .structureFeature(OmegaConfiguredFeatures.ENIGMA_KING_SPIKE)
+//                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.OBISDIAN_SPIKE)
+//                .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.CHORUS_PLANT)
+//                .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaConfiguredFeatures.OMEGA_ORE)
+//                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.COARSE_PATCH)
+//                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.OBSIDISHROOM_PATCH)
+//                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.ENDERSHROOM_PATCH);
 
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)
                 .category(Biome.Category.THEEND)
-                .depth(0.125f)
-                .scale(0.5f)
                 .temperature(1.0f)
                 .downfall(0.0f)
                 .effects(new BiomeEffects.Builder()
@@ -96,13 +93,11 @@ public class OmegaBiomes {
         DefaultBiomeFeatures.addEndMobs(spawnSettings);
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
-        generationSettings.surfaceBuilder(ConfiguredSurfaceBuilders.NOPE);
+//        generationSettings.surfaceBuilder(ConfiguredSurfaceBuilders.NOPE);
 
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)
                 .category(Biome.Category.NONE)
-                .depth(0)
-                .scale(0)
                 .temperature(0.5f)
                 .downfall(0.0f)
                 .effects(new BiomeEffects.Builder()
@@ -121,16 +116,14 @@ public class OmegaBiomes {
         DefaultBiomeFeatures.addEndMobs(spawnSettings);
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
-        generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CRYSTALITE_SURFACE_BUILDER);
-        generationSettings
-                .feature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, OmegaConfiguredFeatures.CRYSTALITE_CAVERN)
-                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.CRYSTALITE_SPIKE);
+//        generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CRYSTALITE_SURFACE_BUILDER);
+//        generationSettings
+//                .feature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, OmegaConfiguredFeatures.CRYSTALITE_CAVERN)
+//                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.CRYSTALITE_SPIKE);
 
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)
                 .category(Biome.Category.THEEND)
-                .depth(0.125f)
-                .scale(0.5f)
                 .temperature(1.0f)
                 .downfall(0.0f)
                 .effects(new BiomeEffects.Builder()

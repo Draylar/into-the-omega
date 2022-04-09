@@ -8,6 +8,8 @@ import draylar.intotheomega.api.client.Stances;
 import draylar.intotheomega.registry.OmegaDamageSources;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -19,7 +21,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -61,7 +63,7 @@ public class FrostbusterItem extends ToolItem implements StanceProvider {
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        CompoundTag frostbusterTag = user.getStackInHand(hand).getOrCreateSubTag("Frostbuster");
+        NbtCompound frostbusterTag = user.getStackInHand(hand).getOrCreateSubNbt("Frostbuster");
         if(!frostbusterTag.contains("Charge") || frostbusterTag.getInt("Charge") <= 0) {
             user.setCurrentHand(hand);
         }
@@ -73,7 +75,7 @@ public class FrostbusterItem extends ToolItem implements StanceProvider {
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         if(!world.isClient) {
             if(remainingUseTicks <= this.getMaxUseTime(stack) - 20) {
-                CompoundTag frostbusterTag = stack.getOrCreateSubTag("Frostbuster");
+                NbtCompound frostbusterTag = stack.getOrCreateSubNbt("Frostbuster");
                 frostbusterTag.putInt("Charge", 96);
 
                 // spawn particles from player's location
@@ -108,7 +110,7 @@ public class FrostbusterItem extends ToolItem implements StanceProvider {
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if(!world.isClient) {
-            CompoundTag frostbusterTag = stack.getOrCreateSubTag("Frostbuster");
+            NbtCompound frostbusterTag = stack.getOrCreateSubNbt("Frostbuster");
 
             if(frostbusterTag.contains("Charge")) {
                 frostbusterTag.putInt("Charge", Math.max(0, frostbusterTag.getInt("Charge") - 1));
@@ -134,8 +136,12 @@ public class FrostbusterItem extends ToolItem implements StanceProvider {
     }
 
     @Override
-    public boolean isEffectiveOn(BlockState state) {
-        return BlockTags.ICE.contains(state.getBlock());
+    public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
+        if (BlockTags.ICE.contains(state.getBlock())) {
+            return 15.0f;
+        }
+
+        return 1.0f;
     }
 
     @Override

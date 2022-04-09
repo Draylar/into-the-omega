@@ -1,9 +1,9 @@
 package draylar.intotheomega.entity.dungeon;
 
 import draylar.intotheomega.api.BlockEntityNotifiable;
+import draylar.intotheomega.api.BlockEntitySyncing;
 import draylar.intotheomega.api.EntityDeathNotifier;
 import draylar.intotheomega.registry.*;
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,22 +13,24 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, BlockEntityClientSerializable, BlockEntityNotifiable {
+public class BejeweledLockBlockEntity extends BlockEntity implements BlockEntitySyncing, BlockEntityNotifiable {
 
     private static final int MAX_DAMAGE = 25;
     private static final List<MobSupplier> MOBS = new ArrayList<>();
@@ -47,97 +49,86 @@ public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, B
     private int unlockTicks = -1;
     private int age;
 
-    public BejeweledLockBlockEntity() {
-        super(OmegaBlockEntities.BEJEWELED_LOCK);
+    public BejeweledLockBlockEntity(BlockPos pos, BlockState state) {
+        super(OmegaBlockEntities.BEJEWELED_LOCK, pos, state);
     }
 
-    @Override
-    public void tick() {
-        assert world != null;
+    public static <E extends BlockEntity> void serverTick(World world, BlockPos blockPos, BlockState state, BejeweledLockBlockEntity lock) {
+        lock.age++;
 
-        // ??
-        if(getPos() == null) {
-            return;
+        // Tick the unlock counter.
+        if (lock.unlockTicks >= 0) {
+            lock.sync();
+
+            // spawn particles
+            for(Direction direction : Direction.values()) {
+                if(!direction.getAxis().equals(Direction.Axis.Y)) {
+                    BlockPos origin = lock.pos.offset(direction, 5);
+
+                    // go up
+                    for(int i = 0; i < 10; i++) {
+                        ((ServerWorld) world).spawnParticles(OmegaParticles.SMALL_BLUE_OMEGA_BURST, origin.getX() + .5, origin.getY() + i, origin.getZ() + .5, 1, 0, 1, 0, 0);
+                    }
+                }
+            }
+
+            // break blocks
+            if(lock.unlockTicks == 0) {
+                // replace bejeweled obsidian 2 blocks up
+                world.setBlockState(lock.pos.up(), Blocks.AIR.getDefaultState());
+                world.setBlockState(lock.pos.up(2), Blocks.AIR.getDefaultState());
+
+                for(Direction direction : Arrays.stream(Direction.values()).filter(direction -> !direction.getAxis().equals(Direction.Axis.Y)).toList()) {
+                    world.setBlockState(lock.pos.offset(direction).down(), Blocks.AIR.getDefaultState());
+                    world.setBlockState(lock.pos.offset(direction).offset(direction.rotateYClockwise()).down(), Blocks.AIR.getDefaultState());
+                }
+            }
+
+            // play grinding sound
+            if(lock.unlockTicks % 2 == 0) {
+                world.playSound(null, lock.pos.getX(), lock.pos.getY(), lock.pos.getZ(), SoundEvents.BLOCK_GRINDSTONE_USE, SoundCategory.BLOCKS, 1.0f, -5.0f);
+            }
+
+            lock.unlockTicks++;
         }
 
-        if(!world.isClient) {
-            ServerWorld sWorld = (ServerWorld) world;
-            age++;
+        // If the counter is >= 100, remove this lock.
+        if (lock.unlockTicks > 360) {
+            world.setBlockState(lock.pos, OmegaBlocks.OBSIDIAN_PILLAR.getDefaultState());
+            world.setBlockState(lock.pos.up(), OmegaBlocks.BEJEWELED_OBSIDIAN.getDefaultState());
+            world.setBlockState(lock.pos.up(2), OmegaBlocks.BEJEWELED_OBSIDIAN.getDefaultState());
+            lock.markRemoved();
+        }
 
-            // Tick the unlock counter.
-            if (unlockTicks >= 0) {
-                sync();
+        List<PlayerEntity> players = new ArrayList<>(world.getEntitiesByClass(PlayerEntity.class, new Box(lock.getPos().add(-16, 0, -16), lock.getPos().add(16, 16, 16)), player -> !player.isSpectator()));
+        players.forEach(player -> player.addStatusEffect(new StatusEffectInstance(OmegaStatusEffects.DUNGEON_LOCK, 15, 0, true, false)));
 
-                // spawn particles
-                for(Direction direction : Direction.values()) {
-                    if(!direction.getAxis().equals(Direction.Axis.Y)) {
-                        BlockPos origin = pos.offset(direction, 5);
+        // Summon mobs around the pedestal if a player is nearby.
+        if(lock.age % 20 == 0 && !(lock.unlockTicks >= 0)) {
+            if(world.random.nextInt(3) == 0) {
+                // Ensure a player is nearby before spawning.
+                if(!players.isEmpty()) {
+                    // Next, ensure we have not hit the local mob-cap.
+                    long nearby = world.getEntitiesByClass(HostileEntity.class, new Box(lock.getPos().add(-16, 0, -16), lock.getPos().add(16, 16, 16)), hostile -> true).size();
+                    if(nearby < 12) {
+                        // Requirements have been hit. Spawn in a random mob and tell it to notify us when it dies.
 
-                        // go up
+                        // Attempt to find a random position nearby to spawn our mob at
+                        BlockPos spawnPos = null;
                         for(int i = 0; i < 10; i++) {
-                            ((ServerWorld) world).spawnParticles(OmegaParticles.SMALL_BLUE_OMEGA_BURST, origin.getX() + .5, origin.getY() + i, origin.getZ() + .5, 1, 0, 1, 0, 0);
+                            BlockPos potentialPos = lock.getPos().add(world.random.nextInt(32) - 16, world.random.nextInt(5), world.random.nextInt(32) - 16);
+                            if(world.getBlockState(potentialPos).isAir()) {
+                                spawnPos = potentialPos;
+                                break;
+                            }
                         }
-                    }
-                }
 
-                // break blocks
-                if(unlockTicks == 0) {
-                    // replace bejeweled obsidian 2 blocks up
-                    world.setBlockState(pos.up(), Blocks.AIR.getDefaultState());
-                    world.setBlockState(pos.up(2), Blocks.AIR.getDefaultState());
-
-                    for(Direction direction : Arrays.stream(Direction.values()).filter(direction -> !direction.getAxis().equals(Direction.Axis.Y)).collect(Collectors.toList())) {
-                        world.setBlockState(pos.offset(direction).down(), Blocks.AIR.getDefaultState());
-                        world.setBlockState(pos.offset(direction).offset(direction.rotateYClockwise()).down(), Blocks.AIR.getDefaultState());
-                    }
-                }
-
-                // play grinding sound
-                if(unlockTicks % 2 == 0) {
-                    world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLOCK_GRINDSTONE_USE, SoundCategory.BLOCKS, 1.0f, -5.0f);
-                }
-
-                unlockTicks++;
-            }
-
-            // If the counter is >= 100, remove this lock.
-            if (unlockTicks > 360) {
-                world.setBlockState(pos, OmegaBlocks.OBSIDIAN_PILLAR.getDefaultState());
-                world.setBlockState(pos.up(), OmegaBlocks.BEJEWELED_OBSIDIAN.getDefaultState());
-                world.setBlockState(pos.up(2), OmegaBlocks.BEJEWELED_OBSIDIAN.getDefaultState());
-                markRemoved();
-            }
-
-            List<PlayerEntity> players = new ArrayList<>(world.getEntitiesByClass(PlayerEntity.class, new Box(getPos().add(-16, 0, -16), getPos().add(16, 16, 16)), player -> !player.isSpectator()));
-            players.forEach(player -> player.addStatusEffect(new StatusEffectInstance(OmegaStatusEffects.DUNGEON_LOCK, 15, 0, true, false)));
-
-            // Summon mobs around the pedestal if a player is nearby.
-            if(age % 20 == 0 && !(unlockTicks >= 0)) {
-                if(world.random.nextInt(3) == 0) {
-                    // Ensure a player is nearby before spawning.
-                    if(!players.isEmpty()) {
-                        // Next, ensure we have not hit the local mob-cap.
-                        long nearby = world.getEntitiesByClass(HostileEntity.class, new Box(getPos().add(-16, 0, -16), getPos().add(16, 16, 16)), hostile -> true).size();
-                        if(nearby < 12) {
-                            // Requirements have been hit. Spawn in a random mob and tell it to notify us when it dies.
-
-                            // Attempt to find a random position nearby to spawn our mob at
-                            BlockPos spawnPos = null;
-                            for(int i = 0; i < 10; i++) {
-                                BlockPos potentialPos = getPos().add(world.random.nextInt(32) - 16, world.random.nextInt(5), world.random.nextInt(32) - 16);
-                                if(world.getBlockState(potentialPos).isAir()) {
-                                    spawnPos = potentialPos;
-                                    break;
-                                }
-                            }
-
-                            // if a proper spawn position was found, add in our entity
-                            if(spawnPos != null) {
-                                MobSupplier found = MOBS.get(world.random.nextInt(MOBS.size()));
-                                LivingEntity created = found.create(world, spawnPos, players.get(world.random.nextInt(players.size())));
-                                ((EntityDeathNotifier) created).setTarget(world.getRegistryKey(), pos);
-                                world.spawnEntity(created);
-                            }
+                        // if a proper spawn position was found, add in our entity
+                        if(spawnPos != null) {
+                            MobSupplier found = MOBS.get(world.random.nextInt(MOBS.size()));
+                            LivingEntity created = found.create(world, spawnPos, players.get(world.random.nextInt(players.size())));
+                            ((EntityDeathNotifier) created).setTarget(world.getRegistryKey(), lock.pos);
+                            world.spawnEntity(created);
                         }
                     }
                 }
@@ -154,25 +145,26 @@ public class BejeweledLockBlockEntity extends BlockEntity implements Tickable, B
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
-        this.unlockTicks = tag.getInt("UnlockTicks");
+    public void readNbt(NbtCompound nbt) {
+        super.readNbt(nbt);
+        this.unlockTicks = nbt.getInt("UnlockTicks");
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        tag.putInt("UnlockTicks", unlockTicks);
-        return super.toTag(tag);
+    protected void writeNbt(NbtCompound nbt) {
+        super.writeNbt(nbt);
+        nbt.putInt("UnlockTicks", unlockTicks);
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     @Override
-    public void fromClientTag(CompoundTag tag) {
-        fromTag(getCachedState(), tag);
-    }
-
-    @Override
-    public CompoundTag toClientTag(CompoundTag tag) {
-        return toTag(tag);
+    public NbtCompound toInitialChunkDataNbt() {
+        return createNbt();
     }
 
     @Override

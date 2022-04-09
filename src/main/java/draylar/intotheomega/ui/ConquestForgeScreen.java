@@ -20,7 +20,7 @@ public class ConquestForgeScreen extends HandledScreen<ConquestForgeScreenHandle
 
     @Override
     public void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
         this.client.getTextureManager().bindTexture(CONQUEST_FORGE_UI);
 
         int middleX = (this.width - this.backgroundWidth) / 2;

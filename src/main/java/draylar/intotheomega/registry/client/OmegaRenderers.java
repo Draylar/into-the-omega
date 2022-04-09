@@ -9,33 +9,34 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.minecraft.client.render.entity.EmptyEntityRenderer;
 
 @Environment(EnvType.CLIENT)
 public class OmegaRenderers {
 
     public static void init() {
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.CHORUS_COW, (dispatcher, context) -> new ChorusCowEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.INANIS, (dispatcher, context) -> new InanisEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.DUAL_INANIS, (dispatcher, context) -> new DualInanisEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX, (dispatcher, context) -> new VoidMatrixEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.ENIGMA_KING, (dispatcher, context) -> new EnigmaKingEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.MATRITE, (dispatcher, context) -> new MatriteEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.MATRIX_BOMB, (dispatcher, context) -> new MatrixBombEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OBSIDIAN_THORN, (dispatcher, context) -> new ObsidianThornEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME_EMPEROR, (dispatcher, context) -> new OmegaSlimeEmperorRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME_MOUNT, (dispatcher, context) -> new OmegaSlimeMountRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME, (dispatcher, context) -> new OmegaSlimeRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_EYE, (dispatcher, context) -> new FrostedEyeEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VIOLET_UNION_BLADE, (dispatcher, context) -> new VioletUnionBladeRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSSAL_RIFT, (dispatcher, context) -> new AbyssalRiftEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_BEAM, (dispatcher, context) -> new VoidMatrixBeamRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_WALKER, (dispatcher, context) -> new VoidWalkerRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_ENDERMAN, (dispatcher, context) -> new FrostedEndermanEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.END_SLIME, (dispatcher, context) -> new EndSlimeRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_BEETLE, (dispatcher, context) -> new VoidBeetleRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSS_GLOBE, (dispatcher, context) -> new AbyssGlobeRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_FLOATER, (dispatcher, context) -> new BlankEntityRenderer(dispatcher));
-        EntityRendererRegistry.INSTANCE.register(OmegaEntities.LEAF_MONSTER, (dispatcher, context) -> new LeafMonsterRenderer(dispatcher));
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.CHORUS_COW, ChorusCowEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.INANIS, InanisEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.DUAL_INANIS, DualInanisEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX, VoidMatrixEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.ENIGMA_KING, EnigmaKingEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.MATRITE, MatriteEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.MATRIX_BOMB, MatrixBombEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OBSIDIAN_THORN, ObsidianThornEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME_EMPEROR, OmegaSlimeEmperorRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME_MOUNT, OmegaSlimeMountRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.OMEGA_SLIME, OmegaSlimeRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_EYE, FrostedEyeEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VIOLET_UNION_BLADE, VioletUnionBladeRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSSAL_RIFT, AbyssalRiftEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_MATRIX_BEAM, VoidMatrixBeamRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_WALKER, VoidWalkerRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.FROSTED_ENDERMAN, FrostedEndermanEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.END_SLIME, EndSlimeRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_BEETLE, VoidBeetleRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.ABYSS_GLOBE, AbyssGlobeRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.VOID_FLOATER, EmptyEntityRenderer::new);
+        EntityRendererRegistry.INSTANCE.register(OmegaEntities.LEAF_MONSTER, LeafMonsterRenderer::new);
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);

@@ -1,6 +1,7 @@
 package draylar.intotheomega.mixin.biome;
 
 import draylar.intotheomega.registry.OmegaBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
@@ -19,19 +20,7 @@ public class ClientWorldBiomeParticleMixin {
             method = "randomBlockDisplayTick",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isFullCube(Lnet/minecraft/world/BlockView;Lnet/minecraft/util/math/BlockPos;)Z"),
             cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
-    private void cancelThornAirParticles(
-            int xCenter,
-            int yCenter,
-            int zCenter,
-            int radius,
-            Random random,
-            boolean spawnBarrierParticles,
-            BlockPos.Mutable pos,
-            CallbackInfo ci,
-            int i,
-            int j,
-            int k,
-            BlockState blockState) {
+    private void cancelThornAirParticles(int centerX, int centerY, int centerZ, int radius, Random random, Block block, BlockPos.Mutable pos, CallbackInfo ci, int i, int j, int k, BlockState blockState) {
         if(blockState.getBlock().equals(OmegaBlocks.THORN_AIR)) {
             ci.cancel();
         }

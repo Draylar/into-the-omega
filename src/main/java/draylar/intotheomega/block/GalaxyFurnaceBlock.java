@@ -1,15 +1,14 @@
 package draylar.intotheomega.block;
 
 import draylar.intotheomega.entity.block.GalaxyFurnaceBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.world.BlockView;
+import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
-public class GalaxyFurnaceBlock extends Block implements BlockEntityProvider {
+public class GalaxyFurnaceBlock extends BlockWithEntity {
 
     public GalaxyFurnaceBlock(Settings settings) {
         super(settings);
@@ -17,8 +16,8 @@ public class GalaxyFurnaceBlock extends Block implements BlockEntityProvider {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new GalaxyFurnaceBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new GalaxyFurnaceBlockEntity(pos, state);
     }
 
     @Override

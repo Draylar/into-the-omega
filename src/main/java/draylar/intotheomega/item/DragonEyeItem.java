@@ -2,12 +2,10 @@ package draylar.intotheomega.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.TrinketItem;
-import dev.emi.trinkets.api.TrinketSlots;
+import dev.emi.trinkets.api.SlotReference;
 import draylar.attributed.CustomEntityAttributes;
 import draylar.intotheomega.item.api.EyeTrinketItem;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -17,24 +15,17 @@ import java.util.UUID;
 
 public class DragonEyeItem extends EyeTrinketItem {
 
-    private final Multimap<EntityAttribute, EntityAttributeModifier> ATTRIBUTE_MODIFIERS;
+    private static final Multimap<EntityAttribute, EntityAttributeModifier> MODIFIERS = ImmutableMultimap.<EntityAttribute, EntityAttributeModifier>builder()
+            .put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Tool modifier", 0.10D, EntityAttributeModifier.Operation.MULTIPLY_BASE))
+            .put(CustomEntityAttributes.CRIT_CHANCE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Tool modifier", 0.10D, EntityAttributeModifier.Operation.MULTIPLY_BASE))
+            .build();
 
     public DragonEyeItem(Settings settings) {
         super(settings);
-
-        // Setup attribute modifiers
-        ImmutableMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Tool modifier", 0.10D, EntityAttributeModifier.Operation.MULTIPLY_BASE));
-        builder.put(CustomEntityAttributes.CRIT_CHANCE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Tool modifier", 0.10D, EntityAttributeModifier.Operation.MULTIPLY_BASE));
-        this.ATTRIBUTE_MODIFIERS = builder.build();
     }
 
     @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getTrinketModifiers(String group, String slot, UUID uuid, ItemStack stack) {
-        if(group.equals(SlotGroups.HEAD) && slot.equals("eye")) {
-            return ATTRIBUTE_MODIFIERS;
-        }
-
-        return null;
+    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
+        return MODIFIERS;
     }
 }

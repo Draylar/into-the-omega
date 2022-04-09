@@ -1,9 +1,7 @@
 package draylar.intotheomega.mixin.dev;
 
-import draylar.intotheomega.api.DebugAIRenderer;
-import draylar.intotheomega.api.PathRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;
@@ -17,8 +15,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MobEntityRenderer.class)
 public abstract class MobEntityAIRenderingMixin extends LivingEntityRenderer {
 
-    private MobEntityAIRenderingMixin(EntityRenderDispatcher dispatcher, EntityModel model, float shadowRadius) {
-        super(dispatcher, model, shadowRadius);
+
+    public MobEntityAIRenderingMixin(EntityRendererFactory.Context ctx, EntityModel model, float shadowRadius) {
+        super(ctx, model, shadowRadius);
     }
 
     @Inject(

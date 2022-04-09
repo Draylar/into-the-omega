@@ -1,6 +1,5 @@
 package draylar.intotheomega.mixin.trinkets;
 
-import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.intotheomega.registry.OmegaItems;
 import net.minecraft.entity.EntityType;
@@ -35,7 +34,7 @@ public abstract class EndermanBoundEyeMixin extends MobEntity {
             boolean isBound = world.getEntitiesByClass(
                     PlayerEntity.class,
                     new Box(getBlockPos().add(-256, -128, -256), getBlockPos().add(256, 128, 256)),
-                    player -> TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.HEAD, "eye").getItem().equals(OmegaItems.BOUND_EYE))
+                    player -> TrinketsApi.getTrinketComponent(player).isPresent() && TrinketsApi.getTrinketComponent(player).get().isEquipped(OmegaItems.BOUND_EYE))
                     .stream().anyMatch(player -> player.canSee(this));
 
             if(isBound) {

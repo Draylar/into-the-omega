@@ -4,7 +4,7 @@ import net.minecraft.block.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldView;
 
-public class EndMushroomBlock extends MushroomPlantBlock {
+public class EndMushroomBlock extends PlantBlock {
 
     public EndMushroomBlock(Settings settings) {
         super(settings);

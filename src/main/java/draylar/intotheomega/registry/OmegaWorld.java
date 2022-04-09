@@ -2,16 +2,9 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.biome.OmegaSlimeWasteBiome;
-import draylar.intotheomega.world.abyss_flower.AbyssFlowerIslandStructure;
-import draylar.intotheomega.world.api.BaseIslandStructure;
 import draylar.intotheomega.world.area.slime.SlimeDungeonFeature;
-import draylar.intotheomega.world.area.slime.SlimeLakeFeature;
 import draylar.intotheomega.world.area.slime.SlimePillarFeature;
-import draylar.intotheomega.world.chorus_island.ChorusIslandStructure;
 import draylar.intotheomega.world.feature.*;
-import draylar.intotheomega.world.ice.IceIslandStructure;
-import draylar.intotheomega.world.island.GenericIslandStructure;
-import draylar.intotheomega.world.spike.SpikeStructure;
 import draylar.intotheomega.world.structure.*;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
@@ -36,28 +29,27 @@ public class OmegaWorld {
     public static final StructureFeature<DefaultFeatureConfig> EYE_ALTAR = new EyeAltarStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> SMALL_PHANTOM_TOWER = new SmallPhantomTowerStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> MEDIUM_PHANTOM_TOWER = new MediumPhantomTowerStructure(DefaultFeatureConfig.CODEC);
-    public static final StructureFeature<DefaultFeatureConfig> SPIKE = new SpikeStructure(DefaultFeatureConfig.CODEC);
+//    public static final StructureFeature<DefaultFeatureConfig> SPIKE = new SpikeStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> MATRIX_PEDESTAL = new MatrixPedestalStructure(DefaultFeatureConfig.CODEC);
     public static final StructureFeature<DefaultFeatureConfig> BEJEWELED_DUNGEON = new BejeweledDungeonStructure(DefaultFeatureConfig.CODEC);
 
     // Island Structure Features
     // These islands are pooled up when spawning to prevent overlapping/too-close islands.
-    public static final StructureFeature<DefaultFeatureConfig> GENERIC_ISLAND = new GenericIslandStructure(DefaultFeatureConfig.CODEC);
-    public static final StructureFeature<DefaultFeatureConfig> ICE_ISLAND = new IceIslandStructure(DefaultFeatureConfig.CODEC);
-    public static final StructureFeature<DefaultFeatureConfig> CHORUS_ISLAND = new ChorusIslandStructure(DefaultFeatureConfig.CODEC);
+//    public static final StructureFeature<DefaultFeatureConfig> GENERIC_ISLAND = new GenericIslandStructure(DefaultFeatureConfig.CODEC);
+//    public static final StructureFeature<DefaultFeatureConfig> ICE_ISLAND = new IceIslandStructure(DefaultFeatureConfig.CODEC);
+//    public static final StructureFeature<DefaultFeatureConfig> CHORUS_ISLAND = new ChorusIslandStructure(DefaultFeatureConfig.CODEC);
 
 
-    public static final StructureFeature<DefaultFeatureConfig> ABYSS_FLOWER_ISLAND = new AbyssFlowerIslandStructure(DefaultFeatureConfig.CODEC);
+//    public static final StructureFeature<DefaultFeatureConfig> ABYSS_FLOWER_ISLAND = new AbyssFlowerIslandStructure(DefaultFeatureConfig.CODEC);
 
     // TODO: phantom tower -> phantom outpost -> phantom [?]
 
     // Standard Features
     public static final Feature<DefaultFeatureConfig> OBSIDIAN_SPIKE = register("obsidian_spike", new ObsidianSpikeFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> CRYSTALITE_SPIKE = register("crystalite_spike", new CrystaliteSpikeFeature(DefaultFeatureConfig.CODEC));
-    public static final Feature<DefaultFeatureConfig> OMEGA_ORE = Registry.register(Registry.FEATURE, IntoTheOmega.id("ore"), new OmegaCrystalOreFeature(DefaultFeatureConfig.CODEC));
+    public static final Feature<OreFeatureConfig> OMEGA_ORE = Registry.register(Registry.FEATURE, IntoTheOmega.id("ore"), new OmegaCrystalOreFeature(OreFeatureConfig.CODEC));
     public static final Feature<DiskFeatureConfig> END_PATCH = register("cracked_end_stone_patch", new DiskFeature(DiskFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_PILLAR = register("slime_pillar", new SlimePillarFeature(DefaultFeatureConfig.CODEC));
-    public static final Feature<DefaultFeatureConfig> SLIME_LAKE = register("slime_lake", new SlimeLakeFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_DUNGEON = register("slime_dungeon", new SlimeDungeonFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> END_ISLAND_RIVER = register("end_island_river", new EndIslandRiverFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> CRYSTALITE_CAVERN = register("crystalite_cavern", new CrystaliteCavernFeature(DefaultFeatureConfig.CODEC));
@@ -93,18 +85,18 @@ public class OmegaWorld {
                 .adjustsSurface()
                 .register();
 
-        FabricStructureBuilder
-                .create(IntoTheOmega.id("spike"), SPIKE)
-                .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-                .defaultConfig(10, 8, 1112223)
-                .adjustsSurface()
-                .register();
+//        FabricStructureBuilder
+//                .create(IntoTheOmega.id("spike"), SPIKE)
+//                .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+//                .defaultConfig(10, 8, 1112223)
+//                .adjustsSurface()
+//                .register();
 
-        FabricStructureBuilder
-                .create(IntoTheOmega.id("abyss_flower_island"), ABYSS_FLOWER_ISLAND)
-                .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
-                .defaultConfig(1, 0, 0)
-                .register();
+//        FabricStructureBuilder
+//                .create(IntoTheOmega.id("abyss_flower_island"), ABYSS_FLOWER_ISLAND)
+//                .step(GenerationStep.Feature.TOP_LAYER_MODIFICATION)
+//                .defaultConfig(1, 0, 0)
+//                .register();
 
         FabricStructureBuilder
                 .create(IntoTheOmega.id("matrix_pedestal"), MATRIX_PEDESTAL)
@@ -120,11 +112,11 @@ public class OmegaWorld {
                 .adjustsSurface()
                 .register();
 
-        BaseIslandStructure.ALL_ISLANDS.forEach(island -> FabricStructureBuilder
-                .create(IntoTheOmega.id(island.getId()), island)
-                .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-                .defaultConfig(new StructureConfig(1, 0, 82508))
-                .register());
+//        BaseIslandStructure.ALL_ISLANDS.forEach(island -> FabricStructureBuilder
+//                .create(IntoTheOmega.id(island.getId()), island)
+//                .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+//                .defaultConfig(new StructureConfig(1, 0, 82508))
+//                .register());
     }
 
     public static void registerAdditions() {
@@ -158,23 +150,23 @@ public class OmegaWorld {
                         context -> VALID_EYE_ALTAR_BIOMES.contains(context.getBiomeKey()),
                         context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.MEDIUM_PHANTOM_TOWER));
 
-        BiomeModifications
-                .create(IntoTheOmega.id("ice_island"))
-                .add(ModificationPhase.ADDITIONS,
-                        anyEndNotSpecial(),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ICE_ISLAND));
-
-        BiomeModifications
-                .create(IntoTheOmega.id("chorus_island"))
-                .add(ModificationPhase.ADDITIONS,
-                        anyEndNotSpecial(),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_CHORUS_ISLAND));
-
-        BiomeModifications
-                .create(IntoTheOmega.id("generic_island"))
-                .add(ModificationPhase.ADDITIONS,
-                        anyEndNotSpecial(),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_GENERIC_ISLAND));
+//        BiomeModifications
+//                .create(IntoTheOmega.id("ice_island"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        anyEndNotSpecial(),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_ICE_ISLAND));
+//
+//        BiomeModifications
+//                .create(IntoTheOmega.id("chorus_island"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        anyEndNotSpecial(),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_CHORUS_ISLAND));
+//
+//        BiomeModifications
+//                .create(IntoTheOmega.id("generic_island"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        anyEndNotSpecial(),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_GENERIC_ISLAND));
 
 //        BiomeModifications
 //                .create(IntoTheOmega.id("spike"))
@@ -182,11 +174,11 @@ public class OmegaWorld {
 //                        BiomeSelectors.foundInTheEnd(),
 //                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.CONFIGURED_SPIKE));
 //
-        BiomeModifications
-                .create(IntoTheOmega.id("abyss_flower_island"))
-                .add(ModificationPhase.ADDITIONS,
-                        BiomeSelectors.includeByKey(OmegaBiomes.ABYSSAL_CORE_KEY),
-                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.ABYSS_FLOWER_ISLAND));
+//        BiomeModifications
+//                .create(IntoTheOmega.id("abyss_flower_island"))
+//                .add(ModificationPhase.ADDITIONS,
+//                        BiomeSelectors.includeByKey(OmegaBiomes.ABYSSAL_CORE_KEY),
+//                        context -> context.getGenerationSettings().addBuiltInStructure(OmegaConfiguredFeatures.ABYSS_FLOWER_ISLAND));
 
 //        BiomeModifications
 //                .create(IntoTheOmega.id("end_island_river"))

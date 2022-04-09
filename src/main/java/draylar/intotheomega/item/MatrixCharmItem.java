@@ -1,7 +1,5 @@
 package draylar.intotheomega.item;
 
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -20,11 +18,6 @@ public class MatrixCharmItem extends TrinketItem {
 
     public MatrixCharmItem(Settings settings) {
         super(settings);
-    }
-
-    @Override
-    public boolean canWearInSlot(String s, String s1) {
-        return s.equals(SlotGroups.CHEST) && s1.equals(Slots.NECKLACE);
     }
 
     @Override

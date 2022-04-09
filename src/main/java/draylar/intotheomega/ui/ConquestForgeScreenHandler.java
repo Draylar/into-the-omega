@@ -15,9 +15,9 @@ import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
@@ -83,27 +83,27 @@ public class ConquestForgeScreenHandler extends ScreenHandler {
             }
 
             @Override
-            public ItemStack onTakeItem(PlayerEntity player, ItemStack stack) {
+            public ItemStack takeStack(int amount) {
                 input.getStack(0).decrement(1);
                 input.getStack(1).decrement(1);
                 input.getStack(2).decrement(crystalCost); // amount of omega crystals to take
 
-                player.playSound(SoundEvents.BLOCK_ANVIL_USE, 1, .5f);
-
-                return super.onTakeItem(player, stack);
+//                player.playSound(SoundEvents.BLOCK_ANVIL_USE, 1, .5f);
+                
+                return super.takeStack(amount);
             }
         });
 
         // main inventory
-        for(int i = 0; i < 3; ++i) {
-            for(int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(inventory, j + i * 9 + 9, 15  + j * 18, 147 + i * 18));
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
+                this.addSlot(new Slot(inventory, j + i * 9 + 9, 15 + j * 18, 147 + i * 18));
             }
         }
 
         // hotbar
-        for(int i = 0; i < 9; ++i) {
-            this.addSlot(new Slot(inventory, i, 15 + i * 18, 205 ));
+        for (int i = 0; i < 9; ++i) {
+            this.addSlot(new Slot(inventory, i, 15 + i * 18, 205));
         }
     }
 
@@ -140,21 +140,21 @@ public class ConquestForgeScreenHandler extends ScreenHandler {
                 Integer rightLevel = entry.getValue();
 
                 // enchantments & name match
-                if (leftEnchantment.equals(rightEnchantment) && leftLevel.equals(rightLevel)) {
+                if(leftEnchantment.equals(rightEnchantment) && leftLevel.equals(rightLevel)) {
                     int level = leftLevel;
                     int maxLevel = leftEnchantment.getMaxLevel();
                     boolean isOmega = ((OmegaManipulator) leftEnchantment).isOmega();
 
                     // Attempts to combine 2 max-level non-omega enchanting books into a tier 1 omega book.
-                    if (!isOmega) {
+                    if(!isOmega) {
                         // ensure both inputs are enchanting books
-                        if (inputLeftItem instanceof EnchantedBookItem && inputRightItem instanceof EnchantedBookItem) {
+                        if(inputLeftItem instanceof EnchantedBookItem && inputRightItem instanceof EnchantedBookItem) {
                             // ensure the level we're operating on for both books is the max level of the given enchantment
-                            if (level == maxLevel) {
+                            if(level == maxLevel) {
                                 Enchantment omegaVariant = IntoTheOmega.getOmegaVariant(leftEnchantment);
 
                                 // if an omega enchantment was found for these books, populate output
-                                if (omegaVariant != null) {
+                                if(omegaVariant != null) {
                                     crystalCost = crystalCosts.get(1);
                                     if(inputOmega.getCount() >= crystalCosts.get(1)) {
                                         ItemStack newStack = new ItemStack(Items.ENCHANTED_BOOK);
@@ -171,32 +171,32 @@ public class ConquestForgeScreenHandler extends ScreenHandler {
                     // Combination can occur between 2 books, or 1 book and 1 tool.
                     else {
                         // ensure at least 1 input is an enchanting book
-                        if (inputLeftItem instanceof EnchantedBookItem || inputRightItem instanceof EnchantedBookItem) {
+                        if(inputLeftItem instanceof EnchantedBookItem || inputRightItem instanceof EnchantedBookItem) {
                             // make sure we're not over-leveling the tool/book
-                            if (level < maxLevel) {
+                            if(level < maxLevel) {
                                 ItemStack newStack = new ItemStack(Items.ENCHANTED_BOOK);
 
                                 // set output to correct item type
-                                if (!(inputLeftItem instanceof EnchantedBookItem)) {
+                                if(!(inputLeftItem instanceof EnchantedBookItem)) {
                                     newStack = inputLeft.copy();
-                                } else if (!(inputRightItem instanceof EnchantedBookItem)) {
+                                } else if(!(inputRightItem instanceof EnchantedBookItem)) {
                                     newStack = inputRight.copy();
                                 }
 
                                 int nextLevel = level + 1;
 
-                                if (newStack.getItem() instanceof EnchantedBookItem) {
+                                if(newStack.getItem() instanceof EnchantedBookItem) {
                                     EnchantedBookItem.addEnchantment(newStack, new EnchantmentLevelEntry(leftEnchantment, nextLevel));
                                 } else {
                                     Identifier enchantmentID = Registry.ENCHANTMENT.getId(leftEnchantment);
 
-                                    ListTag copyEnchantments = newStack.copy().getEnchantments();
+                                    NbtList copyEnchantments = newStack.copy().getEnchantments();
                                     newStack.getEnchantments().clear();
                                     newStack.addEnchantment(leftEnchantment, nextLevel);
 
-                                    for (Tag tag : copyEnchantments) {
-                                        CompoundTag cTag = (CompoundTag) tag;
-                                        if (!cTag.get("id").asString().equals(enchantmentID.toString())) {
+                                    for (NbtElement tag : copyEnchantments) {
+                                        NbtCompound cTag = (NbtCompound) tag;
+                                        if(!cTag.get("id").asString().equals(enchantmentID.toString())) {
                                             newStack.getEnchantments().add(cTag);
                                         }
                                     }
@@ -219,9 +219,9 @@ public class ConquestForgeScreenHandler extends ScreenHandler {
 
     @Override
     public void close(PlayerEntity player) {
-        player.inventory.offerOrDrop(player.world, input.getStack(0));
-        player.inventory.offerOrDrop(player.world, input.getStack(1));
-        player.inventory.offerOrDrop(player.world, input.getStack(2));
+        player.getInventory().offerOrDrop(input.getStack(0));
+        player.getInventory().offerOrDrop(input.getStack(1));
+        player.getInventory().offerOrDrop(input.getStack(2));
 
         super.close(player);
     }

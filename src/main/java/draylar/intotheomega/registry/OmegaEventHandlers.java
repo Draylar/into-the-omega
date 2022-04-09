@@ -1,10 +1,9 @@
 package draylar.intotheomega.registry;
 
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
+import dev.emi.trinkets.api.SlotReference;
+import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.attributed.event.CriticalHitEvents;
-import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.api.AttackHandler;
 import draylar.intotheomega.api.BewitchedHelper;
 import draylar.intotheomega.api.EndBiomeSourceCache;
@@ -18,8 +17,6 @@ import draylar.intotheomega.item.InanisItem;
 import draylar.intotheomega.item.MatrixCharmItem;
 import draylar.intotheomega.item.MatrixLensItem;
 import draylar.intotheomega.item.api.SetArmorItem;
-import draylar.intotheomega.item.ice.HeartOfIceItem;
-import draylar.intotheomega.mixin.mechanic.LivingEntityJumpMixin;
 import draylar.intotheomega.network.ServerNetworking;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
@@ -33,13 +30,15 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Pair;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
+
+import java.util.Optional;
 
 public class OmegaEventHandlers {
 
@@ -51,7 +50,6 @@ public class OmegaEventHandlers {
         registerBewitchedEndermanAggression();
         registerItemAttackHandler();
         registerChilledVoidBonuses();
-        registerHeartOfIceHandlers();
         registerTrinketEventHandler();
         registerInanisLeapAttack();
         registerHeartOfIceCriticalHandlers();
@@ -59,18 +57,26 @@ public class OmegaEventHandlers {
     }
 
     private static void registerHeartOfIceCriticalHandlers() {
+        // A player with a "Heart of Ice" equipped is immune to critical hits.
         CriticalHitEvents.BEFORE.register((player, target, stack, chance) -> {
-            if(TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.CHEST, Slots.NECKLACE).getItem().equals(OmegaItems.HEART_OF_ICE)) {
-                return TypedActionResult.fail(chance);
+            Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
+            if(trinkets.isPresent()) {
+                if(!trinkets.get().getEquipped(OmegaItems.HEART_OF_ICE).isEmpty()) {
+                    return TypedActionResult.fail(chance);
+                }
             }
 
             return TypedActionResult.pass(chance);
         });
 
+        // When a player with a "Heart of Ice" equipped lands a critical hit, they are granted speed & strength.
         CriticalHitEvents.AFTER.register((player, target, stack) -> {
-            if(TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.CHEST, Slots.NECKLACE).getItem().equals(OmegaItems.HEART_OF_ICE)) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 5, 0, true, false));
-                player.addStatusEffect(new StatusEffectInstance(OmegaStatusEffects.PURE_STRENGTH, 20 * 5, 0, true, false));
+            Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
+            if(trinkets.isPresent()) {
+                if(!trinkets.get().getEquipped(OmegaItems.HEART_OF_ICE).isEmpty()) {
+                    player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 5, 0, true, false));
+                    player.addStatusEffect(new StatusEffectInstance(OmegaStatusEffects.PURE_STRENGTH, 20 * 5, 0, true, false));
+                }
             }
         });
     }
@@ -89,14 +95,15 @@ public class OmegaEventHandlers {
     }
 
     private static void registerIceIslandLocationUpdater() {
+        // TODO: BRUH
         ServerTickEvents.START_WORLD_TICK.register(world -> {
             if(world.getRegistryKey().equals(World.END)) {
                 world.getPlayers().forEach(player -> {
-                    boolean inIceIsland = world.getStructureAccessor().getStructureAt(player.getBlockPos(), false, OmegaWorld.ICE_ISLAND) != StructureStart.DEFAULT;
+//                    boolean inIceIsland = world.getStructureAccessor().getStructureAt(player.getBlockPos(), OmegaWorld.ICE_ISLAND) != StructureStart.DEFAULT;
 
                     // todo: what if a player is in the ice island and they teleport away?
                     // they will still see snow.
-                    ServerNetworking.updateIceIsland(player, inIceIsland);
+//                    ServerNetworking.updateIceIsland(player, inIceIsland);
                 });
             }
         });
@@ -105,12 +112,13 @@ public class OmegaEventHandlers {
     private static void registerMatrixCharmDamageReduction() {
         PlayerDamageCallback.EVENT.register((player, source, amount) -> {
             if(source.isExplosive()) {
-                ItemStack stack = TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.CHEST, Slots.NECKLACE);
-                Item item = stack.getItem();
-
-                if(item instanceof MatrixCharmItem) {
-                    float reduction = MatrixCharmItem.getDamageReductionPercentage(stack);
-                    return TypedActionResult.pass(reduction * amount);
+                Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
+                if(trinkets.isPresent()) {
+                    var equipped = trinkets.get().getEquipped(OmegaItems.MATRIX_CHARM);
+                    if(!equipped.isEmpty()) {
+                        float reduction = MatrixCharmItem.getDamageReductionPercentage(equipped.get(0).getRight());
+                        return TypedActionResult.pass(reduction * amount);
+                    }
                 }
             }
 
@@ -120,13 +128,14 @@ public class OmegaEventHandlers {
 
     private static void registerMatrixLensDamageBoost() {
         ExplosionDamageEntityCallback.EVENT.register((entity, source, amount) -> {
-            if(source.getAttacker() instanceof PlayerEntity) {
-                ItemStack stack = TrinketsApi.getTrinketComponent((PlayerEntity) source.getAttacker()).getStack(SlotGroups.OFFHAND, Slots.RING);
-                Item item = stack.getItem();
-
-                if (item instanceof MatrixLensItem) {
-                    float boost = MatrixLensItem.getExplosiveDamageBoost(stack);
-                    return TypedActionResult.pass(boost * amount);
+            if(source.getAttacker() instanceof PlayerEntity player) {
+                Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
+                if(trinkets.isPresent()) {
+                    var equipped = trinkets.get().getEquipped(OmegaItems.MATRIX_LENS);
+                    if(!equipped.isEmpty()) {
+                        float boost = MatrixLensItem.getExplosiveDamageBoost(equipped.get(0).getRight());
+                        return TypedActionResult.pass(boost * amount);
+                    }
                 }
             }
 
@@ -174,15 +183,11 @@ public class OmegaEventHandlers {
     private static void registerTrinketEventHandler() {
         // If the player has a TrinketEventHandler Trinket equipped, trigger the "onAttackEnemy" method.
         AttackEntityCallback.EVENT.register((player, world, hand, entity, entityHitResult) -> {
-            Inventory inventory = TrinketsApi.getTrinketsInventory(player);
-            if(entity instanceof LivingEntity) {
-                for (int i = 0; i < inventory.size(); i++) {
-                    ItemStack stack = inventory.getStack(i);
-                    if (stack.getItem() instanceof TrinketEventHandler) {
-                        ((TrinketEventHandler) stack.getItem()).onAttackEnemy(stack, player, (LivingEntity) entity);
-                    }
-                }
-            }
+            TrinketsApi.getTrinketComponent(player).ifPresent(trinkets -> {
+                trinkets.getEquipped(stack -> stack.getItem() instanceof TrinketEventHandler).forEach(trinketEntry -> {
+                    ((TrinketEventHandler) trinketEntry.getRight().getItem()).onAttackEnemy(trinketEntry.getRight(), player, (LivingEntity) entity);
+                });
+            });
 
             return ActionResult.PASS;
         });
@@ -191,47 +196,40 @@ public class OmegaEventHandlers {
         CriticalHitEvents.CALCULATE_MODIFIER.register((player, target, stack, modifier) -> {
             double bonus = 0.0;
 
-            Inventory inventory = TrinketsApi.getTrinketsInventory(player);
-            if(target instanceof LivingEntity) {
-                for (int i = 0; i < inventory.size(); i++) {
-                    ItemStack trinketStack = inventory.getStack(i);
-                    if (trinketStack.getItem() instanceof TrinketEventHandler) {
-                        bonus += ((TrinketEventHandler) trinketStack.getItem()).getCriticalChanceBonusAgainst((LivingEntity) target);
-                    }
+            Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
+            if(trinkets.isPresent()) {
+                for (Pair<SlotReference, ItemStack> eventHandlerEntry : trinkets.get().getEquipped(s -> s.getItem() instanceof TrinketEventHandler)) {
+                    bonus += ((TrinketEventHandler) eventHandlerEntry.getRight().getItem()).getCriticalChanceBonusAgainst((LivingEntity) target);
                 }
             }
 
             return modifier + bonus;
         });
 
-        // Calculate damage bonus multiplier
+        // TrinketEventHandler trinkets can supply a multiplicative damage boost to the player through the getDamageBonusAgainst method.
+        // Calculate the modifier of all trinkets and apply the damage boost when the player hits an enemy.
         PlayerAttackCallback.EVENT.register((hit, player, amount) -> {
             float multiplier = 1.0f;
 
-            Inventory inventory = TrinketsApi.getTrinketsInventory(player);
-            if(hit instanceof LivingEntity) {
-                for (int i = 0; i < inventory.size(); i++) {
-                    ItemStack trinketStack = inventory.getStack(i);
-                    if (trinketStack.getItem() instanceof TrinketEventHandler) {
-                        multiplier *= ((TrinketEventHandler) trinketStack.getItem()).getDamageMultiplierAgainst((LivingEntity) hit);
-                    }
+            Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
+            if(trinkets.isPresent()) {
+                for (Pair<SlotReference, ItemStack> eventHandlerEntry : trinkets.get().getEquipped(stack -> stack.getItem() instanceof TrinketEventHandler)) {
+                    multiplier *= ((TrinketEventHandler) eventHandlerEntry.getRight().getItem()).getDamageMultiplierAgainst((LivingEntity) hit);
                 }
             }
 
             return amount * multiplier;
         });
 
-        // Run raw damage bonus
+        // TrinketEventHandler trinkets can supply a raw damage bonus to the player through the getDamageBonusAgainst method.
+        // Collect all trinkets & sum their damage bonus when the player hits an enemy.
         PlayerAttackCallback.EVENT.register((hit, player, amount) -> {
             float bonus = 0.0f;
 
-            Inventory inventory = TrinketsApi.getTrinketsInventory(player);
-            if(hit instanceof LivingEntity) {
-                for (int i = 0; i < inventory.size(); i++) {
-                    ItemStack trinketStack = inventory.getStack(i);
-                    if (trinketStack.getItem() instanceof TrinketEventHandler) {
-                        bonus += ((TrinketEventHandler) trinketStack.getItem()).getDamageBonusAgainst((LivingEntity) hit);
-                    }
+            Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
+            if(trinkets.isPresent()) {
+                for (Pair<SlotReference, ItemStack> eventHandlerEntry : trinkets.get().getEquipped(stack -> stack.getItem() instanceof TrinketEventHandler)) {
+                    bonus += ((TrinketEventHandler) eventHandlerEntry.getRight().getItem()).getDamageBonusAgainst((LivingEntity) hit);
                 }
             }
 
@@ -296,7 +294,7 @@ public class OmegaEventHandlers {
 
                 // Only show the effect if the player has the set.
                 if(set.hasFullSet(player)) {
-                    for(int i = 0; i < 25; i++) {
+                    for (int i = 0; i < 25; i++) {
                         player.world.addParticle(
                                 OmegaParticles.ICE_FLAKE,
                                 target.getParticleX(0.5D),
@@ -308,25 +306,6 @@ public class OmegaEventHandlers {
                         );
                     }
                 }
-            }
-        });
-    }
-
-    private static void registerHeartOfIceHandlers() {
-        // Players with the "Heart of Ice" cannot be Critical Hit.
-        CriticalHitEvents.BEFORE.register((player, target, stack, chance) -> {
-            if(TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.CHEST, Slots.NECKLACE).getItem() instanceof HeartOfIceItem) {
-                return TypedActionResult.fail(0.0);
-            }
-
-            return TypedActionResult.pass(chance);
-        });
-
-        // Players with the "Heart of Ice" who land a Critical Hit gain a short buff.
-        CriticalHitEvents.AFTER.register((player, target, stack) -> {
-            if(TrinketsApi.getTrinketComponent(player).getStack(SlotGroups.CHEST, Slots.NECKLACE).getItem() instanceof HeartOfIceItem) {
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20 * 5, 0, true, false));
-                player.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 20 * 5, 0, true, false));
             }
         });
     }

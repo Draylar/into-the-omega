@@ -3,6 +3,7 @@ package draylar.intotheomega.biome;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.registry.OmegaConfiguredFeatures;
 import draylar.intotheomega.registry.OmegaEntities;
+import draylar.intotheomega.registry.OmegaPlacedFeatures;
 import draylar.intotheomega.registry.OmegaSurfaceBuilders;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
@@ -24,16 +25,14 @@ public class OmegaSlimeWasteBiome {
         spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(OmegaEntities.OMEGA_SLIME, 10, 1, 4));
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
-        generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CONFIGURED_SLIME_WASTES);
-        generationSettings.feature(GenerationStep.Feature.RAW_GENERATION, OmegaConfiguredFeatures.SLIME_PILLAR);
-        generationSettings.feature(GenerationStep.Feature.LAKES, OmegaConfiguredFeatures.SLIME_LAKE);
-        generationSettings.feature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, OmegaConfiguredFeatures.SLIME_DUNGEON);
+//        generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CONFIGURED_SLIME_WASTES);
+        generationSettings.feature(GenerationStep.Feature.RAW_GENERATION, OmegaPlacedFeatures.SLIME_PILLAR);
+        generationSettings.feature(GenerationStep.Feature.LAKES, OmegaPlacedFeatures.SLIME_LAKE);
+        generationSettings.feature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, OmegaPlacedFeatures.SLIME_DUNGEON);
 
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)
                 .category(Biome.Category.THEEND)
-                .depth(0.125f)
-                .scale(0.5f)
                 .temperature(1.0f)
                 .downfall(0.0f)
                 .effects(new BiomeEffects.Builder()

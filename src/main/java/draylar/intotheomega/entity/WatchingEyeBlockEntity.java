@@ -5,27 +5,22 @@ import draylar.intotheomega.registry.OmegaBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.world.World;
 
 import java.util.List;
 
-public class WatchingEyeBlockEntity extends BlockEntity implements Tickable {
+public class WatchingEyeBlockEntity extends BlockEntity {
 
-    public WatchingEyeBlockEntity() {
-        super(OmegaBlockEntities.WATCHING_EYE);
+    public WatchingEyeBlockEntity(BlockPos pos, BlockState state) {
+        super(OmegaBlockEntities.WATCHING_EYE, pos, state);
     }
 
-    @Override
-    public void tick() {
-        assert world != null;
-
-        if(!world.isClient) {
-            updateState(!getNearbyWatchingPlayers(64).isEmpty());
-        }
+    public static void serverTick(World world, BlockPos blockPos, BlockState blockState, WatchingEyeBlockEntity eye) {
+        eye.updateState(!eye.getNearbyWatchingPlayers(64).isEmpty());
     }
 
     private void updateState(boolean powered) {

@@ -5,8 +5,8 @@ import draylar.intotheomega.entity.block.VoidMatrixSpawnBlockEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Matrix4f;
@@ -15,29 +15,30 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-public class VoidMatrixSpawnBlockEntityRenderer extends BlockEntityRenderer<VoidMatrixSpawnBlockEntity> {
+public class VoidMatrixSpawnBlockEntityRenderer implements BlockEntityRenderer<VoidMatrixSpawnBlockEntity> {
 
     private static final Random RANDOM = new Random(31100L);
-    private static final List<RenderLayer> field_21732 = IntStream.range(0, 16).mapToObj((i) -> {
-        return RenderLayer.getEndPortal(i + 1);
-    }).collect(ImmutableList.toImmutableList());
 
-    public VoidMatrixSpawnBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    private final BlockEntityRendererFactory.Context context;
+
+    public VoidMatrixSpawnBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+        this.context = context;
     }
 
     @Override
     public void render(VoidMatrixSpawnBlockEntity spawnBlock, float f, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, int j) {
         RANDOM.setSeed(31100L);
-        double distanceToCamera = spawnBlock.getPos().getSquaredDistance(this.dispatcher.camera.getPos(), true);
+        double distanceToCamera = spawnBlock.getPos().getSquaredDistance(context.getRenderDispatcher().camera.getPos(), true);
         int k = this.getTextureZoom(distanceToCamera);
         float g = this.method_3594();
-        Matrix4f matrixModel = matrixStack.peek().getModel();
-        this.drawBox(matrixModel, vertexConsumerProvider.getBuffer(field_21732.get(0)));
+        Matrix4f matrixModel = matrixStack.peek().getPositionMatrix();
 
-        for(int l = 1; l < k; ++l) {
-            this.drawBox(matrixModel, vertexConsumerProvider.getBuffer(field_21732.get(l)));
-        }
+        // TODO: re-implement end portal rendering
+//        this.drawBox(matrixModel, vertexConsumerProvider.getBuffer(renderLayers.get(0)));
+//
+//        for(int l = 1; l < k; ++l) {
+//            this.drawBox(matrixModel, vertexConsumerProvider.getBuffer(renderLayers.get(l)));
+//        }
     }
 
     private void drawBox(Matrix4f matrix4f, VertexConsumer vertexConsumer) {

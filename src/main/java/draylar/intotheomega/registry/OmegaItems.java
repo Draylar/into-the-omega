@@ -53,7 +53,7 @@ public class OmegaItems {
     public static final Item BENEATH_CRYSTALIA = register("beneath_crystalia", new BeneathCrystaliaItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item MATRIX_BOMB = register("matrix_bomb", new MatrixBombItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(8)));
     public static final Item VOID_MATRIX_SPAWN_EGG = register("void_matrix_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.VOID_MATRIX, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
-    public static final Item MATRITE_SPAWN_eGG = register("matrite_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.MATRITE, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+//    public static final Item MATRITE_SPAWN_eGG = register("matrite_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.MATRITE, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item MATRIX_BLASTER = register("matrix_blaster", new MatrixBlasterItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item MATRITE_ORBITAL = register("matrite_orbital", new MatriteOrbitalItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item MATRIX_RUNE = register("matrix_rune", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(16)));

@@ -8,9 +8,9 @@ import net.minecraft.entity.player.PlayerEntity;
 public class Stances {
 
     public static final Stance NONE = (player, model) -> {
-        model.torso.yaw = 0;
-        model.torso.pitch = 0;
-        model.torso.roll = 0;
+        model.body.yaw = 0;
+        model.body.pitch = 0;
+        model.body.roll = 0;
     };
 
     public static final Stance HANDS_UP = (player, model) -> {
@@ -19,7 +19,7 @@ public class Stances {
         model.rightArm.yaw = 3.14f;
         model.rightArm.roll = -.5f;
         model.rightArm.pitch = 3f;
-        model.torso.yaw = .25f;
+        model.body.yaw = .25f;
     };
 
     public static final Stance GLIDING = (player, model) -> {
@@ -44,7 +44,7 @@ public class Stances {
         model.rightArm.pitch = 1.5f;
         model.leftArm.yaw = 3.8f;
         model.leftArm.pitch = 1.5f;
-        model.torso.yaw = .25f;
+        model.body.yaw = .25f;
     };
 
     public static void set(PlayerEntity player, Stance stance) {

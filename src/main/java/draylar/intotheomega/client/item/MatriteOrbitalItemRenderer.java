@@ -2,6 +2,7 @@ package draylar.intotheomega.client.item;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.client.entity.model.MatriteEntityModel;
+import draylar.intotheomega.registry.OmegaEntityModelLayers;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
@@ -10,18 +11,22 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 
 public class MatriteOrbitalItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 
-    private final MatriteEntityModel model = new MatriteEntityModel();
     private float oldAge;
+    private MatriteEntityModel model;
 
     @Override
     public void render(ItemStack stack, ModelTransformation.Mode mode, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        if(model == null) {
+            model = new MatriteEntityModel(MinecraftClient.getInstance().getEntityModelLoader().getModelPart(OmegaEntityModelLayers.MATRITE));
+        }
+
         float age = MinecraftClient.getInstance().player.age / 10f;
         float lerpedAge = MathHelper.lerp(MinecraftClient.getInstance().getTickDelta(), oldAge, age);
 
@@ -29,11 +34,12 @@ public class MatriteOrbitalItemRenderer implements BuiltinItemRendererRegistry.D
 
         matrices.translate(.5, -.75, .5);
 
-        matrices.multiply(Vector3f.NEGATIVE_Y.getDegreesQuaternion(45));
+        matrices.multiply(Vec3f.NEGATIVE_Y.getDegreesQuaternion(45));
 
-        matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(45));
+        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(45));
         matrices.translate(.9, -.4, 0);
 
+        // todo: what
         model.outer.yaw = lerpedAge;
         model.outer.pitch = lerpedAge;
 

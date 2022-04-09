@@ -13,6 +13,7 @@ import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.TheEndBiomeSource;
+import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,43 +33,21 @@ import java.util.concurrent.ConcurrentHashMap;
 @Mixin(TheEndBiomeSource.class)
 public abstract class EndBiomeSourceMixin {
 
-    @Shadow
-    @Final
-    private long seed;
+    @Unique private static final Direction[] HORIZONTAL_DIRECTIONS = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
 
-    @Shadow
-    @Final
-    private Biome centerBiome;
-
-    @Shadow
-    @Final
-    private SimplexNoiseSampler noise;
-
-    @Shadow
-    @Final
-    private Biome smallIslandsBiome;
-
+    @Shadow @Final private long seed;
+    @Shadow @Final private Biome centerBiome;
+    @Shadow @Final private SimplexNoiseSampler noise;
+    @Shadow @Final private Biome smallIslandsBiome;
     @Shadow @Final private Registry<Biome> biomeRegistry;
-    @Unique
-    private static long cachedSeed = Integer.MAX_VALUE;
+    @Unique private static long cachedSeed = Integer.MAX_VALUE;
+    @Unique private static List<RegistryKey<Biome>> biomeSections = new ArrayList<>();
+    @Unique private static Map<Vec2i, Biome> cachedBiomePositions = new ConcurrentHashMap<>();
+    @Unique private static Map<Vec2i, Float> cachedNoise = new ConcurrentHashMap<>();
+    @Unique private static Random random = new Random();
 
-    @Unique
-    private static List<RegistryKey<Biome>> biomeSections = new ArrayList<>();
-
-    @Unique
-    private static Map<Vec2i, Biome> cachedBiomePositions = new ConcurrentHashMap<>();
-
-    @Unique
-    private static Map<Vec2i, Float> cachedNoise = new ConcurrentHashMap<>();
-
-    @Unique
-    private static Random random = new Random();
-
-    @Unique
-    private static final Direction[] HORIZONTAL_DIRECTIONS = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
-
-    @Inject(method = "getBiomeForNoiseGen", at = @At("HEAD"))
-    private void initializeNoise(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
+    @Inject(method = "getBiome", at = @At("HEAD"))
+    private void initializeNoise(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise, CallbackInfoReturnable<Biome> cir) {
         if(cachedSeed != seed) {
             cachedSeed = seed;
 
@@ -91,10 +70,10 @@ public abstract class EndBiomeSourceMixin {
      */
     // Coordinates passed in are the real-world coordinates divided by 4.
     // eg. (100, 50, 100) is (25, ?, 25), and we skip 4 blocks per biome sample.
-    @Inject(at = @At("HEAD"), method = "getBiomeForNoiseGen", cancellable = true)
-    public void getBiomeForNoiseGen(int biomeX, int biomeY, int biomeZ, CallbackInfoReturnable<Biome> cir) {
-        int chunkX = biomeX / 4;
-        int chunkZ = biomeZ / 4;
+    @Inject(at = @At("HEAD"), method = "getBiome", cancellable = true)
+    public void getBiomeForNoiseGen(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise, CallbackInfoReturnable<Biome> cir) {
+        int chunkX = x / 4;
+        int chunkZ = z / 4;
 
         // If we are within the central area of The End, use the standard End biome for the main island.
         if((long) chunkX * (long) chunkX + (long) chunkZ * (long) chunkZ <= 4096L) {
@@ -103,7 +82,7 @@ public abstract class EndBiomeSourceMixin {
 
         // Outside the central island.
         else {
-            Vec2i current = new Vec2i(biomeX, biomeZ);
+            Vec2i current = new Vec2i(x, z);
 
             // If we assigned this column position previously, use that value.
             if(cachedBiomePositions.containsKey(current)) {
@@ -129,7 +108,7 @@ public abstract class EndBiomeSourceMixin {
             }
 
             // Unselected island. Pick one now.
-            IslandBiomeData islandBiome = OmegaEndBiomePicker.pick(new BlockPos(biomeX * 4, 0, biomeZ * 4));
+            IslandBiomeData islandBiome = OmegaEndBiomePicker.pick(new BlockPos(x * 4, 0, z * 4));
 
             // IF we are in an island, print out the collected noise group.
             // This should be always be a high number because cached values return earlier.

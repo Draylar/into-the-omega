@@ -1,13 +1,10 @@
 package draylar.intotheomega.item;
 
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketItem;
 import draylar.intotheomega.impl.DoubleJumpTrinket;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -23,11 +20,6 @@ public class DoubleJumpTrinketItem extends TrinketItem implements DoubleJumpTrin
     public DoubleJumpTrinketItem(Settings settings, int descriptionLines) {
         super(settings);
         this.descriptions = descriptionLines;
-    }
-
-    @Override
-    public boolean canWearInSlot(String group, String slot) {
-        return group.equals(SlotGroups.LEGS) && slot.equals(Slots.BELT);
     }
 
     @Override

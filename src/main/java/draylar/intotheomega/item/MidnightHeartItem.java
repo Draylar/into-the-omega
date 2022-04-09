@@ -2,10 +2,9 @@ package draylar.intotheomega.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
+import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
-import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -26,12 +25,7 @@ public class MidnightHeartItem extends TrinketItem {
     }
 
     @Override
-    public boolean canWearInSlot(String group, String slot) {
-        return group.equals(SlotGroups.CHEST) && slot.equals(Slots.NECKLACE);
-    }
-
-    @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getTrinketModifiers(String group, String slot, UUID uuid, ItemStack stack) {
-        return group.equals(SlotGroups.CHEST) && slot.equals(Slots.NECKLACE) ? attributeModifiers : super.getTrinketModifiers(group, slot, uuid, stack);
+    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
+        return attributeModifiers;
     }
 }

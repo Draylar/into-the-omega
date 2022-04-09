@@ -19,9 +19,6 @@
     ],
     "client": [
       "draylar.intotheomega.IntoTheOmegaClient"
-    ],
-    "cardinal-components-entity": [
-      "draylar.intotheomega.registry.OmegaComponents"
     ]
   },
   "accessWidener": "intotheomega.accesswidener",

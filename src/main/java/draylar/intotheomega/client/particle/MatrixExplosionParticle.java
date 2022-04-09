@@ -18,13 +18,13 @@ public class MatrixExplosionParticle extends SpriteBillboardParticle {
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
-        this.colorRed = 1;
-        this.colorGreen = 1;
-        this.colorBlue = 1;
-        this.scale *= 2;
-        this.maxAge = 10 + world.random.nextInt(5);
-        this.reachedGround = false;
-        this.collidesWithWorld = false;
+        red = 1;
+        green = 1;
+        blue = 1;
+        scale *= 2;
+        maxAge = 10 + world.random.nextInt(5);
+        reachedGround = false;
+        collidesWithWorld = false;
         this.spriteProvider = spriteProvider;
         this.setSpriteForAge(spriteProvider);
     }

@@ -1,6 +1,5 @@
 package draylar.intotheomega.client.be;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import draylar.intotheomega.entity.block.GalaxyFurnaceBlockEntity;
 import draylar.intotheomega.registry.OmegaBlocks;
 import draylar.intotheomega.registry.client.OmegaRenderLayers;
@@ -9,24 +8,26 @@ import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
-import org.lwjgl.opengl.GL11;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
-public class GalaxyFurnaceRenderer extends BlockEntityRenderer<GalaxyFurnaceBlockEntity> {
+public class GalaxyFurnaceRenderer implements BlockEntityRenderer<GalaxyFurnaceBlockEntity> {
 
     private List<Star> points = null;
     private final List<Vec3d> colors = Arrays.asList(new Vec3d(1.0f, 0.3f, 0.5f), new Vec3d(66 / 255f, 245 / 255f, 203 / 255f));
 
-    public GalaxyFurnaceRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public GalaxyFurnaceRenderer(BlockEntityRendererFactory.Context context) {
+
     }
 
     @Override
@@ -73,7 +74,7 @@ public class GalaxyFurnaceRenderer extends BlockEntityRenderer<GalaxyFurnaceBloc
         matrices.push();
         matrices.translate(-0.75f, 0.0f, -0.75f);
         matrices.scale(2.5f, 2.5f, 2.5f);
-        model = matrices.peek().getModel();
+        model = matrices.peek().getPositionMatrix();
         drawCube(cube, model, alpha, overlay, 0.1f, 0.0f, 0.2f);
 
         matrices.scale(1.1f, 1.1f, 1.1f);
@@ -86,7 +87,7 @@ public class GalaxyFurnaceRenderer extends BlockEntityRenderer<GalaxyFurnaceBloc
         // pink
         alpha = 0.5f;
 
-        for(Star star : points) {
+        for (Star star : points) {
             Vec3d pos = star.pos;
             Vec3d color = star.color;
             Vec3d scale = star.scale;
@@ -94,7 +95,7 @@ public class GalaxyFurnaceRenderer extends BlockEntityRenderer<GalaxyFurnaceBloc
             matrices.push();
             matrices.translate(-0.75f + pos.getX() * 2, 0.0f + pos.getY() * 2.25, -0.75f + pos.getZ() * 2);
             matrices.scale((float) scale.getX(), (float) scale.getY(), (float) scale.getZ());
-            model = matrices.peek().getModel();
+            model = matrices.peek().getPositionMatrix();
             drawCube(solid, model, alpha, overlay, (float) color.getX(), (float) color.getY(), (float) color.getZ());
             matrices.pop();
         }

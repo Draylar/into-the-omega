@@ -16,7 +16,7 @@ import java.util.List;
 public class DebugAIRenderer {
 
     public static void render(MobEntity mob, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-        List<PrioritizedGoal> strings = IntoTheOmegaClient.DEVELOPMENT_AI_SYNC.get(mob.getEntityId());
+        List<PrioritizedGoal> strings = IntoTheOmegaClient.DEVELOPMENT_AI_SYNC.get(mob.getId());
 
         if(strings != null) {
             for (int i = strings.size() - 1; i >= 0; i--) {
@@ -36,7 +36,7 @@ public class DebugAIRenderer {
             matrices.translate(0.0D, labelPosition, 0.0D);
             matrices.multiply(MinecraftClient.getInstance().getEntityRenderDispatcher().getRotation());
             matrices.scale(-0.025F, -0.025F, 0.025F);
-            Matrix4f matrix4f = matrices.peek().getModel();
+            Matrix4f matrix4f = matrices.peek().getPositionMatrix();
             float g = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
             int j = (int)(g * 255.0F) << 24;
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;

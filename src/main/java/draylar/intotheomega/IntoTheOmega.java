@@ -1,8 +1,5 @@
 package draylar.intotheomega;
 
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
-import dev.emi.trinkets.api.TrinketSlots;
 import draylar.intotheomega.command.DevelopmentSpawnableCommand;
 import draylar.intotheomega.command.EndCommand;
 import draylar.intotheomega.command.GeneratePillarCommand;
@@ -19,14 +16,13 @@ import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EntityGroup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.ConstantLootTableRange;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.UniformLootTableRange;
 import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
+import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -49,9 +45,10 @@ public class IntoTheOmega implements ModInitializer {
         OmegaEntities.init();
         OmegaBiomes.init();
         OmegaWorld.init();
-        OmegaSurfaceBuilders.init();
+//        OmegaSurfaceBuilders.init();
         OmegaConfiguredFeatures.init();
         OmegaStructurePieces.init();
+        OmegaPlacedFeatures.init();
         OmegaTags.init();
         OmegaParticles.init();
         OmegaServerPackets.init();
@@ -69,14 +66,6 @@ public class IntoTheOmega implements ModInitializer {
         }
 
         registerDragonLootAppender();
-
-        TrinketSlots.addSlot(SlotGroups.HAND, Slots.RING, new Identifier("trinkets", "textures/item/empty_trinket_slot_ring.png"));
-        TrinketSlots.addSlot(SlotGroups.OFFHAND, Slots.RING, new Identifier("trinkets", "textures/item/empty_trinket_slot_ring.png"));
-        TrinketSlots.addSlot(SlotGroups.LEGS, Slots.BELT, new Identifier("trinkets", "textures/item/empty_trinket_slot_belt.png"));
-        TrinketSlots.addSlot(SlotGroups.CHEST, Slots.CAPE, new Identifier("trinkets", "textures/item/empty_trinket_slot_cape.png"));
-        TrinketSlots.addSlot(SlotGroups.CHEST, Slots.NECKLACE, new Identifier("trinkets", "textures/item/empty_trinket_slot_necklace.png"));
-        TrinketSlots.addSlot(SlotGroups.HEAD, "eye", new Identifier("intotheomega", "textures/item/empty_trinket_slot_eye.png"));
-        TrinketSlots.addSlot(SlotGroups.HAND, "orbital", new Identifier("trinkets", "textures/item/empty_trinket_slot_ring.png"));
 
 //        TheEndBiomes.addHighlandsBiome(OmegaBiomes.SHALLOWS_KEY, 50);
 //        TheEndBiomes.addMidlandsBiome(OmegaBiomes.SHALLOWS_KEY, OmegaBiomes.SHALLOWS_KEY, 1000);
@@ -111,12 +100,12 @@ public class IntoTheOmega implements ModInitializer {
                         .with(ItemEntry.builder(OmegaItems.DRAGON_EYE))
                         .with(ItemEntry.builder(OmegaItems.SEVENTH_PILLAR))
                         .with(ItemEntry.builder(OmegaItems.INANIS))
-                        .rolls(ConstantLootTableRange.create(1))
+                        .rolls(ConstantLootNumberProvider.create(1))
                         .build();
 
                 LootPool scales = LootPool.builder()
-                        .with(ItemEntry.builder(OmegaItems.DRAGON_SCALE).apply(SetCountLootFunction.builder(UniformLootTableRange.between(10F, 20F))))
-                        .rolls(ConstantLootTableRange.create(1))
+                        .with(ItemEntry.builder(OmegaItems.DRAGON_SCALE).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(10F, 20F))))
+                        .rolls(ConstantLootNumberProvider.create(1))
                         .build();
 
                 supplier.withPool(artifact);

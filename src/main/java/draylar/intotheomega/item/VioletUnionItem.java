@@ -45,7 +45,7 @@ public class VioletUnionItem extends TelosUseItem {
                     // calc diff from new pos to target, then apply normalized velocity to blade
                     Vec3d change = blade.getPos().subtract(target).normalize().multiply(-1);
 //                    blade.setVelocity(change.getX(), change.getY(), change.getZ());
-                    blade.setProperties(user, user.pitch, user.yaw, 0.0F, 1, 1);
+                    blade.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1, 1);
                     blade.lookAt(EntityAnchorArgumentType.EntityAnchor.EYES,  target);
                     blade.velocityDirty = true;
                     blade.velocityModified = true;
@@ -69,8 +69,8 @@ public class VioletUnionItem extends TelosUseItem {
         super.inventoryTick(stack, world, entity, slot, selected);
 
         // Attempt to initialize tag for charge rendering
-        if(stack.getTag() == null || !stack.getTag().contains(DATA_KEY)) {
-            stack.getOrCreateSubTag(DATA_KEY).putInt(CHARGE_KEY, 5);
+        if(stack.getNbt() == null || !stack.getNbt().contains(DATA_KEY)) {
+            stack.getOrCreateSubNbt(DATA_KEY).putInt(CHARGE_KEY, 5);
         }
 
         // Recharge
@@ -81,21 +81,21 @@ public class VioletUnionItem extends TelosUseItem {
 
     public int getCharge(ItemStack stack) {
         // If the tag does not exist, initialize it with a charge of 5
-        if(stack.getTag() == null || !stack.getTag().contains(DATA_KEY)) {
-            stack.getOrCreateSubTag(DATA_KEY).putInt(CHARGE_KEY, 5);
+        if(stack.getNbt() == null || !stack.getNbt().contains(DATA_KEY)) {
+            stack.getOrCreateSubNbt(DATA_KEY).putInt(CHARGE_KEY, 5);
             return 5;
         } else {
-            return stack.getOrCreateSubTag(DATA_KEY).getInt(CHARGE_KEY);
+            return stack.getOrCreateSubNbt(DATA_KEY).getInt(CHARGE_KEY);
         }
     }
 
     public void decrementCharge(ItemStack stack) {
         int charge = getCharge(stack);
-        stack.getOrCreateSubTag(DATA_KEY).putInt(CHARGE_KEY, Math.max(0, charge - 1));
+        stack.getOrCreateSubNbt(DATA_KEY).putInt(CHARGE_KEY, Math.max(0, charge - 1));
     }
 
     public void incrementCharge(ItemStack stack) {
         int charge = getCharge(stack);
-        stack.getOrCreateSubTag(DATA_KEY).putInt(CHARGE_KEY, Math.min(5, charge + 1));
+        stack.getOrCreateSubNbt(DATA_KEY).putInt(CHARGE_KEY, Math.min(5, charge + 1));
     }
 }

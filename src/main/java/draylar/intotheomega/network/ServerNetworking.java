@@ -16,7 +16,7 @@ public class ServerNetworking implements Networking {
         ServerPlayNetworking.registerGlobalReceiver(PHASE_PAD_TELEPORT_REQUEST, (server, player, serverPlayNetworkHandler, packet, sender) -> {
             BlockPos to = packet.readBlockPos();
             BlockPos under = player.getBlockPos().down();
-            ServerWorld world = player.getServerWorld();
+            ServerWorld world = player.getWorld();
 
             if(world.getBlockState(under).getBlock().equals(OmegaBlocks.PHASE_PAD)) {
                 if(world.getBlockState(to).getBlock().equals(OmegaBlocks.PHASE_PAD)) {

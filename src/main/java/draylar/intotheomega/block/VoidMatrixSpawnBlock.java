@@ -37,8 +37,9 @@ public class VoidMatrixSpawnBlock extends Block implements BlockEntityProvider {
         return ActionResult.SUCCESS;
     }
 
+    @Nullable
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockView world) {
-        return new VoidMatrixSpawnBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new VoidMatrixSpawnBlockEntity(pos, state);
     }
 }

@@ -11,7 +11,7 @@ public interface EntityJumpCallback {
     Event<EntityJumpCallback> EVENT = EventFactory.createArrayBacked(EntityJumpCallback.class,
             (listeners) -> (entity, amount) -> {
                 for (EntityJumpCallback callback : listeners) {
-                    TypedActionResult<Float> result = callback.jump(entity, amount);
+                    TypedActionResult<Double> result = callback.jump(entity, amount);
                     amount = result.getValue();
                     if(result.getResult() != ActionResult.PASS) {
                         return result;
@@ -22,5 +22,5 @@ public interface EntityJumpCallback {
             }
     );
 
-    TypedActionResult<Float> jump(LivingEntity entity, float velocity);
+    TypedActionResult<Double> jump(LivingEntity entity, double velocity);
 }

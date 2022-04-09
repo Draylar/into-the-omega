@@ -51,7 +51,7 @@ public class DualInanisItem extends InanisItem {
         // Inanis has to be used for at least 1 second
         if(ticksUsed > 20) {
             DualInanisEntity inanis = new DualInanisEntity(OmegaEntities.DUAL_INANIS, world, user, stack);
-            inanis.setProperties(user, user.pitch, user.yaw, 0.0F, 4F, 0.0F); // last param = variance/divergence, modifierZ = speed
+            inanis.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 4F, 0.0F); // last param = variance/divergence, modifierZ = speed
             world.spawnEntity(inanis);
             world.playSound(null, user.getBlockPos(), SoundEvents.ITEM_TRIDENT_THROW, SoundCategory.PLAYERS, 1, 0);
             user.removeStatusEffect(StatusEffects.SLOW_FALLING);

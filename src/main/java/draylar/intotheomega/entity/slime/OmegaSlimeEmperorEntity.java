@@ -7,7 +7,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
@@ -20,6 +20,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 import software.bernie.geckolib3.core.AnimationState;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -61,7 +62,7 @@ public class OmegaSlimeEmperorEntity extends SlimeEntity implements IAnimatable 
         this.goalSelector.add(2, new SlimeEntity.FaceTowardTargetGoal(this));
         this.goalSelector.add(3, new SlimeEntity.RandomLookGoal(this));
         this.goalSelector.add(5, new OmegaSlimeEmperorMoveGoal(this));
-        this.targetSelector.add(0, new FollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, living -> Math.abs(living.getY() - this.getY()) <= 4.0D));
+        this.targetSelector.add(0, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, living -> Math.abs(living.getY() - this.getY()) <= 4.0D));
     }
 
     @Override
@@ -89,7 +90,7 @@ public class OmegaSlimeEmperorEntity extends SlimeEntity implements IAnimatable 
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         if(!world.isClient && fallDistance > 1 && onGround) {
             sendS2CAnimation(SQUISH);
 
@@ -97,7 +98,7 @@ public class OmegaSlimeEmperorEntity extends SlimeEntity implements IAnimatable 
             ((ServerWorld) world).spawnParticles(OmegaParticles.OMEGA_SLIME, getX(), getY() + 0.25, getZ(), 100, 3, 0, 3, 0);
         }
 
-        return super.handleFallDamage(fallDistance, damageMultiplier);
+        return super.handleFallDamage(fallDistance, damageMultiplier, damageSource);
     }
 
     public void sendS2CAnimation(String animation) {
@@ -176,7 +177,10 @@ public class OmegaSlimeEmperorEntity extends SlimeEntity implements IAnimatable 
 
     // prevent slime from splitting up on death
     @Override
-    public void remove() {
-        this.removed = true;
+    public void remove(RemovalReason reason) {
+        setRemoved(reason);
+        if (reason == RemovalReason.KILLED) {
+            emitGameEvent(GameEvent.ENTITY_KILLED);
+        }
     }
 }

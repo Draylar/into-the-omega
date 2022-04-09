@@ -41,7 +41,7 @@ public class OmegaSlimeRenderingHandler {
             }
 
             @Override
-            public void apply(ResourceManager manager) {
+            public void reload(ResourceManager manager) {
                 Function<Identifier, Sprite> spriteAtlas = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
                 sprites[0] = spriteAtlas.apply(STILL_TEXTURE);
                 sprites[1] = spriteAtlas.apply(FLOWING_TEXTURE);

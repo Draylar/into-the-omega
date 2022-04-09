@@ -5,6 +5,7 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.impl.AttackingItem;
 import draylar.intotheomega.impl.DoubleJumpTrinket;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
@@ -28,18 +29,18 @@ public class OmegaServerPackets {
             });
         });
 
-        ServerSidePacketRegistry.INSTANCE.register(DOUBLE_JUMP_PACKET, (context, packet) -> {
-            int slot = packet.readInt();
-            PlayerEntity player = context.getPlayer();
+        ServerPlayNetworking.registerGlobalReceiver(DOUBLE_JUMP_PACKET, (server, player, handler, buf, responseSender) -> {
+            int slot = buf.readInt();
 
-            context.getTaskQueue().execute(() -> {
-                Inventory inventory = TrinketsApi.getTrinketsInventory(player);
-                ItemStack stack = inventory.getStack(slot);
-                Item item = stack.getItem();
-
-                if(item instanceof DoubleJumpTrinket) {
-                    ((DoubleJumpTrinket) item).onDoubleJump(player.world, player, stack);
-                }
+            server.execute(() -> {
+                TrinketsApi.getTrinketComponent(player).ifPresent(component -> {
+                    component.getAllEquipped().stream().filter(entry -> entry.getLeft().index() == slot).forEach(entry -> {
+                        ItemStack stack = entry.getRight();
+                        if(stack.getItem() instanceof DoubleJumpTrinket doubleJumpTrinket) {
+                            doubleJumpTrinket.onDoubleJump(player.world, player, stack);
+                        }
+                    });
+                });
             });
         });
     }

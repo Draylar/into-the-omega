@@ -29,10 +29,10 @@ public class LookAtTargetGoal extends Goal {
             Vec3d vec3d = this.vm.getVelocity();
 
             if(vec3d.y != 0 && vec3d.z != 0) {
-                this.vm.yaw = -((float) MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F;
-                this.vm.bodyYaw = this.vm.yaw;
+                this.vm.setYaw(-((float) MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F);
+                this.vm.bodyYaw = this.vm.getYaw();
             } else {
-                this.vm.pitch = 0;
+                this.vm.setPitch(0);
             }
         }
 
@@ -49,7 +49,7 @@ public class LookAtTargetGoal extends Goal {
 
                 // Calculate yaw
 //                this.vm.yaw = -((float) MathHelper.atan2(diffX, diffZ)) * 57.295776F;
-                this.vm.bodyYaw = this.vm.yaw;
+                this.vm.bodyYaw = this.vm.getYaw();
 
                 int max = slow ? 1 : 1000;
                 vm.lookAtEntity(target, max, max);

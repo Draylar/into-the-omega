@@ -3,6 +3,7 @@ package draylar.intotheomega.biome;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.registry.OmegaConfiguredFeatures;
 import draylar.intotheomega.registry.OmegaEntities;
+import draylar.intotheomega.registry.OmegaPlacedFeatures;
 import draylar.intotheomega.registry.OmegaSurfaceBuilders;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.registry.Registry;
@@ -25,17 +26,15 @@ public class ChorusForestBiome {
         spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(OmegaEntities.CHORUS_COW, 5, 3, 6));
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
-        generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CHORUS_FOREST_BUILDER);
+//        generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CHORUS_FOREST_BUILDER);
         generationSettings
-                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.FOREST_CHORUS_PLANT)
-                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.ENDSTONE_PATCH)
-                .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaConfiguredFeatures.OMEGA_ORE);
+                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaPlacedFeatures.FOREST_CHORUS_PLANT)
+                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaPlacedFeatures.ENDSTONE_PATCH)
+                .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaPlacedFeatures.OMEGA_ORE);
 
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)
                 .category(Biome.Category.THEEND)
-                .depth(0.125f)
-                .scale(0.25f)
                 .temperature(0.5f)
                 .downfall(0.0f)
                 .effects(new BiomeEffects.Builder()

@@ -9,6 +9,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
@@ -18,8 +19,8 @@ public class AbyssalRiftEntityRenderer extends EntityRenderer<AbyssalRiftEntity>
 
     private static final Identifier MODEL_LOCATION = IntoTheOmega.id("models/misc/abyssal_rift");
 
-    public AbyssalRiftEntityRenderer(EntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public AbyssalRiftEntityRenderer(EntityRendererFactory.Context context) {
+        super(context);
     }
 
     @Override

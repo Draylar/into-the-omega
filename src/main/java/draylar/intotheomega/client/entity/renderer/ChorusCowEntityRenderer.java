@@ -8,19 +8,20 @@ import net.minecraft.block.ChorusPlantBlock;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3f;
 
 public class ChorusCowEntityRenderer extends MobEntityRenderer<ChorusCowEntity, ChorusCowEntityModel> {
 
     private static final Identifier TEXTURE = IntoTheOmega.id("textures/entity/chorus_cow.png");
 
-    public ChorusCowEntityRenderer(EntityRenderDispatcher entityRenderDispatcher) {
-        super(entityRenderDispatcher, new ChorusCowEntityModel(), 0.7F);
+    public ChorusCowEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, new ChorusCowEntityModel(context.getPart(EntityModelLayers.COW)), 0.7F);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class ChorusCowEntityRenderer extends MobEntityRenderer<ChorusCowEntity, 
         if(!cow.isSheared()) {
             MinecraftClient client = MinecraftClient.getInstance();
 
-            stack.multiply(Vector3f.NEGATIVE_Y.getDegreesQuaternion(cow.bodyYaw));
+            stack.multiply(Vec3f.NEGATIVE_Y.getDegreesQuaternion(cow.bodyYaw));
             stack.scale(.4f, .4f, .4f);
 
             stack.translate(-.5, 3.25, -.5);
@@ -81,7 +82,7 @@ public class ChorusCowEntityRenderer extends MobEntityRenderer<ChorusCowEntity, 
             stack.pop();
 
             stack.push();
-            stack.multiply(Vector3f.NEGATIVE_Y.getDegreesQuaternion(cow.bodyYaw));
+            stack.multiply(Vec3f.NEGATIVE_Y.getDegreesQuaternion(cow.bodyYaw));
             stack.scale(.4f, .4f, .4f);
 
             stack.translate(-1.9, 2.25, -1.1);
@@ -110,7 +111,7 @@ public class ChorusCowEntityRenderer extends MobEntityRenderer<ChorusCowEntity, 
 
 
             stack.push();
-            stack.multiply(Vector3f.NEGATIVE_Y.getDegreesQuaternion(cow.bodyYaw));
+            stack.multiply(Vec3f.NEGATIVE_Y.getDegreesQuaternion(cow.bodyYaw));
             stack.scale(.4f, .4f, .4f);
 
             stack.translate(.9, 2.25, 0);

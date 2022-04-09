@@ -1,29 +1,24 @@
 package draylar.intotheomega.entity.void_matrix;
 
-import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.registry.OmegaEntities;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 public class VoidMatrixBeamEntity extends Entity {
 
-    public static final Identifier ENTITY_ID = IntoTheOmega.id("vm_beam");
     public static final int DEATH_TIME = 20 * 3;
 
     public VoidMatrixBeamEntity(EntityType<?> type, World world) {
@@ -60,8 +55,8 @@ public class VoidMatrixBeamEntity extends Entity {
             }
 
             // Kill after death time is up
-            if (age > DEATH_TIME) {
-                remove();
+            if(age > DEATH_TIME) {
+                discard();
             }
         }
     }
@@ -72,26 +67,18 @@ public class VoidMatrixBeamEntity extends Entity {
     }
 
     @Override
-    protected void readCustomDataFromTag(CompoundTag tag) {
+    protected void readCustomDataFromNbt(NbtCompound tag) {
 
     }
 
     @Override
-    protected void writeCustomDataToTag(CompoundTag tag) {
+    protected void writeCustomDataToNbt(NbtCompound tag) {
 
     }
 
     @Override
     public Packet<?> createSpawnPacket() {
-        PacketByteBuf packet = new PacketByteBuf(Unpooled.buffer());
-
-        packet.writeDouble(this.getX());
-        packet.writeDouble(this.getY());
-        packet.writeDouble(this.getZ());
-        packet.writeInt(this.getEntityId());
-        packet.writeUuid(this.getUuid());
-
-        return ServerSidePacketRegistry.INSTANCE.toPacket(ENTITY_ID, packet);
+        return new EntitySpawnS2CPacket(this);
     }
 
     @Override

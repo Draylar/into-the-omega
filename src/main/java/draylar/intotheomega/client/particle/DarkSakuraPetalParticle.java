@@ -15,9 +15,9 @@ public class DarkSakuraPetalParticle extends SpriteBillboardParticle {
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
-        this.colorRed = 1;
-        this.colorGreen = 1;
-        this.colorBlue = 1;
+        this.red = 1;
+        this.green = 1;
+        this.blue = 1;
         this.scale *= 1;
         this.maxAge = 250;
         this.collidesWithWorld = false;

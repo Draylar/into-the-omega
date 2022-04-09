@@ -67,7 +67,7 @@ public class OmegaSwordItem extends SwordItem {
             user.getItemCooldownManager().set(this, 20 * 2); // 2 second cd
 
             // Play sound
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, .5f, 1.0F / (RANDOM.nextFloat() * 0.4F));
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, .5f, 1.0F / (world.random.nextFloat() * 0.4F));
 
             return TypedActionResult.success(user.getStackInHand(hand));
         }

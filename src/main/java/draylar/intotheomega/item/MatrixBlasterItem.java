@@ -24,11 +24,11 @@ public class MatrixBlasterItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
-        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.NEUTRAL, 0.5F, 2F / (RANDOM.nextFloat() * 0.4F + 0.8F));
+        world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.NEUTRAL, 0.5F, 2F / (world.random.nextFloat() * 0.4F + 0.8F));
 
         if (!world.isClient) {
             MatriteEntity matrite = new MatriteEntity(world);
-            matrite.setProperties(user, user.pitch, user.yaw, 0.0F, 1.5F, 1.0F);
+            matrite.setVelocity(user, user.getPitch(), user.getYaw(), 0.0F, 1.5F, 1.0F);
             matrite.updatePosition(user.getX(), user.getEyeY() - .5f, user.getZ());
             world.spawnEntity(matrite);
         }
@@ -36,7 +36,7 @@ public class MatrixBlasterItem extends Item {
         user.incrementStat(Stats.USED.getOrCreateStat(this));
         user.getItemCooldownManager().set(this, 20 * 2);
 
-        if (!user.abilities.creativeMode) {
+        if (!user.getAbilities().creativeMode) {
             itemStack.damage(1, user, p -> user.sendToolBreakStatus(user.getActiveHand()));
         }
 

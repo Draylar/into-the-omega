@@ -8,21 +8,21 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
 public class ObsidianThornEntityRenderer extends EntityRenderer<ObsidianThornEntity> {
 
     public static final Identifier SIGIL_TEXTURE = IntoTheOmega.id("textures/obsidian_thorn_sigil.png");
 
-    public ObsidianThornEntityRenderer(EntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public ObsidianThornEntityRenderer(EntityRendererFactory.Context context) {
+        super(context);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ObsidianThornEntityRenderer extends EntityRenderer<ObsidianThornEnt
 
         // obsidian spike
         matrices.push();
-        if (entity.getProgress() > 30) { // entity.getProgress() > 30
+        if(entity.getProgress() > 30) { // entity.getProgress() > 30
             float scale = Math.min(1, MathHelper.lerp(tickDelta, entity.age - 1 - 30, entity.age - 30) / 10f);
             matrices.scale(scale, scale, scale);
 
@@ -53,9 +53,9 @@ public class ObsidianThornEntityRenderer extends EntityRenderer<ObsidianThornEnt
         // sigil
         matrices.push();
         MinecraftClient.getInstance().getTextureManager().bindTexture(SIGIL_TEXTURE);
-        matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
         matrices.scale(0.1f, 0.1f, 0.1f);
-        matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(MathHelper.lerp(tickDelta, entity.age - 1, entity.age)));
+        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(MathHelper.lerp(tickDelta, entity.age - 1, entity.age)));
         float scale = Math.min(1.5f, MathHelper.lerp(tickDelta, entity.age - 1, entity.age) / 30f);
         matrices.scale(scale, scale, scale);
         matrices.translate(-32, -32, 0);

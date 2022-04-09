@@ -14,7 +14,7 @@ import net.minecraft.text.LiteralText;
 public class PathRenderer {
 
     public static void render(MobEntity mob, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-        Path path = IntoTheOmegaClient.DEVELOPMENT_PATH_SYNC.get(mob.getEntityId());
+        Path path = IntoTheOmegaClient.DEVELOPMENT_PATH_SYNC.get(mob.getId());
 
         if(path != null) {
             matrixStack.push();

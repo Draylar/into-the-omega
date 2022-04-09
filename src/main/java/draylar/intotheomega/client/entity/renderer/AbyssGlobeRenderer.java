@@ -1,11 +1,10 @@
 package draylar.intotheomega.client.entity.renderer;
 
-import draylar.intotheomega.client.particle.OmegaParticle;
 import draylar.intotheomega.entity.ice.AbyssGlobeEntity;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.Identifier;
@@ -13,8 +12,8 @@ import net.minecraft.util.math.MathHelper;
 
 public class AbyssGlobeRenderer extends EntityRenderer<AbyssGlobeEntity> {
 
-    public AbyssGlobeRenderer(EntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public AbyssGlobeRenderer(EntityRendererFactory.Context context) {
+        super(context);
     }
 
     @Override

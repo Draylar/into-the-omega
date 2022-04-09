@@ -1,14 +1,13 @@
 package draylar.intotheomega.item;
 
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
+import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -24,13 +23,9 @@ public class CloakOfVoidingItem extends TrinketItem {
     }
 
     @Override
-    public boolean canWearInSlot(String group, String slot) {
-        return group.equals(SlotGroups.CHEST) && slot.equals(Slots.CAPE);
-    }
-
-    @Override
-    public void tick(PlayerEntity player, ItemStack stack) {
-        player.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 20 * 5, 0, false, false));
+    public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
+        super.tick(stack, slot, entity);
+        entity.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, 20 * 5, 0, false, false));
     }
 
     @Override

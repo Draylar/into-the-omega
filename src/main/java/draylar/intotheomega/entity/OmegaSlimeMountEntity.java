@@ -9,9 +9,10 @@ import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MovementType;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
@@ -24,7 +25,6 @@ import java.util.UUID;
 
 public class OmegaSlimeMountEntity extends Entity {
 
-    public static final Identifier SPAWN_PACKET = IntoTheOmega.id("omega_slime_mount");
     private boolean pressingLeft;
     private boolean pressingRight;
     private boolean pressingForward;
@@ -35,27 +35,18 @@ public class OmegaSlimeMountEntity extends Entity {
         super(type, world);
     }
 
-    @Environment(EnvType.CLIENT)
-    public OmegaSlimeMountEntity(World world, double x, double y, double z, int id, UUID uuid) {
-        super(OmegaEntities.OMEGA_SLIME_MOUNT, world);
-        updatePosition(x, y, z);
-        updateTrackedPosition(x, y, z);
-        setEntityId(id);
-        setUuid(uuid);
-    }
-
     @Override
     protected void initDataTracker() {
 
     }
 
     @Override
-    protected void readCustomDataFromTag(CompoundTag tag) {
+    protected void readCustomDataFromNbt(NbtCompound tag) {
 
     }
 
     @Override
-    protected void writeCustomDataToTag(CompoundTag tag) {
+    protected void writeCustomDataToNbt(NbtCompound tag) {
 
     }
 
@@ -78,7 +69,7 @@ public class OmegaSlimeMountEntity extends Entity {
             List<Entity> passengerList = getPassengerList();
             if(!passengerList.isEmpty()) {
                 Entity entity = passengerList.get(0);
-                setRotation(entity.yaw, entity.pitch);
+                setRotation(entity.getYaw(), entity.getPitch());
             }
 
             this.move(MovementType.SELF, this.getVelocity());
@@ -119,30 +110,19 @@ public class OmegaSlimeMountEntity extends Entity {
             }
 
             f *= 10;
-            this.setVelocity(this.getVelocity().add((MathHelper.sin(-this.yaw * 0.017453292F) * f), 0.0D, (MathHelper.cos(this.yaw * 0.017453292F) * f)));
+            this.setVelocity(this.getVelocity().add((MathHelper.sin(-this.getYaw() * 0.017453292F) * f), 0.0D, (MathHelper.cos(this.getYaw() * 0.017453292F) * f)));
         }
     }
 
     @Override
     public void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
-        this.remove();
+        discard();
     }
 
     @Override
     public Packet<?> createSpawnPacket() {
-        PacketByteBuf packet = new PacketByteBuf(Unpooled.buffer());
-
-        // entity position
-        packet.writeDouble(getX());
-        packet.writeDouble(getY());
-        packet.writeDouble(getZ());
-
-        // entity id & uuid
-        packet.writeInt(getEntityId());
-        packet.writeUuid(getUuid());
-
-        return ServerSidePacketRegistry.INSTANCE.toPacket(SPAWN_PACKET, packet);
+        return new EntitySpawnS2CPacket(this);
     }
 
     public void jump() {

@@ -5,14 +5,14 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class AbyssChainBlockEntityRenderer extends BlockEntityRenderer<AbyssChainBlockEntity> {
+public class AbyssChainBlockEntityRenderer implements BlockEntityRenderer<AbyssChainBlockEntity> {
 
-    public AbyssChainBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public AbyssChainBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+
     }
 
     @Override
@@ -22,7 +22,7 @@ public class AbyssChainBlockEntityRenderer extends BlockEntityRenderer<AbyssChai
         matrices.scale(5, 5, 5);
         matrices.translate(-.4, 0, -.4);
 
-        for(int i = 0; i < 25; i++) {
+        for (int i = 0; i < 25; i++) {
             matrices.translate(0, 1, 0);
             MinecraftClient.getInstance().getBlockRenderManager().renderBlock(
                     Blocks.CHAIN.getDefaultState(),

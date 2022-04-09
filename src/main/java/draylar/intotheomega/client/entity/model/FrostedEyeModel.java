@@ -1,32 +1,35 @@
 package draylar.intotheomega.client.entity.model;
 
+import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.entity.FrostedEyeEntity;
+import draylar.intotheomega.entity.OmegaSlimeEntity;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
-public class FrostedEyeModel extends EntityModel<FrostedEyeEntity> {
+public class FrostedEyeModel extends AnimatedGeoModel<FrostedEyeEntity> {
 
-    private final ModelPart main;
+    private static final Identifier MODEL_LOCATION = IntoTheOmega.id("geo/frosted_eye.geo.json");
+    private static final Identifier ANIMATION_LOCATION = IntoTheOmega.id("animations/frosted_eye.animation.json");
+    private static final Identifier TEXTURE_LOCATION = IntoTheOmega.id("textures/entity/frosted_eye.png");
 
-    public FrostedEyeModel() {
-        textureWidth = 128;
-        textureHeight = 128;
-
-        main = new ModelPart(this);
-        main.setPivot(0.0F, 24.0F, 0.0F);
-        main.setTextureOffset(0, 0).addCuboid(-12.0F, -24.0F, -12.0F, 24.0F, 24.0F, 24.0F, 0.0F, false);
+    @Override
+    public Identifier getModelLocation(FrostedEyeEntity eye) {
+        return MODEL_LOCATION;
     }
 
     @Override
-    public void setAngles(FrostedEyeEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
-        main.pitch = headPitch / 360;
-        main.yaw = entity.yaw / 360;
+    public Identifier getTextureLocation(FrostedEyeEntity eye) {
+        return TEXTURE_LOCATION;
     }
 
     @Override
-    public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green, float blue, float alpha){
-        main.render(matrices, vertices, light, overlay);
+    public Identifier getAnimationFileLocation(FrostedEyeEntity eye) {
+        return ANIMATION_LOCATION;
     }
 }

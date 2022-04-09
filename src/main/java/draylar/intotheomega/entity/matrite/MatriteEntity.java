@@ -19,6 +19,7 @@ import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -40,7 +41,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class MatriteEntity extends ProjectileEntity implements IAnimatable {
 
-    public static final Identifier ENTITY_ID = IntoTheOmega.id("matrite");
     private static final TrackedData<Boolean> IDLE = DataTracker.registerData(MatriteEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
 
     // Animation fields
@@ -83,21 +83,21 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
     public void tick() {
         super.tick();
 
-        HitResult hitResult = ProjectileUtil.getCollision(this, this::method_26958);
+        HitResult hitResult = ProjectileUtil.getCollision(this, this::collidesWith);
         if (hitResult.getType() != HitResult.Type.MISS) {
-            this.onCollision(hitResult);
+            onCollision(hitResult);
         }
-        this.checkBlockCollision();
+        checkBlockCollision();
 
         Vec3d vel = this.getVelocity();
-        this.updatePosition(getX() + vel.x, getY() + vel.y, getZ() + vel.z);
+        updatePosition(getX() + vel.x, getY() + vel.y, getZ() + vel.z);
 
         // undo .99 velocity modifier at end of super tick
         setVelocity(getVelocity().multiply(1.01));
 
         // kill if too old
         if(age > 20 * 15) {
-            this.remove();
+            discard();
         }
 
         // fire if timer is set
@@ -108,7 +108,7 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
         // check if there are any intercepting projectiles, remove if so
         if(!world.getEntitiesByClass(ProjectileEntity.class, new Box(getBlockPos().add(-1, -1, -1), getBlockPos().add(1f, 1f, 1f)), entity -> !(entity instanceof MatriteEntity)).isEmpty()) {
             explode();
-            remove();
+            discard();
         }
     }
 
@@ -120,10 +120,6 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
     @Override
     public boolean collides() {
         return true;
-    }
-
-    protected boolean method_26958(Entity entity) {
-        return super.method_26958(entity) && !entity.noClip;
     }
 
     @Override
@@ -176,7 +172,7 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
 
         if (!this.world.isClient && hitResult.getType().equals(HitResult.Type.BLOCK)) {
             explode();
-            remove();
+            discard();
         }
     }
 
@@ -241,7 +237,7 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
             }
 
             explode();
-            remove();
+            discard();
         }
     }
 
@@ -302,15 +298,7 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
 
     @Override
     public Packet<?> createSpawnPacket() {
-        PacketByteBuf packet = new PacketByteBuf(Unpooled.buffer());
-
-        packet.writeDouble(this.getX());
-        packet.writeDouble(this.getY());
-        packet.writeDouble(this.getZ());
-        packet.writeInt(this.getEntityId());
-        packet.writeUuid(this.getUuid());
-
-        return ServerSidePacketRegistry.INSTANCE.toPacket(ENTITY_ID, packet);
+        return new EntitySpawnS2CPacket(this);
     }
 
     @Override

@@ -1,16 +1,15 @@
 package draylar.intotheomega.item;
 
-import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
+import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.Trinket;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -18,27 +17,23 @@ import java.util.UUID;
 
 public class InvincibleTrinketItem extends Item implements Trinket {
 
-    public static final UUID MODIFIER_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
+    private static final UUID MODIFIER_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
+    private static final Multimap<EntityAttribute, EntityAttributeModifier> MODIFIERS = ImmutableMultimap.<EntityAttribute, EntityAttributeModifier>builder()
+            .put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIER_UUID, "infinite", Double.MAX_VALUE, EntityAttributeModifier.Operation.ADDITION))
+            .put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier(MODIFIER_UUID, "infinite", Double.MAX_VALUE, EntityAttributeModifier.Operation.ADDITION))
+            .build();
 
     public InvincibleTrinketItem(Settings settings) {
         super(settings);
     }
 
     @Override
-    public boolean canWearInSlot(String s, String s1) {
-        return s.equals(SlotGroups.LEGS) && s1.equals(Slots.BELT);
+    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
+        return MODIFIERS;
     }
 
     @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getTrinketModifiers(String group, String slot, UUID uuid, ItemStack stack) {
-        HashMultimap<EntityAttribute, EntityAttributeModifier> objs = HashMultimap.create();
-        objs.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIER_UUID, "infinite", Double.MAX_VALUE, EntityAttributeModifier.Operation.ADDITION));
-        objs.put(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, new EntityAttributeModifier(MODIFIER_UUID, "infinite", Double.MAX_VALUE, EntityAttributeModifier.Operation.ADDITION));
-        return objs;
-    }
-
-    @Override
-    public void tick(PlayerEntity player, ItemStack stack) {
+    public void tick(ItemStack stack, SlotReference slot, LivingEntity player) {
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20, 100, true, false));
         player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20, 100, true, true));
     }

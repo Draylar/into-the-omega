@@ -2,11 +2,9 @@ package draylar.intotheomega.world.api;
 
 import com.mojang.serialization.Codec;
 import draylar.intotheomega.api.OpenSimplex2F;
+import net.minecraft.structure.StructureGeneratorFactory;
+import net.minecraft.structure.StructurePiecesGenerator;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.source.BiomeSource;
-import net.minecraft.world.gen.ChunkRandom;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
@@ -15,19 +13,22 @@ import java.util.List;
 
 public abstract class BaseIslandStructure extends StructureFeature<DefaultFeatureConfig> {
 
-    public static final List<BaseIslandStructure> ALL_ISLANDS = new ArrayList<>();
+    public static final List<Class<? extends BaseIslandStructure>> ALL_ISLANDS = new ArrayList<>();
     private static OpenSimplex2F NOISE = null;
 
-    public BaseIslandStructure(Codec<DefaultFeatureConfig> codec) {
-        super(codec);
-        ALL_ISLANDS.add(this);
+    public BaseIslandStructure(Codec<DefaultFeatureConfig> codec, StructurePiecesGenerator<DefaultFeatureConfig> generator, Class<? extends BaseIslandStructure> islandClass) {
+        super(codec, StructureGeneratorFactory.simple(context -> canGenerate(context, islandClass), generator));
+        ALL_ISLANDS.add(getClass());
     }
 
-    @Override
-    public boolean shouldStartAt(ChunkGenerator chunkGenerator, BiomeSource biomeSource, long worldSeed, ChunkRandom random, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, DefaultFeatureConfig config) {
+    private static boolean canGenerate(StructureGeneratorFactory.Context<DefaultFeatureConfig> context, Class<? extends BaseIslandStructure> islandClass) {
         if(NOISE == null) {
-            NOISE = new OpenSimplex2F(worldSeed);
+            NOISE = new OpenSimplex2F(context.seed());
         }
+
+        ChunkPos chunkPos = context.chunkPos();
+        int chunkX = chunkPos.x;
+        int chunkZ = chunkPos.z;
 
         // No islands should spawn within 1,000 blocks of the main island.
         if(Math.sqrt(Math.pow(chunkX * 16, 2) + Math.pow(chunkZ * 16, 2)) <= 1_000) {
@@ -42,7 +43,7 @@ public abstract class BaseIslandStructure extends StructureFeature<DefaultFeatur
         // All islands will return true for the grid/area selection, but only 1 will return true for this method.
         if(chunkX % 25 == 0 && chunkZ % 25 == 0) {
             double noise = NOISE.noise2(chunkX, chunkZ);
-            int index = ALL_ISLANDS.indexOf(this);
+            int index = ALL_ISLANDS.indexOf(islandClass);
 
             // In a collection 3 islands, the indexes are 0, 1, and 2.
             // We add 1 to the noise (which is from [-1, 1]) and divide by 2 to get [0, 1].

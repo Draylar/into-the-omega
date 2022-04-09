@@ -8,18 +8,18 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import software.bernie.geckolib3.renderer.geo.GeoLayerRenderer;
-import software.bernie.geckolib3.renderer.geo.IGeoRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
+import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 public class EnigmaKingBladeExtensionFeatureRenderer extends GeoLayerRenderer<EnigmaKingEntity> {
 
     private final EnigmaKingModel model = new EnigmaKingModel();
-    private final IGeoRenderer<EnigmaKingEntity> entityRendererIn;
+    private final IGeoRenderer<EnigmaKingEntity> renderer;
     private final Identifier extension = IntoTheOmega.id("textures/entity/enigma_king_extension.png");
 
     public EnigmaKingBladeExtensionFeatureRenderer(IGeoRenderer<EnigmaKingEntity> renderer) {
         super(renderer);
-        this.entityRendererIn = renderer;
+        this.renderer = renderer;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class EnigmaKingBladeExtensionFeatureRenderer extends GeoLayerRenderer<En
         if (!king.isInvisible()) {
             Identifier texture = getEntityTexture(king);
             RenderLayer layer = RenderLayer.getEyes(texture);
-            entityRendererIn.render(model.getModel(model.getModelLocation(king)), king, partialTicks, layer, matrixStackIn, bufferIn, bufferIn.getBuffer(layer), packedLightIn, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1f);
+            renderer.render(model.getModel(model.getModelLocation(king)), king, partialTicks, layer, matrixStackIn, bufferIn, bufferIn.getBuffer(layer), packedLightIn, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1f);
         }
     }
 

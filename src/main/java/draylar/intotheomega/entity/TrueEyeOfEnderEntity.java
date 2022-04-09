@@ -7,7 +7,8 @@ import draylar.intotheomega.entity.ai.TrueEyeMoveControl;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MovementType;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
@@ -33,28 +34,28 @@ public class TrueEyeOfEnderEntity extends PathAwareEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(0, new FlyRandomlyGoal(this));
-        this.goalSelector.add(1, new LookAtTargetGoal(this));
+        goalSelector.add(0, new FlyRandomlyGoal(this));
+        goalSelector.add(1, new LookAtTargetGoal(this));
 
         // targets
-        this.targetSelector.add(1, new FollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, (livingEntity) -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
+        targetSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, (livingEntity) -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
     }
 
     @Override
     public void updatePostDeath() {
-        ++this.customDeathTime;
+        customDeathTime++;
 
-        if (this.customDeathTime == 15) {
+        if (customDeathTime == 15) {
             for(int i = 0; i < 50; ++i) {
-                double d = this.random.nextGaussian() * 0.02D;
-                double e = this.random.nextGaussian() * 0.02D;
-                double f = this.random.nextGaussian() * 0.02D;
-                this.world.addParticle(ParticleTypes.PORTAL, this.getParticleX(1.0D), this.getY() + .15, this.getParticleZ(1.0D), d, e, f);
+                double d = random.nextGaussian() * 0.02D;
+                double e = random.nextGaussian() * 0.02D;
+                double f = random.nextGaussian() * 0.02D;
+                world.addParticle(ParticleTypes.PORTAL, getParticleX(1.0D), getY() + .15, getParticleZ(1.0D), d, e, f);
             }
         }
 
-        if(this.customDeathTime >= 25) {
-            this.remove();
+        if(customDeathTime >= 25) {
+            discard();
         }
     }
 
@@ -74,7 +75,7 @@ public class TrueEyeOfEnderEntity extends PathAwareEntity {
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         return false;
     }
 

@@ -20,7 +20,7 @@ public class ForgottenEyeItem extends Item {
         if(!world.isClient) {
             SnowballEntity proj = new SnowballEntity(world, user);
             proj.setItem(new ItemStack(Items.ENDER_EYE));
-            proj.setProperties(user, user.pitch, user.yaw, 0, 2, 0);
+            proj.setVelocity(user, user.getPitch(), user.getYaw(), 0, 2, 0);
             world.spawnEntity(proj);
         }
 

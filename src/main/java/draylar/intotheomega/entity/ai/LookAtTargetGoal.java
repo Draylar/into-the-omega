@@ -14,7 +14,7 @@ public class LookAtTargetGoal extends Goal {
 
     public LookAtTargetGoal(MobEntity entity) {
         this.entity = entity;
-        this.setControls(EnumSet.of(Goal.Control.LOOK));
+        setControls(EnumSet.of(Goal.Control.LOOK));
     }
 
     @Override
@@ -24,19 +24,19 @@ public class LookAtTargetGoal extends Goal {
 
     @Override
     public void tick() {
-        if (this.entity.getTarget() == null) {
-            Vec3d vec3d = this.entity.getVelocity();
-            this.entity.yaw = -((float) MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F;
-            this.entity.bodyYaw = this.entity.yaw;
+        if (entity.getTarget() == null) {
+            Vec3d vec3d = entity.getVelocity();
+            entity.setYaw(-((float) MathHelper.atan2(vec3d.x, vec3d.z)) * 57.295776F);
+            entity.bodyYaw = entity.getYaw();
         } else {
-            LivingEntity livingEntity = this.entity.getTarget();
+            LivingEntity livingEntity = entity.getTarget();
 
             // check if the target entity is within a reasonable distance, then look towards them
             if (livingEntity.squaredDistanceTo(this.entity) < 4096.0D) {
-                double e = livingEntity.getX() - this.entity.getX();
-                double f = livingEntity.getZ() - this.entity.getZ();
-                this.entity.yaw = -((float) MathHelper.atan2(e, f)) * 57.295776F;
-                this.entity.bodyYaw = this.entity.yaw;
+                double e = livingEntity.getX() - entity.getX();
+                double f = livingEntity.getZ() - entity.getZ();
+                entity.setYaw(-((float) MathHelper.atan2(e, f)) * 57.295776F);
+                entity.bodyYaw = entity.getYaw();
             }
         }
     }

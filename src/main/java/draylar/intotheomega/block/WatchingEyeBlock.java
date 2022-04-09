@@ -1,18 +1,24 @@
 package draylar.intotheomega.block;
 
 import draylar.intotheomega.entity.WatchingEyeBlockEntity;
+import draylar.intotheomega.registry.OmegaBlockEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
-public class WatchingEyeBlock extends Block implements BlockEntityProvider {
+public class WatchingEyeBlock extends BlockWithEntity {
 
     public static final BooleanProperty POWERED = Properties.POWERED;
 
@@ -40,9 +46,15 @@ public class WatchingEyeBlock extends Block implements BlockEntityProvider {
         super.appendProperties(builder);
         builder.add(POWERED);
     }
-
+    @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new WatchingEyeBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new WatchingEyeBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient ? null : checkType(type, OmegaBlockEntities.WATCHING_EYE, WatchingEyeBlockEntity::serverTick);
     }
 }

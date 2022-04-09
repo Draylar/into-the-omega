@@ -1,9 +1,9 @@
 package draylar.intotheomega.entity.block;
 
+import draylar.intotheomega.api.BlockEntitySyncing;
 import draylar.intotheomega.mixin.StatusEffectInstanceAccessor;
 import draylar.intotheomega.registry.OmegaBlockEntities;
 import draylar.intotheomega.registry.OmegaParticles;
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -12,49 +12,46 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.PotionItem;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Tickable;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class SwirledMixerBlockEntity extends BlockEntity implements BlockEntityClientSerializable, Tickable {
+public class SwirledMixerBlockEntity extends BlockEntity implements BlockEntitySyncing {
 
     private final DefaultedList<ItemStack> potions = DefaultedList.ofSize(3, ItemStack.EMPTY);
     private ItemStack catalyst = ItemStack.EMPTY;
     private boolean processing = false;
     private int processingTicks = 0;
 
-    public SwirledMixerBlockEntity() {
-        super(OmegaBlockEntities.SWIRLED_MIXER);
+    public SwirledMixerBlockEntity(BlockPos pos, BlockState state) {
+        super(OmegaBlockEntities.SWIRLED_MIXER, pos, state);
     }
 
-    @Override
-    public void tick() {
-        if(world != null && !world.isClient) {
+    public static void serverTick(World world, BlockPos blockPos, BlockState blockState, SwirledMixerBlockEntity mixer) {
+        // tick processing
+        if(mixer.processing) {
+            mixer.processingTicks++;
+            if(mixer.processingTicks >= 20 * 5) {
+                mixer.processing = false;
+                mixer.processingTicks = 0;
+                ItemStack output = mixer.getOutput();
 
-            // tick processing
-            if(processing) {
-                processingTicks++;
-                if(processingTicks >= 20 * 5) {
-                    processing = false;
-                    processingTicks = 0;
-                    ItemStack output = getOutput();
-
-                    // clear both inventories
-                    potions.clear();
-                    catalyst = output;
-                    sync();
-                } else {
-                    // SFX
-                    ((ServerWorld) world).spawnParticles(OmegaParticles.OMEGA_SLIME, pos.getX() + 0.5f, pos.getY() + 1, pos.getZ() + 0.5f, 5, 0, 0, 0, 0);
-                }
+                // clear both inventories
+                mixer.potions.clear();
+                mixer.catalyst = output;
+                mixer.sync();
+            } else {
+                // SFX
+                ((ServerWorld) world).spawnParticles(OmegaParticles.OMEGA_SLIME, mixer.pos.getX() + 0.5f, mixer.pos.getY() + 1, mixer.pos.getZ() + 0.5f, 5, 0, 0, 0, 0);
             }
         }
     }
@@ -131,7 +128,7 @@ public class SwirledMixerBlockEntity extends BlockEntity implements BlockEntityC
                 sync();
             } else {
                 // Take a potion
-                for(int i = 0; i < potions.size(); i++) {
+                for (int i = 0; i < potions.size(); i++) {
                     ItemStack potion = potions.get(i);
                     if(!potion.isEmpty()) {
                         player.setStackInHand(hand, potion.copy());
@@ -144,7 +141,7 @@ public class SwirledMixerBlockEntity extends BlockEntity implements BlockEntityC
         }
 
         // If the player has a potion in their hand, insert it.
-        else if (stack.getItem() instanceof PotionItem) {
+        else if(stack.getItem() instanceof PotionItem) {
             for (int i = 0; i < potions.size(); i++) {
                 ItemStack current = potions.get(i);
                 if(current.isEmpty()) {
@@ -156,7 +153,7 @@ public class SwirledMixerBlockEntity extends BlockEntity implements BlockEntityC
         }
 
         // Catalyst insertion
-        else if (stack.getItem().equals(Items.SLIME_BALL)) {
+        else if(stack.getItem().equals(Items.SLIME_BALL)) {
             if(catalyst.isEmpty()) {
                 catalyst = stack.split(1);
                 sync();
@@ -173,27 +170,17 @@ public class SwirledMixerBlockEntity extends BlockEntity implements BlockEntityC
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        Inventories.toTag(tag, potions);
-        tag.put("Catalyst", catalyst.toTag(new CompoundTag()));
-        return super.toTag(tag);
+    public void writeNbt(NbtCompound nbt) {
+        Inventories.writeNbt(nbt, potions);
+        nbt.put("Catalyst", catalyst.writeNbt(new NbtCompound()));
+        super.writeNbt(nbt);
     }
 
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
+    public void readNbt(NbtCompound nbt) {
         potions.clear();
-        Inventories.fromTag(tag, potions);
-        catalyst = ItemStack.fromTag(tag.getCompound("Catalyst"));
-        super.fromTag(state, tag);
-    }
-
-    @Override
-    public void fromClientTag(CompoundTag tag) {
-        fromTag(getCachedState(), tag);
-    }
-
-    @Override
-    public CompoundTag toClientTag(CompoundTag tag) {
-        return toTag(tag);
+        Inventories.readNbt(nbt, potions);
+        catalyst = ItemStack.fromNbt(nbt.getCompound("Catalyst"));
+        super.readNbt(nbt);
     }
 }

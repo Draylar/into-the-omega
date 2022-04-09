@@ -1,6 +1,5 @@
 package draylar.intotheomega.item.api;
 
-import draylar.intotheomega.registry.OmegaComponents;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,16 +15,16 @@ public abstract class TelosUseItem extends Item {
 
     @Override
     public final TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        if(OmegaComponents.TELOS.get(user).getTelos() >= getTelosCost()) {
-            TypedActionResult<ItemStack> result = telosUse(world, user, hand);
-
-            // If the use-action passes, take Telos from the user
-            if(result.getResult().isAccepted() && !world.isClient) {
-                OmegaComponents.TELOS.get(user).revoke(getTelosCost());
-            }
-
-            return result;
-        }
+//        if(OmegaComponents.TELOS.get(user).getTelos() >= getTelosCost()) {
+//            TypedActionResult<ItemStack> result = telosUse(world, user, hand);
+//
+//            // If the use-action passes, take Telos from the user
+//            if(result.getResult().isAccepted() && !world.isClient) {
+//                OmegaComponents.TELOS.get(user).revoke(getTelosCost());
+//            }
+//
+//            return result;
+//        }
 
         return TypedActionResult.fail(user.getStackInHand(hand));
     }

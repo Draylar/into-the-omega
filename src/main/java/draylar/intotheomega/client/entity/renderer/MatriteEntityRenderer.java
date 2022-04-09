@@ -3,21 +3,24 @@ package draylar.intotheomega.client.entity.renderer;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.client.entity.model.MatriteEntityModel;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
+import draylar.intotheomega.registry.OmegaEntityModelLayers;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class MatriteEntityRenderer extends EntityRenderer<MatriteEntity> {
 
-    private final MatriteEntityModel model = new MatriteEntityModel();
+    private final MatriteEntityModel model;
 
-    public MatriteEntityRenderer(EntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public MatriteEntityRenderer(EntityRendererFactory.Context context) {
+        super(context);
+        model = new MatriteEntityModel(context.getPart(OmegaEntityModelLayers.MATRITE));
     }
 
     @Override
@@ -26,15 +29,15 @@ public class MatriteEntityRenderer extends EntityRenderer<MatriteEntity> {
 
         matrices.translate(0, -1.05, 0);
 
-        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.model.getLayer(this.getTexture(matrite)));
+        VertexConsumer vertexConsumer = vertexConsumers.getBuffer(model.getLayer(this.getTexture(matrite)));
 
         // If the matrite is idle, it should slowly float up and down.
         // IF the matrite is not idle (flying), it should spin.
         if(matrite.idle()) {
             matrices.translate(0, Math.sin(MathHelper.lerp(tickDelta, matrite.age - 1, matrite.age) / 10) * .1, 0);
-            model.setAngles(matrite, 0, 0, 0, matrite.getHeadYaw(), matrite.pitch);
+            model.setAngles(matrite, 0, 0, 0, matrite.getHeadYaw(), matrite.getPitch());
         } else {
-            model.setAngles(matrite, 0, 0, MathHelper.lerp(tickDelta, matrite.age - 1, matrite.age), matrite.getHeadYaw(), matrite.pitch);
+            model.setAngles(matrite, 0, 0, MathHelper.lerp(tickDelta, matrite.age - 1, matrite.age), matrite.getHeadYaw(), matrite.getPitch());
         }
 
         // render matrite model

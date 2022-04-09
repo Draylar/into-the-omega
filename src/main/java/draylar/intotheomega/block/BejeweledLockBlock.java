@@ -1,11 +1,12 @@
 package draylar.intotheomega.block;
 
 import draylar.intotheomega.entity.dungeon.BejeweledLockBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import draylar.intotheomega.registry.OmegaBlockEntities;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -16,7 +17,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class BejeweledLockBlock extends Block implements BlockEntityProvider {
+public class BejeweledLockBlock extends BlockWithEntity {
 
     private static final VoxelShape SHAPE = Block.createCuboidShape(0, 0, 0, 16, 48, 16);
 
@@ -26,8 +27,14 @@ public class BejeweledLockBlock extends Block implements BlockEntityProvider {
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new BejeweledLockBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new BejeweledLockBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient ? null : checkType(type, OmegaBlockEntities.BEJEWELED_LOCK, BejeweledLockBlockEntity::serverTick);
     }
 
     @Override

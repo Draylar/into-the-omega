@@ -1,10 +1,7 @@
 package draylar.intotheomega.item;
 
-import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.TrinketItem;
-import draylar.intotheomega.IntoTheOmega;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -26,10 +23,5 @@ public class BejeweledMirrorItem extends TrinketItem {
         tooltip.add(new TranslatableText("intotheomega.bejeweled_mirror.1").formatted(Formatting.GRAY));
         tooltip.add(new TranslatableText("intotheomega.bejeweled_mirror.2").formatted(Formatting.GRAY));
         tooltip.add(new TranslatableText("intotheomega.bejeweled_mirror.3").formatted(Formatting.GRAY));
-    }
-
-    @Override
-    public boolean canWearInSlot(String s, String s1) {
-        return s.equals(SlotGroups.HEAD) && s1.equals("eye");
     }
 }

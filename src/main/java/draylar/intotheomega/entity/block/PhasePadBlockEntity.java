@@ -3,15 +3,18 @@ package draylar.intotheomega.entity.block;
 import draylar.intotheomega.registry.OmegaBlockEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.util.math.BlockPos;
 
 public class PhasePadBlockEntity extends BlockEntity {
 
     private boolean activated = false;
     private boolean highlight = false;
 
-    public PhasePadBlockEntity() {
-        super(OmegaBlockEntities.PHASE_PAD);
+    public PhasePadBlockEntity(BlockPos pos, BlockState state) {
+        super(OmegaBlockEntities.PHASE_PAD, pos, state);
     }
 
     @Environment(EnvType.CLIENT)

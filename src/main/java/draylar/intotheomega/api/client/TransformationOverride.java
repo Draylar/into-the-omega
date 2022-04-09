@@ -48,7 +48,7 @@ public class TransformationOverride {
 
             entry = var5.next();
             modelPredicateProvider = ModelPredicateProviderRegistry.get(item, (Identifier)entry.getKey());
-        } while(modelPredicateProvider != null && !(modelPredicateProvider.call(stack, world, entity) < (Float)entry.getValue()));
+        } while(modelPredicateProvider != null && !(modelPredicateProvider.call(stack, world, entity, 0) < (Float)entry.getValue()));
 
         return false;
     }

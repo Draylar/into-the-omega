@@ -9,9 +9,9 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3f;
 
 public class NebulaGearItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 
@@ -28,7 +28,7 @@ public class NebulaGearItemRenderer implements BuiltinItemRendererRegistry.Dynam
             // only spin if player exists
             ClientPlayerEntity player = MinecraftClient.getInstance().player;
             if(player != null) {
-                matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(player.age));
+                matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(player.age));
             }
 
             // render

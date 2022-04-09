@@ -21,6 +21,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameStateChangeS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -40,7 +41,6 @@ import java.util.Arrays;
 
 public class InanisEntity extends PersistentProjectileEntity {
 
-    public static final Identifier ENTITY_ID = IntoTheOmega.id("inanis");
     protected ItemStack source;
     private double damage = 8.0;
 
@@ -74,7 +74,7 @@ public class InanisEntity extends PersistentProjectileEntity {
 
         // kill if too old
         if(age > 20 * 15) {
-            this.remove();
+            discard();
         }
     }
 
@@ -91,7 +91,7 @@ public class InanisEntity extends PersistentProjectileEntity {
             }
         }
 
-        this.remove();
+        discard();
     }
 
     public double rangeRandom(World world, double min, double max) {
@@ -119,12 +119,12 @@ public class InanisEntity extends PersistentProjectileEntity {
 
             // Pierced maximum amount of enemies, remove Inanis now
             if (this.piercedEntities.size() >= this.getPierceLevel() + 1) {
-                this.remove();
+                discard();
                 return;
             }
 
             // Record the entity that was recently pierced for future counting
-            this.piercedEntities.add(hitEntity.getEntityId());
+            this.piercedEntities.add(hitEntity.getId());
         }
 
         // Increase damage if the attack was a critical hit
@@ -182,34 +182,26 @@ public class InanisEntity extends PersistentProjectileEntity {
             }
 
             if (this.getPierceLevel() <= 0) {
-                this.remove();
+                discard();
             }
         } else {
             hitEntity.setFireTicks(fireTicks);
             this.setVelocity(this.getVelocity().multiply(-0.1D));
-            this.yaw += 180.0F;
+            this.setYaw(getYaw() + 180.0f);
             this.prevYaw += 180.0F;
             if (!this.world.isClient && this.getVelocity().lengthSquared() < 1.0E-7D) {
                 if (this.pickupType == PersistentProjectileEntity.PickupPermission.ALLOWED) {
                     this.dropStack(this.asItemStack(), 0.1F);
                 }
 
-                this.remove();
+                discard();
             }
         }
     }
 
     @Override
     public Packet<?> createSpawnPacket() {
-        PacketByteBuf packet = new PacketByteBuf(Unpooled.buffer());
-
-        packet.writeDouble(this.getX());
-        packet.writeDouble(this.getY());
-        packet.writeDouble(this.getZ());
-        packet.writeInt(this.getEntityId());
-        packet.writeUuid(this.getUuid());
-
-        return ServerSidePacketRegistry.INSTANCE.toPacket(ENTITY_ID, packet);
+        return new EntitySpawnS2CPacket(this);
     }
 
     @Override

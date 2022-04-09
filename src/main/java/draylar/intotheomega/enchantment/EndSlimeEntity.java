@@ -9,8 +9,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class EndSlimeEntity extends SlimeEntity {
+public class EndSlimeEntity extends SlimeEntity implements IAnimatable {
 
     private int teleportCooldown = 0;
 
@@ -68,5 +71,15 @@ public class EndSlimeEntity extends SlimeEntity {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void registerControllers(AnimationData animationData) {
+
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return null;
     }
 }

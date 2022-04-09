@@ -5,20 +5,20 @@ import draylar.intotheomega.entity.block.EnigmaStandBlockEntity;
 import draylar.intotheomega.registry.OmegaItems;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.util.registry.Registry;
 
-public class EnigmaStandBlockEntityRenderer extends BlockEntityRenderer<EnigmaStandBlockEntity> {
+public class EnigmaStandBlockEntityRenderer implements BlockEntityRenderer<EnigmaStandBlockEntity> {
 
-    public EnigmaStandBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public EnigmaStandBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+
     }
 
     @Override
@@ -44,7 +44,8 @@ public class EnigmaStandBlockEntityRenderer extends BlockEntityRenderer<EnigmaSt
                 light,
                 overlay,
                 matrices,
-                vertexConsumers
+                vertexConsumers,
+                0
         );
 
         matrices.pop();
@@ -66,7 +67,8 @@ public class EnigmaStandBlockEntityRenderer extends BlockEntityRenderer<EnigmaSt
                 light,
                 overlay,
                 matrices,
-                vertexConsumers
+                vertexConsumers,
+                0
         );
 
         matrices.pop();
@@ -84,7 +86,7 @@ public class EnigmaStandBlockEntityRenderer extends BlockEntityRenderer<EnigmaSt
             matrices.translate(0, v, 0);
         }
 
-        matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(135));
+        matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(135));
 
         MinecraftClient.getInstance().getItemRenderer().renderItem(
                 new ItemStack(OmegaItems.DARK_ENIGMA),
@@ -92,9 +94,9 @@ public class EnigmaStandBlockEntityRenderer extends BlockEntityRenderer<EnigmaSt
                 light,
                 overlay,
                 matrices,
-                vertexConsumers
+                vertexConsumers,
+                0
         );
-
 
 
         matrices.pop();

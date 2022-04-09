@@ -67,7 +67,7 @@ public abstract class CrossbowItemMixin {
     public static void shootAll(World world, LivingEntity entity, Hand hand, ItemStack stack, float speed, float divergence) {
         List<ItemStack> list = getProjectiles(stack);
         float[] fs = getSoundPitches(entity.getRandom());
-        boolean bl = entity instanceof PlayerEntity && ((PlayerEntity)entity).abilities.creativeMode;
+        boolean bl = entity instanceof PlayerEntity && ((PlayerEntity)entity).getAbilities().creativeMode;
 
         // 0 -> 0
         // 1 -> -10

@@ -1,7 +1,5 @@
 package draylar.intotheomega.item.slime;
 
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketItem;
 import draylar.intotheomega.api.TrinketEventHandler;
 import draylar.intotheomega.registry.OmegaStatusEffects;
@@ -39,11 +37,6 @@ public class DestinySwirlItem extends TrinketItem implements TrinketEventHandler
         tooltip.add(new TranslatableText("intotheomega.destiny_swirl.2").formatted(Formatting.GRAY));
         tooltip.add(new TranslatableText("intotheomega.destiny_swirl.3").formatted(Formatting.GRAY));
         tooltip.add(new TranslatableText("intotheomega.destiny_swirl.4").formatted(Formatting.GRAY));
-    }
-
-    @Override
-    public boolean canWearInSlot(String group, String slot) {
-        return group.equals(SlotGroups.CHEST) && slot.equals(Slots.CAPE);
     }
 
     @Override

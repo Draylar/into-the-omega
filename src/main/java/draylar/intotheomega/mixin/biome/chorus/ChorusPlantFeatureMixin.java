@@ -8,6 +8,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.ChorusPlantFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,9 +21,11 @@ public class ChorusPlantFeatureMixin {
 
     // This is probably better than an Overwrite or Redirect.
     @Inject(method = "generate", at = @At("HEAD"), cancellable = true)
-    private void generateOnChorusGrass(StructureWorldAccess structureWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, DefaultFeatureConfig defaultFeatureConfig, CallbackInfoReturnable<Boolean> cir) {
-        if (structureWorldAccess.isAir(blockPos) && OmegaTags.CHORUS_GROUND.contains(structureWorldAccess.getBlockState(blockPos.down()).getBlock())) {
-            ChorusFlowerBlock.generate(structureWorldAccess, blockPos, random, 8);
+    private void generateOnChorusGrass(FeatureContext<DefaultFeatureConfig> context, CallbackInfoReturnable<Boolean> cir) {
+        StructureWorldAccess world = context.getWorld();
+        BlockPos pos = context.getOrigin();
+        if (world.isAir(pos) && OmegaTags.CHORUS_GROUND.contains(world.getBlockState(pos.down()).getBlock())) {
+            ChorusFlowerBlock.generate(world, pos, context.getRandom(), 8);
             cir.setReturnValue(true);
         }
     }

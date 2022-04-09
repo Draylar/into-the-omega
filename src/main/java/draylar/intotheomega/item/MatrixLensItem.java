@@ -1,7 +1,5 @@
 package draylar.intotheomega.item;
 
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -22,10 +20,6 @@ public class MatrixLensItem extends TrinketItem {
         super(settings);
     }
 
-    @Override
-    public boolean canWearInSlot(String s, String s1) {
-        return s.equals(SlotGroups.OFFHAND) && s1.equals(Slots.RING);
-    }
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {

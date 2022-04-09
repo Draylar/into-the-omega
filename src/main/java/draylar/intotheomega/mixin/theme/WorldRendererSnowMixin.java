@@ -49,14 +49,14 @@ public class WorldRendererSnowMixin {
         return client.world.getRainGradient(delta);
     }
 
-    @Redirect(
-            method = "renderWeather",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/biome/Biome;getTemperature(Lnet/minecraft/util/math/BlockPos;)F"))
-    private float redirectTemperatureCheck(Biome biome, BlockPos blockPos) {
-        if(IntoTheOmegaClient.inIceIsland) {
-            return 0;
-        }
-
-        return biome.getTemperature(blockPos);
-    }
+//    @Redirect(
+//            method = "renderWeather",
+//            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;getRainGradient(F)F"))
+//    private float redirectTemperatureCheck(ClientWorld instance, float delta) {
+//        if(IntoTheOmegaClient.inIceIsland) {
+//            return 1.0f;
+//        }
+//
+//        return client.world.getRainGradient(delta);
+//    }
 }

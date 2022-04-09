@@ -1,6 +1,5 @@
 package draylar.intotheomega.mixin.trinkets;
 
-import dev.emi.trinkets.api.SlotGroups;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.intotheomega.api.BewitchedHelper;
 import draylar.intotheomega.registry.OmegaItems;
@@ -36,11 +35,13 @@ public class EndermanTeleportBewitchMixin {
             }
 
             // If the player has a Bejeweled Mirror equipped in head:eyes, the Enderman will become bewitched.
-            if(TrinketsApi.getTrinketComponent(targetPlayer).getStack(SlotGroups.HEAD, "eye").getItem().equals(OmegaItems.BEJEWELED_MIRROR)) {
-                BewitchedHelper.bewitch(enderman, targetPlayer);
-                cir.setReturnValue(false);
-                ((ServerWorld) enderman.world).spawnParticles(OmegaParticles.SMALL_BLUE_OMEGA_BURST, enderman.getX(), enderman.getY() + 2, enderman.getZ(), 50, 0, 1, 0, 0);
-            }
+            TrinketsApi.getTrinketComponent(targetPlayer).ifPresent(component -> {
+                if(component.isEquipped(OmegaItems.BEJEWELED_MIRROR)) {
+                    BewitchedHelper.bewitch(enderman, targetPlayer);
+                    cir.setReturnValue(false);
+                    ((ServerWorld) enderman.world).spawnParticles(OmegaParticles.SMALL_BLUE_OMEGA_BURST, enderman.getX(), enderman.getY() + 2, enderman.getZ(), 50, 0, 1, 0, 0);
+                }
+            });
         }
     }
 }

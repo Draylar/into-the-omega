@@ -1,41 +1,26 @@
 package draylar.intotheomega.entity;
 
-import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.registry.OmegaEntities;
 import draylar.intotheomega.registry.OmegaParticles;
 import draylar.intotheomega.util.ParticleUtils;
-import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.network.Packet;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class VioletUnionBladeEntity extends ProjectileEntity {
-
-    public static final Identifier ENTITY_ID = IntoTheOmega.id("violet_union_blade");
 
     public VioletUnionBladeEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
         super(entityType, world);
@@ -51,12 +36,12 @@ public class VioletUnionBladeEntity extends ProjectileEntity {
     @Override
     public void tick() {
         super.tick();
-        HitResult hitResult = ProjectileUtil.getCollision(this, this::method_26958);
+        HitResult hitResult = ProjectileUtil.getCollision(this, this::collidesWith);
         boolean bl = false;
 
         // If the Violet Union Blade collides with anything, remove it and spawn particles.
-        if (hitResult.getType() != HitResult.Type.MISS) {
-            remove();
+        if(hitResult.getType() != HitResult.Type.MISS) {
+            discard();
 
             // explosion
             if(!world.isClient) {
@@ -88,14 +73,6 @@ public class VioletUnionBladeEntity extends ProjectileEntity {
 
     @Override
     public Packet<?> createSpawnPacket() {
-        PacketByteBuf packet = new PacketByteBuf(Unpooled.buffer());
-
-        packet.writeDouble(this.getX());
-        packet.writeDouble(this.getY());
-        packet.writeDouble(this.getZ());
-        packet.writeInt(this.getEntityId());
-        packet.writeUuid(this.getUuid());
-
-        return ServerSidePacketRegistry.INSTANCE.toPacket(ENTITY_ID, packet);
+        return new EntitySpawnS2CPacket(this);
     }
 }

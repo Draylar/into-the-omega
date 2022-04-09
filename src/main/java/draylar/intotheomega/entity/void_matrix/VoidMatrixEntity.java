@@ -9,7 +9,7 @@ import draylar.intotheomega.registry.OmegaBlocks;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
@@ -20,7 +20,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.FlyingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -147,7 +147,7 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
 //        goalSelector.add(10, new IdleGoal(this));
 
         // Always target nearby player
-        targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, 0, false, false, (entity) -> true));
+        targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, 0, false, false, (entity) -> true));
     }
 
     @Override
@@ -159,7 +159,7 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
         if(home == null) {
             home = getBlockPos();
         }
@@ -259,14 +259,14 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public void writeCustomDataToNbt(NbtCompound tag) {
+        super.writeCustomDataToNbt(tag);
         tag.putLong("HomePos", home.asLong());
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readCustomDataFromNbt(NbtCompound tag) {
+        super.readCustomDataFromNbt(tag);
         home = tag.contains("HomePos") ? null : BlockPos.fromLong(tag.getLong("HomePos"));
     }
 
@@ -353,7 +353,7 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
                 double greatestDiff = MathHelper.absMax(diffX, diffZ);
 
                 if (greatestDiff >= 0.009999999776482582D) {
-                    greatestDiff = MathHelper.sqrt(greatestDiff);
+                    greatestDiff = MathHelper.sqrt((float) greatestDiff);
                     diffX /= greatestDiff;
                     diffZ /= greatestDiff;
                     double mod = 1.0D / greatestDiff;
@@ -365,8 +365,10 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
                     diffZ *= mod;
                     diffX *= 0.05000000074505806D;
                     diffZ *= 0.05000000074505806D;
-                    diffX *= 1.0F - this.pushSpeedReduction;
-                    diffZ *= 1.0F - this.pushSpeedReduction;
+
+                    // TODO: verify
+//                    diffX *= 1.0F - this.pushSpeedReduction;
+//                    diffZ *= 1.0F - this.pushSpeedReduction;
 
                     int intensity = 3;
 
@@ -498,8 +500,8 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
 
     @Override
     public void checkDespawn() {
-        if (this.world.getDifficulty() == Difficulty.PEACEFUL && this.isDisallowedInPeaceful()) {
-            this.remove();
+        if (world.getDifficulty() == Difficulty.PEACEFUL && isDisallowedInPeaceful()) {
+            remove(RemovalReason.DISCARDED);
         }
     }
 

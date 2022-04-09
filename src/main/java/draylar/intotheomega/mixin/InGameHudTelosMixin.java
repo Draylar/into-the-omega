@@ -2,7 +2,6 @@ package draylar.intotheomega.mixin;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.cca.TelosComponent;
-import draylar.intotheomega.registry.OmegaComponents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -28,17 +27,17 @@ public class InGameHudTelosMixin extends DrawableHelper {
             method = "renderStatusBars",
             at = @At("RETURN"))
     private void renderTelos(MatrixStack matrices, CallbackInfo ci) {
-        TelosComponent telos = OmegaComponents.TELOS.get(client.player);
-
-        double remaining = telos.getTelos() / telos.getMaxTelos();
-
-        int x = scaledWidth / 2 + 9 - 100;
-        int y = scaledHeight - 50;
-
-        client.getTextureManager().bindTexture(TELOS_LOCATION);
-
-        for(int i = 0; i < 10; i++) {
-            drawTexture(matrices, x + (i * 8), y, (i / 10f) < remaining ? 0 : 18, 0, 9, 8, 27, 8);
-        }
+//        TelosComponent telos = OmegaComponents.TELOS.get(client.player);
+//
+//        double remaining = telos.getTelos() / telos.getMaxTelos();
+//
+//        int x = scaledWidth / 2 + 9 - 100;
+//        int y = scaledHeight - 50;
+//
+//        client.getTextureManager().bindTexture(TELOS_LOCATION);
+//
+//        for(int i = 0; i < 10; i++) {
+//            drawTexture(matrices, x + (i * 8), y, (i / 10f) < remaining ? 0 : 18, 0, 9, 8, 27, 8);
+//        }
     }
 }

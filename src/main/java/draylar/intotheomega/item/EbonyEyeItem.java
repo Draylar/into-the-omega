@@ -2,10 +2,9 @@ package draylar.intotheomega.item;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
-import dev.emi.trinkets.api.TrinketItem;
+import dev.emi.trinkets.api.SlotReference;
 import draylar.intotheomega.item.api.EyeTrinketItem;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -27,9 +26,9 @@ public class EbonyEyeItem extends EyeTrinketItem {
 
         this.attributeModifiers = builder.build();
     }
-    
+
     @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getTrinketModifiers(String group, String slot, UUID uuid, ItemStack stack) {
-        return group.equals(SlotGroups.CHEST) && slot.equals(Slots.NECKLACE) ? attributeModifiers : super.getTrinketModifiers(group, slot, uuid, stack);
+    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
+        return attributeModifiers;
     }
 }

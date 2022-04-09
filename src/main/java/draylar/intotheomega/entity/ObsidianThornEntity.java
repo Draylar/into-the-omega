@@ -13,9 +13,10 @@ import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -27,7 +28,6 @@ import java.util.UUID;
 public class ObsidianThornEntity extends Entity {
 
     private static final String PROGRESS_KEY = "Progress";
-    public static final Identifier SPAWN_PACKET = IntoTheOmega.id("obsidian_thorn");
     public static final TrackedData<Integer> PROGRESS = DataTracker.registerData(ObsidianThornEntity.class, TrackedDataHandlerRegistry.INTEGER);
 
     @Environment(EnvType.CLIENT)
@@ -36,15 +36,6 @@ public class ObsidianThornEntity extends Entity {
     public ObsidianThornEntity(EntityType<?> type, World world) {
         super(type, world);
         this.ignoreCameraFrustum = true;
-    }
-
-    @Environment(EnvType.CLIENT)
-    public ObsidianThornEntity(World world, double x, double y, double z, int id, UUID uuid) {
-        super(OmegaEntities.OBSIDIAN_THORN, world);
-        updatePosition(x, y, z);
-        updateTrackedPosition(x, y, z);
-        setEntityId(id);
-        setUuid(uuid);
     }
 
     @Override
@@ -113,29 +104,18 @@ public class ObsidianThornEntity extends Entity {
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         tag.putInt(PROGRESS_KEY, dataTracker.get(PROGRESS));
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
         dataTracker.set(PROGRESS, tag.getInt(PROGRESS_KEY));
     }
 
     @Override
     public Packet<?> createSpawnPacket() {
-        PacketByteBuf packet = new PacketByteBuf(Unpooled.buffer());
-
-        // entity position
-        packet.writeDouble(getX());
-        packet.writeDouble(getY());
-        packet.writeDouble(getZ());
-
-        // entity id & uuid
-        packet.writeInt(getEntityId());
-        packet.writeUuid(getUuid());
-
-        return ServerSidePacketRegistry.INSTANCE.toPacket(SPAWN_PACKET, packet);
+        return new EntitySpawnS2CPacket(this);
     }
 
     public int getProgress() {

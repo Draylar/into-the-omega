@@ -8,22 +8,22 @@ import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
-import software.bernie.geckolib3.renderer.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class VoidMatrixEntityRenderer extends GeoEntityRenderer<VoidMatrixEntity> {
 
     private static final Identifier MODEL_LOCATION = IntoTheOmega.id("models/misc/void_matrix_beam");
 
-    public VoidMatrixEntityRenderer(EntityRenderDispatcher dispatcher) {
-        super(dispatcher, new VoidMatrixModel());
+    public VoidMatrixEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, new VoidMatrixModel());
     }
 
     @Override
@@ -39,11 +39,11 @@ public class VoidMatrixEntityRenderer extends GeoEntityRenderer<VoidMatrixEntity
         stack.translate(0, .75, 0);
 
         // Rotate so eye is facing forwards
-        stack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
+        stack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(90));
 
         // Rotate based on yaw
         stack.translate(0, 1.25, 0);
-        stack.multiply(Vector3f.NEGATIVE_Z.getDegreesQuaternion(vm.pitch));
+        stack.multiply(Vec3f.NEGATIVE_Z.getDegreesQuaternion(vm.getPitch()));
         stack.translate(0, -1.25, 0);
 
         // laser
@@ -67,7 +67,7 @@ public class VoidMatrixEntityRenderer extends GeoEntityRenderer<VoidMatrixEntity
     }
 
     public void renderLaser(VoidMatrixEntity vm, BakedModel model, VertexConsumerProvider vertexConsumers, MatrixStack matrices, double lerpedAge, int light, float delta) {
-        if (model != null) {
+        if(model != null) {
             VertexConsumer consumer = vertexConsumers.getBuffer(RenderLayer.getEntitySolid(new Identifier("textures/block/white_concrete.png")));
             matrices.push();
 
@@ -79,7 +79,7 @@ public class VoidMatrixEntityRenderer extends GeoEntityRenderer<VoidMatrixEntity
             float scale = (2f + (float) Math.sin(lerpedAge / 10f) * .1f) * warmup * cooldown;
             matrices.translate(60, 1, 0);
             matrices.scale(25, scale, scale);
-            matrices.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(90));
+            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(90));
 
             // render cylinder
             MatrixStack.Entry entry = matrices.peek();

@@ -10,6 +10,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.Random;
 
@@ -19,9 +20,13 @@ public class SlimePillarFeature extends Feature<DefaultFeatureConfig> {
         super(configCodec);
     }
 
+
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
+    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+        StructureWorldAccess world = context.getWorld();
         OpenSimplex2F noise = new OpenSimplex2F(world.getSeed());
+        Random random = world.getRandom();
+        BlockPos pos = context.getOrigin();
 
         // only 25% of pillars spawn
         if(random.nextInt(4) != 0) {

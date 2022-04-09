@@ -1,29 +1,27 @@
 package draylar.intotheomega.mixin;
 
-import dev.emi.trinkets.api.SlotGroups;
-import dev.emi.trinkets.api.Slots;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.intotheomega.impl.ProjectileManipulator;
 import draylar.intotheomega.item.CustomBowItem;
 import draylar.intotheomega.item.ExplosiveFocusItem;
 import draylar.intotheomega.registry.OmegaItems;
-import net.minecraft.entity.Entity;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
@@ -38,10 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(PersistentProjectileEntity.class)
 public abstract class ArrowMixin extends ProjectileEntity implements ProjectileManipulator {
 
-    // todo: copied from GOB, separate into library?
-
     private static final TrackedData<ItemStack> ORIGIN_STACK = DataTracker.registerData(PersistentProjectileEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
-
     private Vec3d ito_posContext = null;
     private int ito_iteration = 0;
 
@@ -49,13 +44,14 @@ public abstract class ArrowMixin extends ProjectileEntity implements ProjectileM
         super(entityType, world);
     }
 
+    @SuppressWarnings("InvalidInjectorMethodSignature")
     @Inject(
             method = "tick",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;addParticle(Lnet/minecraft/particle/ParticleEffect;DDDDDD)V", ordinal = 0),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private void storeContext(CallbackInfo ci, boolean bl, Vec3d vec3d, double d, double e, double g, int i) {
-        this.ito_posContext = vec3d;
+    private void storeContext(CallbackInfo ci, boolean bl, Vec3d vec, double x, double y, double z, int i) {
+        this.ito_posContext = new Vec3d(x, y, z);
         this.ito_iteration = i;
     }
 
@@ -107,14 +103,12 @@ public abstract class ArrowMixin extends ProjectileEntity implements ProjectileM
             at = @At("RETURN")
     )
     private void onBlockHit(BlockHitResult blockHitResult, CallbackInfo ci) {
-        if(!world.isClient && getOwner() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) getOwner();
-            TrinketComponent trinketComponent = TrinketsApi.TRINKETS.get(player);
-            ItemStack stack = trinketComponent.getStack(SlotGroups.LEGS, Slots.BELT);
-
-            if(stack.getItem() instanceof ExplosiveFocusItem) {
-                player.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 1, Explosion.DestructionType.NONE);
-            }
+        if(!world.isClient && getOwner() instanceof PlayerEntity player) {
+            TrinketsApi.getTrinketComponent(player).ifPresent(component -> {
+                if(component.isEquipped(stack -> stack.getItem() instanceof ExplosiveFocusItem)) {
+                    player.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 1, Explosion.DestructionType.NONE);
+                }
+            });
         }
     }
     @Inject(
@@ -122,21 +116,19 @@ public abstract class ArrowMixin extends ProjectileEntity implements ProjectileM
             at = @At("RETURN")
     )
     private void onEntityHit(EntityHitResult entityHitResult, CallbackInfo ci) {
-        if(!world.isClient && getOwner() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) getOwner();
-            TrinketComponent trinketComponent = TrinketsApi.TRINKETS.get(player);
-            ItemStack stack = trinketComponent.getStack(SlotGroups.LEGS, Slots.BELT);
-
-            if(stack.getItem() instanceof ExplosiveFocusItem) {
-                player.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 1, Explosion.DestructionType.NONE);
-            }
+        if(!world.isClient && getOwner() instanceof PlayerEntity player) {
+            TrinketsApi.getTrinketComponent(player).ifPresent(component -> {
+                if(component.isEquipped(stack -> stack.getItem() instanceof ExplosiveFocusItem)) {
+                    player.world.createExplosion(this, this.getX(), this.getY(), this.getZ(), 1, Explosion.DestructionType.NONE);
+                }
+            });
         }
     }
 
     @ModifyVariable(
             method = "tick",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/projectile/PersistentProjectileEntity;isTouchingWater()Z"),
-            index = 21)
+            index = 22)
     private float cancelVelocityDecrement(float velocityModifier) {
         Item originItem = ito_getOrigin().getItem();
 

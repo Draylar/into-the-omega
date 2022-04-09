@@ -1,21 +1,20 @@
 package draylar.intotheomega.client.entity.renderer;
 
-import draylar.intotheomega.client.entity.feature.EnigmaKingGlowFeatureRenderer;
 import draylar.intotheomega.client.entity.feature.LeafMonsterFeature;
 import draylar.intotheomega.client.entity.model.LeafMonsterModel;
 import draylar.intotheomega.entity.EmptyLeafMonsterEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
-import software.bernie.geckolib3.renderer.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 public class LeafMonsterRenderer extends GeoEntityRenderer<EmptyLeafMonsterEntity> {
 
-    public LeafMonsterRenderer(EntityRenderDispatcher renderManager) {
-        super(renderManager, new LeafMonsterModel());
+    public LeafMonsterRenderer(EntityRendererFactory.Context context) {
+        super(context, new LeafMonsterModel());
         addLayer(new LeafMonsterFeature(this));
     }
 

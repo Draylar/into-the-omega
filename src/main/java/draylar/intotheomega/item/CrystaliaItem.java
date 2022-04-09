@@ -60,7 +60,7 @@ public class CrystaliaItem extends Item implements AttackingItem {
             HitResult trace = user.raycast(16, 0, false);
             ((ServerWorld) world).spawnParticles(OmegaParticles.OMEGA_PARTICLE, trace.getPos().getX(), trace.getPos().getY(), trace.getPos().getZ(), (int) (5 * mod), .5, .5, .5, 1);
             ((ServerWorld) world).spawnParticles(ParticleTypes.ENCHANT, trace.getPos().getX(), trace.getPos().getY(), trace.getPos().getZ(), (int) (25 * mod), .5, .5, .5, 1);
-            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, mod, 1.0F / (RANDOM.nextFloat() * 0.4F + 1.2F));
+            world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, mod, 1.0F / (world.random.nextFloat() * 0.4F + 1.2F));
         }
 
         super.usageTick(world, user, stack, remainingUseTicks);
@@ -122,7 +122,7 @@ public class CrystaliaItem extends Item implements AttackingItem {
             player.getItemCooldownManager().set(this, 20 * 2); // 2 second cd
 
             // Play sound
-            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, .5f, 1.0F / (RANDOM.nextFloat() * 0.4F));
+            world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, .5f, 1.0F / (world.random.nextFloat() * 0.4F));
         }
     }
 }

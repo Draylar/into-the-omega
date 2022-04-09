@@ -1,14 +1,14 @@
 package draylar.intotheomega.api;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 
 public class BlockInfo {
 
     public BlockState state;
-    public CompoundTag tag;
+    public NbtCompound tag;
 
-    public BlockInfo(BlockState state, CompoundTag tag) {
+    public BlockInfo(BlockState state, NbtCompound tag) {
         this.state = state;
         this.tag = tag;
     }

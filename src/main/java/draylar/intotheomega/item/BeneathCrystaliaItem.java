@@ -91,6 +91,6 @@ public class BeneathCrystaliaItem extends Item implements AttackingItem {
         player.getItemCooldownManager().set(this, 15); // 15 tick cd
 
         // Play sound
-        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, .5f, 1.0F / (RANDOM.nextFloat() * 0.4F));
+        world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.PLAYERS, .5f, 1.0F / (world.random.nextFloat() * 0.4F));
     }
 }

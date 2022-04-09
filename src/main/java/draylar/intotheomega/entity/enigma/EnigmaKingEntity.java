@@ -1,7 +1,7 @@
 package draylar.intotheomega.entity.enigma;
 
 import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
@@ -11,7 +11,7 @@ import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.LocalDifficulty;
@@ -51,7 +51,7 @@ public class EnigmaKingEntity extends PathAwareEntity implements IAnimatable {
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable CompoundTag entityTag) {
+    public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
         this.origin = getBlockPos();
         return super.initialize(world, difficulty, spawnReason, entityData, entityTag);
     }
@@ -65,8 +65,8 @@ public class EnigmaKingEntity extends PathAwareEntity implements IAnimatable {
 //        this.goalSelector.add(8, new LookAtEntityGoal(this, PlayerEntity.class, 8.0F));
 //        this.goalSelector.add(8, new LookAroundGoal(this));
 
-//        this.targetSelector.add(0, new FollowTargetGoal<>(this, PigEntity.class, true));
-        this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
+//        this.targetSelector.add(0, new ActiveTargetGoal<>(this, PigEntity.class, true));
+        this.targetSelector.add(2, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     @Override
@@ -153,15 +153,15 @@ public class EnigmaKingEntity extends PathAwareEntity implements IAnimatable {
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
+    public void writeCustomDataToNbt(NbtCompound tag) {
+        super.writeCustomDataToNbt(tag);
         tag.putFloat("HeadYaw", this.headYaw);
         tag.putLong("OriginPos", this.origin.asLong());
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
+    public void readCustomDataFromNbt(NbtCompound tag) {
+        super.readCustomDataFromNbt(tag);
         this.headYaw = tag.getFloat("HeadYaw");
         this.origin = BlockPos.fromLong(tag.getLong("OriginPos"));
     }

@@ -78,8 +78,8 @@ public class VoidBeetleEntity extends PathAwareEntity implements IAnimatable {
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
-        return false;
+    public int computeFallDamage(float fallDistance, float damageMultiplier) {
+        return 0;
     }
 
     @Override

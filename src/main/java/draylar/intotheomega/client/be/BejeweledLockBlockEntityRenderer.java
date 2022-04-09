@@ -8,22 +8,22 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3f;
 import net.minecraft.world.World;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class BejeweledLockBlockEntityRenderer extends BlockEntityRenderer<BejeweledLockBlockEntity> {
+public class BejeweledLockBlockEntityRenderer implements BlockEntityRenderer<BejeweledLockBlockEntity> {
 
-    public BejeweledLockBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+    public BejeweledLockBlockEntityRenderer(BlockEntityRendererFactory.Context context) {
+
     }
 
     @Override
@@ -37,7 +37,7 @@ public class BejeweledLockBlockEntityRenderer extends BlockEntityRenderer<Bejewe
         float lerpedUnlockTicks = MathHelper.lerp(tickDelta, entity.getUnlockTicks() - 1, unlockTicks);
 
         if(unlockTicks >= 1) {
-            matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-lerpedUnlockTicks));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(-lerpedUnlockTicks));
         }
 
         matrices.translate(-0.5, -0.5, -0.5);

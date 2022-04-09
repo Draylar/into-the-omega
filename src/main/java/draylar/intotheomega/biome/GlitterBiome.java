@@ -5,7 +5,6 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
 
 public class GlitterBiome {
 
@@ -15,8 +14,6 @@ public class GlitterBiome {
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)
                 .category(Biome.Category.THEEND)
-                .depth(0.125f)
-                .scale(0.5f)
                 .temperature(0.25f)
                 .downfall(0.0f)
                 .effects(new BiomeEffects.Builder()
@@ -33,7 +30,6 @@ public class GlitterBiome {
 
     private static GenerationSettings createGenerationSettings() {
         return new GenerationSettings.Builder()
-                .surfaceBuilder(ConfiguredSurfaceBuilders.END)
                 .build();
     }
 

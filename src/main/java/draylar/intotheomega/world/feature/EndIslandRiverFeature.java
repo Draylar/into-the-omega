@@ -10,6 +10,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
 
 import java.util.Random;
 
@@ -18,13 +19,14 @@ public class EndIslandRiverFeature extends Feature<DefaultFeatureConfig> {
     // todo: seed
     private static final JVoronoi voronoi = new JVoronoi(0, 100);
 
-
     public EndIslandRiverFeature(Codec<DefaultFeatureConfig> configCodec) {
         super(configCodec);
     }
 
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
+    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+        StructureWorldAccess world = context.getWorld();
+        BlockPos pos = context.getOrigin();
 
         for(int x = 0; x < 16; x++) {
             for (int z = 0; z < 16; z++) {

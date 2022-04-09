@@ -61,7 +61,7 @@ public class LaserSpinGoal extends StageGoal {
         }
 
         vm.prevPitch = 0;
-        vm.pitch = 0;
+        vm.setPitch(0);
 
         if(inPosition) {
             vm.setLaserTicks(vm.getLaserTicks() + 1);
@@ -72,7 +72,7 @@ public class LaserSpinGoal extends StageGoal {
             }
 
             vm.bodyYaw += 1.7;
-            vm.yaw = vm.bodyYaw;
+            vm.setYaw(vm.bodyYaw);
         }
     }
 

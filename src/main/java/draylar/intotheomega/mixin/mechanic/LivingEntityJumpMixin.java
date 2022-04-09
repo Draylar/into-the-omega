@@ -16,13 +16,13 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 public class LivingEntityJumpMixin {
 
     @Unique
-    private float modifiedJumpVelocity;
+    private double modifiedJumpVelocity;
 
     @Inject(
             method = "jump",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void callJumpEvents(CallbackInfo ci, float velocity) {
-        TypedActionResult<Float> result = EntityJumpCallback.EVENT.invoker().jump((LivingEntity) (Object) this, velocity);
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setVelocity(DDD)V"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    private void callJumpEvents(CallbackInfo ci, double velocity) {
+        TypedActionResult<Double> result = EntityJumpCallback.EVENT.invoker().jump((LivingEntity) (Object) this, velocity);
         if(result.getResult() == ActionResult.FAIL) {
             ci.cancel();
         } else {
@@ -32,8 +32,8 @@ public class LivingEntityJumpMixin {
 
     @ModifyVariable(
             method = "jump",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;hasStatusEffect(Lnet/minecraft/entity/effect/StatusEffect;)Z"), index = 1)
-    private float modifyJumpVelocity(float velocity) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setVelocity(DDD)V"), index = 1)
+    private double modifyJumpVelocity(double velocity) {
         return modifiedJumpVelocity;
     }
 }

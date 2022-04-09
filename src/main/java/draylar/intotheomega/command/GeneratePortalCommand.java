@@ -1,18 +1,23 @@
 package draylar.intotheomega.command;
 
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import draylar.intotheomega.mixin.ServerChunkManagerAccessor;
+import draylar.intotheomega.mixin.ThreadedAnvilChunkStorageAccessor;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.EndPortalFeature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
+
+import java.util.Optional;
 
 public class GeneratePortalCommand {
 
@@ -27,7 +32,13 @@ public class GeneratePortalCommand {
                             Vec3d pos = cast.getPos().subtract(0, 1, 0);
                             BlockPos blockPos = new BlockPos(pos);
                             EndPortalFeature feature = new EndPortalFeature(true);
-                            feature.generate((ServerWorld) player.world, ((ServerChunkManagerAccessor) player.world.getChunkManager()).getChunkGenerator(), player.world.random, blockPos, DefaultFeatureConfig.INSTANCE);
+
+                            ChunkGenerator generator = ((ThreadedAnvilChunkStorageAccessor) ((ServerChunkManager) player.world.getChunkManager()).threadedAnvilChunkStorage).getChunkGenerator();
+                            FeatureContext<?> generationContext = new FeatureContext<>(
+                                    Optional.empty(), (ServerWorld) player.world, generator, player.world.random, blockPos, DefaultFeatureConfig.INSTANCE
+                            );
+
+                            feature.generate((FeatureContext<DefaultFeatureConfig>) generationContext);
                             return 1;
                         }).build();
 

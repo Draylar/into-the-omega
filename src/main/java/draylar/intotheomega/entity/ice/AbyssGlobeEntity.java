@@ -1,13 +1,12 @@
 package draylar.intotheomega.entity.ice;
 
-import draylar.intotheomega.api.SpawnHandling;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.util.math.Box;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class AbyssGlobeEntity extends Entity implements SpawnHandling {
+public class AbyssGlobeEntity extends Entity {
 
     @Nullable private UUID ownerUuid = null;
 
@@ -41,7 +40,7 @@ public class AbyssGlobeEntity extends Entity implements SpawnHandling {
 
             // After 10 seconds, remove the globe.
             if(age >= 10 * 20) {
-                remove();
+                discard();
             }
         }
     }
@@ -56,12 +55,12 @@ public class AbyssGlobeEntity extends Entity implements SpawnHandling {
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
 
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
+    public void writeCustomDataToNbt(NbtCompound tag) {
 
     }
 

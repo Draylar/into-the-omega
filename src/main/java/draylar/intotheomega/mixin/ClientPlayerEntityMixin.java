@@ -4,6 +4,7 @@ import com.mojang.authlib.GameProfile;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.intotheomega.impl.DoubleJumpTrinket;
 import draylar.intotheomega.registry.client.OmegaClientPackets;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -11,6 +12,8 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Pair;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,7 +28,8 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
     @Shadow public Input input;
 
-    private List<Integer> doubleJumpIndexes = new ArrayList<>();
+    @Shadow @Final protected MinecraftClient client;
+    private final List<Pair<ItemStack, Integer>> doubleJumpProviders = new ArrayList<>();
     private boolean canDoubleJump = false;
 
     private ClientPlayerEntityMixin(ClientWorld world, GameProfile profile) {
@@ -39,23 +43,20 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     private void doubleJump(CallbackInfo ci) {
         // Reset available jumps if the user is on the ground or climbing
         if(isOnGround() || isClimbing()) {
-            doubleJumpIndexes.clear();
+            doubleJumpProviders.clear();
             canDoubleJump = false;
 
             // check inventory for jump-providing items
-            Inventory inventory = TrinketsApi.getTrinketsInventory(this);
-            for(int i = 0; i < inventory.size(); i++) {
-                ItemStack stack = inventory.getStack(i);
-
-                // Add available double-jumps from item
-                if(stack.getItem() instanceof DoubleJumpTrinket) {
-
-                    // Add slot index for amount of times it provides double jump
-                    for(int z = 0; z < ((DoubleJumpTrinket) stack.getItem()).getDoubleJumps(stack); z++) {
-                        doubleJumpIndexes.add(i);
+            TrinketsApi.getTrinketComponent(client.player).ifPresent(component -> {
+                component.getEquipped(stack -> stack.getItem() instanceof DoubleJumpTrinket).forEach(pair -> {
+                    ItemStack stack = pair.getRight();
+                    if(stack.getItem() instanceof DoubleJumpTrinket doubleJumpTrinket) {
+                        for(int i = 0; i < doubleJumpTrinket.getDoubleJumps(stack); i++) {
+                            doubleJumpProviders.add(new Pair<>(stack, pair.getLeft().index()));
+                        }
                     }
-                }
-            }
+                });
+            });
         }
 
         // Track jump un-press
@@ -64,21 +65,15 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         }
 
         // Only allow another jump when it has been unpressed since the player left the ground
-        else if(canDoubleJump && !doubleJumpIndexes.isEmpty()) {
+        else if(canDoubleJump && !doubleJumpProviders.isEmpty()) {
             jump();
-            int slot = doubleJumpIndexes.remove(0);
+            Pair<ItemStack, Integer> stack = doubleJumpProviders.remove(0);
             canDoubleJump = false;
 
             // Notify server for jump item method
-            OmegaClientPackets.doubleJump(slot);
-
-            // Call jump item method on client
-            Inventory inventory = TrinketsApi.getTrinketsInventory(this);
-            ItemStack stack = inventory.getStack(slot);
-            Item item = stack.getItem();
-
-            if(item instanceof DoubleJumpTrinket) {
-                ((DoubleJumpTrinket) item).onDoubleJump(this.world, this, stack);
+            OmegaClientPackets.doubleJump(stack.getRight());
+            if(stack.getLeft().getItem() instanceof DoubleJumpTrinket doubleJumpTrinket) {
+                doubleJumpTrinket.onDoubleJump(this.world, this, stack.getLeft());
             }
         }
     }

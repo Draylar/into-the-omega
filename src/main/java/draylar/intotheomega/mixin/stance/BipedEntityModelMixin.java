@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class BipedEntityModelMixin {
 
     @Inject(
-            method = "method_30155", at = @At("HEAD"), cancellable = true)
+            method = "positionLeftArm", at = @At("HEAD"), cancellable = true)
     private void modifyLeftArmPose(LivingEntity entity, CallbackInfo ci) {
         if (entity instanceof PlayerEntity) {
             if (Stances.get((PlayerEntity) entity) != Stances.NONE) {
@@ -27,7 +27,7 @@ public class BipedEntityModelMixin {
     }
 
     @Inject(
-            method = "method_30154", at = @At("HEAD"), cancellable = true)
+            method = "positionRightArm", at = @At("HEAD"), cancellable = true)
     private void modifyRightArmPose(LivingEntity entity, CallbackInfo ci) {
         if (entity instanceof PlayerEntity) {
             Stance stance = Stances.get((PlayerEntity) entity);

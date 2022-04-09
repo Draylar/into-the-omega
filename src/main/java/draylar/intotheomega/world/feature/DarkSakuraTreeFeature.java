@@ -7,27 +7,30 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.noise.OctavePerlinNoiseSampler;
-import net.minecraft.util.math.noise.PerlinNoiseSampler;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
+import net.minecraft.world.gen.random.SimpleRandom;
 
 import java.util.Random;
 
 public class DarkSakuraTreeFeature extends Feature<DefaultFeatureConfig> implements DevelopmentSpawnable {
 
-    private final SimplexNoiseSampler noise = new SimplexNoiseSampler(new Random());
+    private static final SimplexNoiseSampler DARK_SAKURA_NOISE = new SimplexNoiseSampler(new SimpleRandom(new Random().nextLong(100000000)));
 
     public DarkSakuraTreeFeature() {
         super(DefaultFeatureConfig.CODEC);
     }
 
     @Override
-    public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random random, BlockPos pos, DefaultFeatureConfig config) {
+    public boolean generate(FeatureContext<DefaultFeatureConfig> context) {
+        StructureWorldAccess world = context.getWorld();
+        BlockPos pos = context.getOrigin();
+        Random random = context.getRandom();
+
         BlockPos topPosition = world.getTopPosition(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, pos);
         BlockState underneath = world.getBlockState(topPosition.down());
 
@@ -56,7 +59,7 @@ public class DarkSakuraTreeFeature extends Feature<DefaultFeatureConfig> impleme
             for (int x = -radius; x <= radius; x++) {
                 for (int z = -radius; z <= radius; z++) {
                     double distance = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2));
-                    if(distance <= radius + noise.method_22416(x, y + origin.getY(), z) * 5) {
+                    if(distance <= radius + DARK_SAKURA_NOISE.sample(x, y + origin.getY(), z) * 5) {
                         BlockPos p = origin.add(x, y, z);
                         if(y == 0 || world.getBlockState(p.down()).getBlock().equals(Blocks.DARK_OAK_WOOD)) {
                             world.setBlockState(p, Blocks.DARK_OAK_WOOD.getDefaultState(), 3);
@@ -88,7 +91,7 @@ public class DarkSakuraTreeFeature extends Feature<DefaultFeatureConfig> impleme
                 for (int y = -8; y <= 8; y++) {
                     BlockPos leafPos = top.add(x, y + 3, z);
                     double distance = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-                    if(distance <= 5 - noise.method_22416(leafPos.getX() / 8f, leafPos.getY() / 8f, leafPos.getZ() / 8f) * 6) {
+                    if(distance <= 5 - DARK_SAKURA_NOISE.sample(leafPos.getX() / 8f, leafPos.getY() / 8f, leafPos.getZ() / 8f) * 6) {
                         if(!world.getBlockState(leafPos).getBlock().equals(Blocks.DARK_OAK_WOOD)) {
                             world.setBlockState(leafPos, OmegaBlocks.DARK_SAKURA_LEAVES.getDefaultState().with(LeavesBlock.PERSISTENT, true), 3);
                         }
@@ -136,7 +139,7 @@ public class DarkSakuraTreeFeature extends Feature<DefaultFeatureConfig> impleme
                 if(valid) {
                     double distance = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2));
                     if(distance <= 8) {
-                        if(distance <= 5 - noise.method_22416(root.getX(), root.getY(), root.getZ()) * 8) {
+                        if(distance <= 5 - DARK_SAKURA_NOISE.sample(root.getX(), root.getY(), root.getZ()) * 8) {
                             world.setBlockState(root, Blocks.COARSE_DIRT.getDefaultState(), 3);
                         }
 
