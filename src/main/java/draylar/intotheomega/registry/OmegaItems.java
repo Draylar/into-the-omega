@@ -11,6 +11,7 @@ import draylar.intotheomega.item.memory.MemoryItem;
 import draylar.intotheomega.item.slime.DestinySwirlItem;
 import draylar.intotheomega.item.slime.OmegaSlimeSlayerItem;
 import draylar.intotheomega.item.spike.DarkFlameBlasterItem;
+import draylar.intotheomega.item.weapon.sword.ShulkerSlicerItem;
 import draylar.intotheomega.material.*;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
@@ -216,7 +217,7 @@ public class OmegaItems {
 
     // Shulker
     public static final Item LEVITATION_BLASTER = register("levitation_blaster", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
-    public static final Item SHULKER_SLICER = register("shulker_slicer", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item SHULKER_SLICER = register("shulker_slicer", new ShulkerSlicerItem(ShulkerToolMaterial.INSTANCE, 7, -2.0f, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
 
     // stuff
     // misc
