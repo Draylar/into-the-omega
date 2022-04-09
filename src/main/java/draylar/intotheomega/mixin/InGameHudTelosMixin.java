@@ -1,7 +1,6 @@
 package draylar.intotheomega.mixin;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.cca.TelosComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
