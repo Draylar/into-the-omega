@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.Multimap;
 import draylar.intotheomega.api.AttackHandler;
 import draylar.intotheomega.registry.OmegaParticles;
-import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -35,7 +34,7 @@ import java.util.List;
 
 // NBT 0: Void Tide Vanquisher
 // NBT 1: Grand Spark Buster
-public class VariantSparkItem extends Item implements DynamicAttributeTool, AttackHandler {
+public class VariantSparkItem extends Item implements AttackHandler {
 
     public VariantSparkItem(Settings settings) {
         super(settings);
@@ -78,24 +77,24 @@ public class VariantSparkItem extends Item implements DynamicAttributeTool, Atta
         return new TranslatableText(this.getTranslationKey(stack)).formatted(mode == 0 ? Formatting.BLUE : Formatting.LIGHT_PURPLE);
     }
 
-    @Override
-    public Multimap<EntityAttribute, EntityAttributeModifier> getDynamicModifiers(EquipmentSlot slot, ItemStack stack, @Nullable LivingEntity user) {
-        if(slot.equals(EquipmentSlot.MAINHAND)) {
-            int mode = stack.getOrCreateSubNbt("Data").getInt("Mode");
-            ImmutableSetMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableSetMultimap.builder();
-
-            if(mode == 1) {
-                builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 29, EntityAttributeModifier.Operation.ADDITION));
-                builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2f, EntityAttributeModifier.Operation.ADDITION));
-            } else {
-                builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 14, EntityAttributeModifier.Operation.ADDITION));
-                builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -3f, EntityAttributeModifier.Operation.ADDITION));
-            }
-            return builder.build();
-        }
-
-        return DynamicAttributeTool.super.getDynamicModifiers(slot, stack, user);
-    }
+//    @Override
+//    public Multimap<EntityAttribute, EntityAttributeModifier> getDynamicModifiers(EquipmentSlot slot, ItemStack stack, @Nullable LivingEntity user) {
+//        if(slot.equals(EquipmentSlot.MAINHAND)) {
+//            int mode = stack.getOrCreateSubNbt("Data").getInt("Mode");
+//            ImmutableSetMultimap.Builder<EntityAttribute, EntityAttributeModifier> builder = ImmutableSetMultimap.builder();
+//
+//            if(mode == 1) {
+//                builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 29, EntityAttributeModifier.Operation.ADDITION));
+//                builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -2f, EntityAttributeModifier.Operation.ADDITION));
+//            } else {
+//                builder.put(EntityAttributes.GENERIC_ATTACK_DAMAGE, new EntityAttributeModifier(ATTACK_DAMAGE_MODIFIER_ID, "Weapon modifier", 14, EntityAttributeModifier.Operation.ADDITION));
+//                builder.put(EntityAttributes.GENERIC_ATTACK_SPEED, new EntityAttributeModifier(ATTACK_SPEED_MODIFIER_ID, "Weapon modifier", -3f, EntityAttributeModifier.Operation.ADDITION));
+//            }
+//            return builder.build();
+//        }
+//
+//        return DynamicAttributeTool.super.getDynamicModifiers(slot, stack, user);
+//    }
 
 
     @Override

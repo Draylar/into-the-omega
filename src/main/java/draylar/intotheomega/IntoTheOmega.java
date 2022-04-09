@@ -4,9 +4,9 @@ import draylar.intotheomega.command.DevelopmentSpawnableCommand;
 import draylar.intotheomega.command.EndCommand;
 import draylar.intotheomega.command.GeneratePillarCommand;
 import draylar.intotheomega.command.GeneratePortalCommand;
-import draylar.intotheomega.mixin.SimpleRegistryAccessor;
 import draylar.intotheomega.network.ServerNetworking;
 import draylar.intotheomega.registry.*;
+import draylar.intotheomega.registry.world.*;
 import draylar.intotheomega.ui.ConquestForgeScreenHandler;
 import draylar.intotheomega.world.feature.DarkSakuraTreeFeature;
 import net.fabricmc.api.ModInitializer;
@@ -55,6 +55,10 @@ public class IntoTheOmega implements ModInitializer {
         OmegaEventHandlers.init();
         ServerNetworking.init();
         OmegaStatusEffects.init();
+        OmegaStructureFeatures.init();
+        OmegaConfiguredStructureFeatures.init();
+        OmegaStructureSets.init();
+        OmegaBiomeTags.init();
 
         // commands - // TODO: new registry class
         GeneratePillarCommand.initialize();
@@ -84,7 +88,7 @@ public class IntoTheOmega implements ModInitializer {
 
         if(testID != null) {
             Identifier potentialOmegaID = IntoTheOmega.id(String.format("omega_%s", testID.getPath()));
-            if(((SimpleRegistryAccessor) Registry.ENCHANTMENT).getIdToEntry().containsKey(potentialOmegaID)) {
+            if(Registry.ENCHANTMENT.containsId(potentialOmegaID)) {
                 return Registry.ENCHANTMENT.get(potentialOmegaID);
             }
         }

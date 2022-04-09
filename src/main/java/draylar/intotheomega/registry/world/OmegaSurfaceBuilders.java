@@ -1,4 +1,4 @@
-package draylar.intotheomega.registry;
+package draylar.intotheomega.registry.world;
 
 public class OmegaSurfaceBuilders {
 

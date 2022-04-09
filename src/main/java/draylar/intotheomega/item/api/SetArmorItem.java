@@ -1,6 +1,5 @@
 package draylar.intotheomega.item.api;
 
-import net.fabricmc.fabric.api.tool.attribute.v1.DynamicAttributeTool;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -20,7 +19,7 @@ import net.minecraft.world.World;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class SetArmorItem extends ArmorItem implements DynamicAttributeTool {
+public abstract class SetArmorItem extends ArmorItem {
 
     private final String name;
     private final int lines;

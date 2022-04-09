@@ -62,7 +62,7 @@ public abstract class EndPillarDesignMixin extends Feature<EndSpikeFeatureConfig
 
         int boxRadius = radius * 4;
         for (BlockPos pos : BlockPos.iterate(new BlockPos(spike.getCenterX() - boxRadius, 35, spike.getCenterZ() - boxRadius), new BlockPos(spike.getCenterX() + boxRadius, spike.getHeight() + 10, spike.getCenterZ() + boxRadius))) {
-            double distance = pos.getSquaredDistance(spike.getCenterX(), pos.getY(), spike.getCenterZ(), false);
+            double distance = pos.getSquaredDistance(spike.getCenterX(), pos.getY(), spike.getCenterZ());
             int practicalRadius = radius + -(pos.getY() / 11) + 9;
             double maxDistance = (practicalRadius * practicalRadius + 1) + noise.noise3_Classic(pos.getX() / 2f, pos.getY() / 2f, pos.getZ() / 2f) * 2;
 

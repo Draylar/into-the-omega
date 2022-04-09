@@ -6,6 +6,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Final;
@@ -25,12 +26,9 @@ public class EndSkyColorMixin {
 
     @Redirect(method = "renderEndSky", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/VertexConsumer;color(IIII)Lnet/minecraft/client/render/VertexConsumer;"))
     private VertexConsumer changeSkyColor(VertexConsumer instance, int r, int g, int b, int a) {
-        Optional<RegistryKey<Biome>> currentBiome = world.getBiomeKey(client.player.getBlockPos());
-        if(currentBiome.isPresent()) {
-            Vec3d color = EndSkyColor.getColor(currentBiome.get());
-            return instance.color((int) color.getX(), (int) color.getY(), (int) color.getZ(), a);
-        }
-
-        return instance.color(r, g, b, a);
+        RegistryEntry<Biome> biomeEntry = world.getBiome(client.player.getBlockPos());
+        Biome biome = biomeEntry.value();
+        Vec3d color = EndSkyColor.getColor(biomeEntry.getKey().get());
+        return instance.color((int) color.getX(), (int) color.getY(), (int) color.getZ(), a);
     }
 }

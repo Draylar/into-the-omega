@@ -30,7 +30,7 @@ public class OmegaCrystalOreFeature extends OreFeature {
 
     public boolean generate(FeatureContext<OreFeatureConfig> context) {
         // Do not generate ore on the main end island
-        if(Math.sqrt(context.getOrigin().getSquaredDistance(0, 0, 0, true)) < 1024) {
+        if(Math.sqrt(context.getOrigin().getSquaredDistanceFromCenter(0, 0, 0)) < 1024) {
             return false;
         }
 

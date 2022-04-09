@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
@@ -23,7 +24,7 @@ public class MinecraftClientMixin {
             method = "doAttack",
             at = @At("HEAD")
     )
-    private void onAttack(CallbackInfo ci) {
+    private void onAttack(CallbackInfoReturnable<Boolean> cir) {
         // tell server to call attack method on held item
         PacketByteBuf packet = new PacketByteBuf(Unpooled.buffer());
         ClientSidePacketRegistry.INSTANCE.sendToServer(OmegaServerPackets.ATTACK_PACKET, packet);

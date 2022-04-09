@@ -1,23 +1,5 @@
 package draylar.intotheomega.world.ice;
 
-import com.mojang.serialization.Codec;
-import draylar.intotheomega.registry.OmegaEntities;
-import draylar.intotheomega.registry.OmegaStructurePieces;
-import draylar.intotheomega.world.api.BaseIslandStructure;
-import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.structure.DesertTempleGenerator;
-import net.minecraft.structure.StructureManager;
-import net.minecraft.structure.StructurePiecesCollector;
-import net.minecraft.structure.StructurePiecesGenerator;
-import net.minecraft.util.collection.Pool;
-import net.minecraft.util.collection.Weighted;
-import net.minecraft.world.biome.SpawnSettings;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-
-import java.util.Arrays;
-import java.util.List;
-
 //public class IceIslandStructure extends BaseIslandStructure {
 //
 //    public static final Pool<SpawnSettings.SpawnEntry> MOB_SPAWNS = Pool.of(

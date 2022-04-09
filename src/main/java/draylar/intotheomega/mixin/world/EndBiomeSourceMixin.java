@@ -4,14 +4,17 @@ import draylar.intotheomega.api.Vec2i;
 import draylar.intotheomega.api.biome.IslandBiomeData;
 import draylar.intotheomega.api.biome.OmegaEndBiomePicker;
 import draylar.intotheomega.biome.OmegaSlimeWasteBiome;
+import draylar.intotheomega.impl.BiomeRegistrySetter;
 import draylar.intotheomega.registry.OmegaBiomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeKeys;
+import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.TheEndBiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import org.spongepowered.asm.mixin.Final;
@@ -20,6 +23,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.*;
@@ -31,20 +35,37 @@ import java.util.concurrent.ConcurrentHashMap;
  * this mixin takes priority over the Fabric API.
  */
 @Mixin(TheEndBiomeSource.class)
-public abstract class EndBiomeSourceMixin {
+public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
 
     @Unique private static final Direction[] HORIZONTAL_DIRECTIONS = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
 
     @Shadow @Final private long seed;
-    @Shadow @Final private Biome centerBiome;
     @Shadow @Final private SimplexNoiseSampler noise;
-    @Shadow @Final private Biome smallIslandsBiome;
-    @Shadow @Final private Registry<Biome> biomeRegistry;
+    @Shadow @Final private RegistryEntry<Biome> centerBiome;
+    @Shadow @Final private RegistryEntry<Biome> smallIslandsBiome;
     @Unique private static long cachedSeed = Integer.MAX_VALUE;
     @Unique private static List<RegistryKey<Biome>> biomeSections = new ArrayList<>();
-    @Unique private static Map<Vec2i, Biome> cachedBiomePositions = new ConcurrentHashMap<>();
+    @Unique private static Map<Vec2i, RegistryKey<Biome>> cachedBiomePositions = new ConcurrentHashMap<>();
     @Unique private static Map<Vec2i, Float> cachedNoise = new ConcurrentHashMap<>();
     @Unique private static Random random = new Random();
+    @Unique private Registry<Biome> biomeRegistry;
+
+    @Inject(method = "<init>(Lnet/minecraft/util/registry/Registry;J)V", at = @At("RETURN"))
+    private void storeRegistry(Registry<Biome> biomeRegistry, long seed, CallbackInfo ci) {
+        this.biomeRegistry = biomeRegistry;
+    }
+
+    @Inject(method = "withSeed", at = @At("RETURN"))
+    private void assignBiomeRegistry(long seed, CallbackInfoReturnable<BiomeSource> cir) {
+        if(cir.getReturnValue() instanceof TheEndBiomeSource) {
+            ((BiomeRegistrySetter) cir.getReturnValue()).setBiomeRegistry(biomeRegistry);
+        }
+    }
+
+    @Override
+    public void setBiomeRegistry(Registry<Biome> biomeRegistry) {
+        this.biomeRegistry = biomeRegistry;
+    }
 
     @Inject(method = "getBiome", at = @At("HEAD"))
     private void initializeNoise(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise, CallbackInfoReturnable<Biome> cir) {
@@ -71,7 +92,7 @@ public abstract class EndBiomeSourceMixin {
     // Coordinates passed in are the real-world coordinates divided by 4.
     // eg. (100, 50, 100) is (25, ?, 25), and we skip 4 blocks per biome sample.
     @Inject(at = @At("HEAD"), method = "getBiome", cancellable = true)
-    public void getBiomeForNoiseGen(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise, CallbackInfoReturnable<Biome> cir) {
+    public void getBiomeForNoiseGen(int x, int y, int z, MultiNoiseUtil.MultiNoiseSampler noise, CallbackInfoReturnable<RegistryEntry<Biome>> cir) {
         int chunkX = x / 4;
         int chunkZ = z / 4;
 
@@ -86,8 +107,7 @@ public abstract class EndBiomeSourceMixin {
 
             // If we assigned this column position previously, use that value.
             if(cachedBiomePositions.containsKey(current)) {
-                Biome biome = cachedBiomePositions.get(current);
-                cir.setReturnValue(biome);
+                cir.setReturnValue(biomeRegistry.getOrCreateEntry(cachedBiomePositions.get(current)));
                 return;
             }
 
@@ -115,21 +135,23 @@ public abstract class EndBiomeSourceMixin {
             if(chunkNoise >= -20.0f) {
                 Set<Vec2i> yeet = locateIslandBlocks(current);
 
+
+
                 // cache the starting biome to prevent it from potentially double checking in the future - probably not needed
-                cachedBiomePositions.put(current, biomeRegistry.get(getBiomeFor(islandBiome, chunkNoise)));
+                cachedBiomePositions.put(current, getBiomeFor(islandBiome, chunkNoise));
 
                 // assign cache biomes after processing island
                 yeet.forEach(pos -> {
                     // TODO: cached biome based on posNoise
                     // TODO: combine with down
-                    cachedBiomePositions.put(pos, biomeRegistry.get(getBiomeFor(islandBiome, cachedNoise.get(pos))));
+                    cachedBiomePositions.put(pos, getBiomeFor(islandBiome, cachedNoise.get(pos)));
                     // TODO: WE CAN CLEAR CACHED NOISE HERE
                 });
             }
 
             // Fallback for the first block in an island.
             // TODO: combine with ^^
-            cir.setReturnValue(biomeRegistry.get(getBiomeFor(islandBiome, chunkNoise)));
+            cir.setReturnValue(biomeRegistry.getOrCreateEntry(getBiomeFor(islandBiome, chunkNoise)));
         }
     }
 

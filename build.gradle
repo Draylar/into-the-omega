@@ -55,7 +55,7 @@ dependencies {
     }
 
     // REI
-    modImplementation ("me.shedaniel:RoughlyEnoughItems-fabric:7.3.443") {
+    modImplementation ("me.shedaniel:RoughlyEnoughItems-fabric:8.0.442") {
         exclude group: "net.fabricmc.fabric-api"
     }
 
@@ -75,9 +75,9 @@ dependencies {
         exclude group: "net.fabricmc.fabric-api"
     }
 
-    modImplementation ('com.github.Draylar:visible-structure-void:b4ad15c4d7') {
-        exclude group: "net.fabricmc.fabric-api"
-    }
+//    modImplementation ('com.github.Draylar:visible-structure-void:b4ad15c4d7') {
+//        exclude group: "net.fabricmc.fabric-api"
+//    }
 
     include 'draylar:jvoronoi:1.0.2'
     modImplementation ('draylar:jvoronoi:1.0.2') {

@@ -33,7 +33,7 @@ public class ChorusPlantBlockMixin {
 
             do {
                 if (!directions.hasNext()) {
-                    return OmegaTags.CHORUS_GROUND.contains(underneathState.getBlock());
+                    return underneathState.isIn(OmegaTags.CHORUS_GROUND);
                 }
 
                 Direction direction = directions.next();
@@ -47,7 +47,7 @@ public class ChorusPlantBlockMixin {
             }
 
             underneathBlock = world.getBlockState(blockPos.down()).getBlock();
-        } while(!OmegaTags.CHORUS_GROUND.contains(underneathBlock));
+        } while(!underneathState.isIn(OmegaTags.CHORUS_GROUND));
 
         return true;
     }

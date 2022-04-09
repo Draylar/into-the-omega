@@ -1,10 +1,10 @@
 package draylar.intotheomega.mixin.world;
 
-import draylar.intotheomega.registry.OmegaWorld;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.collection.Pool;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.SpawnSettings;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class SpawnHelperMixin {
 
     @Inject(method = "getSpawnEntries", at = @At("HEAD"), cancellable = true)
-    private static void injectStructureSpawns(ServerWorld world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, SpawnGroup spawnGroup, BlockPos pos, @Nullable Biome biome, CallbackInfoReturnable<Pool<SpawnSettings.SpawnEntry>> cir) {
+    private static void injectStructureSpawns(ServerWorld world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, SpawnGroup spawnGroup, BlockPos pos, @Nullable RegistryEntry<Biome> biomeEntry, CallbackInfoReturnable<Pool<SpawnSettings.SpawnEntry>> cir) {
 //        if(spawnGroup.equals(SpawnGroup.MONSTER) && structureAccessor.getStructureAt(pos, OmegaWorld.ICE_ISLAND).hasChildren()) {
 //            cir.setReturnValue(IceIslandStructure.MOB_SPAWNS);
 //        }

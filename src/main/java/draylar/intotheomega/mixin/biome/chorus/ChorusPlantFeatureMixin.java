@@ -24,7 +24,7 @@ public class ChorusPlantFeatureMixin {
     private void generateOnChorusGrass(FeatureContext<DefaultFeatureConfig> context, CallbackInfoReturnable<Boolean> cir) {
         StructureWorldAccess world = context.getWorld();
         BlockPos pos = context.getOrigin();
-        if (world.isAir(pos) && OmegaTags.CHORUS_GROUND.contains(world.getBlockState(pos.down()).getBlock())) {
+        if (world.isAir(pos) && world.getBlockState(pos.down()).isIn(OmegaTags.CHORUS_GROUND)) {
             ChorusFlowerBlock.generate(world, pos, context.getRandom(), 8);
             cir.setReturnValue(true);
         }

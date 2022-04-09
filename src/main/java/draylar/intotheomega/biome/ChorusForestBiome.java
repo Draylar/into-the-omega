@@ -1,10 +1,8 @@
 package draylar.intotheomega.biome;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.registry.OmegaConfiguredFeatures;
 import draylar.intotheomega.registry.OmegaEntities;
-import draylar.intotheomega.registry.OmegaPlacedFeatures;
-import draylar.intotheomega.registry.OmegaSurfaceBuilders;
+import draylar.intotheomega.registry.world.OmegaPlacedFeatures;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;

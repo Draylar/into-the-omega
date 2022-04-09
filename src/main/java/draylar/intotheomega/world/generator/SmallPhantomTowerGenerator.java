@@ -1,12 +1,10 @@
 package draylar.intotheomega.world.generator;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.registry.OmegaStructurePieces;
+import draylar.intotheomega.registry.world.OmegaStructurePieces;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.*;
-import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
-import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockBox;

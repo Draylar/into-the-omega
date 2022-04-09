@@ -77,7 +77,7 @@ public class IslandBiomeData {
         // TODO: separate params for distance over spawn predicate
         public Builder maxDistance(int distance) {
             this.spawnPredicate = pos -> {
-                return Math.sqrt(pos.getSquaredDistance(0, 0, 0, false)) <= distance;
+                return Math.sqrt(pos.getSquaredDistance(0, 0, 0)) <= distance;
             };
 
             return this;

@@ -137,7 +137,7 @@ public class FrostbusterItem extends ToolItem implements StanceProvider {
 
     @Override
     public float getMiningSpeedMultiplier(ItemStack stack, BlockState state) {
-        if (BlockTags.ICE.contains(state.getBlock())) {
+        if (state.isIn(BlockTags.ICE)) {
             return 15.0f;
         }
 

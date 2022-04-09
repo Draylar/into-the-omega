@@ -45,7 +45,7 @@ public abstract class EnchantmentHelperMixin {
                 Identifier omegaID = IntoTheOmega.id(String.format("omega_%s", existingID.getPath()));
 
                 // verify omega enchantment exists
-                if(((SimpleRegistryAccessor) Registry.ENCHANTMENT).getIdToEntry().containsKey(omegaID)) {
+                if(Registry.ENCHANTMENT.containsId(omegaID)) {
                     Enchantment omegaEnchantment = Registry.ENCHANTMENT.get(omegaID);
                     cir.setReturnValue(Math.max(vanillaLevel, EnchantmentHelper.getLevel(omegaEnchantment, stack)));
                 }

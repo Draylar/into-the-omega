@@ -1,18 +1,16 @@
-package draylar.intotheomega.registry;
+package draylar.intotheomega.registry.world;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.world.generator.EyeAltarGenerator;
-import draylar.intotheomega.world.generator.MatrixPedestalGenerator;
-import draylar.intotheomega.world.generator.MediumPhantomTowerGenerator;
-import draylar.intotheomega.world.generator.SmallPhantomTowerGenerator;
+import draylar.intotheomega.world.generator.*;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.registry.Registry;
 
 public class OmegaStructurePieces {
 
+    public static final StructurePieceType EYE_ALTAR = register("eye_altar", EyeAltarGenerator::new);
     public static final StructurePieceType SMALL_PHANTOM_TOWER = register("small_phantom_tower", SmallPhantomTowerGenerator::new);
     public static final StructurePieceType MEDIUM_PHANTOM_TOWER = register("medium_phantom_tower", MediumPhantomTowerGenerator::new);
-    public static final StructurePieceType EYE_ALTAR = register("eye_altar", EyeAltarGenerator::new);
+    public static final StructurePieceType SMALL_CHORUS_MONUMENT = register("small_chorus_monument", SmallChorusMonumentGenerator::new);
     public static final StructurePieceType BEJEWELED_DUNGEON = register("bejeweled_dungeon", MatrixPedestalGenerator::new);
 //    public static final StructurePieceType SPIKE = register("spike", SpikeStructureGenerator::new);
 

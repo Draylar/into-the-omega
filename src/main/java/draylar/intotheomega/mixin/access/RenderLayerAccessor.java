@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin.accessor;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexFormat;

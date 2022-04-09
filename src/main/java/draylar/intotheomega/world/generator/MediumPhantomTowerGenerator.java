@@ -1,7 +1,7 @@
 package draylar.intotheomega.world.generator;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.registry.OmegaStructurePieces;
+import draylar.intotheomega.registry.world.OmegaStructurePieces;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.SimpleStructurePiece;

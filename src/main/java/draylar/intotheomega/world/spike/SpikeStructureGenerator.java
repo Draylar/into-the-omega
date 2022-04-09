@@ -1,20 +1,5 @@
 package draylar.intotheomega.world.spike;
 
-import draylar.intotheomega.registry.OmegaStructurePieces;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.structure.StructureManager;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-
-import java.util.*;
-
 //public class SpikeStructureGenerator extends StructurePieceWithDimensions {
 //
 //    public static final List<Block> potentials = Arrays.asList(Blocks.STONE, Blocks.ANDESITE, Blocks.OBSIDIAN, Blocks.RED_WOOL, Blocks.GREEN_WOOL, Blocks.ORANGE_TERRACOTTA, Blocks.PURPLE_TERRACOTTA, Blocks.OAK_LOG, Blocks.SPRUCE_LOG, Blocks.PINK_TERRACOTTA, Blocks.YELLOW_TERRACOTTA, Blocks.ORANGE_GLAZED_TERRACOTTA);

@@ -24,6 +24,13 @@ public abstract class EndIslandStructure extends StructureFeature<DefaultFeature
 
     private static Optional<StructurePiecesGenerator<DefaultFeatureConfig>> addPieces(StructureGeneratorFactory.Context<DefaultFeatureConfig> context, HeightStructurePiecesGenerator<DefaultFeatureConfig> generator) {
         int height = getGenerationHeight(context.chunkPos(), context.chunkGenerator(), context.world());
+
+        // Do not place structures close to the primary End Island.
+        if(Math.sqrt(Math.pow(context.chunkPos().getStartX(), 2) + Math.pow(context.chunkPos().getStartX(), 2)) <= 1000) {
+            return Optional.empty();
+        }
+
+        // Do not place structures above Y60.
         if(height >= 60) {
             return Optional.empty();
         }
@@ -31,35 +38,31 @@ public abstract class EndIslandStructure extends StructureFeature<DefaultFeature
         return Optional.of(generator.generatePieces(height));
     }
 
-    @Override
-    public boolean isUniformDistribution() {
-        return false;
-    }
-
     private static int getGenerationHeight(ChunkPos pos, ChunkGenerator chunkGenerator, HeightLimitView world) {
         Random random = new Random(pos.x + pos.z * 10387313L);
         BlockRotation blockRotation = BlockRotation.random(random);
-        int i = 5;
-        int j = 5;
+        int xRotationOffset = 5;
+        int zRotationOffset = 5;
         if(blockRotation == BlockRotation.CLOCKWISE_90) {
-            i = -5;
+            xRotationOffset = -5;
         } else if(blockRotation == BlockRotation.CLOCKWISE_180) {
-            i = -5;
-            j = -5;
+            xRotationOffset = -5;
+            zRotationOffset = -5;
         } else if(blockRotation == BlockRotation.COUNTERCLOCKWISE_90) {
-            j = -5;
+            zRotationOffset = -5;
         }
-        int k = pos.getOffsetX(7);
-        int l = pos.getOffsetZ(7);
-        int m = chunkGenerator.getHeightInGround(k, l, Heightmap.Type.WORLD_SURFACE_WG, world);
-        int n = chunkGenerator.getHeightInGround(k, l + j, Heightmap.Type.WORLD_SURFACE_WG, world);
-        int o = chunkGenerator.getHeightInGround(k + i, l, Heightmap.Type.WORLD_SURFACE_WG, world);
-        int p = chunkGenerator.getHeightInGround(k + i, l + j, Heightmap.Type.WORLD_SURFACE_WG, world);
-        return Math.min(Math.min(m, n), Math.min(o, p));
+
+        int xOffset = pos.getOffsetX(7);
+        int zOffset = pos.getOffsetZ(7);
+        int worldHeight = chunkGenerator.getHeightInGround(xOffset, zOffset, Heightmap.Type.WORLD_SURFACE_WG, world);
+        int n = chunkGenerator.getHeightInGround(xOffset, zOffset + zRotationOffset, Heightmap.Type.WORLD_SURFACE_WG, world);
+        int o = chunkGenerator.getHeightInGround(xOffset + xRotationOffset, zOffset, Heightmap.Type.WORLD_SURFACE_WG, world);
+        int p = chunkGenerator.getHeightInGround(xOffset + xRotationOffset, zOffset + zRotationOffset, Heightmap.Type.WORLD_SURFACE_WG, world);
+        return Math.min(Math.min(worldHeight, n), Math.min(o, p));
     }
 
     @FunctionalInterface
     public interface HeightStructurePiecesGenerator<C extends FeatureConfig> {
-        public StructurePiecesGenerator<DefaultFeatureConfig> generatePieces(int height);
+        StructurePiecesGenerator<C> generatePieces(int height);
     }
 }

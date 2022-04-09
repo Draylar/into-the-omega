@@ -37,10 +37,7 @@ public class SlimeDungeonFeature extends Feature<DefaultFeatureConfig> {
         } else {
             pos = pos.down(5);
 
-            // Do not overwrite Omega Slime Obelisk structures!
-            if (!world.getStructures(ChunkSectionPos.from(pos), StructureFeature.VILLAGE).isEmpty()) {
-                return false;
-            } else {
+             {
                 for (int x = -10; x <= 10; x++) {
                     for (int z = -10; z <= 10; z++) {
                         for (int y = 0; y < 10; y++) {

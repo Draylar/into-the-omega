@@ -1,6 +1,6 @@
 package draylar.intotheomega.entity;
 
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.fabricmc.fabric.api.mininglevel.v1.FabricMineableTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -14,11 +14,13 @@ import net.minecraft.entity.passive.MooshroomEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.ShearsItem;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.ItemTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -53,7 +55,7 @@ public class ChorusCowEntity extends CowEntity implements Shearable {
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         ItemStack heldStack = player.getStackInHand(hand);
 
-        if(FabricToolTags.SHEARS.contains(heldStack.getItem()) && isShearable()) {
+        if(heldStack.getItem() instanceof ShearsItem && isShearable()) {
             sheared(SoundCategory.PLAYERS);
 
             if (!this.world.isClient) {

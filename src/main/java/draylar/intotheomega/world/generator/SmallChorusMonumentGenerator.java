@@ -4,6 +4,7 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.registry.world.OmegaStructurePieces;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.SimpleStructurePiece;
 import net.minecraft.structure.StructureContext;
@@ -17,17 +18,16 @@ import net.minecraft.world.ServerWorldAccess;
 
 import java.util.Random;
 
-public class MatrixPedestalGenerator extends SimpleStructurePiece {
+public class SmallChorusMonumentGenerator extends SimpleStructurePiece {
 
-    private static final Identifier TEMPLATE = IntoTheOmega.id("matrix_pedestal");
-    private static final Identifier LOOT_TABLE = IntoTheOmega.id("chests/eye_altar");
+    private static final Identifier TEMPLATE = IntoTheOmega.id("small_chorus_monument");
 
-    public MatrixPedestalGenerator(StructureManager manager, BlockPos pos, BlockRotation rotation) {
-        super(OmegaStructurePieces.BEJEWELED_DUNGEON, 0, manager, TEMPLATE, TEMPLATE.toString(), new StructurePlacementData().setRotation(rotation), pos);
+    public SmallChorusMonumentGenerator(StructureManager manager, BlockPos pos, BlockRotation rotation) {
+        super(OmegaStructurePieces.SMALL_CHORUS_MONUMENT, 0, manager, TEMPLATE, TEMPLATE.toString(),  new StructurePlacementData().setRotation(rotation), pos);
     }
 
-    public MatrixPedestalGenerator(StructureContext context, NbtCompound nbt) {
-        super(OmegaStructurePieces.BEJEWELED_DUNGEON, nbt, context.structureManager(), id -> new StructurePlacementData().setRotation(BlockRotation.valueOf(nbt.getString("Rotation"))));
+    public SmallChorusMonumentGenerator(StructureContext context, NbtCompound nbt) {
+        super(OmegaStructurePieces.SMALL_CHORUS_MONUMENT, nbt, context.structureManager(), id -> new StructurePlacementData().setRotation(BlockRotation.valueOf(nbt.getString("Rotation"))));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class MatrixPedestalGenerator extends SimpleStructurePiece {
             if(rand == 0) {
                 access.setBlockState(pos.down(), Blocks.AIR.getDefaultState(), 3);
             } else if(boundingBox.contains(pos.down())) {
-                LootableContainerBlockEntity.setLootTable(access, random, pos.down(), LOOT_TABLE);
+                LootableContainerBlockEntity.setLootTable(access, random, pos.down(), LootTables.END_CITY_TREASURE_CHEST);
             }
         }
     }

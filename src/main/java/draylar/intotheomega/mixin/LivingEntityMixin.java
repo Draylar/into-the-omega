@@ -25,11 +25,11 @@ public abstract class LivingEntityMixin extends Entity {
             cancellable = true
     )
     private void addCustomEntityGroups(CallbackInfoReturnable<EntityGroup> cir) {
-        if(OmegaTags.END_CREATURE.contains(this.getType())) {
+        if(getType().isIn(OmegaTags.END_CREATURE)) {
             cir.setReturnValue(OmegaEntityGroups.END_CREATURE);
         }
 
-        if(OmegaTags.SLIME_CREATURE.contains(this.getType())) {
+        if(getType().isIn(OmegaTags.SLIME_CREATURE)) {
             cir.setReturnValue(OmegaEntityGroups.SLIME_CREATURE);
         }
     }

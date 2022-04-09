@@ -6,7 +6,6 @@ import draylar.intotheomega.block.air.ThornAirBlock;
 import draylar.intotheomega.block.dungeon.InvisibleDungeonBrick;
 import draylar.intotheomega.block.dungeon.SlimeObeliskBlock;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -22,7 +21,6 @@ public class OmegaBlocks {
                     FabricBlockSettings
                             .of(Material.STONE)
                             .requiresTool()
-                            .breakByTool(FabricToolTags.PICKAXES, 3)
                             .strength(20.0F, 18.0F)
             ),
             new Item.Settings()
@@ -36,7 +34,6 @@ public class OmegaBlocks {
                     FabricBlockSettings
                             .of(Material.STONE)
                             .requiresTool()
-                            .breakByTool(FabricToolTags.PICKAXES, 3)
                             .strength(10.0F, 9.0F)
             ),
             new Item.Settings()
@@ -49,7 +46,6 @@ public class OmegaBlocks {
             new ConquestForgeBlock(
                     FabricBlockSettings
                             .of(Material.METAL)
-                            .breakByTool(FabricToolTags.PICKAXES)
                             .strength(25.0F, 9.0F)
                             .sounds(BlockSoundGroup.ANVIL)
             ),
@@ -63,7 +59,6 @@ public class OmegaBlocks {
             new WatchingEyeBlock(
                     FabricBlockSettings
                             .of(Material.METAL)
-                            .breakByTool(FabricToolTags.PICKAXES)
                             .strength(5f, 5f)
                             .sounds(BlockSoundGroup.GLASS)
             ),

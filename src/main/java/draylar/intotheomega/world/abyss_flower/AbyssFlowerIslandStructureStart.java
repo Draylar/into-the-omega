@@ -1,26 +1,5 @@
 package draylar.intotheomega.world.abyss_flower;
 
-import draylar.intotheomega.api.BlockInfo;
-import draylar.intotheomega.api.OpenSimplex2F;
-import draylar.intotheomega.api.Pos2D;
-import draylar.intotheomega.registry.OmegaBlocks;
-import draylar.intotheomega.registry.OmegaStructurePieces;
-import net.minecraft.block.Blocks;
-import net.minecraft.structure.StructureManager;
-import net.minecraft.util.math.BlockBox;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.DynamicRegistryManager;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.StructureFeature;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 // IDEA:
 // you know that one minecraft image we had of the mc dungeons end portal with the pillars?
 // maybe we could retain the giant spike but have giant stone henges aroun the edge li kthe imag
