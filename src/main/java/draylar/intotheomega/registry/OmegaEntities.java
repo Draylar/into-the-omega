@@ -197,6 +197,14 @@ public class OmegaEntities {
                     .dimensions(EntityDimensions.fixed(0.7f, 2f))
                     .build());
 
+    public static final EntityType<LevitationProjectileEntity> LEVITATION_PROJECTILE = register(
+            "levitation_projectile",
+            FabricEntityTypeBuilder.create()
+                    .spawnGroup(SpawnGroup.MISC)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
+                    .entityFactory(LevitationProjectileEntity::new)
+                    .build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }
