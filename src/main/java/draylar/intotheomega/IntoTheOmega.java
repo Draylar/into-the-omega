@@ -49,7 +49,6 @@ public class IntoTheOmega implements ModInitializer {
         OmegaEntities.init();
         OmegaBiomes.init();
         OmegaWorld.init();
-//        OmegaSurfaceBuilders.init();
         OmegaConfiguredFeatures.init();
         OmegaStructurePieces.init();
         OmegaPlacedFeatures.init();

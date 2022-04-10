@@ -21,6 +21,7 @@ public class OmegaConfiguredStructureFeatures {
     //    public static final ConfiguredStructureFeature<?, ?> ENIGMA_KING_SPIKE = register("spike", OmegaWorld.SPIKE.configure(DefaultFeatureConfig.INSTANCE));
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> MATRIX_PEDESTAL = register(key("matrix_pedestal"), OmegaStructureFeatures.MATRIX_PEDESTAL.configure(new DefaultFeatureConfig(), BiomeTags.END_CITY_HAS_STRUCTURE));
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> BEJEWELED_DUNGEON = register(key("bejeweled_dungeon"), OmegaStructureFeatures.BEJEWELED_DUNGEON.configure(new DefaultFeatureConfig(), BiomeTags.END_CITY_HAS_STRUCTURE));
+    public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> TEST_SF = register(key("test_sf"), OmegaStructureFeatures.TEST_SF.configure(new DefaultFeatureConfig(), BiomeTags.IS_FOREST));
 
 //    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_GENERIC_ISLAND = register("generic_island", OmegaWorld.GENERIC_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
 //    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_ICE_ISLAND = register("ice_island", OmegaWorld.ICE_ISLAND.configure(DefaultFeatureConfig.INSTANCE));

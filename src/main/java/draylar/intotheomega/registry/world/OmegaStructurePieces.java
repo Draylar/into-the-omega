@@ -1,6 +1,7 @@
 package draylar.intotheomega.registry.world;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.world.TestSF;
 import draylar.intotheomega.world.generator.*;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.registry.Registry;
@@ -12,6 +13,7 @@ public class OmegaStructurePieces {
     public static final StructurePieceType MEDIUM_PHANTOM_TOWER = register("medium_phantom_tower", MediumPhantomTowerGenerator::new);
     public static final StructurePieceType SMALL_CHORUS_MONUMENT = register("small_chorus_monument", SmallChorusMonumentGenerator::new);
     public static final StructurePieceType BEJEWELED_DUNGEON = register("bejeweled_dungeon", MatrixPedestalGenerator::new);
+    public static final StructurePieceType TEST_PIECE = register("test_piece", TestSF.TestPiece::new);
 //    public static final StructurePieceType SPIKE = register("spike", SpikeStructureGenerator::new);
 
     // sifting structures

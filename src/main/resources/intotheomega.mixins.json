@@ -85,8 +85,7 @@
     "world.EndPillarDesignMixin",
     "world.EndPillarSpikeCacheMixin",
     "world.EndPortalRedesignMixin",
-    "world.SpawnHelperMixin",
-    "world.VanillaSurfaceRulesMixin"
+    "world.SpawnHelperMixin"
   ],
   "client": [
     "ItemRendererMixin",

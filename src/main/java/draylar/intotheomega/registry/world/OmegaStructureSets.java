@@ -34,6 +34,13 @@ public class OmegaStructureSets {
                             StructureSet.createEntry(OmegaConfiguredStructureFeatures.MEDIUM_PHANTOM_TOWER)
                     ), new RandomSpreadStructurePlacement(24, 16, SpreadType.TRIANGULAR, 5145242)));
 
+    public static final RegistryEntry<StructureSet> TEST_SF =
+            StructureSets.register(
+                    key("test_sf"),
+                    new StructureSet(List.of(
+                            StructureSet.createEntry(OmegaConfiguredStructureFeatures.TEST_SF)
+                    ), new RandomSpreadStructurePlacement(10, 9, SpreadType.TRIANGULAR, 421414)));
+
     private static RegistryKey<StructureSet> key(String id) {
         return RegistryKey.of(Registry.STRUCTURE_SET_KEY, IntoTheOmega.id(id));
     }
