@@ -219,6 +219,7 @@ public class OmegaItems {
     // Shulker
     public static final Item LEVITATION_BLASTER = register("levitation_blaster", new LevitationBlasterItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE).maxDamage(1250)));
     public static final Item SHULKER_SLICER = register("shulker_slicer", new ShulkerSlicerItem(ShulkerToolMaterial.INSTANCE, 7, -2.0f, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item FLOATING_CROSS = register("floating_cross", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
 
     // stuff
     // misc
