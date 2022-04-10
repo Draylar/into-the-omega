@@ -8,6 +8,7 @@ import draylar.intotheomega.impl.BiomeRegistrySetter;
 import draylar.intotheomega.registry.OmegaBiomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
@@ -17,10 +18,7 @@ import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.TheEndBiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -43,6 +41,12 @@ public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
     @Shadow @Final private SimplexNoiseSampler noise;
     @Shadow @Final private RegistryEntry<Biome> centerBiome;
     @Shadow @Final private RegistryEntry<Biome> smallIslandsBiome;
+
+    @Shadow
+    public static float getNoiseAt(SimplexNoiseSampler simplexNoiseSampler, int i, int j) {
+        return 0;
+    }
+
     @Unique private static long cachedSeed = Integer.MAX_VALUE;
     @Unique private static List<RegistryKey<Biome>> biomeSections = new ArrayList<>();
     @Unique private static Map<Vec2i, RegistryKey<Biome>> cachedBiomePositions = new ConcurrentHashMap<>();
@@ -119,7 +123,7 @@ public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
 
             // We have not yet assigned a value.
             // If the noise value is above our threshold,
-            float chunkNoise = TheEndBiomeSource.getNoiseAt(this.noise, chunkX * 2 + 1, chunkZ * 2 + 1);
+            float chunkNoise = getNoiseAt(this.noise, chunkX * 2 + 1, chunkZ * 2 + 1);
 
             // Void.
             if(chunkNoise < -20.0f) {
@@ -181,7 +185,7 @@ public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
             finished.add(next);
 
             // are we in the island?
-            float offsetNoise = TheEndBiomeSource.getNoiseAt(noise, (next.x / 4) * 2 + 1, (next.z / 4) * 2 + 1);
+            float offsetNoise = getNoiseAt(noise, (next.x / 4) * 2 + 1, (next.z / 4) * 2 + 1);
             cachedNoise.put(next, offsetNoise);
 
             if(offsetNoise >= -20.0f) {

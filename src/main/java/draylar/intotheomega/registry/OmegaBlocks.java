@@ -115,10 +115,10 @@ public class OmegaBlocks {
     public static final Block BEJEWELED_OBSIDIAN_STREAK = register("bejeweled_obsidian_streak", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
 
     // Omega Slime
-    public static final Block OMEGA_SLIME_BLOCK = register("omega_slime_block", new Block(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)));
+    public static final Block OMEGA_SLIME_BLOCK = register("omega_slime_block", new Block(FabricBlockSettings.of(Material.ORGANIC_PRODUCT).slipperiness(0.8f)));
     public static final Block SLIME_OBELISK = register("slime_obelisk", new SlimeObeliskBlock(FabricBlockSettings.copy(Blocks.STONE).strength(1000000, 1000000)), new Item.Settings().group(IntoTheOmega.GROUP));
-    public static final Block CONGEALED_OMEGA_SLIME = register("congealed_omega_slime", new Block(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
-    public static final Block CONGEALED_SLIME = register("congealed_slime", new Block(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block CONGEALED_OMEGA_SLIME = register("congealed_omega_slime", new Block(FabricBlockSettings.of(Material.ORGANIC_PRODUCT).slipperiness(0.8f).sounds(BlockSoundGroup.SLIME)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block CONGEALED_SLIME = register("congealed_slime", new Block(FabricBlockSettings.of(Material.ORGANIC_PRODUCT).slipperiness(0.8f)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block OMEGA_SLIME_FLUID = register("omega_slime_fluid", new FluidBlock(OmegaFluids.OMEGA_SLIME_STILL, FabricBlockSettings.of(Material.WATER).noCollision().ticksRandomly().strength(25.0F)) {
     });
     public static final Block SLIME_LAUNCH_PAD = register("slime_launch_pad", new SlimeLaunchPadBlock(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));

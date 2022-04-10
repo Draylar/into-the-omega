@@ -27,6 +27,7 @@ public class OmegaSlimeWasteBiome {
         generationSettings.feature(GenerationStep.Feature.RAW_GENERATION, OmegaPlacedFeatures.SLIME_PILLAR);
         generationSettings.feature(GenerationStep.Feature.LAKES, OmegaPlacedFeatures.SLIME_LAKE);
         generationSettings.feature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, OmegaPlacedFeatures.SLIME_DUNGEON);
+        generationSettings.feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaPlacedFeatures.SLIME_DUNGEON);
 
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)

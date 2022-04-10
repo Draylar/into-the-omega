@@ -4,6 +4,7 @@ import draylar.intotheomega.command.DevelopmentSpawnableCommand;
 import draylar.intotheomega.command.EndCommand;
 import draylar.intotheomega.command.GeneratePillarCommand;
 import draylar.intotheomega.command.GeneratePortalCommand;
+import draylar.intotheomega.mixin.ChunkGeneratorSettingsAccessor;
 import draylar.intotheomega.network.ServerNetworking;
 import draylar.intotheomega.registry.*;
 import draylar.intotheomega.registry.world.*;
@@ -25,7 +26,10 @@ import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
+import net.minecraft.world.gen.surfacebuilder.VanillaSurfaceRules;
 import software.bernie.geckolib3.GeckoLib;
 
 public class IntoTheOmega implements ModInitializer {
@@ -59,6 +63,11 @@ public class IntoTheOmega implements ModInitializer {
         OmegaConfiguredStructureFeatures.init();
         OmegaStructureSets.init();
         OmegaBiomeTags.init();
+        OmegaNoiseKeys.init();
+
+        // This looks horrific, but the class we'd normally return from is loaded before Fabric hooks into ID syncing for blocks.
+        // If we return our own blocks any sooner, the int ID is saved as -1, which fails when it is sent to clients.
+        ((ChunkGeneratorSettingsAccessor) (Object) BuiltinRegistries.CHUNK_GENERATOR_SETTINGS.get(ChunkGeneratorSettings.END)).setSurfaceRule(OmegaSurfaceRules.create());
 
         // commands - // TODO: new registry class
         GeneratePillarCommand.initialize();
