@@ -42,6 +42,8 @@
     "ServerWorldAccessor",
     "SpawnEggItemAccessor",
     "StatusEffectInstanceAccessor",
+    "StructurePieceMixin",
+    "StructureStartMixin",
     "ThreadedAnvilChunkStorageAccessor",
     "TridentEntityMixin",
     "access.MaterialRuleContextAccessor",

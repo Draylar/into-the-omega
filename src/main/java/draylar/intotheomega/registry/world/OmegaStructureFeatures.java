@@ -17,6 +17,7 @@ public class OmegaStructureFeatures {
     public static final MatrixPedestalStructure MATRIX_PEDESTAL = register("matrix_pedestal", new MatrixPedestalStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final BejeweledDungeonStructure BEJEWELED_DUNGEON = register("bejeweled_dungeon", new BejeweledDungeonStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final TestSF TEST_SF = register("test_sf", new TestSF(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
+    public static final OmegaSlimeSpiralStructure OMEGA_SLIME_SPIRAL = register("omega_slime_spiral", new OmegaSlimeSpiralStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
 
     private static <SF extends StructureFeature<?>> SF register(String name, SF structureFeature, GenerationStep.Feature step) {
         return StructureFeatureAccessor.register(IntoTheOmega.id(name).toString(), structureFeature, step);
