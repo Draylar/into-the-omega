@@ -123,6 +123,7 @@ public class OmegaBlocks {
     });
     public static final Block SLIME_LAUNCH_PAD = register("slime_launch_pad", new SlimeLaunchPadBlock(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block SWIRLED_MIXER = register("swirled_mixer", new SwirledMixerBlock(FabricBlockSettings.copyOf(Blocks.END_STONE)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block OMEGA_SLIME_BRICKS = register("omega_slime_bricks", new Block(FabricBlockSettings.of(Material.ORGANIC_PRODUCT).slipperiness(0.8f).sounds(BlockSoundGroup.SLIME).hardness(4.0f)), new Item.Settings().group(IntoTheOmega.GROUP));
 
     public static final Block PHASE_PAD = register("phase_pad", new PhasePadBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block ENIGMA_STAND = register("enigma_stand", new EnigmaStandBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).nonOpaque()), new Item.Settings().group(IntoTheOmega.GROUP));
