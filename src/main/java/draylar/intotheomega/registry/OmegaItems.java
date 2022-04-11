@@ -10,6 +10,7 @@ import draylar.intotheomega.item.ice.ZeroAbyssItem;
 import draylar.intotheomega.item.memory.MemoryItem;
 import draylar.intotheomega.item.slime.DestinySwirlItem;
 import draylar.intotheomega.item.slime.OmegaSlimeSlayerItem;
+import draylar.intotheomega.item.slime.SwirlGrenadeItem;
 import draylar.intotheomega.item.spike.DarkFlameBlasterItem;
 import draylar.intotheomega.item.weapon.bow.LevitationBlasterItem;
 import draylar.intotheomega.item.weapon.sword.ShulkerSlicerItem;
@@ -154,6 +155,7 @@ public class OmegaItems {
     public static final Item DESTINY_SWIRL = register("destiny_swirl", new DestinySwirlItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item AURA_OF_SLIME = register("aura_of_slime", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item OMEGA_SLIME_BUCKET = register("omega_slime_bucket", new BucketItem(OmegaFluids.OMEGA_SLIME_STILL, new Item.Settings().group(IntoTheOmega.GROUP).maxCount(1)));
+    public static final Item SWIRL_GRENADE = register("swirl_grenade", new SwirlGrenadeItem(new Item.Settings().maxCount(16).group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
 
     // ice
     public static final Item ZERO_ABYSS = register("zero_abyss", new ZeroAbyssItem(ToolMaterials.DIAMOND, 10, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));

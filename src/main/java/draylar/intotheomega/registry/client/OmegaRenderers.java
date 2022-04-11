@@ -10,6 +10,8 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 
 @Environment(EnvType.CLIENT)
 public class OmegaRenderers {
@@ -38,6 +40,7 @@ public class OmegaRenderers {
         EntityRendererRegistry.register(OmegaEntities.VOID_FLOATER, EmptyEntityRenderer::new);
         EntityRendererRegistry.register(OmegaEntities.LEAF_MONSTER, LeafMonsterRenderer::new);
         EntityRendererRegistry.register(OmegaEntities.LEVITATION_PROJECTILE, EmptyEntityRenderer::new);
+        EntityRendererRegistry.register(OmegaEntities.SWIRL_GRENADE, FlyingItemEntityRenderer::new);
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);

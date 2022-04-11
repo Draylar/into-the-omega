@@ -112,7 +112,7 @@ public class OmegaSlimeSpiralStructure extends StructureFeature<DefaultFeatureCo
                 });
             }
 
-            System.out.println("Spiral: " + (System.currentTimeMillis() - start));
+//            System.out.println("Spiral: " + (System.currentTimeMillis() - start));
         }
     }
 }
