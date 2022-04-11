@@ -14,31 +14,31 @@ public class ConquestForgeScreen extends HandledScreen<ConquestForgeScreenHandle
 
     public ConquestForgeScreen(ConquestForgeScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        this.backgroundHeight = 236;
-        this.backgroundWidth = 190;
+        backgroundHeight = 236;
+        backgroundWidth = 190;
     }
 
     @Override
     public void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
         RenderSystem.clearColor(1.0F, 1.0F, 1.0F, 1.0F);
-        this.client.getTextureManager().bindTexture(CONQUEST_FORGE_UI);
+        RenderSystem.setShaderTexture(0, CONQUEST_FORGE_UI);
 
-        int middleX = (this.width - this.backgroundWidth) / 2;
-        int middleY = (this.height - this.backgroundHeight) / 2;
+        int middleX = (width - backgroundWidth) / 2;
+        int middleY = (height - backgroundHeight) / 2;
 
-        this.drawTexture(matrices, middleX, middleY, 0, 0, this.backgroundWidth, this.backgroundHeight);
+        drawTexture(matrices, middleX, middleY, 0, 0, backgroundWidth, backgroundHeight);
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
+        renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
-        this.drawMouseoverTooltip(matrices, mouseX, mouseY);
+        drawMouseoverTooltip(matrices, mouseX, mouseY);
     }
 
     @Override
     public void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
-        int middleX = this.backgroundWidth / 2 - client.textRenderer.getWidth(this.title) / 2;
-        this.textRenderer.draw(matrices, this.title, (float) middleX, (float) this.titleY + 12, 0xffe8fa);
+        int middleX = backgroundWidth / 2 - client.textRenderer.getWidth(title) / 2;
+        textRenderer.draw(matrices, title, (float) middleX, (float) titleY + 12, 0xffe8fa);
     }
 }
