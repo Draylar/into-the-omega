@@ -1,4 +1,4 @@
-package draylar.intotheomega;
+package draylar.intotheomega.world;
 
 import draylar.intotheomega.biome.OmegaSlimeWasteBiome;
 import draylar.intotheomega.impl.NoiseApply;

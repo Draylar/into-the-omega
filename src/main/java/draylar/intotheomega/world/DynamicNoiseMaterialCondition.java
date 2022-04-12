@@ -1,4 +1,4 @@
-package draylar.intotheomega;
+package draylar.intotheomega.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

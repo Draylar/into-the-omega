@@ -1,6 +1,6 @@
 package draylar.intotheomega.mixin.dev;
 
-import draylar.intotheomega.OmegaSurfaceRules;
+import draylar.intotheomega.world.OmegaSurfaceRules;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

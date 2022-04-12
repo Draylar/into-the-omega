@@ -13,6 +13,14 @@ import draylar.intotheomega.client.item.NebulaGearItemRenderer;
 import draylar.intotheomega.client.particle.*;
 import draylar.intotheomega.client.trinket.EyeTrinketRenderer;
 import draylar.intotheomega.entity.block.PhasePadBlockEntity;
+import draylar.intotheomega.impl.event.client.OmegaParticleFactoryRegistrar;
+import draylar.intotheomega.impl.event.client.armor.ChilledVoidArmorDisplayHandler;
+import draylar.intotheomega.impl.event.client.color.CrystaliteColorProvider;
+import draylar.intotheomega.impl.event.client.color.PhasePadTickHandler;
+import draylar.intotheomega.impl.event.client.predicate.BowPullPredicateProvider;
+import draylar.intotheomega.impl.event.client.predicate.FrostbusterChargePredicateProvider;
+import draylar.intotheomega.impl.event.client.predicate.UsingPredicateProvider;
+import draylar.intotheomega.impl.event.client.predicate.VariantSparkModePredicateProvider;
 import draylar.intotheomega.item.ChilledVoidArmorItem;
 import draylar.intotheomega.network.ClientNetworking;
 import draylar.intotheomega.registry.*;
@@ -32,6 +40,9 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
@@ -66,58 +77,17 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         ClientNetworking.init();
         OmegaClientEventHandlers.init();
         OmegaEntityModelLayers.init();
-
-        // screens
-        ScreenRegistry.register(IntoTheOmega.CF_SCREEN_HANDLER, ConquestForgeScreen::new);
-
+        HandledScreens.register(IntoTheOmega.CF_SCREEN_HANDLER, ConquestForgeScreen::new);
         OmegaRenderers.init();
-
         OmegaSlimeRenderingHandler.init();
+        OmegaBlockLayers.initialize();
+        OmegaItemRenderers.initialize();
 
-        // block render layers
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OBSIDIAN_GLASS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OMEGA_GLASS, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OBSIDISHROOM, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.ENDERSHROOM, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.VOID_MATRIX_SPAWN_BLOCK, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.ENIGMA_STAND, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.THORN_AIR, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.DARK_SAKURA_LEAF_PILE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.GALAXY_FURNACE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.SLERN, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.RICH_SLERN, RenderLayer.getCutout());
-
-        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OMEGA_SLIME_FLUID, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putFluid(OmegaFluids.OMEGA_SLIME_FLOWING, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putFluid(OmegaFluids.OMEGA_SLIME_STILL, RenderLayer.getTranslucent());
-//        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.INVISIBLE_DUNGEON_BRICK, RenderLayer.getCutout());
-
-        BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.MATRITE_ORBITAL, new MatriteOrbitalItemRenderer());
-        BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.NEBULA_GEAR, new NebulaGearItemRenderer());
-
-        FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pull"), (itemStack, clientWorld, livingEntity, seed) -> {
-            if (livingEntity == null) {
-                return 0.0F;
-            } else {
-                return livingEntity.getActiveItem() != itemStack ? 0.0F : (float)(itemStack.getMaxUseTime() - livingEntity.getItemUseTimeLeft()) / 20.0F;
-            }
-        });
-
-        FabricModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("charge"), (itemStack, clientWorld, livingEntity, seed) -> {
-            if (livingEntity == null) {
-                return 0.0F;
-            } else {
-                return (float)(96 - itemStack.getOrCreateSubNbt("Frostbuster").getInt("Charge")) / 6;
-            }
-        });
-
-        FabricModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("using"), (itemStack, clientWorld, livingEntity, seed) -> {
-            return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
-        });
-
-        FabricModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pulling"), (itemStack, clientWorld, livingEntity, seed) -> {
-            return livingEntity != null && livingEntity.isUsingItem() && livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
-        });
+        ModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pull"), new BowPullPredicateProvider());
+        ModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("charge"), new FrostbusterChargePredicateProvider());
+        ModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("using"), new UsingPredicateProvider());
+        ModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pulling"), new UsingPredicateProvider());
+        ModelPredicateProviderRegistry.register(OmegaItems.VARIANT_SPARK, new Identifier("mode"), new VariantSparkModePredicateProvider());
 
         // Register 16x variants of 32x tools for inventories
         HandheldModelRegistry.registerWithVariant(OmegaItems.INANIS, new ModelIdentifier("intotheomega:inanis#custom"), IntoTheOmega.id("item/inanis_gui"));
@@ -137,34 +107,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             out.accept(IntoTheOmega.id("item/violet_union_pink"));
         });
 
-        ClientTickEvents.START_CLIENT_TICK.register(client -> {
-            if(client.world == null) {
-                return;
-            }
-
-            if(!client.world.getBlockState(client.player.getBlockPos().down()).getBlock().equals(OmegaBlocks.PHASE_PAD)) {
-                PhasePadUtils.reset();
-            } else {
-                PhasePadUtils.stepOn(client.world, client.player.getBlockPos().down());
-
-                Vec3d originPos = client.cameraEntity.getPos().multiply(1, 0, 1).add(0, client.cameraEntity.getEyeY(), 0);
-                Vec3d rotationVector = client.player.getRotationVector();
-
-                for(int i = 0; i < 32; i++) {
-                    Vec3d offsetPos = originPos.add(rotationVector.multiply(i));
-                    BlockPos offsetBlockPos = new BlockPos(offsetPos);
-
-                    if(client.world.getBlockState(offsetBlockPos).getBlock().equals(OmegaBlocks.PHASE_PAD)) {
-                        BlockEntity entity = client.world.getBlockEntity(offsetBlockPos);
-
-                        if(entity != null) {
-                            ((PhasePadBlockEntity) entity).highlight();
-                            PhasePadUtils.setHighlighting(offsetBlockPos);
-                        }
-                    }
-                }
-            }
-        });
+        ClientTickEvents.START_CLIENT_TICK.register(new PhasePadTickHandler());
 
         AttackBlockCallback.EVENT.register((playerEntity, world, hand, blockPos, direction) -> {
             if(world.isClient) {
@@ -176,49 +119,10 @@ public class IntoTheOmegaClient implements ClientModInitializer {
             return ActionResult.PASS;
         });
 
-        FabricModelPredicateProviderRegistry.register(OmegaItems.VARIANT_SPARK, new Identifier("mode"), (stack, world, entity, seed) -> {
-            return stack.getOrCreateSubNbt("Data").getInt("Mode");
-        });
 
-        ArmorSetDisplayRegistry.register(ChilledVoidArmorItem.class, (player, world, delta) -> {
-            double age = MathHelper.lerp(delta, player.age, player.age + 1) / 10f;
-            double x = Math.sin(age) * 2;
-            double z = Math.cos(age) * 2;
-            double y = Math.sin(age / 10) + 1;
-
-            double secondAge = MathHelper.lerp(delta, player.age, player.age + 1) / 10f + 135;
-            double secondX = Math.sin(secondAge) * 2;
-            double secondZ = Math.cos(secondAge) * 2;
-
-            world.addParticle(OmegaParticles.ICE_FLAKE, player.getX() + x, player.getY() + y, player.getZ() + z, 0, 0, 0);
-            world.addParticle(OmegaParticles.ICE_FLAKE, player.getX() + secondX, player.getY() + y, player.getZ() + secondZ, 0, 0, 0);
-        });
-
-        SimplexNoiseSampler noise = new SimplexNoiseSampler(new SimpleRandom(new Random().nextLong()));
-
-        ColorProviderRegistry.BLOCK.register((state, world, pos, tintIndex) -> {
-            double rSample =(noise.sample((pos.getX() + 5000) / 100f, (pos.getZ() - 500) / 100f) + 1) / 2;
-            double sample = (noise.sample(pos.getX() / 100f, pos.getZ() / 100f) + 1) / 2;
-            double bSample = (noise.sample((pos.getX() - 5000) / 100f, (pos.getZ() + 500) / 100f) + 1) / 2;
-
-            int r = Math.min(255, Math.max(0, (int) (rSample * 255)));
-            int g = Math.min(255, Math.max(0, (int) (sample * 255)));
-            int b = Math.min(255, Math.max(0, (int) (bSample * 255)));
-            return Integer.parseInt(String.format("%02x%02x%02x", r, g, b), 16);
-        }, OmegaBlocks.CRYSTALITE);
-
-        ParticleEvents.REGISTER_FACTORIES.register(manager -> {
-            manager.registerFactory(OmegaParticles.OMEGA_PARTICLE, provider -> new OmegaParticle.OmegaParticleFactory(provider, new Color(0.9F, 0.1F, 0.9F)));
-            manager.registerFactory(OmegaParticles.DARK, provider -> new OmegaParticle.OmegaParticleFactory(provider, new Color(0.34F, 0.03F, 0.47F)));
-            manager.registerFactory(OmegaParticles.OMEGA_SLIME, provider -> new OmegaSlimeParticle());
-            manager.registerFactory(OmegaParticles.SMALL_OMEGA_BURST, SmallOmegaBurstParticle.Factory::new);
-            manager.registerFactory(OmegaParticles.SMALL_BLUE_OMEGA_BURST, SmallOmegaBurstParticle.Factory::new);
-            manager.registerFactory(OmegaParticles.SMALL_PINK_OMEGA_BURST, SmallOmegaBurstParticle.Factory::new);
-            manager.registerFactory(OmegaParticles.VARIANT_FUSION, VariantFusionParticle.Factory::new);
-            manager.registerFactory(OmegaParticles.MATRIX_EXPLOSION, MatrixExplosionParticle.Factory::new);
-            manager.registerFactory(OmegaParticles.ICE_FLAKE, IceFlakeParticle.Factory::new);
-            manager.registerFactory(OmegaParticles.DARK_SAKURA_PETAL, DarkSakuraPetalParticle.Factory::new);
-        });
+        ArmorSetDisplayRegistry.register(ChilledVoidArmorItem.class, new ChilledVoidArmorDisplayHandler());
+        ColorProviderRegistry.BLOCK.register(new CrystaliteColorProvider(), OmegaBlocks.CRYSTALITE);
+        ParticleEvents.REGISTER_FACTORIES.register(new OmegaParticleFactoryRegistrar());
 
         TrinketRendererRegistry.registerRenderer(OmegaItems.EBONY_EYE, new EyeTrinketRenderer());
         TrinketRendererRegistry.registerRenderer(OmegaItems.BOUND_EYE, new EyeTrinketRenderer());

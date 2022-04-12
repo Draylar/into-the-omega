@@ -4,11 +4,13 @@ import draylar.intotheomega.command.DevelopmentSpawnableCommand;
 import draylar.intotheomega.command.EndCommand;
 import draylar.intotheomega.command.GeneratePillarCommand;
 import draylar.intotheomega.command.GeneratePortalCommand;
+import draylar.intotheomega.impl.event.server.DragonLootTableHandler;
 import draylar.intotheomega.mixin.ChunkGeneratorSettingsAccessor;
 import draylar.intotheomega.network.ServerNetworking;
 import draylar.intotheomega.registry.*;
 import draylar.intotheomega.registry.world.*;
 import draylar.intotheomega.ui.ConquestForgeScreenHandler;
+import draylar.intotheomega.world.OmegaSurfaceRules;
 import draylar.intotheomega.world.feature.DarkSakuraTreeFeature;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
@@ -19,17 +21,11 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
-import net.minecraft.world.gen.surfacebuilder.VanillaSurfaceRules;
 import software.bernie.geckolib3.GeckoLib;
 
 public class IntoTheOmega implements ModInitializer {
@@ -77,7 +73,7 @@ public class IntoTheOmega implements ModInitializer {
             });
         }
 
-        registerDragonLootAppender();
+        LootTableLoadingCallback.EVENT.register(new DragonLootTableHandler());
 
 //        TheEndBiomes.addHighlandsBiome(OmegaBiomes.SHALLOWS_KEY, 50);
 //        TheEndBiomes.addMidlandsBiome(OmegaBiomes.SHALLOWS_KEY, OmegaBiomes.SHALLOWS_KEY, 1000);
@@ -102,28 +98,5 @@ public class IntoTheOmega implements ModInitializer {
         }
 
         return null;
-    }
-
-    public static void registerDragonLootAppender() {
-        LootTableLoadingCallback.EVENT.register((resourceManager, lootManager, identifier, supplier, lootTableSetter) -> {
-            if(identifier.toString().equals("minecraft:entities/ender_dragon")) {
-                LootPool artifact = LootPool.builder()
-                        .with(ItemEntry.builder(OmegaItems.CRYSTALIA))
-                        .with(ItemEntry.builder(OmegaItems.DRAGON_EYE))
-                        .with(ItemEntry.builder(OmegaItems.SEVENTH_PILLAR))
-                        .with(ItemEntry.builder(OmegaItems.INANIS))
-                        .with(ItemEntry.builder(OmegaItems.HORIZON))
-                        .rolls(ConstantLootNumberProvider.create(1))
-                        .build();
-
-                LootPool scales = LootPool.builder()
-                        .with(ItemEntry.builder(OmegaItems.DRAGON_SCALE).apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(10F, 20F))))
-                        .rolls(ConstantLootNumberProvider.create(1))
-                        .build();
-
-                supplier.withPool(artifact);
-                supplier.withPool(scales);
-            }
-        });
     }
 }
