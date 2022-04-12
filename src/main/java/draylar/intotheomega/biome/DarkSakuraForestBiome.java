@@ -11,7 +11,6 @@ import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 
 public class DarkSakuraForestBiome {
 
-    public static final Biome INSTANCE = create();
     public static final RegistryKey<Biome> KEY = RegistryKey.of(Registry.BIOME_KEY, IntoTheOmega.id("dark_sakura_forest"));
 
     public static Biome create() {

@@ -15,10 +15,9 @@ import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 
 public class ChorusForestBiome {
 
-    public static final Biome INSTANCE = createChorusForestBiome();
     public static final RegistryKey<Biome> KEY = RegistryKey.of(Registry.BIOME_KEY, IntoTheOmega.id("chorus_forest"));
 
-    private static Biome createChorusForestBiome() {
+    public static Biome create() {
         SpawnSettings.Builder spawnSettings = new SpawnSettings.Builder();
         DefaultBiomeFeatures.addEndMobs(spawnSettings);
         spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(OmegaEntities.CHORUS_COW, 5, 3, 6));
