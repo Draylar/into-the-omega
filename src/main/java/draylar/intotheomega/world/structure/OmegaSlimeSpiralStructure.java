@@ -2,10 +2,10 @@ package draylar.intotheomega.world.structure;
 
 import com.mojang.serialization.Codec;
 import draylar.intotheomega.api.StructureStartCache;
+import draylar.intotheomega.api.world.StructureCache;
 import draylar.intotheomega.impl.StructurePieceExtensions;
 import draylar.intotheomega.registry.world.OmegaStructurePieces;
 import draylar.intotheomega.world.SlimeStructureGenerator;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.*;
@@ -20,10 +20,7 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.random.SimpleRandom;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class OmegaSlimeSpiralStructure extends StructureFeature<DefaultFeatureConfig> {
@@ -61,18 +58,28 @@ public class OmegaSlimeSpiralStructure extends StructureFeature<DefaultFeatureCo
 
         @Override
         public void generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos, BlockPos pos) {
-            for(int x = -128; x <= 128; x++) {
-                for (int z = -128; z <= 128; z++) {
-
-                    // todo: add y to calculation inside loop once we have cached the air for performance
-                    double noise = NOISE.sample((pos.getX() + x) / 50f, pos.getY(), (pos.getZ() + z) / 50f) * 28;
-                    if(Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2)) <= 128 - noise) {
+            StructureCache cache = StructureStartCache.get(StructurePieceExtensions.get(this).getStructureStart()).getPlacementCache();
+            cache.placeOrCompute(0, world, this, chunkBox, chunkPos, (blocks) -> {
+                for (int x = -128; x <= 128; x++) {
+                    for (int z = -128; z <= 128; z++) {
                         for (int y = 0; y < 70; y++) {
-                            addBlock(world, Blocks.AIR.getDefaultState(), pos.getX() + x, y, pos.getZ() + z, chunkBox);
+                            double distanceFromCenter = Math.sqrt(Math.pow(x, 2) + Math.pow(z, 2));
+
+                            // Don't calculate noise if we're within 75% of the max radius to save time.
+                            if(distanceFromCenter <= 128 * 0.75) {
+                                blocks.put(new BlockPos(pos.getX() + x, y, pos.getZ() + z), Blocks.AIR.getDefaultState());
+                            } else {
+                                double noise = NOISE.sample((pos.getX() + x) / 50f, (pos.getY() + y) / 50f, (pos.getZ() + z) / 50f) * 28;
+                                if(distanceFromCenter <= 128 - noise) {
+                                    blocks.put(new BlockPos(pos.getX() + x, y, pos.getZ() + z), Blocks.AIR.getDefaultState());
+                                }
+                            }
                         }
                     }
                 }
-            }
+
+                return new StructureCache.ChunkSectionedEntry(blocks);
+            });
         }
     }
 
@@ -81,7 +88,6 @@ public class OmegaSlimeSpiralStructure extends StructureFeature<DefaultFeatureCo
         public OmegaSlimeSpiralPiece(BlockPos pos) {
             super(OmegaStructurePieces.OMEGA_SLIME_SPIRAL, 0,
                     new BlockBox(pos.getX() - 48, pos.getY() - 48, pos.getZ() - 48, pos.getX() + 48, pos.getY() + 250, pos.getZ() + 48));
-
 
 
             setOrientation(null);
@@ -99,20 +105,11 @@ public class OmegaSlimeSpiralStructure extends StructureFeature<DefaultFeatureCo
 
         @Override
         public void generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos, BlockPos pos) {
-            long start = System.currentTimeMillis();
-            @Nullable Map<BlockPos, BlockState> cache = StructureStartCache.get(StructurePieceExtensions.get(this).getStructureStart()).getPlacementCache();
-
-            if(cache == null) {
-                cache = new HashMap<>();
-                new SlimeStructureGenerator(this, chunkBox, cache).spawn(world, pos);
-                StructureStartCache.get(StructurePieceExtensions.get(this).getStructureStart()).setPlacementCache(cache);
-            } else {
-                cache.forEach((cachePos, state) -> {
-                    addBlock(world, state, cachePos.getX(), cachePos.getY(), cachePos.getZ(), chunkBox);
-                });
-            }
-
-//            System.out.println("Spiral: " + (System.currentTimeMillis() - start));
+            StructureCache cache = StructureStartCache.get(StructurePieceExtensions.get(this).getStructureStart()).getPlacementCache();
+            cache.placeOrCompute(1, world, this, chunkBox, chunkPos, (blocks) -> {
+                new SlimeStructureGenerator(this, chunkBox, blocks).spawn(world, pos);
+                return new StructureCache.ChunkSectionedEntry(blocks);
+            });
         }
     }
 }

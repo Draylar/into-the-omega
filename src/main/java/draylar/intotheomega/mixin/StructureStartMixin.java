@@ -1,8 +1,8 @@
 package draylar.intotheomega.mixin;
 
+import draylar.intotheomega.api.world.StructureCache;
 import draylar.intotheomega.impl.StructurePieceExtensions;
 import draylar.intotheomega.impl.StructureStartExtensions;
-import net.minecraft.block.BlockState;
 import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.math.BlockBox;
@@ -21,24 +21,17 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 @Mixin(StructureStart.class)
 public class StructureStartMixin implements StructureStartExtensions {
 
-    @Unique private Map<BlockPos, BlockState> cache;
+    @Unique private final StructureCache cache = new StructureCache();
 
     @Override
     @Unique
-    public @Nullable Map<BlockPos, BlockState> getPlacementCache() {
+    public @Nullable StructureCache getPlacementCache() {
         return cache;
-    }
-
-    @Override
-    @Unique
-    public void setPlacementCache(Map<BlockPos, BlockState> map) {
-        cache = map;
     }
 
     @Inject(method = "place", at = @At(value = "INVOKE", target = "Lnet/minecraft/structure/StructurePiece;generate(Lnet/minecraft/world/StructureWorldAccess;Lnet/minecraft/world/gen/StructureAccessor;Lnet/minecraft/world/gen/chunk/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/BlockBox;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/util/math/BlockPos;)V"), locals = LocalCapture.CAPTURE_FAILHARD)
