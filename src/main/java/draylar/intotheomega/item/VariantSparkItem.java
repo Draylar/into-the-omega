@@ -1,8 +1,6 @@
 package draylar.intotheomega.item;
 
-import com.google.common.collect.ImmutableSetMultimap;
-import com.google.common.collect.Multimap;
-import draylar.intotheomega.api.AttackHandler;
+import draylar.intotheomega.api.item.AttackHandler;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -10,9 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;

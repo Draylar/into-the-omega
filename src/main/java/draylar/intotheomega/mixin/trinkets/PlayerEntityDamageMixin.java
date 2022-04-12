@@ -1,6 +1,7 @@
 package draylar.intotheomega.mixin.trinkets;
 
 import draylar.intotheomega.api.event.PlayerAttackCallback;
+import draylar.intotheomega.api.item.TrinketEventHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * This Mixin is responsible for modifying the damage a player deals to a target based on {@link draylar.intotheomega.api.TrinketEventHandler} listeners.
+ * This Mixin is responsible for modifying the damage a player deals to a target based on {@link TrinketEventHandler} listeners.
  */
 @Mixin(PlayerEntity.class)
 public class PlayerEntityDamageMixin {

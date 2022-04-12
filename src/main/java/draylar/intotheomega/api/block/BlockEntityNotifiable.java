@@ -1,4 +1,4 @@
-package draylar.intotheomega.api;
+package draylar.intotheomega.api.block;
 
 import net.minecraft.entity.LivingEntity;
 

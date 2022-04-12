@@ -1,7 +1,7 @@
 package draylar.intotheomega.entity.dungeon;
 
-import draylar.intotheomega.api.BlockEntityNotifiable;
-import draylar.intotheomega.api.BlockEntitySyncing;
+import draylar.intotheomega.api.block.BlockEntityNotifiable;
+import draylar.intotheomega.api.block.BlockEntitySyncing;
 import draylar.intotheomega.api.EntityDeathNotifier;
 import draylar.intotheomega.registry.*;
 import net.minecraft.block.BlockState;

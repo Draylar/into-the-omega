@@ -1,7 +1,7 @@
 package draylar.intotheomega.item.slime;
 
 import dev.emi.trinkets.api.TrinketItem;
-import draylar.intotheomega.api.TrinketEventHandler;
+import draylar.intotheomega.api.item.TrinketEventHandler;
 import draylar.intotheomega.registry.OmegaStatusEffects;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;

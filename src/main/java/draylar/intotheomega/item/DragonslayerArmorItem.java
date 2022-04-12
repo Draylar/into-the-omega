@@ -1,6 +1,6 @@
 package draylar.intotheomega.item;
 
-import draylar.intotheomega.api.SetBonusProvider;
+import draylar.intotheomega.api.item.SetBonusProvider;
 import draylar.intotheomega.material.DragonslayerArmorMaterial;
 import draylar.intotheomega.registry.OmegaItems;
 import net.minecraft.client.item.TooltipContext;

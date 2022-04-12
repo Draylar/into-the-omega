@@ -1,4 +1,4 @@
-package draylar.intotheomega.api;
+package draylar.intotheomega.api.item;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

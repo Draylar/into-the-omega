@@ -1,6 +1,6 @@
 package draylar.intotheomega.entity.block;
 
-import draylar.intotheomega.api.BlockEntitySyncing;
+import draylar.intotheomega.api.block.BlockEntitySyncing;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
 import draylar.intotheomega.registry.OmegaBlockEntities;
 import draylar.intotheomega.registry.OmegaEntities;
@@ -8,7 +8,6 @@ import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.listener.ClientPlayPacketListener;

@@ -1,6 +1,6 @@
 package draylar.intotheomega.mixin.dungeon;
 
-import draylar.intotheomega.api.BlockEntityNotifiable;
+import draylar.intotheomega.api.block.BlockEntityNotifiable;
 import draylar.intotheomega.api.EntityDeathNotifier;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;

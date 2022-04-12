@@ -1,4 +1,4 @@
-package draylar.intotheomega.api;
+package draylar.intotheomega.api.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
