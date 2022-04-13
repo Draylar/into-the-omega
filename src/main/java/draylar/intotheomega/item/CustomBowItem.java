@@ -69,42 +69,23 @@ public class CustomBowItem extends BowItem {
                     boolean bl2 = skipArrowCheck && arrowStack.getItem() == Items.ARROW;
 
                     if (!world.isClient) {
-                        ArrowItem arrowItem = (ArrowItem) (arrowStack.getItem() instanceof ArrowItem ? arrowStack.getItem() : Items.ARROW);
-                        PersistentProjectileEntity arrowEntity = arrowItem.createArrow(world, arrowStack, playerEntity);
-                        arrowEntity.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, pullProgress * 3.0F, 1.0F);
-                        ((ProjectileManipulator) arrowEntity).ito_setOrigin(stack);
-
                         // Make Arrow crit if pull progress is fully complete
-                        if (pullProgress == 1.0F) {
-                            arrowEntity.setCritical(true);
-                        }
+                        boolean critical = pullProgress == 1.0f;
+                        double damage = 2.0 + (EnchantmentHelper.getLevel(Enchantments.POWER, stack) > 0 ? (EnchantmentHelper.getLevel(Enchantments.POWER, stack) * 0.5D + 0.5D) : 0);
+                        int punch = EnchantmentHelper.getLevel(Enchantments.PUNCH, stack);
+                        int fireTicks = EnchantmentHelper.getLevel(Enchantments.FLAME, stack) > 0 ? 100 : 0;
 
-                        // Apply damage from power enchantment
-                        int j = EnchantmentHelper.getLevel(Enchantments.POWER, stack);
-                        if (j > 0) {
-                            arrowEntity.setDamage(arrowEntity.getDamage() + (double) j * 0.5D + 0.5D);
-                        }
-
-                        // Apply punch knockback
-                        int k = EnchantmentHelper.getLevel(Enchantments.PUNCH, stack);
-                        if (k > 0) {
-                            arrowEntity.setPunch(k);
-                        }
-
-                        // Apply flame
-                        if (EnchantmentHelper.getLevel(Enchantments.FLAME, stack) > 0) {
-                            arrowEntity.setOnFireFor(100);
+                        // Set arrow pickup type based on source
+                        PersistentProjectileEntity.PickupPermission pickupPermission = PersistentProjectileEntity.PickupPermission.ALLOWED;
+                        if (bl2 || playerEntity.getAbilities().creativeMode && (arrowStack.getItem() == Items.SPECTRAL_ARROW || arrowStack.getItem() == Items.TIPPED_ARROW)) {
+                            pickupPermission = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
                         }
 
                         // Damage tool
                         stack.damage(1, playerEntity, (p) -> p.sendToolBreakStatus(playerEntity.getActiveHand()));
 
-                        // Set arrow pickup type based on source
-                        if (bl2 || playerEntity.getAbilities().creativeMode && (arrowStack.getItem() == Items.SPECTRAL_ARROW || arrowStack.getItem() == Items.TIPPED_ARROW)) {
-                            arrowEntity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
-                        }
-
-                        world.spawnEntity(arrowEntity);
+                        ArrowData data = new ArrowData(critical, damage, punch, fireTicks, pickupPermission);
+                        shootArrow(arrowStack, stack, world, playerEntity, data, pullProgress);
                     }
 
                     world.playSound(null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (world.random.nextFloat() * 0.4F + 1.2F) + pullProgress * 0.5F);
@@ -121,6 +102,26 @@ public class CustomBowItem extends BowItem {
                 }
             }
         }
+    }
+
+    public void shootArrow(ItemStack arrowStack, ItemStack bowStack, World world, PlayerEntity playerEntity, ArrowData data, float pullProgress) {
+        PersistentProjectileEntity arrow = createArrow(arrowStack, bowStack, world, playerEntity, data);
+        arrow.setVelocity(playerEntity, playerEntity.getPitch(), playerEntity.getYaw(), 0.0F, pullProgress * 3.0F, 1.0F);
+        playerEntity.world.spawnEntity(arrow);
+    }
+
+    public PersistentProjectileEntity createArrow(ItemStack arrowStack, ItemStack bowStack, World world, PlayerEntity playerEntity, ArrowData data) {
+        ArrowItem arrowItem = (ArrowItem) (arrowStack.getItem() instanceof ArrowItem ? arrowStack.getItem() : Items.ARROW);
+        PersistentProjectileEntity arrow = arrowItem.createArrow(world, arrowStack, playerEntity);
+        ((ProjectileManipulator) arrow).ito_setOrigin(bowStack);
+
+        // Set attributes
+        arrow.setCritical(data.critical);
+        arrow.setDamage(data.damage);
+        arrow.setPunch(data.punch);
+        arrow.setFireTicks(data.fireTicks);
+        arrow.pickupType = data.pickupType;
+        return arrow;
     }
 
     public static float getPullProgress(ItemStack stack, CustomBowItem bow, int useTicks) {
@@ -142,5 +143,9 @@ public class CustomBowItem extends BowItem {
     @Override
     public boolean canRepair(ItemStack stack, ItemStack ingredient) {
         return this.material.getRepairIngredient().test(ingredient) || super.canRepair(stack, ingredient);
+    }
+
+    public record ArrowData(boolean critical, double damage, int punch, int fireTicks, PersistentProjectileEntity.PickupPermission pickupType) {
+
     }
 }
