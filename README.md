@@ -1,6 +1,6 @@
 # Into the Ω
 
-![](assets\enigma_king_render.png)
+![](assets/enigma_king_render.png)
 
 
 the twenty-fourth, and last, letter of the Greek alphabet (Ω, ω), transliterated as ‘o’ or ‘ō.’.  |  the last of any series; **the end**.
