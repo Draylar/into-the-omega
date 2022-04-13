@@ -19,6 +19,7 @@ public class OmegaStructureFeatures {
     public static final TestSF TEST_SF = register("test_sf", new TestSF(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final OmegaSlimeSpiralStructure OMEGA_SLIME_SPIRAL = register("omega_slime_spiral", new OmegaSlimeSpiralStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final SlimeTendrilStructure SLIME_TENDRIL = register("slime_tendril", new SlimeTendrilStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
+    public static final SlimeCeilingStructure SLIME_CEILING = register("slime_ceiling", new SlimeCeilingStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
 
     private static <SF extends StructureFeature<?>> SF register(String name, SF structureFeature, GenerationStep.Feature step) {
         return StructureFeatureAccessor.register(IntoTheOmega.id(name).toString(), structureFeature, step);
