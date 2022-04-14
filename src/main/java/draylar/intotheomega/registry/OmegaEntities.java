@@ -213,6 +213,14 @@ public class OmegaEntities {
                     .entityFactory(SwirlGrenadeEntity::new)
                     .build());
 
+    public static final EntityType<SlimefallEntity> SLIMEFALL = register(
+            "slimefall",
+            FabricEntityTypeBuilder.create()
+                    .spawnGroup(SpawnGroup.MISC)
+                    .dimensions(EntityDimensions.fixed(1f, 1f))
+                    .entityFactory(SlimefallEntity::new)
+                    .build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }

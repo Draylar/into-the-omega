@@ -156,6 +156,7 @@ public class OmegaItems {
     public static final Item AURA_OF_SLIME = register("aura_of_slime", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
     public static final Item OMEGA_SLIME_BUCKET = register("omega_slime_bucket", new BucketItem(OmegaFluids.OMEGA_SLIME_STILL, new Item.Settings().group(IntoTheOmega.GROUP).maxCount(1)));
     public static final Item SWIRL_GRENADE = register("swirl_grenade", new SwirlGrenadeItem(new Item.Settings().maxCount(16).group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
+    public static final Item SLIMEFALL = register("slimefall", new SlimefallItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
 
     // ice
     public static final Item ZERO_ABYSS = register("zero_abyss", new ZeroAbyssItem(ToolMaterials.DIAMOND, 10, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
