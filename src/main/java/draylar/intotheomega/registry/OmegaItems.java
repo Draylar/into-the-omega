@@ -145,7 +145,7 @@ public class OmegaItems {
     public static final Item OMEGA_SLIME_BOOTS = register("omega_slime_boots", new ArmorItem(OmegaSlimeArmorMaterial.INSTANCE, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item SLIMEY_OMEGA_BALLOON = register("slimey_omega_balloon", new DoubleJumpTrinketItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC), 3));
     public static final Item SWIRLED_OMEGA_JAM = register("swirled_omega_jam", new SwirledOmegaJamItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
-    public static final Item OMEGA_SLIME_SQUIRTER = register("omega_slime_squirter", new SlimeSoakerItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1)));
+    public static final Item OMEGA_SLIME_SQUIRTER = register("omega_slime_squirter", new SlimeSoakerItem(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC).maxCount(1).maxDamage(1000)));
     public static final Item OMEGA_SLIME_SLAYER = register("omega_slime_slayer", new OmegaSlimeSlayerItem(ToolMaterials.DIAMOND, 10, -2.4f, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item OMEGA_SLIME_BLOCK = register("omega_slime_block", new BlockItem(OmegaBlocks.OMEGA_SLIME_BLOCK, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
     public static final Item OMEGA_SLIME_EMPEROR_SPAWN_EGG = register("omega_slime_emperor_spawn_egg", new UncoloredSpawnEggItem(OmegaEntities.OMEGA_SLIME_EMPEROR, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.EPIC)));
