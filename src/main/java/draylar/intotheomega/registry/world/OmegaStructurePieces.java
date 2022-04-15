@@ -4,6 +4,7 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.world.TestSF;
 import draylar.intotheomega.world.generator.*;
 import draylar.intotheomega.world.structure.OmegaSlimeSpiralStructure;
+import draylar.intotheomega.world.structure.SlimeCaveStructure;
 import draylar.intotheomega.world.structure.SlimeCeilingStructure;
 import draylar.intotheomega.world.structure.SlimeTendrilStructure;
 import net.minecraft.structure.StructurePieceType;
@@ -21,6 +22,8 @@ public class OmegaStructurePieces {
     public static final StructurePieceType OMEGA_SLIME_SPIRAL_VOID = register("omega_slime_spiral_void", OmegaSlimeSpiralStructure.OmegaSlimeSpiralVoid::new);
     public static final StructurePieceType SLIME_TENDRIL = register("slime_tendril", SlimeTendrilStructure.Piece::new);
     public static final StructurePieceType SLIME_CEILING = register("slime_ceiling", SlimeCeilingStructure.Piece::new);
+    public static final StructurePieceType SLIME_CAVE = register("slime_cave", SlimeCaveStructure.Piece::new);
+
 
 
 //    public static final StructurePieceType SPIKE = register("spike", SpikeStructureGenerator::new);

@@ -25,6 +25,7 @@ public class OmegaConfiguredStructureFeatures {
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> OMEGA_SLIME_SPIRAL = register(key("omega_slime_spiral"), OmegaStructureFeatures.OMEGA_SLIME_SPIRAL.configure(new DefaultFeatureConfig(), OmegaBiomeTags.OMEGA_SLIME_WASTES));
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> SLIME_TENDRIL = register(key("slime_tendril"), OmegaStructureFeatures.SLIME_TENDRIL.configure(new DefaultFeatureConfig(), OmegaBiomeTags.OMEGA_SLIME_WASTES));
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> SLIME_CEILING = register(key("slime_ceiling"), OmegaStructureFeatures.SLIME_CEILING.configure(new DefaultFeatureConfig(), OmegaBiomeTags.OMEGA_SLIME_WASTES));
+    public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> SLIME_CAVE = register(key("slime_cave"), OmegaStructureFeatures.SLIME_CAVE.configure(new DefaultFeatureConfig(), OmegaBiomeTags.OMEGA_SLIME_WASTES));
 
 //    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_GENERIC_ISLAND = register("generic_island", OmegaWorld.GENERIC_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
 //    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_ICE_ISLAND = register("ice_island", OmegaWorld.ICE_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
