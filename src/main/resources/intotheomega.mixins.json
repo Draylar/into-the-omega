@@ -17,6 +17,7 @@
     "EnchantedBookItemMixin",
     "EnchantmentHelperMixin",
     "EnchantmentMixin",
+    "EndSkyboxMixin",
     "EndSkyColorMixin",
     "EntityAccessor",
     "EntityModelLayersAccessor",

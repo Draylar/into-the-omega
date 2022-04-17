@@ -24,11 +24,11 @@ public class EndSkyColorMixin {
 
     @Shadow @Final private MinecraftClient client;
 
-    @Redirect(method = "renderEndSky", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/VertexConsumer;color(IIII)Lnet/minecraft/client/render/VertexConsumer;"))
-    private VertexConsumer changeSkyColor(VertexConsumer instance, int r, int g, int b, int a) {
-        RegistryEntry<Biome> biomeEntry = world.getBiome(client.player.getBlockPos());
-        Biome biome = biomeEntry.value();
-        Vec3d color = EndSkyColor.getColor(biomeEntry.getKey().get());
-        return instance.color((int) color.getX(), (int) color.getY(), (int) color.getZ(), a);
-    }
+//    @Redirect(method = "renderEndSky", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/VertexConsumer;color(IIII)Lnet/minecraft/client/render/VertexConsumer;"))
+//    private VertexConsumer changeSkyColor(VertexConsumer instance, int r, int g, int b, int a) {
+//        RegistryEntry<Biome> biomeEntry = world.getBiome(client.player.getBlockPos());
+//        Biome biome = biomeEntry.value();
+//        Vec3d color = EndSkyColor.getColor(biomeEntry.getKey().get());
+//        return instance.color((int) color.getX(), (int) color.getY(), (int) color.getZ(), a);
+//    }
 }
