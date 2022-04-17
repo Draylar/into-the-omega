@@ -16,7 +16,7 @@ public class OmegaStatusEffects {
             .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_SPEED, "03C3C89D-7037-4B42-869F-B146BCB64D2E", -0.25D, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
     public static final StatusEffect SWIRLED = register("swirled", new StatusEffect(StatusEffectCategory.HARMFUL, 0x1fa641) {});
     public static final StatusEffect PURE_STRENGTH = register(
-            "strength", (new DamageModifierStatusEffect(StatusEffectCategory.BENEFICIAL, 9643043, 3.0D) {})
+            "pure_strength", (new DamageModifierStatusEffect(StatusEffectCategory.BENEFICIAL, 9643043, 3.0D) {})
                     .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, "648D7064-6A60-4F59-8ABE-C2C23A6DD7A9", 0.2D, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
 
     private static StatusEffect register(String id, StatusEffect entry) {
