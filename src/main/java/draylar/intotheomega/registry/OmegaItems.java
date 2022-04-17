@@ -224,6 +224,13 @@ public class OmegaItems {
     public static final Item SHULKER_SLICER = register("shulker_slicer", new ShulkerSlicerItem(ShulkerToolMaterial.INSTANCE, 7, -2.0f, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
     public static final Item FLOATING_CROSS = register("floating_cross", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
 
+    // Crimson Majesty
+    public static final Item CRIMSON_MAJESTY_HELMET = register("crimson_majesty_helmet", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, EquipmentSlot.HEAD, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item CRIMSON_MAJESTY_CHESTPLATE = register("crimson_majesty_chestplate", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, EquipmentSlot.CHEST, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item CRIMSON_MAJESTY_LEGGINGS = register("crimson_majesty_leggings", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, EquipmentSlot.LEGS, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item CRIMSON_MAJESTY_BOOTS = register("crimson_majesty_boots", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, EquipmentSlot.FEET, new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+    public static final Item CRIMSON_MAJESTY_SWORD = register("crimson_majesty_sword", new Item(new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE)));
+
     // stuff
     // misc
 //    public static final Item TRUE_EOE_SPAWN_EGG = register("true_eye_of_ender_spawn_egg", new SpawnEggItem(OmegaEntities.TRUE_EYE_OF_ENDER, 0, 0, new Item.Settings().group(IntoTheOmega.GROUP)));

@@ -250,6 +250,12 @@
   "item.intotheomega.shulker_slicer": "Shulker Slicer",
   "item.intotheomega.floating_cross": "Floating Cross",
 
+  "__comment": "--------------------- Crimson Majesty ---------------------",
+  "item.intotheomega.crimson_majesty_helmet": "Crimson Majesty Helmet",
+  "item.intotheomega.crimson_majesty_chestplate": "Crimson Majesty Chestplate",
+  "item.intotheomega.crimson_majesty_leggings": "Crimson Majesty Leggings",
+  "item.intotheomega.crimson_majesty_boots": "Crimson Majesty Boots",
+  "item.intotheomega.crimson_majesty_sword": "Blade of the Crimson Majesty",
 
   "intotheomega.warding_omega.1": "A small fragment of the Omega,",
   "intotheomega.warding_omega.2": "contained in a single ring...",
