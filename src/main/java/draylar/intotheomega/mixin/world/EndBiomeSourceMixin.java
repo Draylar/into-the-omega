@@ -194,6 +194,13 @@ public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
                 // check neighbors
                 for (Direction direction : HORIZONTAL_DIRECTIONS) {
                     Vec2i offset = new Vec2i(next.x + direction.getOffsetX(), next.z + direction.getOffsetZ());
+
+                    // Do NOT attempt to process any positions within 4096 blocks of spawn.
+                    // This prevents the server from locking up when we load chunks directly outside this range.
+                    if(Math.sqrt(Math.pow(offset.x, 2) + Math.pow(offset.z, 2)) <= 4096) {
+                        continue;
+                    }
+
                     if(!finished.contains(offset)) {
                         iterator.add(offset);
                         iterator.previous();
@@ -203,5 +210,13 @@ public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
         }
 
         return island;
+    }
+
+    @Inject(method = "getNoiseAt", at = @At("HEAD"), cancellable = true)
+    private static void addPrimaryIslandRocks(SimplexNoiseSampler simplexNoiseSampler, int x, int z, CallbackInfoReturnable<Float> cir) {
+        double distance = Math.sqrt(Math.pow(x * 8, 2) + Math.pow(z * 8, 2));
+        if(distance <= 300 && distance >= 200) {
+            cir.setReturnValue(0.75f);
+        }
     }
 }
