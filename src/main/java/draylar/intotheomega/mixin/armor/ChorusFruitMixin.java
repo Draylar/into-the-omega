@@ -1,6 +1,6 @@
 package draylar.intotheomega.mixin.armor;
 
-import draylar.intotheomega.item.ChorusArmorItem;
+import draylar.intotheomega.item.generic.ChorusArmorItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ChorusFruitItem;
 import net.minecraft.item.ItemStack;

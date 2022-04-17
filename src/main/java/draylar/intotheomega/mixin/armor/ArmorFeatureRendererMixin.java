@@ -1,9 +1,8 @@
 package draylar.intotheomega.mixin.armor;
 
-import draylar.intotheomega.item.ChilledVoidArmorItem;
+import draylar.intotheomega.item.ice.ChilledVoidArmorItem;
 import draylar.intotheomega.registry.client.OmegaRenderLayers;
 import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;

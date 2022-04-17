@@ -1,12 +1,10 @@
 package draylar.intotheomega.mixin;
 
-import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.intotheomega.impl.ProjectileManipulator;
 import draylar.intotheomega.item.CustomBowItem;
-import draylar.intotheomega.item.ExplosiveFocusItem;
+import draylar.intotheomega.item.matrix.ExplosiveFocusItem;
 import draylar.intotheomega.registry.OmegaItems;
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -20,8 +18,6 @@ import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;

@@ -16,7 +16,7 @@ import draylar.intotheomega.impl.event.client.predicate.BowPullPredicateProvider
 import draylar.intotheomega.impl.event.client.predicate.FrostbusterChargePredicateProvider;
 import draylar.intotheomega.impl.event.client.predicate.UsingPredicateProvider;
 import draylar.intotheomega.impl.event.client.predicate.VariantSparkModePredicateProvider;
-import draylar.intotheomega.item.ChilledVoidArmorItem;
+import draylar.intotheomega.item.ice.ChilledVoidArmorItem;
 import draylar.intotheomega.network.ClientNetworking;
 import draylar.intotheomega.registry.OmegaBlocks;
 import draylar.intotheomega.registry.OmegaEntityModelLayers;
