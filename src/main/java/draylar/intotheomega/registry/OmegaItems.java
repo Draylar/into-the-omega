@@ -248,6 +248,9 @@ public class OmegaItems {
     public static final MemoryItem MEMORY_OF_SHATTERING = register("memory_of_shattering", new MemoryItem(new Item.Settings().rarity(Rarity.EPIC).group(IntoTheOmega.GROUP)));
     public static final MemoryFocusItem MEMORY_FOCUS = register("memory_focus", new MemoryFocusItem(new Item.Settings().rarity(Rarity.EPIC).group(IntoTheOmega.GROUP)));
 
+    // ???
+    public static final Item EMERGENT_HYPERION = register("emergent_hyperion", new Item(new Item.Settings().rarity(Rarity.EPIC).group(IntoTheOmega.GROUP)));
+
     private static <T extends Item> T register(String name, T item) {
         return Registry.register(Registry.ITEM, IntoTheOmega.id(name), item);
     }

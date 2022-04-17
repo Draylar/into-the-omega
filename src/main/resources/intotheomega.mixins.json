@@ -32,6 +32,7 @@
     "LivingEntityMountMixin",
     "MinecraftClientMixin",
     "MobEntityAccessor",
+    "TransformationDeserializerMixin",
     "NoiseThresholdMaterialConditionMixin",
     "ParticleManagerMixin",
     "ParticleTypesAccessor",

@@ -7,6 +7,7 @@ import draylar.intotheomega.api.event.ParticleEvents;
 import draylar.intotheomega.api.item.SetBonusProvider;
 import draylar.intotheomega.client.OmegaSlimeRenderingHandler;
 import draylar.intotheomega.client.PhasePadUtils;
+import draylar.intotheomega.client.feature.HyperionFeatureRenderer;
 import draylar.intotheomega.client.trinket.EyeTrinketRenderer;
 import draylar.intotheomega.impl.event.client.OmegaParticleFactoryRegistrar;
 import draylar.intotheomega.impl.event.client.armor.ChilledVoidArmorDisplayHandler;
@@ -31,11 +32,16 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.text.LiteralText;
@@ -112,6 +118,12 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         TrinketRendererRegistry.registerRenderer(OmegaItems.EBONY_EYE, new EyeTrinketRenderer());
         TrinketRendererRegistry.registerRenderer(OmegaItems.BOUND_EYE, new EyeTrinketRenderer());
         TrinketRendererRegistry.registerRenderer(OmegaItems.DRAGON_EYE, new EyeTrinketRenderer());
+
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
+            if(entityType.equals(EntityType.PLAYER)) {
+                registrationHelper.register(new HyperionFeatureRenderer((FeatureRendererContext<LivingEntity, BipedEntityModel<LivingEntity>>) entityRenderer));
+            }
+        });
     }
 
 
