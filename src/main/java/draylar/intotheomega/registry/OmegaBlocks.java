@@ -102,6 +102,7 @@ public class OmegaBlocks {
     public static final Block MATRIX_STAIRS = register("matrix_brick_stairs", new StairsBlock(MATRIX_BRICKS.getDefaultState(), FabricBlockSettings.copyOf(Blocks.BRICKS)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block MATRIX_SLAB = register("matrix_brick_slab", new SlabBlock(FabricBlockSettings.copyOf(Blocks.BRICKS)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block MATRIX_PILLAR = register("matrix_brick_pillar", new PillarBlock(FabricBlockSettings.copyOf(Blocks.BRICKS)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block MATRIX_GLASS = register("matrix_glass", new GlassBlock(FabricBlockSettings.copyOf(Blocks.GLASS).nonOpaque()), new Item.Settings().group(IntoTheOmega.GROUP));
 
     public static final Block OBSIDIAN_STAIRS = register("obsidian_stairs", new StairsBlock(Blocks.OBSIDIAN.getDefaultState(), FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block OBSIDIAN_SLAB = register("obsidian_slab", new SlabBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
