@@ -7,6 +7,7 @@ import draylar.intotheomega.registry.world.OmegaNoiseKeys;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
+import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.gen.noise.NoiseParametersKeys;
 import net.minecraft.world.gen.random.SimpleRandom;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;
@@ -90,6 +91,16 @@ public class OmegaSurfaceRules {
                                         MaterialRules.block(OmegaBlocks.CONGEALED_SLIME.getDefaultState()))
                         )));
 
-        return MaterialRules.sequence(omegaSlimeWasteRivers, omegaSlimeWaste);
+        MaterialRules.MaterialRule coreEndIsland = MaterialRules.condition(MaterialRules.biome(BiomeKeys.THE_END),
+                MaterialRules.condition(MaterialRules.stoneDepth(1, true, VerticalSurfaceType.FLOOR),
+                        MaterialRules.sequence(
+
+                                // Purple
+                                MaterialRules.condition(
+                                        MaterialRules.noiseThreshold(NoiseParametersKeys.CAVE_CHEESE, -0.05f, 0.0f),
+                                        MaterialRules.block(Blocks.CRYING_OBSIDIAN.getDefaultState()))
+                        )));
+
+        return MaterialRules.sequence(coreEndIsland, omegaSlimeWasteRivers, omegaSlimeWaste);
     }
 }
