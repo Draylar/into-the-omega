@@ -69,6 +69,13 @@ public class OmegaStructureSets {
                             StructureSet.createEntry(OmegaConfiguredStructureFeatures.SLIME_CAVE)
                     ), new RandomSpreadStructurePlacement(20, 15, SpreadType.LINEAR, 18495802)));
 
+    public static final RegistryEntry<StructureSet> END_THORN =
+            StructureSets.register(
+                    key("end_thorn"),
+                    new StructureSet(List.of(
+                            StructureSet.createEntry(OmegaConfiguredStructureFeatures.END_THORN)
+                    ), new RandomSpreadStructurePlacement(7, 5, SpreadType.LINEAR, 12545135)));
+
     private static RegistryKey<StructureSet> key(String id) {
         return RegistryKey.of(Registry.STRUCTURE_SET_KEY, IntoTheOmega.id(id));
     }

@@ -21,6 +21,7 @@ public class OmegaStructureFeatures {
     public static final SlimeTendrilStructure SLIME_TENDRIL = register("slime_tendril", new SlimeTendrilStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final SlimeCeilingStructure SLIME_CEILING = register("slime_ceiling", new SlimeCeilingStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final SlimeCaveStructure SLIME_CAVE = register("slime_cave", new SlimeCaveStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
+    public static final EndThornStructure END_THORN = register("end_thorn", new EndThornStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
 
     private static <SF extends StructureFeature<?>> SF register(String name, SF structureFeature, GenerationStep.Feature step) {
         return StructureFeatureAccessor.register(IntoTheOmega.id(name).toString(), structureFeature, step);

@@ -26,6 +26,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.bernie.geckolib3.GeckoLib;
 
 public class IntoTheOmega implements ModInitializer {
@@ -34,6 +36,7 @@ public class IntoTheOmega implements ModInitializer {
     public static final ItemGroup GROUP = FabricItemGroupBuilder.build(id("group"), () -> new ItemStack(OmegaItems.OMEGA_CRYSTAL));
     public static final String OMEGA = "Ω";
     public static final ScreenHandlerType<ConquestForgeScreenHandler> CF_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(id("conquest_forge"), ConquestForgeScreenHandler::new);
+    public static final Logger LOGGER = LoggerFactory.getLogger("modid");
 
     @Override
     public void onInitialize() {
