@@ -30,8 +30,8 @@ public abstract class EndIslandStructure extends StructureFeature<DefaultFeature
             return Optional.empty();
         }
 
-        // Do not place structures above Y60.
-        if(height >= 60) {
+        // Do not place structures above Y60 or below Y50.
+        if(height >= 60 || height <= 50) {
             return Optional.empty();
         }
 

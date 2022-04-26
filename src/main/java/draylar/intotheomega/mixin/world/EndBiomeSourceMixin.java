@@ -1,5 +1,6 @@
 package draylar.intotheomega.mixin.world;
 
+import com.google.common.collect.ImmutableList;
 import draylar.intotheomega.api.Vec2i;
 import draylar.intotheomega.api.biome.IslandBiomeData;
 import draylar.intotheomega.api.biome.OmegaEndBiomePicker;
@@ -8,7 +9,6 @@ import draylar.intotheomega.impl.BiomeRegistrySetter;
 import draylar.intotheomega.registry.OmegaBiomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.noise.SimplexNoiseSampler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
@@ -18,14 +18,18 @@ import net.minecraft.world.biome.BiomeKeys;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.biome.source.TheEndBiomeSource;
 import net.minecraft.world.biome.source.util.MultiNoiseUtil;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Stream;
 
 /**
  * Fabric API provides an API for manipulating end biomes, but it is limited in control.
@@ -33,7 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * this mixin takes priority over the Fabric API.
  */
 @Mixin(TheEndBiomeSource.class)
-public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
+public abstract class EndBiomeSourceMixin extends BiomeSource implements BiomeRegistrySetter {
 
     @Unique private static final Direction[] HORIZONTAL_DIRECTIONS = new Direction[]{Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
 
@@ -51,24 +55,30 @@ public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
     @Unique private static List<RegistryKey<Biome>> biomeSections = new ArrayList<>();
     @Unique private static Map<Vec2i, RegistryKey<Biome>> cachedBiomePositions = new ConcurrentHashMap<>();
     @Unique private static Map<Vec2i, Float> cachedNoise = new ConcurrentHashMap<>();
-    @Unique private static Random random = new Random();
-    @Unique private Registry<Biome> biomeRegistry;
 
-    @Inject(method = "<init>(Lnet/minecraft/util/registry/Registry;J)V", at = @At("RETURN"))
-    private void storeRegistry(Registry<Biome> biomeRegistry, long seed, CallbackInfo ci) {
-        this.biomeRegistry = biomeRegistry;
+    @Unique
+    private static Registry<Biome> instance;
+
+    private EndBiomeSourceMixin(Stream<RegistryEntry<Biome>> biomeStream) {
+        super(biomeStream);
+    }
+
+    @Redirect(method = "<init>(Lnet/minecraft/util/registry/Registry;J)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/registry/Registry;getOrCreateEntry(Lnet/minecraft/util/registry/RegistryKey;)Lnet/minecraft/util/registry/RegistryEntry;", ordinal = 0))
+    private static RegistryEntry<Biome> test(Registry<Biome> instance, RegistryKey<Biome> tRegistryKey) {
+        EndBiomeSourceMixin.instance = instance;
+        return instance.getOrCreateEntry(BiomeKeys.THE_END); // default value
+    }
+
+    @Redirect(method = "<init>(JLnet/minecraft/util/registry/RegistryEntry;Lnet/minecraft/util/registry/RegistryEntry;Lnet/minecraft/util/registry/RegistryEntry;Lnet/minecraft/util/registry/RegistryEntry;Lnet/minecraft/util/registry/RegistryEntry;)V", at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableList;of(Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/google/common/collect/ImmutableList;"))
+    private static ImmutableList<RegistryEntry<Biome>> initializeCustomBiomeList(Object e1, Object e2, Object e3, Object e4, Object e5) {
+        return ImmutableList.<RegistryEntry<Biome>>builder().addAll(OmegaBiomes.USED_BIOMES.stream().map(key -> instance.getOrCreateEntry(key)).toList()).build();
     }
 
     @Inject(method = "withSeed", at = @At("RETURN"))
     private void assignBiomeRegistry(long seed, CallbackInfoReturnable<BiomeSource> cir) {
         if(cir.getReturnValue() instanceof TheEndBiomeSource) {
-            ((BiomeRegistrySetter) cir.getReturnValue()).setBiomeRegistry(biomeRegistry);
+            ((BiomeRegistrySetter) cir.getReturnValue()).setBiomeRegistry(instance);
         }
-    }
-
-    @Override
-    public void setBiomeRegistry(Registry<Biome> biomeRegistry) {
-        this.biomeRegistry = biomeRegistry;
     }
 
     @Inject(method = "getBiome", at = @At("HEAD"))
@@ -111,7 +121,8 @@ public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
 
             // If we assigned this column position previously, use that value.
             if(cachedBiomePositions.containsKey(current)) {
-                cir.setReturnValue(biomeRegistry.getOrCreateEntry(cachedBiomePositions.get(current)));
+                // TODO: this is horrific
+                cir.setReturnValue(instance.getOrCreateEntry(cachedBiomePositions.get(current)));
                 return;
             }
 
@@ -140,7 +151,6 @@ public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
                 Set<Vec2i> yeet = locateIslandBlocks(current);
 
 
-
                 // cache the starting biome to prevent it from potentially double checking in the future - probably not needed
                 cachedBiomePositions.put(current, getBiomeFor(islandBiome, chunkNoise));
 
@@ -155,7 +165,7 @@ public abstract class EndBiomeSourceMixin implements BiomeRegistrySetter {
 
             // Fallback for the first block in an island.
             // TODO: combine with ^^
-            cir.setReturnValue(biomeRegistry.getOrCreateEntry(getBiomeFor(islandBiome, chunkNoise)));
+            cir.setReturnValue(instance.getOrCreateEntry(getBiomeFor(islandBiome, chunkNoise)));
         }
     }
 

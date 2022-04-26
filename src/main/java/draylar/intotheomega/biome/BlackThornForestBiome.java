@@ -1,12 +1,17 @@
 package draylar.intotheomega.biome;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.registry.world.OmegaConfiguredFeatures;
+import draylar.intotheomega.registry.world.OmegaPlacedFeatures;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.*;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.feature.ConfiguredFeatures;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.feature.EndPlacedFeatures;
 
 public class BlackThornForestBiome {
 
@@ -18,14 +23,14 @@ public class BlackThornForestBiome {
 
         GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
 //        generationSettings.surfaceBuilder(ConfiguredSurfaceBuilders.END);
-//        generationSettings
+        generationSettings
 //                .structureFeature(OmegaConfiguredFeatures.ENIGMA_KING_SPIKE)
-//                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.OBISDIAN_SPIKE)
-//                .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.CHORUS_PLANT)
-//                .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaConfiguredFeatures.OMEGA_ORE)
-//                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaConfiguredFeatures.COARSE_PATCH)
-//                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.OBSIDISHROOM_PATCH)
-//                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaConfiguredFeatures.ENDERSHROOM_PATCH);
+                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaPlacedFeatures.OBSIDIAN_SPIKE)
+                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaPlacedFeatures.DARK_THORN_CHORUS_PLANT)
+                .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaPlacedFeatures.OMEGA_ORE)
+                .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaPlacedFeatures.COARSE_PATCH)
+                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaPlacedFeatures.OBSIDISHROOM_PATCH)
+                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaPlacedFeatures.ENDERSHROOM_PATCH);
 
         return new Biome.Builder()
                 .precipitation(Biome.Precipitation.NONE)

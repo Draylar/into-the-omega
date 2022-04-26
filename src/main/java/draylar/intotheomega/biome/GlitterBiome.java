@@ -8,7 +8,7 @@ import net.minecraft.world.biome.*;
 
 public class GlitterBiome {
 
-    public static final RegistryKey<Biome> REGISTRY_KEY = RegistryKey.of(Registry.BIOME_KEY, IntoTheOmega.id("glitter_biome"));
+    public static final RegistryKey<Biome> KEY = RegistryKey.of(Registry.BIOME_KEY, IntoTheOmega.id("glitter_biome"));
 
     public static Biome create() {
         return new Biome.Builder()
