@@ -252,6 +252,9 @@
   "item.intotheomega.shulker_slicer": "Shulker Slicer",
   "item.intotheomega.floating_cross": "Floating Cross",
 
+  "__comment": "--------------------- Star ---------------------",
+  "block.intotheomega.lesser_star_edge": "Lesser Star Edge",
+
   "__comment": "--------------------- Crimson Majesty ---------------------",
   "item.intotheomega.crimson_majesty_helmet": "Crimson Majesty Helmet",
   "item.intotheomega.crimson_majesty_chestplate": "Crimson Majesty Chestplate",

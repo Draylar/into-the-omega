@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "intotheomega:block/lesser_star_edge"
+  }
+}

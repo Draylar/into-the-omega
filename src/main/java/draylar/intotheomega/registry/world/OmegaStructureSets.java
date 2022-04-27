@@ -76,6 +76,14 @@ public class OmegaStructureSets {
                             StructureSet.createEntry(OmegaConfiguredStructureFeatures.END_THORN)
                     ), new RandomSpreadStructurePlacement(7, 5, SpreadType.LINEAR, 12545135)));
 
+    public static final RegistryEntry<StructureSet> STARFALL_VALLEY =
+            StructureSets.register(
+                    key("starfield"),
+                    new StructureSet(List.of(
+                            StructureSet.createEntry(OmegaConfiguredStructureFeatures.STARFIELD)
+                    ), new RandomSpreadStructurePlacement(18, 16, SpreadType.LINEAR, 12545135)));
+
+
     private static RegistryKey<StructureSet> key(String id) {
         return RegistryKey.of(Registry.STRUCTURE_SET_KEY, IntoTheOmega.id(id));
     }

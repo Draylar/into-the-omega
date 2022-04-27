@@ -159,6 +159,7 @@ public class OmegaBlocks {
     public static final Block DARK_SAKURA_LEAF_PILE = register("dark_sakura_leaf_pile", new LeafPileBlock(FabricBlockSettings.copyOf(Blocks.ACACIA_LEAVES).nonOpaque()), new Item.Settings());
     public static final Block SAKURA_EMBUED_ENDSTONE = register("sakura_embued_endstone", new Block(FabricBlockSettings.copyOf(Blocks.GRASS_BLOCK)), new Item.Settings());
 
+    public static final Block LESSER_STAR_EDGE = register("lesser_star_edge", new Block(FabricBlockSettings.copyOf(Blocks.GLOWSTONE).luminance(15)), new Item.Settings());
 
     public static final GalaxyFurnaceBlock GALAXY_FURNACE = register("galaxy_furnace", new GalaxyFurnaceBlock(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque()), new Item.Settings());
 

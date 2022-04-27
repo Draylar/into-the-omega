@@ -1,6 +1,7 @@
 package draylar.intotheomega.world;
 
 import draylar.intotheomega.biome.OmegaSlimeWasteBiome;
+import draylar.intotheomega.biome.StarfallValleyBiome;
 import draylar.intotheomega.impl.NoiseApply;
 import draylar.intotheomega.registry.OmegaBlocks;
 import draylar.intotheomega.registry.world.OmegaNoiseKeys;
@@ -101,6 +102,6 @@ public class OmegaSurfaceRules {
                                         MaterialRules.block(Blocks.CRYING_OBSIDIAN.getDefaultState()))
                         )));
 
-        return MaterialRules.sequence(coreEndIsland, omegaSlimeWasteRivers, omegaSlimeWaste);
+        return MaterialRules.sequence(coreEndIsland, omegaSlimeWasteRivers, omegaSlimeWaste, StarfallValleyBiome.createSurfaceRule());
     }
 }
