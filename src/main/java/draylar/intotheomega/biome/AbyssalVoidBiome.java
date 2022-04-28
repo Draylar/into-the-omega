@@ -11,6 +11,7 @@ import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
 
 public class AbyssalVoidBiome {
 
+    public static final RegistryKey<Biome> ABYSSAL_CORE_KEY = RegistryKey.of(Registry.BIOME_KEY, IntoTheOmega.id("abyssal_core"));
     public static final RegistryKey<Biome> KEY = RegistryKey.of(Registry.BIOME_KEY, IntoTheOmega.id("abyssal_void"));
 
     public static Biome create() {
