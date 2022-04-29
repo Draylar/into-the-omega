@@ -8,6 +8,7 @@ import draylar.intotheomega.api.item.SetBonusProvider;
 import draylar.intotheomega.client.OmegaSlimeRenderingHandler;
 import draylar.intotheomega.client.PhasePadUtils;
 import draylar.intotheomega.client.feature.HyperionFeatureRenderer;
+import draylar.intotheomega.client.feature.SkinArmorFeatureRenderer;
 import draylar.intotheomega.client.trinket.EyeTrinketRenderer;
 import draylar.intotheomega.impl.event.client.OmegaParticleFactoryRegistrar;
 import draylar.intotheomega.impl.event.client.armor.ChilledVoidArmorDisplayHandler;
@@ -37,6 +38,7 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.ModelIdentifier;
@@ -122,6 +124,12 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             if(entityType.equals(EntityType.PLAYER)) {
                 registrationHelper.register(new HyperionFeatureRenderer((FeatureRendererContext<LivingEntity, BipedEntityModel<LivingEntity>>) entityRenderer));
+            }
+        });
+
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
+            if(entityType.equals(EntityType.PLAYER)) {
+                registrationHelper.register(new SkinArmorFeatureRenderer((FeatureRendererContext<AbstractClientPlayerEntity, BipedEntityModel<AbstractClientPlayerEntity>>) entityRenderer, context));
             }
         });
     }

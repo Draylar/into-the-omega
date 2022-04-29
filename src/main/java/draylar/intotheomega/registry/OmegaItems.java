@@ -5,6 +5,7 @@ import draylar.intotheomega.item.*;
 import draylar.intotheomega.item.abyss.AbyssWalkersItem;
 import draylar.intotheomega.item.core.DragonEyeItem;
 import draylar.intotheomega.item.core.DragonslayerArmorItem;
+import draylar.intotheomega.item.crimson.CrimsonMajestyArmorItem;
 import draylar.intotheomega.item.generic.*;
 import draylar.intotheomega.item.dragon.*;
 import draylar.intotheomega.item.enigma.*;
@@ -229,10 +230,10 @@ public class OmegaItems {
     public static final Item FLOATING_CROSS = register("floating_cross", new Item(new Item.Settings().group(GROUP).rarity(RARE)));
 
     // Crimson Majesty
-    public static final Item CRIMSON_MAJESTY_HELMET = register("crimson_majesty_helmet", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, HEAD, new Item.Settings().group(GROUP).rarity(RARE)));
-    public static final Item CRIMSON_MAJESTY_CHESTPLATE = register("crimson_majesty_chestplate", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, CHEST, new Item.Settings().group(GROUP).rarity(RARE)));
-    public static final Item CRIMSON_MAJESTY_LEGGINGS = register("crimson_majesty_leggings", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, LEGS, new Item.Settings().group(GROUP).rarity(RARE)));
-    public static final Item CRIMSON_MAJESTY_BOOTS = register("crimson_majesty_boots", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, FEET, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item CRIMSON_MAJESTY_HELMET = register("crimson_majesty_helmet", new CrimsonMajestyArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, HEAD, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item CRIMSON_MAJESTY_CHESTPLATE = register("crimson_majesty_chestplate", new CrimsonMajestyArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, CHEST, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item CRIMSON_MAJESTY_LEGGINGS = register("crimson_majesty_leggings", new CrimsonMajestyArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, LEGS, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item CRIMSON_MAJESTY_BOOTS = register("crimson_majesty_boots", new CrimsonMajestyArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, FEET, new Item.Settings().group(GROUP).rarity(RARE)));
     public static final Item CRIMSON_MAJESTY_SWORD = register("crimson_majesty_sword", new Item(new Item.Settings().group(GROUP).rarity(RARE)));
 
     // Starfall
