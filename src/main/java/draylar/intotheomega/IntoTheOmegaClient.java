@@ -9,6 +9,7 @@ import draylar.intotheomega.client.OmegaSlimeRenderingHandler;
 import draylar.intotheomega.client.PhasePadUtils;
 import draylar.intotheomega.client.feature.HyperionFeatureRenderer;
 import draylar.intotheomega.client.feature.SkinArmorFeatureRenderer;
+import draylar.intotheomega.client.feature.WingFeatureRenderer;
 import draylar.intotheomega.client.trinket.EyeTrinketRenderer;
 import draylar.intotheomega.impl.event.client.OmegaParticleFactoryRegistrar;
 import draylar.intotheomega.impl.event.client.armor.ChilledVoidArmorDisplayHandler;
@@ -123,17 +124,13 @@ public class IntoTheOmegaClient implements ClientModInitializer {
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             if(entityType.equals(EntityType.PLAYER)) {
-                registrationHelper.register(new HyperionFeatureRenderer((FeatureRendererContext<LivingEntity, BipedEntityModel<LivingEntity>>) entityRenderer));
-            }
-        });
-
-        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
-            if(entityType.equals(EntityType.PLAYER)) {
+                FeatureRendererContext<LivingEntity, BipedEntityModel<LivingEntity>> playerContext = (FeatureRendererContext<LivingEntity, BipedEntityModel<LivingEntity>>) entityRenderer;
+                registrationHelper.register(new HyperionFeatureRenderer(playerContext));
+                registrationHelper.register(new WingFeatureRenderer(playerContext));
                 registrationHelper.register(new SkinArmorFeatureRenderer((FeatureRendererContext<AbstractClientPlayerEntity, BipedEntityModel<AbstractClientPlayerEntity>>) entityRenderer, context));
             }
         });
     }
-
 
     public static ModelIdentifier modelID(String name) {
         return new ModelIdentifier("intotheomega", name);

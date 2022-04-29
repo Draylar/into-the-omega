@@ -13,6 +13,7 @@ import draylar.intotheomega.item.ice.*;
 import draylar.intotheomega.item.matrix.*;
 import draylar.intotheomega.item.memory.MemoryItem;
 import draylar.intotheomega.item.slime.*;
+import draylar.intotheomega.item.starfall.StardustWingsItem;
 import draylar.intotheomega.item.weapon.bow.LevitationBlasterItem;
 import draylar.intotheomega.item.weapon.sword.ShulkerSlicerItem;
 import draylar.intotheomega.material.*;
@@ -238,6 +239,8 @@ public class OmegaItems {
 
     // Starfall
     public static final Item FALLEN_LIGHT = register("fallen_light", new SwordItem(ToolMaterials.IRON, 27, -2.4f, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item PHOENIX_STARDUST_WINGS = register("phoenix_stardust_wings", new StardustWingsItem(new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item STARFALL_CORE = register("starfall_core", new Item(new Item.Settings().group(GROUP).rarity(RARE)));
 
     // stuff
     // misc
