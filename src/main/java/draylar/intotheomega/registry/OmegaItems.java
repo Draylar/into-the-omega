@@ -15,10 +15,8 @@ import draylar.intotheomega.item.slime.*;
 import draylar.intotheomega.item.weapon.bow.LevitationBlasterItem;
 import draylar.intotheomega.item.weapon.sword.ShulkerSlicerItem;
 import draylar.intotheomega.material.*;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 
 import static draylar.intotheomega.IntoTheOmega.GROUP;
@@ -236,6 +234,9 @@ public class OmegaItems {
     public static final Item CRIMSON_MAJESTY_LEGGINGS = register("crimson_majesty_leggings", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, LEGS, new Item.Settings().group(GROUP).rarity(RARE)));
     public static final Item CRIMSON_MAJESTY_BOOTS = register("crimson_majesty_boots", new ArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, FEET, new Item.Settings().group(GROUP).rarity(RARE)));
     public static final Item CRIMSON_MAJESTY_SWORD = register("crimson_majesty_sword", new Item(new Item.Settings().group(GROUP).rarity(RARE)));
+
+    // Starfall
+    public static final Item FALLEN_LIGHT = register("fallen_light", new SwordItem(ToolMaterials.IRON, 27, -2.4f, new Item.Settings().group(GROUP).rarity(RARE)));
 
     // stuff
     // misc
