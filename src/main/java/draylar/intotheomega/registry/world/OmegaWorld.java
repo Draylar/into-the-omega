@@ -112,8 +112,6 @@ public class OmegaWorld {
         return Registry.register(Registry.FEATURE, IntoTheOmega.id(name), feature);
     }
 
-    private static final List<RegistryKey<Biome>> SPECIAL = Arrays.asList(OmegaBiomes.ABYSSAL_CORE_KEY, OmegaSlimeWasteBiome.KEY);
-
     private OmegaWorld() {
         // no-op
     }
