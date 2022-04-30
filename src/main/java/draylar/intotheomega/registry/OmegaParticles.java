@@ -15,6 +15,7 @@ public class OmegaParticles {
     public static final DefaultParticleType MATRIX_EXPLOSION = ParticleTypesAccessor.callRegister("intotheomega:matrix_explosion", false);
     public static final DefaultParticleType ICE_FLAKE = ParticleTypesAccessor.callRegister("intotheomega:ice_flake", false);
     public static final DefaultParticleType DARK_SAKURA_PETAL = ParticleTypesAccessor.callRegister("intotheomega:dark_sakura_petal", false);
+    public static final DefaultParticleType STARFALL_NODE = ParticleTypesAccessor.callRegister("intotheomega:starfall_node", false);
 
     public static void init() {
 

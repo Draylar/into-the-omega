@@ -7,6 +7,7 @@ import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
 import draylar.intotheomega.entity.ice.AbyssGlobeEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.slime.OmegaSlimeEmperorEntity;
+import draylar.intotheomega.entity.starfall.StarfallProjectileEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -219,6 +220,14 @@ public class OmegaEntities {
                     .spawnGroup(SpawnGroup.MISC)
                     .dimensions(EntityDimensions.fixed(1f, 1f))
                     .entityFactory(SlimefallEntity::new)
+                    .build());
+
+    public static final EntityType<StarfallProjectileEntity> STARFALL_PROJECTILE = register(
+            "starfall_projectile",
+            FabricEntityTypeBuilder.create()
+                    .spawnGroup(SpawnGroup.MISC)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
+                    .entityFactory(StarfallProjectileEntity::new)
                     .build());
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
