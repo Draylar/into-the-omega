@@ -18,6 +18,8 @@ import draylar.intotheomega.item.starfall.StarfallTomeItem;
 import draylar.intotheomega.item.weapon.bow.LevitationBlasterItem;
 import draylar.intotheomega.item.weapon.sword.ShulkerSlicerItem;
 import draylar.intotheomega.material.*;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.registry.Registry;
@@ -243,6 +245,13 @@ public class OmegaItems {
     public static final Item PHOENIX_STARDUST_WINGS = register("phoenix_stardust_wings", new StardustWingsItem(new Item.Settings().group(GROUP).rarity(RARE)));
     public static final Item STARFALL_CORE = register("starfall_core", new Item(new Item.Settings().group(GROUP).rarity(RARE)));
     public static final Item WISH_OF_STARFALL = register("wish_of_starfall", new StarfallTomeItem(new Item.Settings().group(GROUP).rarity(RARE).maxDamage(5)));
+    public static final Item PHOENIX_EMBER = register("phoenix_ember", new Item(new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item STARFALL_BREW = register("starfall_brew", new BrewItem(new Item.Settings().group(GROUP).rarity(RARE)
+            .food(new FoodComponent.Builder().snack()
+                    .statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20 * 60, 2), 1.0f)
+                    .statusEffect(new StatusEffectInstance(StatusEffects.HEALTH_BOOST, 20 * 60, 2), 1.0f)
+                    .statusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20 * 60, 0), 1.0f)
+                    .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20 * 60, 0), 1.0f).build()), 20 * 120));
 
     // stuff
     // misc
