@@ -4,6 +4,7 @@ import draylar.intotheomega.command.DevelopmentSpawnableCommand;
 import draylar.intotheomega.command.EndCommand;
 import draylar.intotheomega.command.GeneratePillarCommand;
 import draylar.intotheomega.command.GeneratePortalCommand;
+import draylar.intotheomega.impl.ServerPlayerMirrorExtensions;
 import draylar.intotheomega.impl.event.server.DragonLootTableHandler;
 import draylar.intotheomega.mixin.ChunkGeneratorSettingsAccessor;
 import draylar.intotheomega.network.ServerNetworking;
@@ -15,16 +16,28 @@ import draylar.intotheomega.world.feature.DarkSakuraTreeFeature;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,6 +97,47 @@ public class IntoTheOmega implements ModInitializer {
 
         DevelopmentSpawnableCommand.initialize();
         DevelopmentSpawnableCommand.registerSpawnable("dark_sakura_tree", new DarkSakuraTreeFeature());
+
+        if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
+                ServerPlayerMirrorExtensions mirror = (ServerPlayerMirrorExtensions) player;
+                final BlockPos center = mirror.getOrigin();
+                if(center != null) {
+                    if(Math.sqrt(Math.pow(center.getX() - pos.getX(), 2) + Math.pow(center.getZ() - pos.getZ(), 2)) <= 64) {
+                        BlockPos offset = pos.subtract(mirror.getOrigin());
+                        int x = offset.getX();
+                        int z = offset.getZ();
+
+                        world.breakBlock(new BlockPos(center.getX() + x, pos.getY(), center.getZ() + z), false);
+                        world.breakBlock(new BlockPos(center.getX() + z, pos.getY(), center.getZ() - x), false);
+                        world.breakBlock(new BlockPos(center.getX() - x, pos.getY(), center.getZ() - z), false);
+                        world.breakBlock(new BlockPos(center.getX() - z, pos.getY(), center.getZ() + x), false);
+                    }
+                }
+            });
+        }
+    }
+
+    public static void mirrorPlacement(PlayerEntity player, ItemStack stack, Direction side, World world, BlockPos center, BlockPos pos, Block block) {
+        if(Math.sqrt(Math.pow(center.getX() - pos.getX(), 2) + Math.pow(center.getZ() - pos.getZ(), 2)) <= 64) {
+            BlockPos offset = pos.subtract(center);
+            int x = offset.getX();
+            int z = offset.getZ();
+
+            Vec3d origin = new Vec3d(center.getX() + x, pos.getY(), center.getZ() + z);
+
+            BlockState state = block.getPlacementState(new ItemPlacementContext(player, Hand.MAIN_HAND, stack, new BlockHitResult(origin, side, new BlockPos(origin), false)));
+
+            place(world, player, stack, side, origin, state);
+            place(world, player, stack, side, new Vec3d(center.getX() + z, pos.getY(), center.getZ() - x), state.rotate(BlockRotation.COUNTERCLOCKWISE_90));
+            place(world, player, stack, side, new Vec3d(center.getX() - x, pos.getY(), center.getZ() - z), state.rotate(BlockRotation.CLOCKWISE_180));
+            place(world, player, stack, side, new Vec3d(center.getX() - z, pos.getY(), center.getZ() + x), state.rotate(BlockRotation.CLOCKWISE_90));
+        }
+    }
+
+    private static void place(World world, PlayerEntity player, ItemStack stack, Direction side, Vec3d origin, BlockState state) {
+        BlockPos originBlockPos = new BlockPos(origin);
+        world.setBlockState(originBlockPos, state);
     }
 
     public static Identifier id(String name) {

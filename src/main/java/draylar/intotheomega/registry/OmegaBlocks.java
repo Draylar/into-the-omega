@@ -162,6 +162,8 @@ public class OmegaBlocks {
     public static final Block LESSER_STAR_EDGE = register("lesser_star_edge", new Block(FabricBlockSettings.copyOf(Blocks.GLOWSTONE).luminance(15)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block STARFALL_BRICKS = register("starfall_bricks", new Block(FabricBlockSettings.copyOf(Blocks.GLOWSTONE).luminance(15)), new Item.Settings().group(IntoTheOmega.GROUP));
 
+    public static final Block MIRROR_BLOCK = register("mirror_block", new MirrorBlock(FabricBlockSettings.copyOf(Blocks.GLOWSTONE)), new Item.Settings().group(IntoTheOmega.GROUP));
+
     public static final GalaxyFurnaceBlock GALAXY_FURNACE = register("galaxy_furnace", new GalaxyFurnaceBlock(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque()), new Item.Settings());
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {

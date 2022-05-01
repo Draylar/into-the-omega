@@ -1,6 +1,7 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.block.MirrorBlock;
 import draylar.intotheomega.entity.WatchingEyeBlockEntity;
 import draylar.intotheomega.entity.block.*;
 import draylar.intotheomega.entity.dungeon.BejeweledLockBlockEntity;
@@ -52,6 +53,10 @@ public class OmegaBlockEntities {
     public static final BlockEntityType<GalaxyFurnaceBlockEntity> GALAXY_FURNACE = register(
             "galaxy_furnace",
             FabricBlockEntityTypeBuilder.create(GalaxyFurnaceBlockEntity::new, OmegaBlocks.GALAXY_FURNACE).build(null));
+
+    public static final BlockEntityType<MirrorBlock.MirrorBlockEntity> MIRROR_BLOCK = register(
+            "mirror_block",
+            FabricBlockEntityTypeBuilder.create(MirrorBlock.MirrorBlockEntity::new, OmegaBlocks.MIRROR_BLOCK).build(null));
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> entity) {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, IntoTheOmega.id(name), entity);
