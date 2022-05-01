@@ -28,31 +28,38 @@ public class StarfallEntityRenderer extends EntityRenderer<StarfallProjectileEnt
     }
 
     @Override
-    public void render(StarfallProjectileEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
-        super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
+    public void render(StarfallProjectileEntity starfall, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+        super.render(starfall, yaw, tickDelta, matrices, vertexConsumers, light);
 
         // POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL
-        VertexConsumer buffer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(getTexture(entity)));
+        VertexConsumer buffer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(getTexture(starfall)));
         matrices.push();
 
-        float scale = Math.min(1.0f, (entity.age + tickDelta) / 20f);
-        float size = 2.0f * scale;
+        float scale = Math.min(1.0f, (starfall.age + tickDelta) / 20f);
+        float size = scale;
+        float opaque = 1.0f;
+        int death = starfall.hasCollided() ? starfall.getCollisionTicks() : -1;
 
         matrices.translate(0, size, 0);
         matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion((float) GLFW.glfwGetTime() * 10));
         matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion((float) GLFW.glfwGetTime() * 50));
         matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion((float) GLFW.glfwGetTime() * 50));
 
+        if(death >= 0) {
+            float deathScale = 1.0f + death / 5f;
+            matrices.scale(deathScale, deathScale, deathScale);
+            opaque = 1.0f - Math.min(1.0f, death / 10f);
+        }
 
         for(Direction direction : Direction.values()) {
             matrices.push();
             matrices.multiply(OFFSETS.get(direction));
             Matrix4f pos = matrices.peek().getPositionMatrix();
             Matrix3f normal = matrices.peek().getNormalMatrix();
-            buffer.vertex(pos, -size, -size, -size).color(1.0f, 1.0f, 1.0f, scale).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
-            buffer.vertex(pos, -size, -size, size).color(1.0f, 1.0f, 1.0f, scale).texture(1, 0).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
-            buffer.vertex(pos, size, -size, size).color(1.0f, 1.0f, 1.0f, scale).texture(1, 1).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
-            buffer.vertex(pos, size, -size, -size).color(1.0f, 1.0f, 1.0f, scale).texture(0, 1).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
+            buffer.vertex(pos, -size, -size, -size).color(1.0f, 1.0f, 1.0f * opaque, scale * opaque).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
+            buffer.vertex(pos, -size, -size, size).color(1.0f, 1.0f, 1.0f, scale * opaque).texture(1, 0).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
+            buffer.vertex(pos, size, -size, size).color(1.0f, 1.0f, 1.0f, scale * opaque).texture(1, 1).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
+            buffer.vertex(pos, size, -size, -size).color(1.0f, 1.0f, 1.0f, scale * opaque).texture(0, 1).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
             matrices.pop();
         }
 

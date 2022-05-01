@@ -21,5 +21,6 @@ public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHan
         manager.registerFactory(OmegaParticles.ICE_FLAKE, IceFlakeParticle.Factory::new);
         manager.registerFactory(OmegaParticles.DARK_SAKURA_PETAL, DarkSakuraPetalParticle.Factory::new);
         manager.registerFactory(OmegaParticles.STARFALL_NODE, StarfallNodeParticle.Factory::new);
+        manager.registerFactory(OmegaParticles.STARFALL_SWIRL, StarfallSwirlParticle.Factory::new);
     }
 }

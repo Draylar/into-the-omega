@@ -288,5 +288,8 @@
   "intotheomega.bejeweled_mirror.3": "any enemy you attack for the next 10 seconds.",
 
   "enchantment.intotheomega.bane_of_the_end": "Bane of The End",
-  "enchantment.intotheomega.galaxy_blessing": "Blessing of the Cosmos"
+  "enchantment.intotheomega.galaxy_blessing": "Blessing of the Cosmos",
+
+  "death.attack.starfall_projectile": "%2$s threw a falling star at %1$s",
+  "death.attack.starfall_projectile.item": "%2$s threw a falling star named %3$s at %1$s"
 }

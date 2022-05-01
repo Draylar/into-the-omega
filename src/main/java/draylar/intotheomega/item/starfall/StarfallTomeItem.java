@@ -38,6 +38,7 @@ public class StarfallTomeItem extends Item {
                 projectile.setVelocity(target.subtract(spawn).normalize());
                 projectile.noClip = true;
                 projectile.setTargetLocation(target);
+                projectile.setOwner(user);
                 world.spawnEntity(projectile);
 
                 // update cooldown
