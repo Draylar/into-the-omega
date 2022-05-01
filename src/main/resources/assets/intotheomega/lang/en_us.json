@@ -294,5 +294,7 @@
   "enchantment.intotheomega.galaxy_blessing": "Blessing of the Cosmos",
 
   "death.attack.starfall_projectile": "%2$s threw a falling star at %1$s",
-  "death.attack.starfall_projectile.item": "%2$s threw a falling star named %3$s at %1$s"
+  "death.attack.starfall_projectile.item": "%2$s threw a falling star named %3$s at %1$s",
+
+  "entity.intotheomega.entwined": "Entwined"
 }

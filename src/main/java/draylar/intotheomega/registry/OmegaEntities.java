@@ -230,6 +230,15 @@ public class OmegaEntities {
                     .entityFactory(StarfallProjectileEntity::new)
                     .build());
 
+    public static final EntityType<EntwinedEntity> ENTWINED = register(
+            "entwined",
+            FabricEntityTypeBuilder.createMob()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(0.75f, 1.8f))
+                    .entityFactory(EntwinedEntity::new)
+                    .defaultAttributes(EntwinedEntity::createEntwinedAttributes)
+                    .build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }
