@@ -1,5 +1,6 @@
 package draylar.intotheomega.entity;
 
+import draylar.intotheomega.api.ParticleHelper;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -36,6 +37,10 @@ public class SlimefallEntity extends Entity {
             ((ServerWorld) world).spawnParticles(ParticleTypes.END_ROD, getX(), getY(), getZ(), 10, 3, 3, 3, 0);
             world.playSound(null, getX(), getY(), getZ(), SoundEvents.ENTITY_SLIME_HURT, SoundCategory.PLAYERS, 3.0f, 1.0f);
             discard();
+        }
+
+        if(!world.isClient) {
+            ParticleHelper.spawnDistanceParticles((ServerWorld) world, ParticleTypes.ITEM_SLIME, getX(), getY(), getZ(), 10, 3, 3, 3, 0);
         }
 
         super.tick();
