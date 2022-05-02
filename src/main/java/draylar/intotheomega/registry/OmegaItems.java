@@ -6,6 +6,7 @@ import draylar.intotheomega.item.abyss.AbyssWalkersItem;
 import draylar.intotheomega.item.core.DragonEyeItem;
 import draylar.intotheomega.item.core.DragonslayerArmorItem;
 import draylar.intotheomega.item.crimson.CrimsonMajestyArmorItem;
+import draylar.intotheomega.item.crimson.StarfallArmorItem;
 import draylar.intotheomega.item.generic.*;
 import draylar.intotheomega.item.dragon.*;
 import draylar.intotheomega.item.enigma.*;
@@ -252,6 +253,10 @@ public class OmegaItems {
                     .statusEffect(new StatusEffectInstance(StatusEffects.HEALTH_BOOST, 20 * 60, 2), 1.0f)
                     .statusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 20 * 60, 0), 1.0f)
                     .statusEffect(new StatusEffectInstance(StatusEffects.STRENGTH, 20 * 60, 0), 1.0f).build()), 20 * 120));
+    public static final Item STARFALL_HELMET = register("starfall_helmet", new StarfallArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, HEAD, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item STARFALL_CHESTPLATE = register("starfall_chestplate", new StarfallArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, CHEST, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item STARFALL_LEGGINGS = register("starfall_leggings", new StarfallArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, LEGS, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item STARFALL_BOOTS = register("starfall_boots", new StarfallArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, FEET, new Item.Settings().group(GROUP).rarity(RARE)));
 
     // stuff
     // misc
