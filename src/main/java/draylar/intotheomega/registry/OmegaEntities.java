@@ -239,6 +239,15 @@ public class OmegaEntities {
                     .defaultAttributes(EntwinedEntity::createEntwinedAttributes)
                     .build());
 
+    public static final EntityType<AbyssalKnightEntity> ABYSSAL_KNIGHT = register(
+            "abyssal_knight",
+            FabricEntityTypeBuilder.createMob()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(0.75f, 1.8f))
+                    .entityFactory(AbyssalKnightEntity::new)
+                    .defaultAttributes(AbyssalKnightEntity::createAbyssalKnightAttributes)
+                    .build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }
