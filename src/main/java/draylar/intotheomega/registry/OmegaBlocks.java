@@ -114,6 +114,7 @@ public class OmegaBlocks {
     public static final Block MOLTEN_OBSIDIAN = register("molten_obsidian", new Block(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block RAINBOW_OBSIDIAN = register("rainbow_obsidian", new Block(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block BEJEWELED_OBSIDIAN_STREAK = register("bejeweled_obsidian_streak", new PillarBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block ACTIVATED_STARLIGHT_CORNER = register("starlight_corner", new ActivatedStarlightCornerBlock(FabricBlockSettings.copyOf(Blocks.OBSIDIAN).dropsLike(RAINBOW_OBSIDIAN)), new Item.Settings().group(IntoTheOmega.GROUP));
 
     // Omega Slime
     public static final Block OMEGA_SLIME_BLOCK = register("omega_slime_block", new Block(FabricBlockSettings.of(Material.ORGANIC_PRODUCT).slipperiness(0.8f)));
@@ -165,7 +166,7 @@ public class OmegaBlocks {
     public static final Block MIRROR_BLOCK = register("mirror_block", new MirrorBlock(FabricBlockSettings.copyOf(Blocks.GLOWSTONE)), new Item.Settings().group(IntoTheOmega.GROUP));
 
     public static final GalaxyFurnaceBlock GALAXY_FURNACE = register("galaxy_furnace", new GalaxyFurnaceBlock(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque()), new Item.Settings());
-    public static final Block STARLIGHT = register("starlight", new StarlightBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(15).hardness(10.0f).nonOpaque()), new Item.Settings());
+    public static final Block STARLIGHT = register("starlight", new StarlightBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(15).hardness(10.0f)), new Item.Settings());
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, IntoTheOmega.id(name), block);
