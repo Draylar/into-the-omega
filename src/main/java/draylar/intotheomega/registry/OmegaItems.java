@@ -241,6 +241,9 @@ public class OmegaItems {
     public static final Item CRIMSON_MAJESTY_BOOTS = register("crimson_majesty_boots", new CrimsonMajestyArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, FEET, new Item.Settings().group(GROUP).rarity(RARE)));
     public static final Item CRIMSON_MAJESTY_SWORD = register("crimson_majesty_sword", new Item(new Item.Settings().group(GROUP).rarity(RARE)));
 
+    // Starlight - Dungeon items
+    public static final Item STARLIGHT_BATHED_DAGGER = register("starlight_bathed_dagger", new StarlightDaggerItem(new Item.Settings().group(GROUP).maxCount(1).maxDamage(1500).rarity(RARE)));
+
     // Starfall
     public static final Item FALLEN_LIGHT = register("fallen_light", new SwordItem(ToolMaterials.IRON, 27, -2.4f, new Item.Settings().group(GROUP).rarity(RARE)));
     public static final Item PHOENIX_STARDUST_WINGS = register("phoenix_stardust_wings", new StardustWingsItem(new Item.Settings().group(GROUP).rarity(RARE)));

@@ -286,6 +286,10 @@
   "intotheomega.matrix_lens.description_1": "This shiny mirror boosts the damage of",
   "intotheomega.matrix_lens.description_2": "explosive attacks. Stay away from your house!",
 
+
+  "__comment": "--------------------- Unsorted ---------------------",
+  "item.intotheomega.starlight_bathed_dagger": "Starlight Bathed Dagger",
+
   "item.intotheomega.bejeweled_mirror": "Bejeweled Mirror",
   "intotheomega.bejeweled_mirror.1": "When equipped, looking into the eyes of Enderman",
   "intotheomega.bejeweled_mirror.2": "will bewitch them, causing them to attack",
