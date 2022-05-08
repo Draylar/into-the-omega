@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "intotheomega:item/last_glitter"
+  },
+  "display": {
+    "gui": {
+      "translation": [ 0.5, 0.5, 0.0 ]
+    }
+  }
+}

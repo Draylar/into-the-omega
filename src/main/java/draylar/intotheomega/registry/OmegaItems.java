@@ -244,6 +244,7 @@ public class OmegaItems {
     // Starlight - Dungeon items
     public static final Item STARLIGHT_BATHED_DAGGER = register("starlight_bathed_dagger", new StarlightDaggerItem(new Item.Settings().group(GROUP).maxCount(1).maxDamage(1500).rarity(RARE)));
     public static final Item PIERCING_STARLIGHT = register("piercing_starlight", new PiercingStarlightItem(new Item.Settings().group(GROUP).maxCount(1).maxDamage(1500).rarity(RARE)));
+    public static final Item LAST_GLITTER = register("last_glitter", new Item(new Item.Settings().group(GROUP).maxCount(16).rarity(RARE)));
 
     // Starfall
     public static final Item FALLEN_LIGHT = register("fallen_light", new SwordItem(ToolMaterials.IRON, 27, -2.4f, new Item.Settings().group(GROUP).rarity(RARE)));
