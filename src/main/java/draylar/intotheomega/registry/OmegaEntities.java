@@ -248,6 +248,15 @@ public class OmegaEntities {
                     .defaultAttributes(AbyssalKnightEntity::createAbyssalKnightAttributes)
                     .build());
 
+    public static final EntityType<StarWalkerEntity> STAR_WALKER = register(
+            "star_walker",
+            FabricEntityTypeBuilder.createMob()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(0.75f, 1.8f))
+                    .entityFactory(StarWalkerEntity::new)
+                    .defaultAttributes(StarWalkerEntity::createStarWalkerAttributes)
+                    .build());
+
     public static final EntityType<HomingStarlitProjectileEntity> HOMING_STARLIT_PROJECTILE = register(
             "homing_starlit_projectile",
             FabricEntityTypeBuilder.create()
