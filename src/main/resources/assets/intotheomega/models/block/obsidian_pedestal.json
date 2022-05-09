@@ -1,0 +1,37 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "block/cube",
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "intotheomega:block/obsidian_pedestal",
+		"particle": "intotheomega:block/obsidian_pedestal"
+	},
+	"elements": [
+		{
+			"from": [-8, -0.5, -4.25],
+			"to": [24, 2, 19.75],
+			"rotation": {"angle": 0, "axis": "y", "origin": [0, 0, 7]},
+			"faces": {
+				"north": {"uv": [7, 0, 11, 0.25], "texture": "#0"},
+				"east": {"uv": [7, 0.5, 10, 0.75], "texture": "#0"},
+				"south": {"uv": [7, 0.25, 11, 0.5], "texture": "#0"},
+				"west": {"uv": [7, 0.75, 10, 1], "texture": "#0"},
+				"up": {"uv": [4, 6.75, 0, 3.75], "texture": "#0"},
+				"down": {"uv": [8, 3.75, 4, 6.75], "texture": "#0"}
+			}
+		},
+		{
+			"from": [-6, 2, 7],
+			"to": [22, 32, 13],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [0, 0, 7]},
+			"faces": {
+				"north": {"uv": [0, 0, 3.5, 3.75], "texture": "#0"},
+				"east": {"uv": [0, 6.75, 0.75, 10.5], "texture": "#0"},
+				"south": {"uv": [3.5, 0, 7, 3.75], "texture": "#0"},
+				"west": {"uv": [0.75, 6.75, 1.5, 10.5], "texture": "#0"},
+				"up": {"uv": [5, 7.5, 1.5, 6.75], "texture": "#0"},
+				"down": {"uv": [8.5, 6.75, 5, 7.5], "texture": "#0"}
+			}
+		}
+	]
+}

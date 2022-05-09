@@ -63,6 +63,10 @@ public class OmegaBlockEntities {
             "starlight_corner",
             FabricBlockEntityTypeBuilder.create(ActivatedStarlightCornerBlock.Entity::new, OmegaBlocks.ACTIVATED_STARLIGHT_CORNER).build(null));
 
+    public static final BlockEntityType<ObsidianPedestalBlockEntity> OBSIDIAN_PEDESTAL = register(
+            "obsidian_pedestal",
+            FabricBlockEntityTypeBuilder.create(ObsidianPedestalBlockEntity::new, OmegaBlocks.OBSIDIAN_PEDESTAL).build(null));
+
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> entity) {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, IntoTheOmega.id(name), entity);
