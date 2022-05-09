@@ -1,0 +1,11 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "intotheomega:item/starlit_passion"
+  },
+  "display": {
+    "gui": {
+      "translation": [ 0.5, 0.5, 0.0 ]
+    }
+  }
+}

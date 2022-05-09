@@ -167,6 +167,7 @@ public class OmegaBlocks {
 
     public static final GalaxyFurnaceBlock GALAXY_FURNACE = register("galaxy_furnace", new GalaxyFurnaceBlock(FabricBlockSettings.copyOf(Blocks.STONE).nonOpaque()), new Item.Settings());
     public static final Block STARLIGHT = register("starlight", new StarlightBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(15).hardness(10.0f)), new Item.Settings());
+    public static final Block STARLIT_CORE = register("starlit_core", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(15).hardness(10.0f)), new Item.Settings().group(IntoTheOmega.GROUP));
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {
         T registeredBlock = Registry.register(Registry.BLOCK, IntoTheOmega.id(name), block);
