@@ -248,6 +248,14 @@ public class OmegaEntities {
                     .defaultAttributes(AbyssalKnightEntity::createAbyssalKnightAttributes)
                     .build());
 
+    public static final EntityType<HomingStarlitProjectileEntity> HOMING_STARLIT_PROJECTILE = register(
+            "homing_starlit_projectile",
+            FabricEntityTypeBuilder.create()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
+                    .entityFactory(HomingStarlitProjectileEntity::new)
+                    .build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }
