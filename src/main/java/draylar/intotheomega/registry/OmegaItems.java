@@ -247,6 +247,10 @@ public class OmegaItems {
     public static final Item LAST_GLITTER = register("last_glitter", new Item(new Item.Settings().group(GROUP).maxCount(16).rarity(RARE)));
     public static final Item STARLIT_PASSION = register("starlit_passion", new StarlightPassionItem(new Item.Settings().group(GROUP).maxCount(1).rarity(RARE)));
     public static final Item STARLIGHT_WINGS = register("starlight_wings", new StarlightWingsItem(new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item STARLIGHT_HELMET = register("starlight_helmet", new StarlightArmorItem(ArmorMaterials.IRON, HEAD, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item STARLIGHT_CHESTPLATE = register("starlight_chestplate", new StarlightArmorItem(ArmorMaterials.IRON, CHEST, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item STARLIGHT_LEGGINGS = register("starlight_leggings", new StarlightArmorItem(ArmorMaterials.IRON, LEGS, new Item.Settings().group(GROUP).rarity(RARE)));
+    public static final Item STARLIGHT_BOOTS = register("starlight_boots", new StarlightArmorItem(ArmorMaterials.IRON, FEET, new Item.Settings().group(GROUP).rarity(RARE)));
 
     // Starfall
     public static final Item FALLEN_LIGHT = register("fallen_light", new SwordItem(ToolMaterials.IRON, 27, -2.4f, new Item.Settings().group(GROUP).rarity(RARE)));
