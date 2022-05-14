@@ -30,8 +30,10 @@ public class WingFeatureRenderer extends FeatureRenderer<LivingEntity, BipedEnti
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         TrinketsApi.getTrinketComponent(entity).ifPresent(component -> {
-            List<Pair<SlotReference, ItemStack>> wings = component.getEquipped(OmegaItems.PHOENIX_STARDUST_WINGS);
-            if(!wings.isEmpty()) {
+            List<Pair<SlotReference, ItemStack>> phoenixStardustWings = component.getEquipped(OmegaItems.PHOENIX_STARDUST_WINGS);
+            List<Pair<SlotReference, ItemStack>> starlightWings = component.getEquipped(OmegaItems.STARLIGHT_WINGS);
+
+            if(!phoenixStardustWings.isEmpty()) {
                 ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 
                 matrices.push();
@@ -39,7 +41,17 @@ public class WingFeatureRenderer extends FeatureRenderer<LivingEntity, BipedEnti
                 matrices.translate(0.0f, Math.sin(RenderSystem.getShaderGameTime() * 1000f) * 0.2f, 0.0f);
                 matrices.scale(3.0f, 3.0f, 0.2f);
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-                itemRenderer.renderItem(wings.get(0).getRight(), ModelTransformation.Mode.FIXED, LightmapTextureManager.pack(15, 15), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
+                itemRenderer.renderItem(phoenixStardustWings.get(0).getRight(), ModelTransformation.Mode.FIXED, LightmapTextureManager.pack(15, 15), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
+                matrices.pop();
+            } else if (!starlightWings.isEmpty()) {
+                ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
+
+                matrices.push();
+                matrices.translate(0.0f, -0.5f, 0.5f);
+                matrices.translate(0.0f, Math.sin(RenderSystem.getShaderGameTime() * 1000f) * 0.2f, 0.0f);
+                matrices.scale(3.0f, 3.0f, 0.2f);
+                matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
+                itemRenderer.renderItem(starlightWings.get(0).getRight(), ModelTransformation.Mode.FIXED, LightmapTextureManager.pack(15, 15), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
                 matrices.pop();
             }
         });
