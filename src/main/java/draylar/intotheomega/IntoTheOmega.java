@@ -4,6 +4,7 @@ import draylar.intotheomega.command.DevelopmentSpawnableCommand;
 import draylar.intotheomega.command.EndCommand;
 import draylar.intotheomega.command.GeneratePillarCommand;
 import draylar.intotheomega.command.GeneratePortalCommand;
+import draylar.intotheomega.config.ITOConfig;
 import draylar.intotheomega.impl.ServerPlayerMirrorExtensions;
 import draylar.intotheomega.impl.event.server.DragonLootTableHandler;
 import draylar.intotheomega.mixin.ChunkGeneratorSettingsAccessor;
@@ -13,6 +14,7 @@ import draylar.intotheomega.registry.world.*;
 import draylar.intotheomega.ui.ConquestForgeScreenHandler;
 import draylar.intotheomega.world.OmegaSurfaceRules;
 import draylar.intotheomega.world.feature.DarkSakuraTreeFeature;
+import draylar.omegaconfig.OmegaConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
@@ -50,6 +52,7 @@ public class IntoTheOmega implements ModInitializer {
     public static final String OMEGA = "Ω";
     public static final ScreenHandlerType<ConquestForgeScreenHandler> CF_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(id("conquest_forge"), ConquestForgeScreenHandler::new);
     public static final Logger LOGGER = LoggerFactory.getLogger("modid");
+    public static final ITOConfig CONFIG = OmegaConfig.register(ITOConfig.class);
 
     @Override
     public void onInitialize() {

@@ -79,6 +79,10 @@ dependencies {
 //        exclude group: "net.fabricmc.fabric-api"
 //    }
 
+    include modImplementation("com.github.Draylar.omega-config:omega-config-gui:${project.omega_config_version}") {
+        exclude group: "com.terraformersmc"
+    }
+
     include 'draylar:jvoronoi:1.0.2'
     modImplementation ('draylar:jvoronoi:1.0.2') {
         exclude group: "org.openjfx"
