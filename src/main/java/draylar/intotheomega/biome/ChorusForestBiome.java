@@ -1,9 +1,12 @@
 package draylar.intotheomega.biome;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.registry.OmegaBlocks;
 import draylar.intotheomega.registry.OmegaEntities;
 import draylar.intotheomega.registry.world.OmegaPlacedFeatures;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.util.math.VerticalSurfaceType;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.biome.Biome;
@@ -12,6 +15,7 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
+import net.minecraft.world.gen.surfacebuilder.MaterialRules;
 
 public class ChorusForestBiome {
 
@@ -22,10 +26,8 @@ public class ChorusForestBiome {
         DefaultBiomeFeatures.addEndMobs(spawnSettings);
         spawnSettings.spawn(SpawnGroup.MONSTER, new SpawnSettings.SpawnEntry(OmegaEntities.CHORUS_COW, 5, 3, 6));
 
-        GenerationSettings.Builder generationSettings = new GenerationSettings.Builder();
-//        generationSettings.surfaceBuilder(OmegaSurfaceBuilders.CHORUS_FOREST_BUILDER);
-        generationSettings
-                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaPlacedFeatures.FOREST_CHORUS_PLANT)
+        GenerationSettings.Builder generationSettings = new GenerationSettings.Builder()
+                .feature(GenerationStep.Feature.VEGETAL_DECORATION, OmegaPlacedFeatures.TALL_CHORUS_PLANT)
                 .feature(GenerationStep.Feature.SURFACE_STRUCTURES, OmegaPlacedFeatures.ENDSTONE_PATCH)
                 .feature(GenerationStep.Feature.UNDERGROUND_ORES, OmegaPlacedFeatures.OMEGA_ORE);
 
@@ -43,5 +45,15 @@ public class ChorusForestBiome {
                 .spawnSettings(spawnSettings.build())
                 .generationSettings(generationSettings.build())
                 .build();
+    }
+
+    public static MaterialRules.MaterialRule createSurfaceRule() {
+        return MaterialRules.condition(
+                MaterialRules.biome(KEY),
+                MaterialRules.condition(
+                        MaterialRules.stoneDepth(1, true, VerticalSurfaceType.FLOOR),
+                        MaterialRules.block(OmegaBlocks.CHORUS_GRASS.getDefaultState())
+                )
+        );
     }
 }

@@ -43,6 +43,7 @@ public class OmegaWorld {
     public static final Feature<DefaultFeatureConfig> END_ISLAND_RIVER = register("end_island_river", new EndIslandRiverFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> CRYSTALITE_CAVERN = register("crystalite_cavern", new CrystaliteCavernFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> DARK_SAKURA_TREE = register("dark_sakura_tree", new DarkSakuraTreeFeature());
+    public static final Feature<DefaultFeatureConfig> TALL_CHORUS_PLANT = register("tall_chorus_plant", new VariableChorusPlantFeature(DefaultFeatureConfig.CODEC, 16));
 
     public static void init() {
         registerStructures();

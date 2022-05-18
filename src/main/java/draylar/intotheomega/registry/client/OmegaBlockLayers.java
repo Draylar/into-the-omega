@@ -21,6 +21,7 @@ public class OmegaBlockLayers {
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.RICH_SLERN, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.OMEGA_SLIME_FLUID, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.MATRIX_GLASS, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(OmegaBlocks.SPIRAL_SPAWNER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putFluid(OmegaFluids.OMEGA_SLIME_FLOWING, RenderLayer.getTranslucent());
         BlockRenderLayerMap.INSTANCE.putFluid(OmegaFluids.OMEGA_SLIME_STILL, RenderLayer.getTranslucent());
     }

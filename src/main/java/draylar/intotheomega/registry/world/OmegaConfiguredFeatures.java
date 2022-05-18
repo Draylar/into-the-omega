@@ -32,6 +32,7 @@ public class OmegaConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> CRYSTALITE_SPIKE = register("crystalite_spike", OmegaWorld.CRYSTALITE_SPIKE);
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> CRYSTALITE_CAVERN = register("crystalite_cavern", OmegaWorld.CRYSTALITE_CAVERN);
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> DARK_SAKURA_TREE = register("dark_sakura_tree", OmegaWorld.DARK_SAKURA_TREE);
+    public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> TALL_CHORUS_PLANT = register("tall_chorus_plant", OmegaWorld.TALL_CHORUS_PLANT);
 
     public static <FC extends FeatureConfig, F extends Feature<FC>> RegistryEntry<ConfiguredFeature<FC, ?>> register(String id, F feature, FC config) {
         return BuiltinRegistries.method_40360(BuiltinRegistries.CONFIGURED_FEATURE, IntoTheOmega.id(id).toString(), new ConfiguredFeature<>(feature, config));

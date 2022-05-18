@@ -26,6 +26,7 @@ public class OmegaStructureFeatures {
     public static final SlimeCaveStructure SLIME_CAVE = register("slime_cave", new SlimeCaveStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final EndThornStructure END_THORN = register("end_thorn", new EndThornStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final StarfieldStructure STARFIELD = register("starfield", new StarfieldStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
+    public static final SpiralDungeonStructure SPIRAL_DUNGEON = register("spiral_dungeon", new SpiralDungeonStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
 
     // JIGSAW
     public static final StructureFeature<StructurePoolFeatureConfig> END_LABYRINTH = register("end_labyrinth", new EndLabyrinthJigsaw(StructurePoolFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);

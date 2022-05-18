@@ -1,6 +1,7 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.api.BlockEntityExtensions;
 import draylar.intotheomega.block.ActivatedStarlightCornerBlock;
 import draylar.intotheomega.block.MirrorBlock;
 import draylar.intotheomega.entity.WatchingEyeBlockEntity;
@@ -74,5 +75,9 @@ public class OmegaBlockEntities {
 
     private OmegaBlockEntities() {
         // NO-OP
+    }
+
+    public static void init() {
+        BlockEntityExtensions.extend(BlockEntityType.MOB_SPAWNER, OmegaBlocks.SPIRAL_SPAWNER);
     }
 }
