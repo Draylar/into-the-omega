@@ -1,9 +1,12 @@
 package draylar.intotheomega.item.core;
 
+import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.api.item.SetBonusProvider;
+import draylar.intotheomega.item.SkinArmorItem;
 import draylar.intotheomega.material.DragonslayerArmorMaterial;
 import draylar.intotheomega.registry.OmegaItems;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
@@ -12,14 +15,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DragonslayerArmorItem extends ArmorItem implements SetBonusProvider {
+public class DragonslayerArmorItem extends SkinArmorItem implements SetBonusProvider {
 
+    private static final Identifier TEXTURE = IntoTheOmega.id("textures/entity/dragonslayer_armor_skin.png");
     private static final HashMap<EquipmentSlot, Item> REQUIRED_FOR_SET = new HashMap<>();
 
     public DragonslayerArmorItem(EquipmentSlot slot, Settings settings) {
@@ -44,5 +49,10 @@ public class DragonslayerArmorItem extends ArmorItem implements SetBonusProvider
     @Override
     public void tickSetBonus(PlayerEntity player, ItemStack stack) {
 
+    }
+
+    @Override
+    public Identifier getTexture(AbstractClientPlayerEntity entity, EquipmentSlot equipmentSlot, ItemStack head) {
+        return TEXTURE;
     }
 }
