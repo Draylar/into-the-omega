@@ -1,7 +1,6 @@
 package draylar.intotheomega.client.feature;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.intotheomega.registry.OmegaItems;
 import net.minecraft.client.MinecraftClient;
@@ -15,13 +14,19 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.Vec3f;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class WingFeatureRenderer extends FeatureRenderer<LivingEntity, BipedEntityModel<LivingEntity>> {
+
+    private static final List<Item> WINGS = Arrays.asList(OmegaItems.STARLIGHT_WINGS, OmegaItems.PHOENIX_STARDUST_WINGS, OmegaItems.DRAGON_WINGS);
 
     public WingFeatureRenderer(FeatureRendererContext<LivingEntity, BipedEntityModel<LivingEntity>> context) {
         super(context);
@@ -30,10 +35,8 @@ public class WingFeatureRenderer extends FeatureRenderer<LivingEntity, BipedEnti
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, LivingEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         TrinketsApi.getTrinketComponent(entity).ifPresent(component -> {
-            List<Pair<SlotReference, ItemStack>> phoenixStardustWings = component.getEquipped(OmegaItems.PHOENIX_STARDUST_WINGS);
-            List<Pair<SlotReference, ItemStack>> starlightWings = component.getEquipped(OmegaItems.STARLIGHT_WINGS);
-
-            if(!phoenixStardustWings.isEmpty()) {
+            Optional<ItemStack> wings = WINGS.stream().map(component::getEquipped).filter(it -> !it.isEmpty()).map(it -> it.get(0)).map(Pair::getRight).findFirst();
+            wings.ifPresent(stack -> {
                 ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 
                 matrices.push();
@@ -41,19 +44,9 @@ public class WingFeatureRenderer extends FeatureRenderer<LivingEntity, BipedEnti
                 matrices.translate(0.0f, Math.sin(RenderSystem.getShaderGameTime() * 1000f) * 0.2f, 0.0f);
                 matrices.scale(3.0f, 3.0f, 0.2f);
                 matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-                itemRenderer.renderItem(phoenixStardustWings.get(0).getRight(), ModelTransformation.Mode.FIXED, LightmapTextureManager.pack(15, 15), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
+                itemRenderer.renderItem(stack, ModelTransformation.Mode.FIXED, LightmapTextureManager.pack(15, 15), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
                 matrices.pop();
-            } else if (!starlightWings.isEmpty()) {
-                ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-
-                matrices.push();
-                matrices.translate(0.0f, -0.5f, 0.5f);
-                matrices.translate(0.0f, Math.sin(RenderSystem.getShaderGameTime() * 1000f) * 0.2f, 0.0f);
-                matrices.scale(3.0f, 3.0f, 0.2f);
-                matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180));
-                itemRenderer.renderItem(starlightWings.get(0).getRight(), ModelTransformation.Mode.FIXED, LightmapTextureManager.pack(15, 15), OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, 0);
-                matrices.pop();
-            }
+            });
         });
     }
 }

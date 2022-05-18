@@ -1,21 +1,21 @@
 package draylar.intotheomega.item;
 
 import draylar.intotheomega.impl.DoubleJumpTrinket;
-import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.World;
 
-public class StarlightWingsItem extends WingsItem implements DoubleJumpTrinket {
+public class DragonWingsItem extends WingsItem implements DoubleJumpTrinket {
 
-    public StarlightWingsItem(Item.Settings settings) {
+    public DragonWingsItem(Item.Settings settings) {
         super(settings);
     }
 
     @Override
     public int getDoubleJumps(ItemStack stack) {
-        return 10;
+        return 5;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class StarlightWingsItem extends WingsItem implements DoubleJumpTrinket {
         for (int i = 0; i < 50; i++) {
             double x = player.getX() + world.random.nextDouble(4) - 2;
             double z = player.getZ() + world.random.nextDouble(4) - 2;
-            world.addParticle(OmegaParticles.STARLIGHT, x, player.getY(), z, 0, 0, 0);
+            world.addParticle(ParticleTypes.DRAGON_BREATH, x, player.getY(), z, 0, 0, 0);
         }
     }
 }

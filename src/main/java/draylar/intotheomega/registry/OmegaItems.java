@@ -103,6 +103,7 @@ public class OmegaItems {
     public static final Item DRAGONSLAYER_HOE = register("dragonslayer_hoe", new HoeItem(DragonslayerToolMaterial.INSTANCE, -1, -2.2f, new Item.Settings().group(GROUP).rarity(EPIC)));
     public static final Item DRAGONSLAYER_SHOVEL = register("dragonslayer_shovel", new ShovelItem(DragonslayerToolMaterial.INSTANCE, -1, -2.2f, new Item.Settings().group(GROUP).rarity(EPIC)));
     public static final Item DRAGONSLAYER_AXE = register("dragonslayer_axe", new AxeItem(DragonslayerToolMaterial.INSTANCE, 4, -3.2f, new Item.Settings().group(GROUP).rarity(EPIC)));
+    public static final Item DRAGON_WINGS = register("dragon_wings", new DragonWingsItem(new Item.Settings().group(GROUP).rarity(EPIC)));
 
     // armor
     public static final Item OMEGA_HELMET = register("omega_helmet", new ArmorItem(OmegaArmorMaterial.INSTANCE, HEAD, new Item.Settings().group(GROUP).rarity(EPIC)));

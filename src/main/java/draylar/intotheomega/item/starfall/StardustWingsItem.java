@@ -1,13 +1,14 @@
 package draylar.intotheomega.item.starfall;
 
 import draylar.intotheomega.impl.DoubleJumpTrinket;
+import draylar.intotheomega.item.WingsItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.world.World;
 
-public class StardustWingsItem extends Item implements DoubleJumpTrinket {
+public class StardustWingsItem extends WingsItem implements DoubleJumpTrinket {
 
     public StardustWingsItem(Settings settings) {
         super(settings);
