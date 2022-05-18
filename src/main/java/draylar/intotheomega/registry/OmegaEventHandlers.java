@@ -7,6 +7,7 @@ import draylar.attributed.event.CriticalHitEvents;
 import draylar.intotheomega.api.item.AttackHandler;
 import draylar.intotheomega.api.BewitchedHelper;
 import draylar.intotheomega.api.EndBiomeSourceCache;
+import draylar.intotheomega.api.item.CriticalItem;
 import draylar.intotheomega.api.item.TrinketEventHandler;
 import draylar.intotheomega.api.event.EntityJumpCallback;
 import draylar.intotheomega.api.event.ExplosionDamageEntityCallback;
@@ -30,6 +31,7 @@ import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Pair;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
@@ -50,7 +52,32 @@ public class OmegaEventHandlers {
         registerTrinketEventHandler();
         registerInanisLeapAttack();
         registerHeartOfIceCriticalHandlers();
+        registerItemHandlers();
         ServerWorldEvents.LOAD.register(new EndBiomeSourceCache());
+    }
+
+    private static void registerItemHandlers() {
+        CriticalHitEvents.CALCULATE_MODIFIER.register((player, target, stack, modifier) -> {
+            if(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof CriticalItem criticalModifier) {
+                return criticalModifier.modifyCriticalDamage(player, target, stack, Hand.MAIN_HAND, modifier);
+            }
+
+            if(player.getStackInHand(Hand.OFF_HAND).getItem() instanceof CriticalItem criticalModifier) {
+                return criticalModifier.modifyCriticalDamage(player, target, stack, Hand.OFF_HAND, modifier);
+            }
+
+            return modifier;
+        });
+
+        CriticalHitEvents.AFTER.register((player, target, stack) -> {
+            if(player.getStackInHand(Hand.MAIN_HAND).getItem() instanceof CriticalItem criticalModifier) {
+                criticalModifier.afterCriticalHit(player, target, stack, Hand.MAIN_HAND);
+            }
+
+            if(player.getStackInHand(Hand.OFF_HAND).getItem() instanceof CriticalItem criticalModifier) {
+                criticalModifier.afterCriticalHit(player, target, stack, Hand.OFF_HAND);
+            }
+        });
     }
 
     private static void registerHeartOfIceCriticalHandlers() {

@@ -19,6 +19,13 @@ public class OmegaStatusEffects {
             "pure_strength", (new DamageModifierStatusEffect(StatusEffectCategory.BENEFICIAL, 9643043, 3.0D) {})
                     .addAttributeModifier(EntityAttributes.GENERIC_ATTACK_DAMAGE, "648D7064-6A60-4F59-8ABE-C2C23A6DD7A9", 0.2D, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
 
+    public static final StatusEffect VIOLET_SURGE = register("violet_surge", new StatusEffect(StatusEffectCategory.BENEFICIAL, 0x9042f5) {}.addAttributeModifier(
+            EntityAttributes.GENERIC_ATTACK_DAMAGE,
+            "03C3C89D-7037-4B42-869F-B146BCB64D1E",
+            0.1D,
+            EntityAttributeModifier.Operation.MULTIPLY_TOTAL
+    ));
+
     private static StatusEffect register(String id, StatusEffect entry) {
         return  Registry.register(Registry.STATUS_EFFECT, IntoTheOmega.id(id), entry);
     }
