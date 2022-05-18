@@ -4,9 +4,12 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.mixin.access.StructureFeatureAccessor;
 import draylar.intotheomega.world.TestSF;
 import draylar.intotheomega.world.structure.*;
+import draylar.intotheomega.world.structure.jigsaw.EndLabyrinthJigsaw;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
+import net.minecraft.world.gen.feature.VillageFeature;
 
 public class OmegaStructureFeatures {
 
@@ -23,6 +26,9 @@ public class OmegaStructureFeatures {
     public static final SlimeCaveStructure SLIME_CAVE = register("slime_cave", new SlimeCaveStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final EndThornStructure END_THORN = register("end_thorn", new EndThornStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final StarfieldStructure STARFIELD = register("starfield", new StarfieldStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
+
+    // JIGSAW
+    public static final StructureFeature<StructurePoolFeatureConfig> END_LABYRINTH = register("end_labyrinth", new EndLabyrinthJigsaw(StructurePoolFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
 
     private static <SF extends StructureFeature<?>> SF register(String name, SF structureFeature, GenerationStep.Feature step) {
         return StructureFeatureAccessor.register(IntoTheOmega.id(name).toString(), structureFeature, step);

@@ -64,7 +64,7 @@ public class OmegaBiomes {
         // Zone 3 [ 30,000 -> 50,000 ]
 
         if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
-            OmegaEndBiomePicker.solo(IslandBiomeData.builder().singleBiome(StarfallValleyBiome.KEY).maxDistance(Integer.MAX_VALUE).build());
+//            OmegaEndBiomePicker.solo(IslandBiomeData.builder().singleBiome(StarfallValleyBiome.KEY).maxDistance(Integer.MAX_VALUE).build());
         }
     }
 }

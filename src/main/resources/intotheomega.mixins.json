@@ -72,6 +72,7 @@
     "dev.FillCommandMixin",
     "dev.MobEntityAIRenderingMixin",
     "dev.ServerPlayerMirrorMixin",
+    "dev.StructureVoidBlockMixin",
     "dungeon.BlockItemMixin",
     "dungeon.LivingNotificationMixin",
     "entity.EndermanParticleMixin",
@@ -96,7 +97,8 @@
     "world.EndPillarDesignMixin",
     "world.EndPillarSpikeCacheMixin",
     "world.EndPortalRedesignMixin",
-    "world.SpawnHelperMixin"
+    "world.SpawnHelperMixin",
+    "world.StructurePoolsMixin"
   ],
   "client": [
     "ItemRendererMixin",

@@ -1,15 +1,14 @@
 package draylar.intotheomega.registry.world;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.world.structure.jigsaw.EndLabyrinthData;
+import net.minecraft.structure.DesertVillageData;
 import net.minecraft.tag.BiomeTags;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
-import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.*;
 
 public class OmegaConfiguredStructureFeatures {
 
@@ -21,7 +20,7 @@ public class OmegaConfiguredStructureFeatures {
     //    public static final ConfiguredStructureFeature<?, ?> ENIGMA_KING_SPIKE = register("spike", OmegaWorld.SPIKE.configure(DefaultFeatureConfig.INSTANCE));
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> MATRIX_PEDESTAL = register(key("matrix_pedestal"), OmegaStructureFeatures.MATRIX_PEDESTAL.configure(new DefaultFeatureConfig(), BiomeTags.END_CITY_HAS_STRUCTURE));
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> BEJEWELED_DUNGEON = register(key("bejeweled_dungeon"), OmegaStructureFeatures.BEJEWELED_DUNGEON.configure(new DefaultFeatureConfig(), BiomeTags.END_CITY_HAS_STRUCTURE));
-    public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> TEST_SF = register(key("test_sf"), OmegaStructureFeatures.TEST_SF.configure(new DefaultFeatureConfig(), BiomeTags.IS_FOREST));
+//    public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> TEST_SF = register(key("test_sf"), OmegaStructureFeatures.TEST_SF.configure(new DefaultFeatureConfig(), BiomeTags.IS_FOREST));
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> OMEGA_SLIME_SPIRAL = register(key("omega_slime_spiral"), OmegaStructureFeatures.OMEGA_SLIME_SPIRAL.configure(new DefaultFeatureConfig(), OmegaBiomeTags.OMEGA_SLIME_WASTES));
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> SLIME_TENDRIL = register(key("slime_tendril"), OmegaStructureFeatures.SLIME_TENDRIL.configure(new DefaultFeatureConfig(), OmegaBiomeTags.OMEGA_SLIME_WASTES));
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> SLIME_CEILING = register(key("slime_ceiling"), OmegaStructureFeatures.SLIME_CEILING.configure(new DefaultFeatureConfig(), OmegaBiomeTags.OMEGA_SLIME_WASTES));
@@ -36,6 +35,9 @@ public class OmegaConfiguredStructureFeatures {
 //    public static final ConfiguredStructureFeature<?, ?> ABYSS_FLOWER_ISLAND = register("abyss_flower_island", OmegaWorld.ABYSS_FLOWER_ISLAND.configure(DefaultFeatureConfig.INSTANCE));
 
     public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> SMALL_CHORUS_MONUMENT = register(key("small_chorus_monument"), OmegaStructureFeatures.SMALL_CHORUS_MONUMENT.configure(DefaultFeatureConfig.INSTANCE, BiomeTags.END_CITY_HAS_STRUCTURE));
+
+    // JIGSAW
+    public static final RegistryEntry<ConfiguredStructureFeature<?, ?>> END_LABYRINTH = register(key("end_labyrinth"), OmegaStructureFeatures.END_LABYRINTH.configure(new StructurePoolFeatureConfig(EndLabyrinthData.START_POOL, 7), OmegaBiomeTags.GENERIC_END_STRUCTURE));
 
     private static <FC extends FeatureConfig, F extends StructureFeature<FC>> RegistryEntry<ConfiguredStructureFeature<?, ?>> register(RegistryKey<ConfiguredStructureFeature<?, ?>> key, ConfiguredStructureFeature<FC, F> configuredStructureFeature) {
         return BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, key, configuredStructureFeature);

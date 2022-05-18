@@ -1,5 +1,6 @@
 package draylar.intotheomega.mixin.boss;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import draylar.intotheomega.IntoTheOmega;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
@@ -74,15 +75,14 @@ public abstract class BossBarHudMixin extends DrawableHelper {
             ci.cancel();
         }
 
-        client.getTextureManager().bindTexture(BARS_TEXTURE);
+        RenderSystem.setShaderTexture(0, BARS_TEXTURE);
     }
 
     @Unique
     private void renderEnigmaKingBar(MatrixStack matrices, int x, int y, BossBar bossBar) {
-        this.client.getTextureManager().bindTexture(ENIGMA_KING_TEXTURE);
+        RenderSystem.setShaderTexture(0, ENIGMA_KING_TEXTURE);
 
         int a = this.client.getWindow().getScaledWidth();
-        this.client.getTextureManager().bindTexture(ENIGMA_KING_TEXTURE);
         double healthPercentage = bossBar.getPercent();
         int amount = (int) (185 * healthPercentage);
 
@@ -110,10 +110,9 @@ public abstract class BossBarHudMixin extends DrawableHelper {
 
     @Unique
     private void renderOmegaSlimeEmperor(MatrixStack matrices, int x, int y, BossBar bossBar) {
-        this.client.getTextureManager().bindTexture(OMEGA_SLIME_EMPEROR_TEXTURE);
+        RenderSystem.setShaderTexture(0, OMEGA_SLIME_EMPEROR_TEXTURE);
 
         int a = this.client.getWindow().getScaledWidth();
-        this.client.getTextureManager().bindTexture(OMEGA_SLIME_EMPEROR_TEXTURE);
         double healthPercentage = bossBar.getPercent();
         int amount = (int) (185 * healthPercentage);
 
@@ -141,7 +140,7 @@ public abstract class BossBarHudMixin extends DrawableHelper {
 
     @Unique
     private void renderVoidMatrixBar(MatrixStack matrices, int x, int y, BossBar bossBar) {
-        client.getTextureManager().bindTexture(VOID_MATRIX_TEXTURE);
+        RenderSystem.setShaderTexture(0, VOID_MATRIX_TEXTURE);
 
         // draw empty background bar
         drawTexture(matrices, x, y, 0, 0, 185, 7);
@@ -155,7 +154,7 @@ public abstract class BossBarHudMixin extends DrawableHelper {
 
     @Unique
     private void renderEnderDragon(MatrixStack matrices, int x, int y, BossBar bossBar) {
-        client.getTextureManager().bindTexture(ENDER_DRAGON_TEXTURE);
+        RenderSystem.setShaderTexture(0, ENDER_DRAGON_TEXTURE);
 
         // draw empty background bar
         drawTexture(matrices, x, y, 0, 0, 182, 19);

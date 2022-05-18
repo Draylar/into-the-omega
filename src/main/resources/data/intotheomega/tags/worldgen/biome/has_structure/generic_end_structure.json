@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:end_highlands",
+    "minecraft:end_midlands",
+    "intotheomega:black_thorn_forest",
+    "intotheomega:chorus_forest",
+    "intotheomega:dark_sakura_forest"
+  ]
+}

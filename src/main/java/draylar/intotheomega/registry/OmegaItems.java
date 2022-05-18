@@ -278,6 +278,7 @@ public class OmegaItems {
     // creative items
     public static final Item INFINITE_OMEGA_GOD_SEAL = register("infinite_omega_god_seal", new InvincibleTrinketItem(new Item.Settings().rarity(EPIC)));
     public static final Item SLIME_STRUCTURE_GENERATOR = register("slime_structure_generator", new SlimeStructureGeneratorItem(new Item.Settings().rarity(EPIC)));
+    public static final Item FLOODING_STRUCTURE_VOID = register("flooding_structure_void", new FloodingStructureVoidItem(new Item.Settings().maxCount(1).rarity(EPIC)));
 
     // Memory Fragments
     public static final MemoryItem MEMORY_OF_DISTORTION = register("memory_of_distortion", new MemoryItem(new Item.Settings().rarity(EPIC).group(GROUP)));

@@ -34,13 +34,6 @@ public class OmegaStructureSets {
                             StructureSet.createEntry(OmegaConfiguredStructureFeatures.MEDIUM_PHANTOM_TOWER)
                     ), new RandomSpreadStructurePlacement(24, 16, SpreadType.TRIANGULAR, 5145242)));
 
-    public static final RegistryEntry<StructureSet> TEST_SF =
-            StructureSets.register(
-                    key("test_sf"),
-                    new StructureSet(List.of(
-                            StructureSet.createEntry(OmegaConfiguredStructureFeatures.TEST_SF)
-                    ), new RandomSpreadStructurePlacement(10, 9, SpreadType.TRIANGULAR, 1234554)));
-
     public static final RegistryEntry<StructureSet> OMEGA_SLIME_SPIRAL =
             StructureSets.register(
                     key("omega_slime_spiral"),
@@ -82,6 +75,13 @@ public class OmegaStructureSets {
                     new StructureSet(List.of(
                             StructureSet.createEntry(OmegaConfiguredStructureFeatures.STARFIELD)
                     ), new RandomSpreadStructurePlacement(18, 16, SpreadType.LINEAR, 12545135)));
+
+    public static final RegistryEntry<StructureSet> END_LABYRINTH =
+            StructureSets.register(
+                    key("end_labyrinth"),
+                    new StructureSet(List.of(
+                            StructureSet.createEntry(OmegaConfiguredStructureFeatures.END_LABYRINTH)
+                    ), new RandomSpreadStructurePlacement(10, 8, SpreadType.LINEAR, 12545135)));
 
 
     private static RegistryKey<StructureSet> key(String id) {

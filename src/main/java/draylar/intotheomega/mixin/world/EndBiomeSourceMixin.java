@@ -190,24 +190,24 @@ public abstract class EndBiomeSourceMixin extends BiomeSource implements BiomeRe
 
         ListIterator<Vec2i> iterator = toProcess.listIterator();
         while (iterator.hasNext()) {
-            Vec2i next = iterator.next();
+            Vec2i nextChunkQuad = iterator.next();
             iterator.remove();
-            finished.add(next);
+            finished.add(nextChunkQuad);
 
             // are we in the island?
-            float offsetNoise = getNoiseAt(noise, (next.x / 4) * 2 + 1, (next.z / 4) * 2 + 1);
-            cachedNoise.put(next, offsetNoise);
+            float offsetNoise = getNoiseAt(noise, (nextChunkQuad.x / 4) * 2 + 1, (nextChunkQuad.z / 4) * 2 + 1);
+            cachedNoise.put(nextChunkQuad, offsetNoise);
 
             if(offsetNoise >= -20.0f) {
-                island.add(next);
+                island.add(nextChunkQuad);
 
                 // check neighbors
                 for (Direction direction : HORIZONTAL_DIRECTIONS) {
-                    Vec2i offset = new Vec2i(next.x + direction.getOffsetX(), next.z + direction.getOffsetZ());
+                    Vec2i offset = new Vec2i(nextChunkQuad.x + direction.getOffsetX(), nextChunkQuad.z + direction.getOffsetZ());
 
                     // Do NOT attempt to process any positions within 4096 blocks of spawn.
                     // This prevents the server from locking up when we load chunks directly outside this range.
-                    if(Math.sqrt(Math.pow(offset.x, 2) + Math.pow(offset.z, 2)) <= 4096) {
+                    if(Math.pow(offset.x, 2) + Math.pow(offset.z, 2) <= 4096) {
                         continue;
                     }
 
