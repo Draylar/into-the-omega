@@ -23,7 +23,8 @@ public class OmegaStructurePieces {
     public static final StructurePieceType END_THORN = register("end_thorn", EndThornStructure.Piece::new);
     public static final StructurePieceType STARFIELD = register("starfield", StarfieldStructure.Piece::new);
     public static final StructurePieceType SPIRAL_DUNGEON = register("spiral_dungeon", SpiralDungeonPiece::new);
-
+    public static final StructurePieceType NOVA_ZONE_VOID = register("nova_zone_void", NovaZoneStructure.VoidPiece::new);
+    public static final StructurePieceType NOVA_ZONE_BASE = register("nova_zone_base", NovaZoneStructure.BasePiece::new);
 
 //    public static final StructurePieceType SPIKE = register("spike", SpikeStructureGenerator::new);
 

@@ -47,6 +47,7 @@ public class OmegaRenderers {
         EntityRendererRegistry.register(OmegaEntities.ABYSSAL_KNIGHT, AbyssalKnightEntityRenderer::new);
         EntityRendererRegistry.register(OmegaEntities.HOMING_STARLIT_PROJECTILE, EmptyEntityRenderer::new);
         EntityRendererRegistry.register(OmegaEntities.STAR_WALKER, StarWalkerEntityRenderer::new);
+        EntityRendererRegistry.register(OmegaEntities.ORIGIN_NOVA, EmptyEntityRenderer::new);
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);

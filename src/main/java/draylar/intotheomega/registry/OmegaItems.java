@@ -270,11 +270,20 @@ public class OmegaItems {
     public static final Item STARFALL_LEGGINGS = register("starfall_leggings", new StarfallArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, LEGS, new Item.Settings().group(GROUP).rarity(RARE)));
     public static final Item STARFALL_BOOTS = register("starfall_boots", new StarfallArmorItem(CrimsonMajestyArmorMaterial.INSTANCE, FEET, new Item.Settings().group(GROUP).rarity(RARE)));
 
+    // Nova
+    public static final Item NOVA_CORE = register("nova_core", new Item(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
+    public static final Item SINGULARITY_EDGE = register("singularity_edge", new Item(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
+    public static final Item BOUND_NOVA = register("bound_nova", new Item(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
+
     // stuff
     // misc
 //    public static final Item TRUE_EOE_SPAWN_EGG = register("true_eye_of_ender_spawn_egg", new SpawnEggItem(OmegaEntities.TRUE_EYE_OF_ENDER, 0, 0, new Item.Settings().group(IntoTheOmega.GROUP)));
     public static final Item VOIDS_REFUGE = register("voids_refuge", new Item(new Item.Settings().group(GROUP).rarity(EPIC)));
     public static final Item ENDERANG = register("enderang", new Item(new Item.Settings().group(GROUP).rarity(EPIC)));
+
+
+    public static final Item REVERENT_LIGHT = register("reverent_light", new Item(new Item.Settings().group(GROUP).rarity(EPIC).maxCount(1)));
+
 
     // creative items
     public static final Item INFINITE_OMEGA_GOD_SEAL = register("infinite_omega_god_seal", new InvincibleTrinketItem(new Item.Settings().rarity(EPIC)));

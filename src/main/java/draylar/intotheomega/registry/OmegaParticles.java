@@ -19,6 +19,7 @@ public class OmegaParticles {
     public static final DefaultParticleType STARFALL_SWIRL = ParticleTypesAccessor.callRegister("intotheomega:starfall_swirl", false);
     public static final DefaultParticleType TINY_STAR = ParticleTypesAccessor.callRegister("intotheomega:tiny_star", false);
     public static final DefaultParticleType STARLIGHT = ParticleTypesAccessor.callRegister("intotheomega:starlight", false);
+    public static final DefaultParticleType ORIGIN_NOVA = ParticleTypesAccessor.callRegister("intotheomega:origin_nova", false);
 
     public static void init() {
 

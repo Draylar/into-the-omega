@@ -265,6 +265,15 @@ public class OmegaEntities {
                     .entityFactory(HomingStarlitProjectileEntity::new)
                     .build());
 
+    public static final EntityType<OriginNovaEntity> ORIGIN_NOVA = register(
+            "origin_nova",
+            FabricEntityTypeBuilder.create()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
+                    .entityFactory(OriginNovaEntity::new)
+                    .trackRangeBlocks(256)
+                    .build());
+
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {
         return Registry.register(Registry.ENTITY_TYPE, IntoTheOmega.id(name), entity);
     }

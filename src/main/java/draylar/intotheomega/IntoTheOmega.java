@@ -12,6 +12,7 @@ import draylar.intotheomega.network.ServerNetworking;
 import draylar.intotheomega.registry.*;
 import draylar.intotheomega.registry.world.*;
 import draylar.intotheomega.ui.ConquestForgeScreenHandler;
+import draylar.intotheomega.world.NovaZoneGenerator;
 import draylar.intotheomega.world.OmegaSurfaceRules;
 import draylar.intotheomega.world.feature.DarkSakuraTreeFeature;
 import draylar.omegaconfig.OmegaConfig;
@@ -101,6 +102,7 @@ public class IntoTheOmega implements ModInitializer {
 
         DevelopmentSpawnableCommand.initialize();
         DevelopmentSpawnableCommand.registerSpawnable("dark_sakura_tree", new DarkSakuraTreeFeature());
+        DevelopmentSpawnableCommand.registerSpawnable("nova_zone", new NovaZoneGenerator(null, null, null));
 
         if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
             PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {

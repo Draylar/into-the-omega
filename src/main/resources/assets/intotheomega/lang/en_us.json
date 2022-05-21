@@ -300,6 +300,15 @@
   "item.intotheomega.starlight_boots": "Starlight Boots",
   "block.intotheomega.starlit_core": "Starlit Core",
 
+  "__comment": "--------------------- Nova ---------------------",
+  "item.intotheomega.nova_core": "Nova Core",
+  "item.intotheomega.bound_nova": "Bound Nova",
+  "item.intotheomega.singularity_edge": "Singularity Edge",
+  "entity.intotheomega.origin_nova": "Origin Nova",
+
+
+  "item.intotheomega.reverent_light": "Reverent Light",
+
   "item.intotheomega.spiral_surge": "Spiral Surge",
   "effect.intotheomega.violet_surge": "Violet Surge",
 
