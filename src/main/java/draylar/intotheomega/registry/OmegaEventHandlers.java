@@ -4,20 +4,16 @@ import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketComponent;
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.attributed.event.CriticalHitEvents;
-import draylar.intotheomega.api.item.AttackHandler;
+import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.api.BewitchedHelper;
 import draylar.intotheomega.api.EndBiomeSourceCache;
-import draylar.intotheomega.api.item.CriticalItem;
-import draylar.intotheomega.api.item.TrinketEventHandler;
-import draylar.intotheomega.api.event.EntityJumpCallback;
-import draylar.intotheomega.api.event.ExplosionDamageEntityCallback;
-import draylar.intotheomega.api.event.PlayerAttackCallback;
-import draylar.intotheomega.api.event.PlayerDamageCallback;
-import draylar.intotheomega.item.ice.ChilledVoidArmorItem;
+import draylar.intotheomega.api.event.*;
+import draylar.intotheomega.api.item.*;
+import draylar.intotheomega.item.api.SetArmorItem;
 import draylar.intotheomega.item.dragon.InanisItem;
+import draylar.intotheomega.item.ice.ChilledVoidArmorItem;
 import draylar.intotheomega.item.matrix.MatrixCharmItem;
 import draylar.intotheomega.item.matrix.MatrixLensItem;
-import draylar.intotheomega.item.api.SetArmorItem;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
@@ -76,6 +72,22 @@ public class OmegaEventHandlers {
 
             if(player.getStackInHand(Hand.OFF_HAND).getItem() instanceof CriticalItem criticalModifier) {
                 criticalModifier.afterCriticalHit(player, target, stack, Hand.OFF_HAND);
+            }
+        });
+
+        BatchAttackEvents.AFTER.register((player, data) -> {
+            for (ItemStack stack : IntoTheOmega.collectListeningItems(player)) {
+                if(stack.getItem() instanceof BatchDamageHandler handler) {
+                    handler.afterBatchDamage(player.world, player, stack, data);
+                }
+            }
+        });
+
+        BatchAttackEvents.BEFORE.register((player, data) -> {
+            for (ItemStack stack : IntoTheOmega.collectListeningItems(player)) {
+                if(stack.getItem() instanceof BatchDamageHandler handler) {
+                    handler.beforeBatchDamage(player.world, player, stack, data);
+                }
             }
         });
     }

@@ -13,6 +13,7 @@ import draylar.intotheomega.item.enigma.*;
 import draylar.intotheomega.item.ice.*;
 import draylar.intotheomega.item.matrix.*;
 import draylar.intotheomega.item.memory.MemoryItem;
+import draylar.intotheomega.item.nova.BoundNovaItem;
 import draylar.intotheomega.item.slime.*;
 import draylar.intotheomega.item.starfall.StardustWingsItem;
 import draylar.intotheomega.item.starfall.StarfallTomeItem;
@@ -273,7 +274,7 @@ public class OmegaItems {
     // Nova
     public static final Item NOVA_CORE = register("nova_core", new Item(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
     public static final Item SINGULARITY_EDGE = register("singularity_edge", new Item(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
-    public static final Item BOUND_NOVA = register("bound_nova", new Item(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
+    public static final Item BOUND_NOVA = register("bound_nova", new BoundNovaItem(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
 
     // stuff
     // misc
