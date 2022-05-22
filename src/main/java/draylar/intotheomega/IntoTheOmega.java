@@ -2,10 +2,7 @@ package draylar.intotheomega;
 
 import dev.emi.trinkets.api.TrinketsApi;
 import draylar.intotheomega.api.item.DamageHandler;
-import draylar.intotheomega.command.DevelopmentSpawnableCommand;
-import draylar.intotheomega.command.EndCommand;
-import draylar.intotheomega.command.GeneratePillarCommand;
-import draylar.intotheomega.command.GeneratePortalCommand;
+import draylar.intotheomega.command.*;
 import draylar.intotheomega.config.ITOConfig;
 import draylar.intotheomega.impl.ServerPlayerMirrorExtensions;
 import draylar.intotheomega.impl.event.server.DragonLootTableHandler;
@@ -111,6 +108,10 @@ public class IntoTheOmega implements ModInitializer {
         DevelopmentSpawnableCommand.initialize();
         DevelopmentSpawnableCommand.registerSpawnable("dark_sakura_tree", new DarkSakuraTreeFeature());
         DevelopmentSpawnableCommand.registerSpawnable("nova_zone", new NovaZoneGenerator(null, null, null));
+
+        if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
+            CommandRegistrationCallback.EVENT.register(new UtilCommands());
+        }
 
         if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
             PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, blockEntity) -> {
