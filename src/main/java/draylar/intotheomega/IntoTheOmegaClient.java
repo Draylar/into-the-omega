@@ -5,6 +5,7 @@ import draylar.intotheomega.api.HandheldModelRegistry;
 import draylar.intotheomega.api.client.ArmorSetDisplayRegistry;
 import draylar.intotheomega.api.event.ParticleEvents;
 import draylar.intotheomega.api.item.SetBonusProvider;
+import draylar.intotheomega.api.skybox.SkyboxManager;
 import draylar.intotheomega.client.OmegaSlimeRenderingHandler;
 import draylar.intotheomega.client.PhasePadUtils;
 import draylar.intotheomega.client.feature.HyperionFeatureRenderer;
@@ -59,6 +60,7 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public class IntoTheOmegaClient implements ClientModInitializer {
 
+    private static final SkyboxManager SKYBOX = new SkyboxManager();
     public static final Map<Integer, List<PrioritizedGoal>> DEVELOPMENT_AI_SYNC = new HashMap<>();
     public static final Map<Integer, Path> DEVELOPMENT_PATH_SYNC = new HashMap<>();
     public static boolean inIceIsland = false;
@@ -134,5 +136,9 @@ public class IntoTheOmegaClient implements ClientModInitializer {
 
     public static ModelIdentifier modelID(String name) {
         return new ModelIdentifier("intotheomega", name);
+    }
+
+    public static SkyboxManager getSkyboxManager() {
+        return SKYBOX;
     }
 }

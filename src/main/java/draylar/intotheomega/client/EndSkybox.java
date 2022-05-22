@@ -7,6 +7,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3f;
+import org.lwjgl.glfw.GLFW;
 
 public class EndSkybox {
 
@@ -18,6 +19,9 @@ public class EndSkybox {
         RenderSystem.depthMask(false);
         RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         RenderSystem.setShaderTexture(0, SKYBOX);
+
+        matrices.push();
+        matrices.multiply(Vec3f.POSITIVE_Y.getRadialQuaternion((float) GLFW.glfwGetTime() / 100f));
 
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
@@ -39,7 +43,7 @@ public class EndSkybox {
 
             // South
             if (i == 2) {
-                u = 0.7f;
+                u = 0.75f;
                 endU = 1.0f;
                 v = 1 / 3f;
                 endV = 2 / 3f;
@@ -86,6 +90,8 @@ public class EndSkybox {
             tessellator.draw();
             matrices.pop();
         }
+
+        matrices.pop();
 
         RenderSystem.depthMask(true);
         RenderSystem.enableTexture();

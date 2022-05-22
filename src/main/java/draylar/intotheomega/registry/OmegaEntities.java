@@ -1,11 +1,13 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.client.entity.renderer.NovaGhoulRenderer;
 import draylar.intotheomega.enchantment.EndSlimeEntity;
 import draylar.intotheomega.entity.*;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
 import draylar.intotheomega.entity.ice.AbyssGlobeEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
+import draylar.intotheomega.entity.nova.NovaNodeEntity;
 import draylar.intotheomega.entity.slime.OmegaSlimeEmperorEntity;
 import draylar.intotheomega.entity.starfall.StarfallProjectileEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
@@ -272,6 +274,34 @@ public class OmegaEntities {
                     .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
                     .entityFactory(OriginNovaEntity::new)
                     .trackRangeBlocks(256)
+                    .build());
+
+    public static final EntityType<NovaNodeEntity> NOVA_NODE = register(
+            "nova_node",
+            FabricEntityTypeBuilder.create()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(1.0f, 1.0f))
+                    .entityFactory(NovaNodeEntity::new)
+                    .trackRangeBlocks(256)
+                    .build());
+
+    public static final EntityType<NovaGhoulEntity> NOVA_GHOUL = register(
+            "nova_ghoul",
+            FabricEntityTypeBuilder.createMob()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .defaultAttributes(NovaGhoulEntity::createNovaGhoulAttributes)
+                    .dimensions(EntityDimensions.fixed(0.75f, 3f))
+                    .entityFactory(NovaGhoulEntity::new)
+                    .trackRangeBlocks(256)
+                    .build());
+
+    public static final EntityType<NovaStrikeEntity> NOVA_STRIKE = register(
+            "nova_strike",
+            FabricEntityTypeBuilder.create()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(0.75f, 0.75f))
+                    .entityFactory(NovaStrikeEntity::new)
+                    .trackRangeBlocks(128)
                     .build());
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {

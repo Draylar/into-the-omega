@@ -32,6 +32,7 @@ public abstract class BossBarHudMixin extends DrawableHelper {
     @Unique private static final Identifier VOID_MATRIX_TEXTURE = IntoTheOmega.id("textures/gui/void_matrix_bar.png");
     @Unique private static final Identifier OMEGA_SLIME_EMPEROR_TEXTURE = IntoTheOmega.id("textures/gui/omega_slime_boss_bars.png");
     @Unique private static final Identifier ENDER_DRAGON_TEXTURE = IntoTheOmega.id("textures/gui/ender_dragon_boss_bars.png");
+    @Unique private static final Identifier NOVA_BAR = IntoTheOmega.id("textures/gui/nova_bar.png");
 
     @Redirect(
             method = "render",
@@ -72,6 +73,11 @@ public abstract class BossBarHudMixin extends DrawableHelper {
 
         else if (bossBar instanceof ClientBossBar && ((TranslatableText) bossBar.getName()).getKey().contains("ender_dragon")) {
             renderEnderDragon(matrices, x, y, bossBar);
+            ci.cancel();
+        }
+
+        else if (bossBar instanceof ClientBossBar && ((TranslatableText) bossBar.getName()).getKey().contains("origin_nova")) {
+            renderNova(matrices, x, y, bossBar);
             ci.cancel();
         }
 
@@ -164,5 +170,19 @@ public abstract class BossBarHudMixin extends DrawableHelper {
 
         // draw overlay
         drawTexture(matrices, x, y, 0, 19, overlayBarWidth, 19);
+    }
+
+    @Unique
+    private void renderNova(MatrixStack matrices, int x, int y, BossBar bossBar) {
+        RenderSystem.setShaderTexture(0, NOVA_BAR);
+
+        // draw empty background bar
+        drawTexture(matrices, x - 6, y, 0, 0, 194, 23);
+
+        // percentage -> texture width
+        int overlayBarWidth = (int) (bossBar.getPercent() * 194.0f);
+
+        // draw overlay
+        drawTexture(matrices, x - 6, y, 0, 32, overlayBarWidth, 23);
     }
 }
