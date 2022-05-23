@@ -275,6 +275,7 @@ public class OmegaItems {
     public static final Item NOVA_CORE = register("nova_core", new Item(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
     public static final Item SINGULARITY_EDGE = register("singularity_edge", new Item(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
     public static final Item BOUND_NOVA = register("bound_nova", new BoundNovaItem(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
+    public static final Item QUASAR_FLUX = register("quasar_flux", new QuasarFluxItem(new Item.Settings().group(GROUP).rarity(RARE).maxCount(1)));
 
     // stuff
     // misc

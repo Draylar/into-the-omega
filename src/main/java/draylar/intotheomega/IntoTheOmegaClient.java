@@ -88,6 +88,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
 
         // Register 16x variants of 32x tools for inventories
         HandheldModelRegistry.registerWithVariant(OmegaItems.INANIS, new ModelIdentifier("intotheomega:inanis#custom"), IntoTheOmega.id("item/inanis_gui"));
+        HandheldModelRegistry.registerWithVariant(OmegaItems.QUASAR_FLUX, new ModelIdentifier("intotheomega:quasar_flux#custom"), IntoTheOmega.id("item/quasar_flux_gui"));
 
         // set bonus tooltips
         ItemTooltipCallback.EVENT.register((itemStack, context, list) -> {

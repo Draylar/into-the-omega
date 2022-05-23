@@ -11,6 +11,7 @@ public class OmegaDamageSources {
     public static final String FROSTBUSTER = "frostbuster";
     public static final String NOVA_BURST = "frostbuster";
     public static final String STARFALL_PROJECTILE = "starfall_projectile";
+    public static final String QUASAR_SLASH = "quasar_slash";
 
     public static EntityDamageSource createMatrixLaser(Entity source) {
         return new EntityDamageSource(MATRIX_LASER, source);
@@ -23,6 +24,11 @@ public class OmegaDamageSources {
     public static EntityDamageSource nova(Entity source) {
         return new EntityDamageSource(NOVA_BURST, source);
     }
+
+    public static EntityDamageSource quasarSlash(Entity source) {
+        return new EntityDamageSource(QUASAR_SLASH, source);
+    }
+
 
     public static DamageSource createStarfallProjectile(@Nullable Entity owner) {
         if(owner == null) {
