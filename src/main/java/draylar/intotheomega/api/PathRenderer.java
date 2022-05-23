@@ -1,6 +1,6 @@
 package draylar.intotheomega.api;
 
-import draylar.intotheomega.IntoTheOmegaClient;
+import draylar.intotheomega.api.dev.AISyncData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -14,7 +14,7 @@ import net.minecraft.text.LiteralText;
 public class PathRenderer {
 
     public static void render(MobEntity mob, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-        Path path = IntoTheOmegaClient.DEVELOPMENT_PATH_SYNC.get(mob.getId());
+        Path path = AISyncData.DEVELOPMENT_PATH_SYNC.get(mob.getId());
 
         if(path != null) {
             matrixStack.push();

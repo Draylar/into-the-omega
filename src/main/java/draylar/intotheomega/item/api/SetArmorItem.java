@@ -1,11 +1,13 @@
 package draylar.intotheomega.item.api;
 
+import draylar.intotheomega.api.SafeClientPlayer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
@@ -34,19 +36,21 @@ public abstract class SetArmorItem extends ArmorItem {
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        if(player == null) {
-            return;
-        }
+        if(world != null && world.isClient) {
+            PlayerEntity player = SafeClientPlayer.get();
+            if(player == null) {
+                return;
+            }
 
-        if(!hasFullSet(player)) {
-            return;
-        }
+            if(!hasFullSet(player)) {
+                return;
+            }
 
-        tooltip.add(new LiteralText(" "));
-        tooltip.add(new TranslatableText("intotheomega.set_bonus").formatted(Formatting.LIGHT_PURPLE));
-        for (int i = 0; i < lines; i++) {
-            tooltip.add(new LiteralText(" " ).append(new TranslatableText(String.format("intotheomega.%s.%s", name, i)).formatted(Formatting.GRAY)));
+            tooltip.add(new LiteralText(" "));
+            tooltip.add(new TranslatableText("intotheomega.set_bonus").formatted(Formatting.LIGHT_PURPLE));
+            for (int i = 0; i < lines; i++) {
+                tooltip.add(new LiteralText(" ").append(new TranslatableText(String.format("intotheomega.%s.%s", name, i)).formatted(Formatting.GRAY)));
+            }
         }
     }
 

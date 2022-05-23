@@ -27,7 +27,6 @@ public class OmegaConfiguredFeatures {
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> SLIME_PILLAR = register("slime_pillar", OmegaWorld.SLIME_PILLAR);
     public static final RegistryEntry<ConfiguredFeature<LakeFeature.Config, ?>> SLIME_LAKE = register("slime_lake", Feature.LAKE, new LakeFeature.Config(BlockStateProvider.of(OmegaBlocks.OMEGA_SLIME_FLUID.getDefaultState()), BlockStateProvider.of(Blocks.END_STONE.getDefaultState())));
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> SLIME_DUNGEON = register("slime_dungeon", OmegaWorld.SLIME_DUNGEON);
-    public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> END_ISLAND_RIVER = register("end_river", OmegaWorld.END_ISLAND_RIVER);
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> FOREST_CHORUS_PLANT = register("forest_chorus_plant", Feature.CHORUS_PLANT);
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> CRYSTALITE_SPIKE = register("crystalite_spike", OmegaWorld.CRYSTALITE_SPIKE);
     public static final RegistryEntry<ConfiguredFeature<DefaultFeatureConfig, ?>> CRYSTALITE_CAVERN = register("crystalite_cavern", OmegaWorld.CRYSTALITE_CAVERN);

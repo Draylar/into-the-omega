@@ -1,10 +1,10 @@
 package draylar.intotheomega.item.ice;
 
+import draylar.intotheomega.api.SafeClientPlayer;
 import draylar.intotheomega.item.api.SetArmorItem;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
@@ -25,22 +25,24 @@ public class ChilledVoidArmorItem extends SetArmorItem {
 
     @Override
     public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext context) {
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        if(player == null) {
-            return;
-        }
+        if(world != null && world.isClient) {
+            PlayerEntity player = SafeClientPlayer.get();
+            if(player == null) {
+                return;
+            }
 
-        if(!hasFullSet(player)) {
-            return;
-        }
+            if(!hasFullSet(player)) {
+                return;
+            }
 
-        tooltip.add(new LiteralText(" "));
-        tooltip.add(new TranslatableText("intotheomega.set_bonus").formatted(Formatting.AQUA));
-        tooltip.add(new LiteralText(" " ).append(new TranslatableText(String.format("intotheomega.%s.0", "chilled_void")).formatted(Formatting.GRAY)));
-        tooltip.add(new LiteralText(" " ).append(new TranslatableText(String.format("intotheomega.%s.1", "chilled_void")).formatted(Formatting.GRAY)));
-        tooltip.add(new LiteralText(" "));
-        tooltip.add(new LiteralText(" " ).append(new TranslatableText(String.format("intotheomega.%s.2", "chilled_void")).formatted(Formatting.AQUA)));
-        tooltip.add(new LiteralText(" " ).append(new TranslatableText(String.format("intotheomega.%s.3", "chilled_void")).formatted(Formatting.GRAY)));
-        tooltip.add(new LiteralText(" " ).append(new TranslatableText(String.format("intotheomega.%s.4", "chilled_void")).formatted(Formatting.GRAY)));
+            tooltip.add(new LiteralText(" "));
+            tooltip.add(new TranslatableText("intotheomega.set_bonus").formatted(Formatting.AQUA));
+            tooltip.add(new LiteralText(" ").append(new TranslatableText(String.format("intotheomega.%s.0", "chilled_void")).formatted(Formatting.GRAY)));
+            tooltip.add(new LiteralText(" ").append(new TranslatableText(String.format("intotheomega.%s.1", "chilled_void")).formatted(Formatting.GRAY)));
+            tooltip.add(new LiteralText(" "));
+            tooltip.add(new LiteralText(" ").append(new TranslatableText(String.format("intotheomega.%s.2", "chilled_void")).formatted(Formatting.AQUA)));
+            tooltip.add(new LiteralText(" ").append(new TranslatableText(String.format("intotheomega.%s.3", "chilled_void")).formatted(Formatting.GRAY)));
+            tooltip.add(new LiteralText(" ").append(new TranslatableText(String.format("intotheomega.%s.4", "chilled_void")).formatted(Formatting.GRAY)));
+        }
     }
 }

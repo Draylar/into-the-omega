@@ -6,6 +6,7 @@
 /logs/
 /out/production/into-the-omega.main/
 /run/
+/runserver/
 
 todo.txt
 done.txt

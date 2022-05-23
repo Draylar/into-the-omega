@@ -81,14 +81,14 @@ public class OmegaStructureSets {
                     key("end_labyrinth"),
                     new StructureSet(List.of(
                             StructureSet.createEntry(OmegaConfiguredStructureFeatures.END_LABYRINTH)
-                    ), new RandomSpreadStructurePlacement(15, 12, SpreadType.LINEAR, 563124)));
+                    ), new RandomSpreadStructurePlacement(22, 18, SpreadType.LINEAR, 563124)));
 
     public static final RegistryEntry<StructureSet> SPIRAL_DUNGEON =
             StructureSets.register(
                     key("spiral_dungeon"),
                     new StructureSet(List.of(
                             StructureSet.createEntry(OmegaConfiguredStructureFeatures.SPIRAL_DUNGEON)
-                    ), new RandomSpreadStructurePlacement(15, 12, SpreadType.LINEAR, 51123)));
+                    ), new RandomSpreadStructurePlacement(20, 18, SpreadType.LINEAR, 51123)));
 
     private static RegistryKey<StructureSet> key(String id) {
         return RegistryKey.of(Registry.STRUCTURE_SET_KEY, IntoTheOmega.id(id));

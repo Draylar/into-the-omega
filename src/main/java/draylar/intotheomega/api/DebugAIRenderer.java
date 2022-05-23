@@ -1,6 +1,6 @@
 package draylar.intotheomega.api;
 
-import draylar.intotheomega.IntoTheOmegaClient;
+import draylar.intotheomega.api.dev.AISyncData;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -16,7 +16,7 @@ import java.util.List;
 public class DebugAIRenderer {
 
     public static void render(MobEntity mob, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light) {
-        List<PrioritizedGoal> strings = IntoTheOmegaClient.DEVELOPMENT_AI_SYNC.get(mob.getId());
+        List<PrioritizedGoal> strings = AISyncData.DEVELOPMENT_AI_SYNC.get(mob.getId());
 
         if(strings != null) {
             for (int i = strings.size() - 1; i >= 0; i--) {

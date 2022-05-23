@@ -1,6 +1,7 @@
 package draylar.intotheomega.world.structure;
 
 import com.mojang.serialization.Codec;
+import draylar.intotheomega.api.BlockTransformationMatrix;
 import draylar.intotheomega.api.StructureStartCache;
 import draylar.intotheomega.api.world.StructureCache;
 import draylar.intotheomega.impl.StructurePieceExtensions;
@@ -65,7 +66,7 @@ public class EndThornStructure extends StructureFeature<DefaultFeatureConfig> {
         public void generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox chunkBox, ChunkPos chunkPos, BlockPos pos) {
             StructureCache cache = StructureStartCache.get(StructurePieceExtensions.get(this).getStructureStart()).getPlacementCache();
             cache.placeOrCompute(0, world, this, chunkBox, chunkPos, (blocks) -> {
-                MatrixStack matrices = new MatrixStack();
+                BlockTransformationMatrix matrices = new BlockTransformationMatrix();
                 BlockPos origin = new BlockPos(pos.getX(), 160, pos.getZ());
                 float xRot = 32 - 64 * world.getRandom().nextFloat();
                 float yRot = 32 - 64 * world.getRandom().nextFloat();
@@ -104,14 +105,14 @@ public class EndThornStructure extends StructureFeature<DefaultFeatureConfig> {
             });
         }
 
-        private BlockPos process(MatrixStack stack, BlockPos originOfSpike, BlockPos localOffset, float zRotation, float yRotation, float xRotation) {
-            stack.push();
-            stack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(zRotation));
-            stack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(yRotation));
-            stack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(xRotation));
+        private BlockPos process(BlockTransformationMatrix matrices, BlockPos originOfSpike, BlockPos localOffset, float zRotation, float yRotation, float xRotation) {
+            matrices.push();
+            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(zRotation));
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(yRotation));
+            matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(xRotation));
             Vector4f v = new Vector4f(localOffset.getX(), localOffset.getY(), localOffset.getZ(), 1.0f);
-            v.transform(stack.peek().getPositionMatrix());
-            stack.pop();
+            v.transform(matrices.peek().position());
+            matrices.pop();
 
             return originOfSpike.add(v.getX(), v.getY(), v.getZ());
         }

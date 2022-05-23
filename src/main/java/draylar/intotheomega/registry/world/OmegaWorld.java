@@ -40,7 +40,6 @@ public class OmegaWorld {
     public static final Feature<DiskFeatureConfig> END_PATCH = register("cracked_end_stone_patch", new DiskFeature(DiskFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_PILLAR = register("slime_pillar", new SlimePillarFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> SLIME_DUNGEON = register("slime_dungeon", new SlimeDungeonFeature(DefaultFeatureConfig.CODEC));
-    public static final Feature<DefaultFeatureConfig> END_ISLAND_RIVER = register("end_island_river", new EndIslandRiverFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> CRYSTALITE_CAVERN = register("crystalite_cavern", new CrystaliteCavernFeature(DefaultFeatureConfig.CODEC));
     public static final Feature<DefaultFeatureConfig> DARK_SAKURA_TREE = register("dark_sakura_tree", new DarkSakuraTreeFeature());
     public static final Feature<DefaultFeatureConfig> TALL_CHORUS_PLANT = register("tall_chorus_plant", new VariableChorusPlantFeature(DefaultFeatureConfig.CODEC, 16));

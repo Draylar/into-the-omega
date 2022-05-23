@@ -1,6 +1,7 @@
 package draylar.intotheomega.mixin.dev;
 
 import draylar.intotheomega.IntoTheOmegaClient;
+import draylar.intotheomega.api.dev.AISyncData;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
@@ -26,14 +27,14 @@ public class DebugInfoSenderMixin {
     @Overwrite
     public static void sendGoalSelector(World world, MobEntity mob, GoalSelector goalSelector) {
         // Do not do this in production
-        if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
+        if(FabricLoader.getInstance().isDevelopmentEnvironment() && world.isClient) {
 
             // Only send AI debug data from S2C
             if(world instanceof ServerWorld) {
                 List<PrioritizedGoal> collect = goalSelector.getRunningGoals().collect(Collectors.toList());
 
                 // send to players
-                IntoTheOmegaClient.DEVELOPMENT_AI_SYNC.put(mob.getId(), new ArrayList<>(collect));
+                AISyncData.DEVELOPMENT_AI_SYNC.put(mob.getId(), new ArrayList<>(collect));
             }
         }
     }
@@ -44,11 +45,11 @@ public class DebugInfoSenderMixin {
     @Overwrite
     public static void sendPathfindingData(World world, MobEntity mob, @Nullable Path path, float nodeReachProximity) {
         // Do not do this in production
-        if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
+        if(FabricLoader.getInstance().isDevelopmentEnvironment() && world.isClient) {
 
             // Only send AI debug data from S2C
             if(world instanceof ServerWorld) {
-                IntoTheOmegaClient.DEVELOPMENT_PATH_SYNC.put(mob.getId(), path);
+                AISyncData.DEVELOPMENT_PATH_SYNC.put(mob.getId(), path);
             }
         }
     }

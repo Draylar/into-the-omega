@@ -62,8 +62,6 @@ import java.util.Map;
 public class IntoTheOmegaClient implements ClientModInitializer {
 
     private static final SkyboxManager SKYBOX = new SkyboxManager();
-    public static final Map<Integer, List<PrioritizedGoal>> DEVELOPMENT_AI_SYNC = new HashMap<>();
-    public static final Map<Integer, Path> DEVELOPMENT_PATH_SYNC = new HashMap<>();
     public static boolean inIceIsland = false;
 
     @Override

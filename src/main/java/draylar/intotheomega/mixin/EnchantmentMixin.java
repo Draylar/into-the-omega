@@ -54,6 +54,7 @@ public abstract class EnchantmentMixin implements OmegaManipulator {
             at = @At("RETURN"),
             cancellable = true
     )
+    @Environment(EnvType.CLIENT)
     private void modifyName(int level, CallbackInfoReturnable<Text> cir) {
         Text ret = cir.getReturnValue();
         if(isOmega()) {
