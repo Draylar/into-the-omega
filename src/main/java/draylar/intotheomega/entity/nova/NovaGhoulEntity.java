@@ -1,4 +1,4 @@
-package draylar.intotheomega.entity;
+package draylar.intotheomega.entity.nova;
 
 import draylar.intotheomega.api.docs.Description;
 import draylar.intotheomega.entity.ai.LookAtTargetGoal;

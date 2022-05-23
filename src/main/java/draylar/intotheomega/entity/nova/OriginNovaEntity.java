@@ -1,4 +1,4 @@
-package draylar.intotheomega.entity;
+package draylar.intotheomega.entity.nova;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.IntoTheOmegaClient;
@@ -6,7 +6,6 @@ import draylar.intotheomega.api.RandomUtils;
 import draylar.intotheomega.api.skybox.SkyboxLayer;
 import draylar.intotheomega.api.skybox.SkyboxManager;
 import draylar.intotheomega.api.skybox.SkyboxTracking;
-import draylar.intotheomega.entity.nova.NovaNodeEntity;
 import draylar.intotheomega.registry.OmegaEntities;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.fabricmc.api.EnvType;
@@ -16,6 +15,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.ServerBossBar;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
@@ -24,12 +24,12 @@ import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
-public class OriginNovaEntity extends Entity implements SkyboxTracking {
+public class OriginNovaEntity extends PathAwareEntity implements SkyboxTracking {
 
     private static final SkyboxLayer BOSS_SKYBOX = new SkyboxLayer(IntoTheOmega.id("textures/skybox/origin_nova/"));
     private final ServerBossBar bossBar = (ServerBossBar) new ServerBossBar(this.getDisplayName(), BossBar.Color.PURPLE, BossBar.Style.PROGRESS).setDarkenSky(true);
 
-    public OriginNovaEntity(EntityType<?> type, World world) {
+    public OriginNovaEntity(EntityType<? extends PathAwareEntity> type, World world) {
         super(type, world);
     }
 
@@ -85,27 +85,26 @@ public class OriginNovaEntity extends Entity implements SkyboxTracking {
         IntoTheOmegaClient.getSkyboxManager().discardLayer(SkyboxManager.BOSS_LAYER, BOSS_SKYBOX);
     }
 
-    @Override
-    public void initDataTracker() {
-
-    }
-
-    @Override
-    public void readCustomDataFromNbt(NbtCompound nbt) {
-
-    }
-
-    @Override
-    public void writeCustomDataToNbt(NbtCompound nbt) {
-
-    }
-
-    @Override
-    public Packet<?> createSpawnPacket() {
-        return new EntitySpawnS2CPacket(this);
-    }
-
     public void childDamage(DamageSource source) {
         damage(DamageSource.GENERIC, 10.0f);
+    }
+
+    @Override
+    public boolean cannotDespawn() {
+        return true;
+    }
+
+    @Override
+    public boolean hasNoGravity() {
+        return true;
+    }
+
+    @Override
+    public boolean damage(DamageSource source, float amount) {
+        if(!source.isOutOfWorld()) {
+            return false;
+        }
+
+        return super.damage(source, amount);
     }
 }

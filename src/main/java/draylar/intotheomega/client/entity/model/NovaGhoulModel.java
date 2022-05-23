@@ -1,7 +1,7 @@
 package draylar.intotheomega.client.entity.model;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.entity.NovaGhoulEntity;
+import draylar.intotheomega.entity.nova.NovaGhoulEntity;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

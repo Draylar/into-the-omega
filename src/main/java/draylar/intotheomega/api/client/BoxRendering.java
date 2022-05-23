@@ -23,6 +23,10 @@ public class BoxRendering {
     }
 
     public static void renderBox(MatrixStack matrices, VertexConsumer buffer, float size, int light, float red, float green, float blue) {
+        renderBox(matrices, buffer, size, light, red, green, blue, 1.0f);
+    }
+
+    public static void renderBox(MatrixStack matrices, VertexConsumer buffer, float size, int light, float red, float green, float blue, float alpha) {
         RenderSystem.enableDepthTest();
 
         for(Direction direction : Direction.values()) {
@@ -30,10 +34,10 @@ public class BoxRendering {
             matrices.multiply(OFFSETS.get(direction));
             Matrix4f pos = matrices.peek().getPositionMatrix();
             Matrix3f normal = matrices.peek().getNormalMatrix();
-            buffer.vertex(pos, -size, -size, -size).color(red, green, blue, 1.0f).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
-            buffer.vertex(pos, -size, -size, size).color(red, green, blue, 1.0f).texture(1, 0).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
-            buffer.vertex(pos, size, -size, size).color(red, green, blue, 1.0f).texture(1, 1).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
-            buffer.vertex(pos, size, -size, -size).color(red, green, blue, 1.0f).texture(0, 1).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
+            buffer.vertex(pos, -size, -size, -size).color(red, green, blue, alpha).texture(0, 0).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
+            buffer.vertex(pos, -size, -size, size).color(red, green, blue, alpha).texture(1, 0).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
+            buffer.vertex(pos, size, -size, size).color(red, green, blue, alpha).texture(1, 1).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
+            buffer.vertex(pos, size, -size, -size).color(red, green, blue, alpha).texture(0, 1).overlay(OverlayTexture.DEFAULT_UV).light(light).normal(normal, 0.0f, -1.0f, 0.0f).next();
             matrices.pop();
         }
 

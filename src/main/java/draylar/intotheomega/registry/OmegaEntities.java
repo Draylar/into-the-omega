@@ -1,13 +1,12 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.client.entity.renderer.NovaGhoulRenderer;
 import draylar.intotheomega.enchantment.EndSlimeEntity;
 import draylar.intotheomega.entity.*;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
 import draylar.intotheomega.entity.ice.AbyssGlobeEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
-import draylar.intotheomega.entity.nova.NovaNodeEntity;
+import draylar.intotheomega.entity.nova.*;
 import draylar.intotheomega.entity.slime.OmegaSlimeEmperorEntity;
 import draylar.intotheomega.entity.starfall.StarfallProjectileEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
@@ -269,7 +268,8 @@ public class OmegaEntities {
 
     public static final EntityType<OriginNovaEntity> ORIGIN_NOVA = register(
             "origin_nova",
-            FabricEntityTypeBuilder.create()
+            FabricEntityTypeBuilder.createMob()
+                    .defaultAttributes(MobEntity::createMobAttributes)
                     .spawnGroup(SpawnGroup.MONSTER)
                     .dimensions(EntityDimensions.fixed(0.5f, 0.5f))
                     .entityFactory(OriginNovaEntity::new)
@@ -302,6 +302,15 @@ public class OmegaEntities {
                     .dimensions(EntityDimensions.fixed(0.75f, 0.75f))
                     .entityFactory(NovaStrikeEntity::new)
                     .trackRangeBlocks(128)
+                    .build());
+
+    public static final EntityType<NovaGroundBurstEntity> NOVA_GROUND_BURST = register(
+            "nova_ground_burst",
+            FabricEntityTypeBuilder.create()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(1.0f, 1.0f))
+                    .entityFactory(NovaGroundBurstEntity::new)
+                    .trackRangeBlocks(256)
                     .build());
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {

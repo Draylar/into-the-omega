@@ -51,6 +51,7 @@ public class OmegaRenderers {
         EntityRendererRegistry.register(OmegaEntities.NOVA_NODE, NovaNodeRenderer::new);
         EntityRendererRegistry.register(OmegaEntities.NOVA_GHOUL, NovaGhoulRenderer::new);
         EntityRendererRegistry.register(OmegaEntities.NOVA_STRIKE, EmptyEntityRenderer::new);
+        EntityRendererRegistry.register(OmegaEntities.NOVA_GROUND_BURST, NovaGroundBurstRenderer::new);
 
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.VOID_MATRIX_SPAWN_BLOCK, VoidMatrixSpawnBlockEntityRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.PHASE_PAD, PhasePadBlockEntityRenderer::new);

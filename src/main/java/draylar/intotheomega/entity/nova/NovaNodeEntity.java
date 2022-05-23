@@ -1,8 +1,6 @@
 package draylar.intotheomega.entity.nova;
 
 import draylar.intotheomega.api.ParticleHelper;
-import draylar.intotheomega.entity.NovaStrikeEntity;
-import draylar.intotheomega.entity.OriginNovaEntity;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

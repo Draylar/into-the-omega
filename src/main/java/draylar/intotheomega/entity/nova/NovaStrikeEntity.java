@@ -1,4 +1,4 @@
-package draylar.intotheomega.entity;
+package draylar.intotheomega.entity.nova;
 
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.entity.Entity;

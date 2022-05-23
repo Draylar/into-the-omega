@@ -1,7 +1,7 @@
 package draylar.intotheomega.client.entity.renderer;
 
 import draylar.intotheomega.client.entity.model.NovaGhoulModel;
-import draylar.intotheomega.entity.NovaGhoulEntity;
+import draylar.intotheomega.entity.nova.NovaGhoulEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
