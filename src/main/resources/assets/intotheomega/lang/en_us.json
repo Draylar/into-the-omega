@@ -306,6 +306,17 @@
   "item.intotheomega.singularity_edge": "Singularity Edge",
   "entity.intotheomega.origin_nova": "Origin Nova",
 
+  "__comment": "--------------------- Soul Artifacts ---------------------",
+  "item.intotheomega.soul_sword": "Soul Sword",
+  "item.intotheomega.soul_bow": "Soul Bow",
+  "item.intotheomega.soul_shield": "Soul Shield",
+  "item.intotheomega.soul_tome": "Soul Tome",
+
+  "__comment": "--------------------- Attributes ---------------------",
+  "omega.attribute.name.generic.ranged_damage": "Ranged Damage",
+  "omega.attribute.name.generic.physical_damage": "Physical Damage",
+  "omega.attribute.name.generic.magic_damage": "Magic Damage",
+  "omega.attribute.name.generic.damage_reduction": "Damage Reduction",
 
   "item.intotheomega.reverent_light": "Reverent Light",
 

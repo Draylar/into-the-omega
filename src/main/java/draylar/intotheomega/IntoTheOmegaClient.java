@@ -12,6 +12,7 @@ import draylar.intotheomega.client.feature.HyperionFeatureRenderer;
 import draylar.intotheomega.client.feature.SkinArmorFeatureRenderer;
 import draylar.intotheomega.client.feature.WingFeatureRenderer;
 import draylar.intotheomega.client.trinket.EyeTrinketRenderer;
+import draylar.intotheomega.client.trinket.OrbitalTrinketRenderer;
 import draylar.intotheomega.impl.event.client.OmegaParticleFactoryRegistrar;
 import draylar.intotheomega.impl.event.client.armor.ChilledVoidArmorDisplayHandler;
 import draylar.intotheomega.impl.event.client.color.CrystaliteColorProvider;
@@ -123,6 +124,10 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         TrinketRendererRegistry.registerRenderer(OmegaItems.EBONY_EYE, new EyeTrinketRenderer());
         TrinketRendererRegistry.registerRenderer(OmegaItems.BOUND_EYE, new EyeTrinketRenderer());
         TrinketRendererRegistry.registerRenderer(OmegaItems.DRAGON_EYE, new EyeTrinketRenderer());
+        TrinketRendererRegistry.registerRenderer(OmegaItems.SOUL_BOW, new OrbitalTrinketRenderer());
+        TrinketRendererRegistry.registerRenderer(OmegaItems.SOUL_TOME, new OrbitalTrinketRenderer());
+        TrinketRendererRegistry.registerRenderer(OmegaItems.SOUL_SWORD, new OrbitalTrinketRenderer());
+        TrinketRendererRegistry.registerRenderer(OmegaItems.SOUL_SHIELD, new OrbitalTrinketRenderer());
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             if(entityType.equals(EntityType.PLAYER)) {

@@ -1,7 +1,6 @@
 package draylar.intotheomega;
 
 import dev.emi.trinkets.api.TrinketsApi;
-import draylar.intotheomega.api.item.DamageHandler;
 import draylar.intotheomega.command.*;
 import draylar.intotheomega.config.ITOConfig;
 import draylar.intotheomega.impl.ServerPlayerMirrorExtensions;
@@ -85,6 +84,7 @@ public class IntoTheOmega implements ModInitializer {
         OmegaStructureSets.init();
         OmegaBiomeTags.init();
         OmegaNoiseKeys.init();
+        OmegaEntityAttributes.init();
 
         // This looks horrific, but the class we'd normally return from is loaded before Fabric hooks into ID syncing for blocks.
         // If we return our own blocks any sooner, the int ID is saved as -1, which fails when it is sent to clients.

@@ -301,7 +301,10 @@ public class OmegaItems {
     // ???
     public static final Item EMERGENT_HYPERION = register("emergent_hyperion", new Item(new Item.Settings().rarity(EPIC).group(GROUP)));
     public static final Item SPIRAL_SURGE = register("spiral_surge", new SpiralSurgeItem(new Item.Settings().maxDamage(1500).rarity(EPIC).group(GROUP)));
-
+    public static final Item SOUL_BOW = register("soul_bow", new SoulBowItem(new Item.Settings().maxCount(1).rarity(EPIC).group(GROUP)));
+    public static final Item SOUL_SWORD = register("soul_sword", new SoulSwordItem(new Item.Settings().maxCount(1).rarity(EPIC).group(GROUP)));
+    public static final Item SOUL_SHIELD = register("soul_shield", new SoulShieldItem(new Item.Settings().maxCount(1).rarity(EPIC).group(GROUP)));
+    public static final Item SOUL_TOME = register("soul_tome", new SoulTomeItem(new Item.Settings().maxCount(1).rarity(EPIC).group(GROUP)));
 
     private static <T extends Item> T register(String name, T item) {
         return Registry.register(Registry.ITEM, IntoTheOmega.id(name), item);

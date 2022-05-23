@@ -1,6 +1,10 @@
 {
   "replace": false,
   "values": [
-    "intotheomega:matrite_orbital"
+    "intotheomega:matrite_orbital",
+    "intotheomega:soul_shield",
+    "intotheomega:soul_sword",
+    "intotheomega:soul_bow",
+    "intotheomega:soul_tome"
   ]
 }
