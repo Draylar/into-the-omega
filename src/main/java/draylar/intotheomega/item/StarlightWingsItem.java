@@ -1,13 +1,17 @@
 package draylar.intotheomega.item;
 
+import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.impl.DoubleJumpTrinket;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 public class StarlightWingsItem extends WingsItem implements DoubleJumpTrinket {
+
+    private static final Identifier STARLIGHT_WING_TEXTURE = IntoTheOmega.id("textures/item/starlight_wings.png");
 
     public StarlightWingsItem(Item.Settings settings) {
         super(settings);
@@ -30,5 +34,10 @@ public class StarlightWingsItem extends WingsItem implements DoubleJumpTrinket {
             double z = player.getZ() + world.random.nextDouble(4) - 2;
             world.addParticle(OmegaParticles.STARLIGHT, x, player.getY(), z, 0, 0, 0);
         }
+    }
+
+    @Override
+    public Identifier getTexture() {
+        return STARLIGHT_WING_TEXTURE;
     }
 }
