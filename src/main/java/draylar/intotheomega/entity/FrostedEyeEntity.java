@@ -22,6 +22,8 @@ import java.util.Random;
 
 public class FrostedEyeEntity extends MobEntity implements IAnimatable {
 
+    private final AnimationFactory factory = new AnimationFactory(this);
+
     public FrostedEyeEntity(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
     }
@@ -74,6 +76,6 @@ public class FrostedEyeEntity extends MobEntity implements IAnimatable {
 
     @Override
     public AnimationFactory getFactory() {
-        return null;
+        return factory;
     }
 }

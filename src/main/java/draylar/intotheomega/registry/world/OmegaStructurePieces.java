@@ -4,6 +4,10 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.world.TestSF;
 import draylar.intotheomega.world.generator.*;
 import draylar.intotheomega.world.structure.*;
+import draylar.intotheomega.world.structure.island.AbstractIslandStructure;
+import draylar.intotheomega.world.structure.island.ChorusIslandStructure;
+import draylar.intotheomega.world.structure.island.EndIslandStructure;
+import draylar.intotheomega.world.structure.island.IceIslandStructure;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.registry.Registry;
 
@@ -25,6 +29,10 @@ public class OmegaStructurePieces {
     public static final StructurePieceType SPIRAL_DUNGEON = register("spiral_dungeon", SpiralDungeonPiece::new);
     public static final StructurePieceType NOVA_ZONE_VOID = register("nova_zone_void", NovaZoneStructure.VoidPiece::new);
     public static final StructurePieceType NOVA_ZONE_BASE = register("nova_zone_base", NovaZoneStructure.BasePiece::new);
+    public static final StructurePieceType END_ISLAND = register("generic_island", EndIslandStructure.IslandPiece::new);
+    public static final StructurePieceType ICE_ISLAND = register("ice_island", IceIslandStructure.IslandPiece::new);
+    public static final StructurePieceType CHORUS_ISLAND = register("chorus_island", ChorusIslandStructure.IslandPiece::new);
+
 
 //    public static final StructurePieceType SPIKE = register("spike", SpikeStructureGenerator::new);
 

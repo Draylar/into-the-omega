@@ -1,32 +1,16 @@
 package draylar.intotheomega.registry.world;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.biome.OmegaSlimeWasteBiome;
-import draylar.intotheomega.registry.OmegaBiomes;
 import draylar.intotheomega.world.area.slime.SlimeDungeonFeature;
 import draylar.intotheomega.world.area.slime.SlimePillarFeature;
 import draylar.intotheomega.world.feature.*;
-import draylar.intotheomega.world.structure.*;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Predicate;
-
-public class OmegaWorld {
+public class OmegaFeatures {
 
     // Structure Features
     //    public static final StructureFeature<DefaultFeatureConfig> SPIKE = new SpikeStructure(DefaultFeatureConfig.CODEC);
-
-    // Island Structure Features
-    // These islands are pooled up when spawning to prevent overlapping/too-close islands.
-//    public static final StructureFeature<DefaultFeatureConfig> GENERIC_ISLAND = new GenericIslandStructure(DefaultFeatureConfig.CODEC);
-//    public static final StructureFeature<DefaultFeatureConfig> ICE_ISLAND = new IceIslandStructure(DefaultFeatureConfig.CODEC);
-//    public static final StructureFeature<DefaultFeatureConfig> CHORUS_ISLAND = new ChorusIslandStructure(DefaultFeatureConfig.CODEC);
 
 
 //    public static final StructureFeature<DefaultFeatureConfig> ABYSS_FLOWER_ISLAND = new AbyssFlowerIslandStructure(DefaultFeatureConfig.CODEC);
@@ -112,7 +96,7 @@ public class OmegaWorld {
         return Registry.register(Registry.FEATURE, IntoTheOmega.id(name), feature);
     }
 
-    private OmegaWorld() {
+    private OmegaFeatures() {
         // no-op
     }
 }

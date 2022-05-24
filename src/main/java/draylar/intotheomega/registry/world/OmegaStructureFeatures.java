@@ -4,6 +4,9 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.mixin.access.StructureFeatureAccessor;
 import draylar.intotheomega.world.TestSF;
 import draylar.intotheomega.world.structure.*;
+import draylar.intotheomega.world.structure.island.ChorusIslandStructure;
+import draylar.intotheomega.world.structure.island.EndIslandStructure;
+import draylar.intotheomega.world.structure.island.IceIslandStructure;
 import draylar.intotheomega.world.structure.jigsaw.EndLabyrinthJigsaw;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -27,6 +30,12 @@ public class OmegaStructureFeatures {
     public static final EndThornStructure END_THORN = register("end_thorn", new EndThornStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final StarfieldStructure STARFIELD = register("starfield", new StarfieldStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
     public static final SpiralDungeonStructure SPIRAL_DUNGEON = register("spiral_dungeon", new SpiralDungeonStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
+
+    // Island Structure Features
+    // These islands are pooled up when spawning to prevent overlapping/too-close islands.
+    public static final StructureFeature<DefaultFeatureConfig> END_ISLAND = register("end_island", new EndIslandStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
+    public static final StructureFeature<DefaultFeatureConfig> ICE_ISLAND = register("ice_island", new IceIslandStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
+    public static final StructureFeature<DefaultFeatureConfig> CHORUS_ISLAND = register("chorus_island", new ChorusIslandStructure(DefaultFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);
 
     // JIGSAW
     public static final StructureFeature<StructurePoolFeatureConfig> END_LABYRINTH = register("end_labyrinth", new EndLabyrinthJigsaw(StructurePoolFeatureConfig.CODEC), GenerationStep.Feature.SURFACE_STRUCTURES);

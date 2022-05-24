@@ -8,7 +8,6 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.gen.chunk.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.gen.chunk.placement.SpreadType;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeatures;
 
 import java.util.List;
 
@@ -25,6 +24,18 @@ public class OmegaStructureSets {
                     key("matrix_pedestal"),
                     OmegaConfiguredStructureFeatures.MATRIX_PEDESTAL,
                     new RandomSpreadStructurePlacement(20, 11, SpreadType.TRIANGULAR, 5145242));
+
+    public static final RegistryEntry<StructureSet> BEJEWELED_DUNGEON =
+            StructureSets.register(
+                    key("bejeweled_dungeon"),
+                    OmegaConfiguredStructureFeatures.BEJEWELED_DUNGEON,
+                    new RandomSpreadStructurePlacement(20, 15, SpreadType.TRIANGULAR, 65135));
+
+    public static final RegistryEntry<StructureSet> EYE_ALTAR =
+            StructureSets.register(
+                    key("eye_altar"),
+                    OmegaConfiguredStructureFeatures.EYE_ALTAR,
+                    new RandomSpreadStructurePlacement(20, 15, SpreadType.TRIANGULAR, 814231809));
 
     public static final RegistryEntry<StructureSet> PHANTOM_TOWER =
             StructureSets.register(
@@ -89,6 +100,15 @@ public class OmegaStructureSets {
                     new StructureSet(List.of(
                             StructureSet.createEntry(OmegaConfiguredStructureFeatures.SPIRAL_DUNGEON)
                     ), new RandomSpreadStructurePlacement(20, 18, SpreadType.LINEAR, 51123)));
+
+    public static final RegistryEntry<StructureSet> ISLANDS =
+            StructureSets.register(
+                    key("islands"),
+                    new StructureSet(List.of(
+                            StructureSet.createEntry(OmegaConfiguredStructureFeatures.END_ISLAND),
+                            StructureSet.createEntry(OmegaConfiguredStructureFeatures.ICE_ISLAND),
+                            StructureSet.createEntry(OmegaConfiguredStructureFeatures.CHORUS_ISLAND)
+                    ), new RandomSpreadStructurePlacement(15, 14, SpreadType.LINEAR, 2531531)));
 
     private static RegistryKey<StructureSet> key(String id) {
         return RegistryKey.of(Registry.STRUCTURE_SET_KEY, IntoTheOmega.id(id));

@@ -30,6 +30,6 @@ public class FrostedEyeModel extends AnimatedGeoModel<FrostedEyeEntity> {
 
     @Override
     public Identifier getAnimationFileLocation(FrostedEyeEntity eye) {
-        return ANIMATION_LOCATION;
+        return null;
     }
 }

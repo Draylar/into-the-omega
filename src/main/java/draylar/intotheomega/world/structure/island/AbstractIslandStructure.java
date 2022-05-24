@@ -1,27 +1,44 @@
-package draylar.intotheomega.world.api;
+package draylar.intotheomega.world.structure.island;
 
 import com.mojang.serialization.Codec;
 import draylar.intotheomega.api.OpenSimplex2F;
+import draylar.intotheomega.api.StructureStartCache;
+import draylar.intotheomega.api.world.StructureCache;
+import draylar.intotheomega.impl.StructurePieceExtensions;
+import draylar.intotheomega.registry.world.OmegaStructurePieces;
+import net.minecraft.block.Blocks;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.structure.StructureContext;
 import net.minecraft.structure.StructureGeneratorFactory;
+import net.minecraft.structure.StructurePiece;
 import net.minecraft.structure.StructurePiecesGenerator;
+import net.minecraft.util.math.BlockBox;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.gen.StructureAccessor;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public abstract class BaseIslandStructure extends StructureFeature<DefaultFeatureConfig> {
+public abstract class AbstractIslandStructure extends StructureFeature<DefaultFeatureConfig> {
 
-    public static final List<Class<? extends BaseIslandStructure>> ALL_ISLANDS = new ArrayList<>();
+    public static final List<Class<? extends AbstractIslandStructure>> ALL_ISLANDS = new ArrayList<>();
     private static OpenSimplex2F NOISE = null;
 
-    public BaseIslandStructure(Codec<DefaultFeatureConfig> codec, StructurePiecesGenerator<DefaultFeatureConfig> generator, Class<? extends BaseIslandStructure> islandClass) {
+    public AbstractIslandStructure(Codec<DefaultFeatureConfig> codec, StructurePiecesGenerator<DefaultFeatureConfig> generator, Class<? extends AbstractIslandStructure> islandClass) {
         super(codec, StructureGeneratorFactory.simple(context -> canGenerate(context, islandClass), generator));
         ALL_ISLANDS.add(getClass());
     }
 
-    private static boolean canGenerate(StructureGeneratorFactory.Context<DefaultFeatureConfig> context, Class<? extends BaseIslandStructure> islandClass) {
+    private static boolean canGenerate(StructureGeneratorFactory.Context<DefaultFeatureConfig> context, Class<? extends AbstractIslandStructure> islandClass) {
+        // TODO: legacy behavior, don't think we need it, can be removed in the future - rely on structure set for spacing our islands
+
+
         if(NOISE == null) {
             NOISE = new OpenSimplex2F(context.seed());
         }
