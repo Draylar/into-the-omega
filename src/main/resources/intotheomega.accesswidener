@@ -46,6 +46,8 @@ accessible class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 accessible class net/minecraft/client/render/RenderPhase$Texture
 accessible class net/minecraft/client/render/RenderLayer$MultiPhase
 extendable class net/minecraft/client/render/RenderLayer$MultiPhase
+accessible field net/minecraft/client/render/RenderPhase TRANSLUCENT_TRANSPARENCY Lnet/minecraft/client/render/RenderPhase$Transparency;
+accessible class net/minecraft/client/render/RenderPhase$Shader
 
 # Model Element deserializers
 accessible method net/minecraft/client/render/model/json/ModelTransformation$Deserializer <init> ()V

@@ -77,6 +77,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         OmegaSlimeRenderingHandler.init();
         OmegaBlockLayers.initialize();
         OmegaItemRenderers.initialize();
+        OmegaShaders.initialize();
 
         ModelPredicateProviderRegistry.register(OmegaItems.FERLIOUS, new Identifier("pull"), new BowPullPredicateProvider());
         ModelPredicateProviderRegistry.register(OmegaItems.FROSTBUSTER, new Identifier("charge"), new FrostbusterChargePredicateProvider());

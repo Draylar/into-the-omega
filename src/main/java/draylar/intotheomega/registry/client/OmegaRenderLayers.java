@@ -6,6 +6,9 @@ import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
+
+import java.util.function.BiFunction;
 
 public class OmegaRenderLayers {
 
@@ -65,5 +68,22 @@ public class OmegaRenderLayers {
                 .build(false);
 
         return RenderLayerAccessor.of("galaxy", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, multiPhaseParameters);
+    }
+
+    private static final BiFunction<Identifier, Boolean, RenderLayer> ENTITY_TRANSLUCENT_FOGLESS = Util.memoize((texture, affectsOutline) -> {
+        RenderLayer.MultiPhaseParameters multiPhaseParameters = RenderLayer.MultiPhaseParameters.builder()
+                .shader(OmegaShaders.ENTITY_TRANSLUCENT_FOGLESS_PHASE)
+                .texture(new RenderPhase.Texture(texture, false, false))
+                .transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY)
+                .cull(RenderPhase.DISABLE_CULLING)
+                .lightmap(RenderPhase.ENABLE_LIGHTMAP)
+                .overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
+                .build(affectsOutline);
+
+        return RenderLayerAccessor.of("entity_translucent_fogless", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, multiPhaseParameters);
+    });
+
+    public static RenderLayer getEntityTranslucentFogless(Identifier texture, boolean affectsOutline) {
+        return ENTITY_TRANSLUCENT_FOGLESS.apply(texture, affectsOutline);
     }
 }

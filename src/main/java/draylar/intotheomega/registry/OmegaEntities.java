@@ -4,6 +4,8 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.enchantment.EndSlimeEntity;
 import draylar.intotheomega.entity.*;
 import draylar.intotheomega.entity.enigma.EnigmaKingEntity;
+import draylar.intotheomega.entity.envoy.EnvoyEntity;
+import draylar.intotheomega.entity.envoy.EnvoySegmentEntity;
 import draylar.intotheomega.entity.ice.AbyssGlobeEntity;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.nova.*;
@@ -311,6 +313,29 @@ public class OmegaEntities {
                     .dimensions(EntityDimensions.fixed(1.0f, 1.0f))
                     .entityFactory(NovaGroundBurstEntity::new)
                     .trackRangeBlocks(256)
+                    .build());
+
+    public static final EntityType<EnvoyEntity> ENVOY = register(
+            "envoy",
+            FabricEntityTypeBuilder.createMob()
+                    .defaultAttributes(EnvoyEntity::createEnvoyAttributes)
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(5.0f, 5.0f))
+                    .entityFactory(EnvoyEntity::new)
+                    .trackRangeBlocks(1000)
+                    .build());
+
+
+    public static final EntityType<EnvoySegmentEntity> ENVOY_SEGMENT = register(
+            "envoy_segment",
+            FabricEntityTypeBuilder.<EnvoySegmentEntity>create()
+                    .spawnGroup(SpawnGroup.MONSTER)
+                    .dimensions(EntityDimensions.fixed(5.0f, 5.0f))
+                    .disableSaving()
+                    .entityFactory((type, world) -> new EnvoySegmentEntity(null, world))
+                    .trackRangeBlocks(1000)
+                    .trackedUpdateRate(1)
+                    .forceTrackedVelocityUpdates(true)
                     .build());
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {

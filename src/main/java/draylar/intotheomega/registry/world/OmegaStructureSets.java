@@ -23,7 +23,7 @@ public class OmegaStructureSets {
             StructureSets.register(
                     key("matrix_pedestal"),
                     OmegaConfiguredStructureFeatures.MATRIX_PEDESTAL,
-                    new RandomSpreadStructurePlacement(20, 11, SpreadType.TRIANGULAR, 5145242));
+                    new RandomSpreadStructurePlacement(20, 11, SpreadType.TRIANGULAR, 313451));
 
     public static final RegistryEntry<StructureSet> BEJEWELED_DUNGEON =
             StructureSets.register(
@@ -99,7 +99,7 @@ public class OmegaStructureSets {
                     key("spiral_dungeon"),
                     new StructureSet(List.of(
                             StructureSet.createEntry(OmegaConfiguredStructureFeatures.SPIRAL_DUNGEON)
-                    ), new RandomSpreadStructurePlacement(20, 18, SpreadType.LINEAR, 51123)));
+                    ), new RandomSpreadStructurePlacement(20, 18, SpreadType.LINEAR, 98721452)));
 
     public static final RegistryEntry<StructureSet> ISLANDS =
             StructureSets.register(
