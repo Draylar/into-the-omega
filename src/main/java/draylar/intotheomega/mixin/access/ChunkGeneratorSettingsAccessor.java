@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
 import net.minecraft.world.gen.surfacebuilder.MaterialRules;

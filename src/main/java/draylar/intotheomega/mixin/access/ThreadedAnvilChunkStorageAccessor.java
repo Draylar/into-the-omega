@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.server.world.ThreadedAnvilChunkStorage;
 import net.minecraft.world.gen.chunk.ChunkGenerator;

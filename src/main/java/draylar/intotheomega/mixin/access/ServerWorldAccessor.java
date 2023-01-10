@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.network.Packet;
 import net.minecraft.server.network.ServerPlayerEntity;

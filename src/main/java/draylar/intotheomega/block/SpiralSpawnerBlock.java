@@ -2,7 +2,7 @@ package draylar.intotheomega.block;
 
 import draylar.intotheomega.api.SpawnerUtils;
 import draylar.intotheomega.impl.MobSpawnerLogicExtensions;
-import draylar.intotheomega.mixin.MobSpawnerLogicAccessor;
+import draylar.intotheomega.mixin.access.MobSpawnerLogicAccessor;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;

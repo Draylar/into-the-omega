@@ -2,7 +2,7 @@ package draylar.intotheomega.registry;
 
 import draylar.intotheomega.client.entity.model.MatriteEntityModel;
 import draylar.intotheomega.client.entity.model.VoidWalkerModel;
-import draylar.intotheomega.mixin.EntityModelLayersAccessor;
+import draylar.intotheomega.mixin.access.EntityModelLayersAccessor;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.Dilation;
 import net.minecraft.client.model.TexturedModelData;

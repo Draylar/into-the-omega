@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.util.collection.DataPool;
 import net.minecraft.util.math.BlockPos;

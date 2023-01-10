@@ -5,7 +5,7 @@ import draylar.intotheomega.command.*;
 import draylar.intotheomega.config.ITOConfig;
 import draylar.intotheomega.impl.ServerPlayerMirrorExtensions;
 import draylar.intotheomega.impl.event.server.DragonLootTableHandler;
-import draylar.intotheomega.mixin.ChunkGeneratorSettingsAccessor;
+import draylar.intotheomega.mixin.access.ChunkGeneratorSettingsAccessor;
 import draylar.intotheomega.network.ServerNetworking;
 import draylar.intotheomega.registry.*;
 import draylar.intotheomega.registry.world.*;

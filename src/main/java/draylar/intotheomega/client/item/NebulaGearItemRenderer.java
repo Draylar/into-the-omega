@@ -1,7 +1,7 @@
 package draylar.intotheomega.client.item;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.mixin.BakedModelManagerAccessor;
+import draylar.intotheomega.mixin.access.BakedModelManagerAccessor;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;

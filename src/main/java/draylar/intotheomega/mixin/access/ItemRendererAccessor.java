@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.item.ItemRenderer;

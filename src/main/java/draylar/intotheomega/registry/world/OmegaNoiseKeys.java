@@ -1,7 +1,7 @@
 package draylar.intotheomega.registry.world;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.mixin.BuiltinNoiseParametersAccessor;
+import draylar.intotheomega.mixin.access.BuiltinNoiseParametersAccessor;
 import net.minecraft.util.math.noise.DoublePerlinNoiseSampler;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;

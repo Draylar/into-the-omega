@@ -1,6 +1,6 @@
 package draylar.intotheomega.registry;
 
-import draylar.intotheomega.mixin.ParticleTypesAccessor;
+import draylar.intotheomega.mixin.access.ParticleTypesAccessor;
 import net.minecraft.particle.DefaultParticleType;
 
 public class OmegaParticles {

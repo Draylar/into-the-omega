@@ -7,7 +7,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import draylar.intotheomega.api.client.TransformationOverride;
 import draylar.intotheomega.impl.JsonUnbakedModelTransformationOverrideManipulator;
-import draylar.intotheomega.mixin.JsonUnbakedModelAccessor;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.util.JsonHelper;
 import org.spongepowered.asm.mixin.Mixin;

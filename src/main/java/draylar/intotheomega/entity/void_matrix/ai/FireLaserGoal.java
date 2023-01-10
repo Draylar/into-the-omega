@@ -1,7 +1,7 @@
 package draylar.intotheomega.entity.void_matrix.ai;
 
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
-import draylar.intotheomega.mixin.EntityAccessor;
+import draylar.intotheomega.mixin.access.EntityAccessor;
 import draylar.intotheomega.registry.OmegaDamageSources;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;

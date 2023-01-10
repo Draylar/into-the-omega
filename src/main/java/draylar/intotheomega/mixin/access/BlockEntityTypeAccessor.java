@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;

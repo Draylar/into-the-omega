@@ -1,6 +1,6 @@
 package draylar.intotheomega.util;
 
-import draylar.intotheomega.mixin.ServerWorldAccessor;
+import draylar.intotheomega.mixin.access.ServerWorldAccessor;
 import net.minecraft.network.packet.s2c.play.ParticleS2CPacket;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;

@@ -1,7 +1,7 @@
 package draylar.intotheomega.command;
 
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import draylar.intotheomega.mixin.ThreadedAnvilChunkStorageAccessor;
+import draylar.intotheomega.mixin.access.ThreadedAnvilChunkStorageAccessor;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.command.CommandManager;

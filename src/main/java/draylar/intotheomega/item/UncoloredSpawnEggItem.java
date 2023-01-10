@@ -1,6 +1,6 @@
 package draylar.intotheomega.item;
 
-import draylar.intotheomega.mixin.SpawnEggItemAccessor;
+import draylar.intotheomega.mixin.access.SpawnEggItemAccessor;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.SpawnEggItem;

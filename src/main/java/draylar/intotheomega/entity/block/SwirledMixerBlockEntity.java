@@ -1,7 +1,7 @@
 package draylar.intotheomega.entity.block;
 
 import draylar.intotheomega.api.block.BlockEntitySyncing;
-import draylar.intotheomega.mixin.StatusEffectInstanceAccessor;
+import draylar.intotheomega.mixin.access.StatusEffectInstanceAccessor;
 import draylar.intotheomega.registry.OmegaBlockEntities;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.block.BlockState;

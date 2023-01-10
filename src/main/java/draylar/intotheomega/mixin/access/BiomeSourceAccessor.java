@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.biome.Biome;

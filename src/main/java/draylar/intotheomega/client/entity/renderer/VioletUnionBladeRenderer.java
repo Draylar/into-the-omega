@@ -2,8 +2,8 @@ package draylar.intotheomega.client.entity.renderer;
 
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.entity.VioletUnionBladeEntity;
-import draylar.intotheomega.mixin.BakedModelManagerAccessor;
-import draylar.intotheomega.mixin.ItemRendererAccessor;
+import draylar.intotheomega.mixin.access.BakedModelManagerAccessor;
+import draylar.intotheomega.mixin.access.ItemRendererAccessor;
 import draylar.intotheomega.registry.OmegaItems;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.MinecraftClient;

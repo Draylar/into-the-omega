@@ -9,6 +9,9 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MaterialRules.NoiseThresholdMaterialCondition.class)
 public abstract class NoiseThresholdMaterialConditionMixin implements MaterialRules.MaterialCondition, NoiseApply {
@@ -27,19 +30,20 @@ public abstract class NoiseThresholdMaterialConditionMixin implements MaterialRu
         this.maxOverride = max;
     }
 
-    @Override
-    public MaterialRules.BooleanSupplier apply(MaterialRules.MaterialRuleContext context) {
+    // TODO: this is a test mixin exclusively for development. It does not need to ship to production.
+    @Inject(method = "apply(Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$MaterialRuleContext;)Lnet/minecraft/world/gen/surfacebuilder/MaterialRules$BooleanSupplier;", at = @At("HEAD"), cancellable = true)
+    private void injectOverwwrideApplication(MaterialRules.MaterialRuleContext context, CallbackInfoReturnable<MaterialRules.BooleanSupplier> cir) {
         if(noiseOverride != null) {
-            return () -> {
+            cir.setReturnValue(() -> {
                 double d = noiseOverride.sample(context.x, 0.0, context.z);
                 return d >= minOverride && d <= maxOverride;
-            };
+            });
         }
 
         DoublePerlinNoiseSampler doublePerlinNoiseSampler = ((MaterialRuleContextAccessor) (Object) context).getSurfaceBuilder().getNoiseSampler(noise);
-        return () -> {
+        cir.setReturnValue(() -> {
             double d = doublePerlinNoiseSampler.sample(context.x, 0.0, context.z);
             return d >= minThreshold && d <= maxThreshold;
-        };
+        });
     }
 }

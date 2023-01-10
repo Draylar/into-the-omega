@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import org.spongepowered.asm.mixin.Mixin;

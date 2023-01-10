@@ -1,7 +1,7 @@
 package draylar.intotheomega.registry;
 
 import draylar.intotheomega.IntoTheOmega;
-import draylar.intotheomega.mixin.EntityTypeTagsAccessor;
+import draylar.intotheomega.mixin.access.EntityTypeTagsAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;

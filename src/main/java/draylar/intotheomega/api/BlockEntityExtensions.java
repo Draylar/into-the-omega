@@ -1,6 +1,6 @@
 package draylar.intotheomega.api;
 
-import draylar.intotheomega.mixin.BlockEntityTypeAccessor;
+import draylar.intotheomega.mixin.access.BlockEntityTypeAccessor;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 

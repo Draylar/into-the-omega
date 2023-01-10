@@ -1,4 +1,4 @@
-package draylar.intotheomega.mixin;
+package draylar.intotheomega.mixin.access;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.SpawnEggItem;
