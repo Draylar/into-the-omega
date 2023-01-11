@@ -100,6 +100,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
 
         ModelLoadingRegistry.INSTANCE.registerModelProvider((manager, out) -> {
             out.accept(IntoTheOmega.id("item/nebula_gear_inventory"));
+            out.accept(IntoTheOmega.id("item/celestium_inventory"));
             out.accept(IntoTheOmega.id("item/violet_union_blue"));
             out.accept(IntoTheOmega.id("item/violet_union_pink"));
         });

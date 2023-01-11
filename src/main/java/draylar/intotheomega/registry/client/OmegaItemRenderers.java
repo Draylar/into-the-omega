@@ -1,5 +1,6 @@
 package draylar.intotheomega.registry.client;
 
+import draylar.intotheomega.client.item.CelestiumItemRenderer;
 import draylar.intotheomega.client.item.MatriteOrbitalItemRenderer;
 import draylar.intotheomega.client.item.NebulaGearItemRenderer;
 import draylar.intotheomega.registry.OmegaItems;
@@ -10,5 +11,6 @@ public class OmegaItemRenderers {
     public static void initialize() {
         BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.MATRITE_ORBITAL, new MatriteOrbitalItemRenderer());
         BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.NEBULA_GEAR, new NebulaGearItemRenderer());
+        BuiltinItemRendererRegistry.INSTANCE.register(OmegaItems.CELESTIUM, new CelestiumItemRenderer());
     }
 }
