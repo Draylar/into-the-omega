@@ -67,7 +67,7 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
     public static final byte STOMP = 104;
 
     private final ServerBossBar bossBar;
-    private BlockPos home = null;
+    @Nullable private BlockPos home = null;
     private Stage stage = Stage.ONE;
     private boolean isSlamming = false;
     private boolean stunned = false;
@@ -261,7 +261,10 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
     @Override
     public void writeCustomDataToNbt(NbtCompound tag) {
         super.writeCustomDataToNbt(tag);
-        tag.putLong("HomePos", home.asLong());
+
+        if(home != null) {
+            tag.putLong("HomePos", home.asLong());
+        }
     }
 
     @Override
@@ -443,7 +446,7 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
 
     @Override
     public boolean hasHome() {
-        return home != null;
+        return home != null && !home.equals(BlockPos.ORIGIN);
     }
 
     @Override
