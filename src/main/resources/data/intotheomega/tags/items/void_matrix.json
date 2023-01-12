@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "intotheomega:crystalia",
+    "intotheomega:beneath_crystalia",
+    "intotheomega:matrix_bomb",
+    "intotheomega:void_matrix_spawn_egg",
+    "intotheomega:matrix_blaster",
+    "intotheomega:matrix_rune",
+    "intotheomega:matrix_charm",
+    "intotheomega:matrix_lens",
+    "intotheomega:matrix_pickaxe",
+    "intotheomega:matrix_bricks",
+    "intotheomega:matrix_brick_stairs",
+    "intotheomega:matrix_brick_slab",
+    "intotheomega:matrix_brick_pillar",
+    "intotheomega:matrix_glass"
+  ]
+}
