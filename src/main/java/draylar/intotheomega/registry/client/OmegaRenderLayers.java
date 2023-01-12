@@ -72,7 +72,7 @@ public class OmegaRenderLayers {
 
     private static final BiFunction<Identifier, Boolean, RenderLayer> ENTITY_TRANSLUCENT_FOGLESS = Util.memoize((texture, affectsOutline) -> {
         RenderLayer.MultiPhaseParameters multiPhaseParameters = RenderLayer.MultiPhaseParameters.builder()
-                .shader(OmegaShaders.ENTITY_TRANSLUCENT_FOGLESS_PHASE)
+                .shader(new RenderPhase.Shader(OmegaShaders.ENTITY_TRANSLUCENT_FOGLESS_SHADER::getShader))
                 .texture(new RenderPhase.Texture(texture, false, false))
                 .transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY)
                 .cull(RenderPhase.DISABLE_CULLING)
@@ -83,7 +83,24 @@ public class OmegaRenderLayers {
         return RenderLayerAccessor.of("entity_translucent_fogless", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, multiPhaseParameters);
     });
 
+    private static final BiFunction<Identifier, Boolean, RenderLayer> ENTITY_TRUE_TRANSLUCENT = Util.memoize((texture, affectsOutline) -> {
+        RenderLayer.MultiPhaseParameters multiPhaseParameters = RenderLayer.MultiPhaseParameters.builder()
+                .shader(new RenderPhase.Shader(OmegaShaders.ENTITY_TRANSLUCENT_TRUE_TRANSLUCENT_SHADER::getShader))
+                .texture(new RenderPhase.Texture(texture, false, false))
+                .transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY)
+                .cull(RenderPhase.DISABLE_CULLING)
+                .lightmap(RenderPhase.ENABLE_LIGHTMAP)
+                .overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
+                .build(affectsOutline);
+
+        return RenderLayerAccessor.of("entity_true_translucent", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, multiPhaseParameters);
+    });
+
     public static RenderLayer getEntityTranslucentFogless(Identifier texture, boolean affectsOutline) {
         return ENTITY_TRANSLUCENT_FOGLESS.apply(texture, affectsOutline);
+    }
+
+    public static RenderLayer getEntityTrueTranslucent(Identifier texture) {
+        return ENTITY_TRUE_TRANSLUCENT.apply(texture, false);
     }
 }
