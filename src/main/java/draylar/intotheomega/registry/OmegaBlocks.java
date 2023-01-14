@@ -170,6 +170,7 @@ public class OmegaBlocks {
     public static final Block STARLIGHT = register("starlight", new StarlightBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(15).hardness(10.0f)), new Item.Settings());
     public static final Block STARLIT_CORE = register("starlit_core", new Block(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(15).hardness(10.0f)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block OBSIDIAN_PEDESTAL = register("obsidian_pedestal", new ObsidianPedestalBlock(FabricBlockSettings.copyOf(Blocks.IRON_BLOCK).luminance(15).hardness(10.0f)), new Item.Settings().group(IntoTheOmega.GROUP));
+    public static final Block MATRIX_DUNGEON_FLOOR = register("matrix_dungeon_floor", new MatrixDungeonFloorBlock(FabricBlockSettings.copyOf(Blocks.AIR).noCollision().hardness(-1.0f)), new Item.Settings().group(IntoTheOmega.GROUP));
     public static final Block SPIRAL_SPAWNER = register("spiral_spawner", new SpiralSpawnerBlock(FabricBlockSettings.copyOf(Blocks.SPAWNER).hardness(20.0f)), new Item.Settings().group(IntoTheOmega.GROUP).rarity(Rarity.RARE));
 
     private static <T extends Block> T register(String name, T block, Item.Settings settings) {

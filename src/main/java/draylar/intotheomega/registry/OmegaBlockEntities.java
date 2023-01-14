@@ -3,6 +3,7 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.api.BlockEntityExtensions;
 import draylar.intotheomega.block.ActivatedStarlightCornerBlock;
+import draylar.intotheomega.block.MatrixDungeonFloorBlock;
 import draylar.intotheomega.block.MirrorBlock;
 import draylar.intotheomega.entity.WatchingEyeBlockEntity;
 import draylar.intotheomega.entity.block.*;
@@ -67,6 +68,10 @@ public class OmegaBlockEntities {
     public static final BlockEntityType<ObsidianPedestalBlockEntity> OBSIDIAN_PEDESTAL = register(
             "obsidian_pedestal",
             FabricBlockEntityTypeBuilder.create(ObsidianPedestalBlockEntity::new, OmegaBlocks.OBSIDIAN_PEDESTAL).build(null));
+
+    public static final BlockEntityType<MatrixDungeonFloorBlockEntity> MATRIX_DUNGEON_FLOOR = register(
+            "matrix_dungeon_floor",
+            FabricBlockEntityTypeBuilder.create(MatrixDungeonFloorBlockEntity::new, OmegaBlocks.MATRIX_DUNGEON_FLOOR).build(null));
 
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String name, BlockEntityType<T> entity) {

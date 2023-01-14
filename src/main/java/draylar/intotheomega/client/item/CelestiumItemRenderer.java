@@ -37,7 +37,7 @@ public class CelestiumItemRenderer implements BuiltinItemRendererRegistry.Dynami
 
             Identifier outer = new Identifier("intotheomega", "textures/item/celestium_bloom.png");
             RenderLayer layer = OmegaRenderLayers.getEntityTrueTranslucent(outer);
-            VertexConsumer buffer = VertexWrapper.wrap(vertexConsumers.getBuffer(layer), VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL);
+            VertexWrapper buffer = VertexWrapper.wrap(vertexConsumers.getBuffer(layer), VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL);
 
             float ringScale = (float) Math.sin(GLFW.glfwGetTime() * 5f) * 0.6f + 1.8f;
 

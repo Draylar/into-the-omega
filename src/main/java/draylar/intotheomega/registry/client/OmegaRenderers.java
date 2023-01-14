@@ -65,6 +65,7 @@ public class OmegaRenderers {
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.GALAXY_FURNACE, GalaxyFurnaceRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.STARLIGHT_CORNER, StarlightCornerRenderer::new);
         BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.OBSIDIAN_PEDESTAL, ObsidianPedestalRenderer::new);
+        BlockEntityRendererRegistry.INSTANCE.register(OmegaBlockEntities.MATRIX_DUNGEON_FLOOR, MatrixDungeonFloorRenderer::new);
     }
 
     private OmegaRenderers() {
