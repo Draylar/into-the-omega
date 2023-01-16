@@ -1,11 +1,10 @@
 package draylar.intotheomega.entity.matrite;
 
-import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.api.RandomUtils;
+import draylar.intotheomega.api.VectorHelper;
 import draylar.intotheomega.api.event.ExplosionDamageEntityCallback;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import draylar.intotheomega.registry.OmegaEntities;
-import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,13 +17,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.network.Packet;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -101,8 +98,16 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
         }
 
         // fire if timer is set
-        if(shootAt != -1 && this.age > shootAt) {
+        if(!world.isClient && shootAt != -1 && this.age > shootAt && dataTracker.get(IDLE)) {
             shoot();
+        }
+
+        // track target
+        if(!world.isClient && source != null && target != null && !dataTracker.get(IDLE)) {
+            // veer towards target
+            Vec3d towards = target.getPos().subtract(getPos()).normalize();
+            Vec3d towardsTarget = towards.multiply(0.25).add(getVelocity()).normalize().multiply(1.5);
+            setVelocity(towardsTarget);
         }
 
         // check if there are any intercepting projectiles, remove if so
@@ -274,6 +279,13 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
     }
 
     public void shoot() {
+        if(source != null) {
+            setVelocity(RandomUtils.range(world.random, 1.0f), 1, RandomUtils.range(world.random, 1.0f));
+            setIdle(false);
+            world.playSound(null, getX(), getY(), getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.HOSTILE, 2, 2);
+            return;
+        }
+
         // Calculate vector between new Matrite and the target Player, then fire
         Vec3d vel = target.getPos().add(0, target.getHeight() / 2, 0).subtract(getPos()).normalize();
         setVelocity(vel.multiply(1.25));

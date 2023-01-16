@@ -24,8 +24,13 @@ public class MatriteEntityRenderer extends EntityRenderer<MatriteEntity> {
     }
 
     @Override
-    public void render(MatriteEntity matrite, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+    public void render(MatriteEntity matrite, float yaw, float delta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         matrices.push();
+
+
+        float lerpedAge = matrite.age + delta;
+        float initialScale = Math.min(1.0f, lerpedAge / 20f);
+        matrices.scale(initialScale, initialScale, initialScale);
 
         matrices.translate(0, -1.05, 0);
 
@@ -34,17 +39,17 @@ public class MatriteEntityRenderer extends EntityRenderer<MatriteEntity> {
         // If the matrite is idle, it should slowly float up and down.
         // IF the matrite is not idle (flying), it should spin.
         if(matrite.idle()) {
-            matrices.translate(0, Math.sin(MathHelper.lerp(tickDelta, matrite.age - 1, matrite.age) / 10) * .1, 0);
+            matrices.translate(0, Math.sin(MathHelper.lerp(delta, matrite.age - 1, matrite.age) / 10) * .1, 0);
             model.setAngles(matrite, 0, 0, 0, matrite.getHeadYaw(), matrite.getPitch());
         } else {
-            model.setAngles(matrite, 0, 0, MathHelper.lerp(tickDelta, matrite.age - 1, matrite.age), matrite.getHeadYaw(), matrite.getPitch());
+            model.setAngles(matrite, 0, 0, MathHelper.lerp(delta, matrite.age - 1, matrite.age), matrite.getHeadYaw(), matrite.getPitch());
         }
 
         // render matrite model
         this.model.render(matrices, vertexConsumer, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
         matrices.pop();
-        super.render(matrite, yaw, tickDelta, matrices, vertexConsumers, light);
+        super.render(matrite, yaw, delta, matrices, vertexConsumers, light);
     }
 
     @Override

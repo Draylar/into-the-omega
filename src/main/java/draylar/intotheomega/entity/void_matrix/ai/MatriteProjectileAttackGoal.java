@@ -32,7 +32,8 @@ public class MatriteProjectileAttackGoal extends StageGoal {
                 currentTime += attackTime;
             }
 
-            cooldown = 20 * 15;
+//            cooldown = 20 * 15;
+            cooldown = 20 * 5;
         }
     }
 
