@@ -16,8 +16,8 @@ public class EndSkyboxMixin {
      * @author Draylar
      * @reason End Skybox Mixin
      */
-    @Overwrite
-    private void renderEndSky(MatrixStack matrices) {
-        EndSkybox.renderEndSky(matrices);
-    }
+//    @Overwrite
+//    private void renderEndSky(MatrixStack matrices) {
+//        EndSkybox.renderEndSky(matrices);
+//    }
 }
