@@ -18,6 +18,10 @@ public class OmegaClientEventHandlers {
         PlayerStanceCallback.EVENT.register((player, current) -> {
             ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
 
+            if(true) {
+                return Stances.SCYTHE_SPIN;
+            }
+
             if (stack.isEmpty() || !(stack.getItem() instanceof StanceProvider)) {
                 return current;
             } else {

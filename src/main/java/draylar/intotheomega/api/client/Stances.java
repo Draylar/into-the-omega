@@ -47,6 +47,10 @@ public class Stances {
         model.body.yaw = .25f;
     };
 
+    public static final Stance SCYTHE_SPIN = (player, model) -> {
+        model.rightArm.pitch *= 0.15;
+    };
+
     public static void set(PlayerEntity player, Stance stance) {
         ((StanceAccessor) player).setStance(stance);
     }

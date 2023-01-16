@@ -3,6 +3,9 @@ package draylar.intotheomega.item;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import draylar.intotheomega.api.RandomUtils;
+import draylar.intotheomega.api.client.Stance;
+import draylar.intotheomega.api.client.StanceProvider;
+import draylar.intotheomega.api.client.Stances;
 import draylar.intotheomega.impl.item.SweepingParticleAttackHandler;
 import draylar.intotheomega.registry.OmegaDamageSources;
 import draylar.intotheomega.registry.OmegaParticles;
@@ -32,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class QuasarFluxItem extends Item implements SweepingParticleAttackHandler {
+public class QuasarFluxItem extends Item implements SweepingParticleAttackHandler, StanceProvider {
 
     private static final ImmutableMultimap<EntityAttribute, EntityAttributeModifier> MODIFIERS = ImmutableMultimap
             .<EntityAttribute, EntityAttributeModifier>builder()
@@ -94,6 +97,11 @@ public class QuasarFluxItem extends Item implements SweepingParticleAttackHandle
         if (holder.world instanceof ServerWorld serverWorld) {
             serverWorld.spawnParticles(getAttackParticleType(), target.getX(), target.getBodyY(0.5), target.getZ(), 0, 0, 0.0, 0, 0.0);
         }
+    }
+
+    @Override
+    public Stance getUseStance(ItemStack stack) {
+        return Stances.SCYTHE_SPIN;
     }
 
     @Override

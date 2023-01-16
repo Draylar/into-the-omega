@@ -12,13 +12,14 @@ public interface PlayerStanceCallback {
 
     Event<PlayerStanceCallback> EVENT = EventFactory.createArrayBacked(PlayerStanceCallback.class,
             (listeners) -> (player, current) -> {
-                Stance stance = Stances.NONE;
-
                 for (PlayerStanceCallback callback : listeners) {
-                    stance = callback.getStance(player, current);
+                    Stance ret = callback.getStance(player, current);
+                    if(ret != Stances.NONE) {
+                        return ret;
+                    }
                 }
 
-                return stance;
+                return Stances.NONE;
             }
     );
 
