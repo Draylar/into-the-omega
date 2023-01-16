@@ -1,16 +1,12 @@
 package draylar.intotheomega.mixin;
 
 import com.google.common.collect.ImmutableList;
-import draylar.intotheomega.api.Color;
 import draylar.intotheomega.api.event.ParticleEvents;
 import draylar.intotheomega.client.particle.*;
-import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleType;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -35,6 +31,10 @@ public abstract class ParticleManagerMixin {
     }
 
     static {
-        PARTICLE_TEXTURE_SHEETS = new ImmutableList.Builder<ParticleTextureSheet>().addAll(PARTICLE_TEXTURE_SHEETS).add(OmegaParticle.PARTICLE_SHEET_TRANSLUCENT).build();
+        PARTICLE_TEXTURE_SHEETS = new ImmutableList.Builder<ParticleTextureSheet>()
+                .addAll(PARTICLE_TEXTURE_SHEETS)
+                .add(OmegaParticle.PARTICLE_SHEET_TRANSLUCENT)
+                .add(OmegaParticleSheets.PROGRESS_TRANSLUCENT)
+                .build();
     }
 }

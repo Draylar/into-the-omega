@@ -1,6 +1,7 @@
 package draylar.intotheomega.entity.void_matrix;
 
 import draylar.intotheomega.api.HomeEntity;
+import draylar.intotheomega.api.entity.AIDebug;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.void_matrix.ai.*;
 import draylar.intotheomega.entity.void_matrix.ai.look.VoidMatrixLookControl;
@@ -10,6 +11,7 @@ import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.BossBar;
@@ -43,8 +45,10 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /*
  * The Void Matrix is an entity that spawns on boss platforms in the middle ring of the End (~5k+ blocks out).
@@ -55,7 +59,7 @@ import java.util.List;
  *  If all nearby players leave the battle or are killed, the Void Matrix will heal back to full and enter a dormant state at its altar.
  *  The Void Matrix restores 100 health when killing a player, but will not revert to a previous phase unless all players leave the area.
  */
-public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeEntity {
+public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeEntity, AIDebug {
 
     private final AnimationFactory factory = new AnimationFactory(this);;
     private final AnimationController<VoidMatrixEntity> controller = new AnimationController<>(this, "base", 20, this::refresh);
@@ -74,6 +78,8 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
     private int stunCounter = 0;
     private boolean flagStop = false;
     // TODO: SERIALIZE THIS ^^
+
+    private final Queue<Class<? extends Goal>> debugGoalQueue = new ArrayDeque<>();
 
     public static final int MAX_LASER_TICKS = 10 * 25;
     private static final TrackedData<Boolean> FIRING_LASER = DataTracker.registerData(VoidMatrixEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
@@ -405,6 +411,7 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
                 controller.setAnimation(new AnimationBuilder().addAnimation("animation.void_matrix.rotate", true));
                 break;
             case STOMP:
+                controller.setAnimationSpeed(0.75);
                 controller.markNeedsReload();
                 controller.setAnimation(new AnimationBuilder().addAnimation("animation.void_matrix.stomp", false));
                 break;
@@ -511,6 +518,21 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
     @Override
     public boolean cannotDespawn() {
         return true;
+    }
+
+    @Override
+    public boolean debugGoal(Goal goal) {
+        return debugGoalQueue.peek() == goal.getClass();
+    }
+
+    @Override
+    public void consumeGoalDebug() {
+        debugGoalQueue.poll();
+    }
+
+    @Override
+    public void markDebugGoal(Class<? extends Goal> goalClass) {
+        debugGoalQueue.add(goalClass);
     }
 
     public enum Stage {

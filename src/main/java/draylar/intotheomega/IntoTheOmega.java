@@ -111,6 +111,7 @@ public class IntoTheOmega implements ModInitializer {
 
         if(FabricLoader.getInstance().isDevelopmentEnvironment()) {
             CommandRegistrationCallback.EVENT.register(new UtilCommands());
+            CommandRegistrationCallback.EVENT.register(new AICommand());
         }
 
         if(FabricLoader.getInstance().isDevelopmentEnvironment()) {

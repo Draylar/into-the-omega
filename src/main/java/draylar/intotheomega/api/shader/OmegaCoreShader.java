@@ -7,8 +7,9 @@ import net.minecraft.resource.ResourceManager;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Supplier;
 
-public class OmegaCoreShader {
+public class OmegaCoreShader implements Supplier<Shader> {
 
     private static final Set<OmegaCoreShader> CORE_SHADERS = new HashSet<>();
     private final String id;
@@ -48,6 +49,15 @@ public class OmegaCoreShader {
     }
 
     public void setup(ResourceManager manager) throws IOException {
-        this.shader = new Shader(manager, id, format);
+        try {
+            this.shader = new Shader(manager, id, format);
+        } catch (Exception any) {
+            any.printStackTrace();
+        }
+    }
+
+    @Override
+    public Shader get() {
+        return shader;
     }
 }
