@@ -1,25 +1,30 @@
 package draylar.intotheomega.registry.client;
 
-import draylar.intotheomega.entity.*;
-import draylar.intotheomega.entity.matrite.MatriteEntity;
-import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
-import draylar.intotheomega.registry.OmegaEntities;
+import draylar.intotheomega.api.data.player.PlayerDataAttachment;
 import draylar.intotheomega.registry.OmegaServerPackets;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
-
-import java.util.UUID;
 
 @Environment(EnvType.CLIENT)
 public class OmegaClientPackets {
 
     public static void init() {
-
+        ClientPlayNetworking.registerGlobalReceiver(OmegaServerPackets.SYNC_PLAYER_DATA, (client, handler, buf, responseSender) -> {
+            int playerId = buf.readInt();
+            NbtCompound data = buf.readNbt();
+            client.execute(() -> {
+                Entity found = client.world.getEntityById(playerId);
+                if(found instanceof PlayerEntity player) {
+                    PlayerDataAttachment.read(player, data);
+                }
+            });
+        });
     }
 
     public static void doubleJump(int slot) {

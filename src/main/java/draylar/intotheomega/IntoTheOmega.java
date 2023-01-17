@@ -1,6 +1,7 @@
 package draylar.intotheomega;
 
 import dev.emi.trinkets.api.TrinketsApi;
+import draylar.intotheomega.api.data.player.PlayerDataAttachment;
 import draylar.intotheomega.command.*;
 import draylar.intotheomega.config.ITOConfig;
 import draylar.intotheomega.impl.ServerPlayerMirrorExtensions;
@@ -58,6 +59,15 @@ public class IntoTheOmega implements ModInitializer {
     public static final ScreenHandlerType<ConquestForgeScreenHandler> CF_SCREEN_HANDLER = ScreenHandlerRegistry.registerSimple(id("conquest_forge"), ConquestForgeScreenHandler::new);
     public static final Logger LOGGER = LoggerFactory.getLogger("modid");
     public static final ITOConfig CONFIG = OmegaConfig.register(ITOConfig.class);
+
+    public static final PlayerDataAttachment<Integer> VOID_MATRIX_SHIELD_STATUS = PlayerDataAttachment.track(
+            "vmss",
+            0,
+            PlayerDataAttachment.range(0, 3),
+            PlayerDataAttachment.SyncStrategy.COMMON,
+            PlayerDataAttachment.RetentionStrategy.RESET_ON_DEATH,
+            PlayerDataAttachment.INTEGER_SERIALIZER
+    );
 
     @Override
     public void onInitialize() {

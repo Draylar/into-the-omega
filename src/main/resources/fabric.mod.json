@@ -37,5 +37,12 @@
     "geckolib3": "*",
     "trinkets": ">=3.3.0",
     "omega-config": ">=1.2.3-1.18.1"
+  },
+  "custom": {
+    "loom:injected_interfaces": {
+      "net/minecraft/class_1657": [
+        "draylar/intotheomega/api/data/player/PlayerDataAccess"
+      ]
+    }
   }
 }

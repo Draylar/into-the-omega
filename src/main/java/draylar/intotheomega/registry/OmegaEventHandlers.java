@@ -8,7 +8,10 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.api.BewitchedHelper;
 import draylar.intotheomega.api.EndBiomeSourceCache;
 import draylar.intotheomega.api.event.*;
-import draylar.intotheomega.api.item.*;
+import draylar.intotheomega.api.item.AttackHandler;
+import draylar.intotheomega.api.item.BatchDamageHandler;
+import draylar.intotheomega.api.item.CriticalItem;
+import draylar.intotheomega.api.item.TrinketEventHandler;
 import draylar.intotheomega.item.api.SetArmorItem;
 import draylar.intotheomega.item.dragon.InanisItem;
 import draylar.intotheomega.item.ice.ChilledVoidArmorItem;
@@ -19,6 +22,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -26,7 +30,12 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.Pair;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
@@ -45,8 +54,46 @@ public class OmegaEventHandlers {
         registerTrinketEventHandler();
         registerInanisLeapAttack();
         registerHeartOfIceCriticalHandlers();
+        registerGuardianOfGlassDamageHandlers();
         registerItemHandlers();
         ServerWorldEvents.LOAD.register(new EndBiomeSourceCache());
+    }
+
+    private static void registerGuardianOfGlassDamageHandlers() {
+        PlayerDamageCallback.EVENT.register((player, source, amount) -> {
+            if(source.getAttacker() == null) {
+                return TypedActionResult.pass(amount);
+            }
+
+            Optional<TrinketComponent> trinkets = TrinketsApi.getTrinketComponent(player);
+            if(trinkets.isPresent()) {
+                var equipped = trinkets.get().getEquipped(OmegaItems.GUARDIAN_OF_GLASS);
+                if(!equipped.isEmpty()) {
+                    int remainingStacks = player.getPlayerData(IntoTheOmega.VOID_MATRIX_SHIELD_STATUS);
+                    if(remainingStacks > 0) {
+                        player.setPlayerData(IntoTheOmega.VOID_MATRIX_SHIELD_STATUS, remainingStacks - 1);
+                        player.sync(IntoTheOmega.VOID_MATRIX_SHIELD_STATUS);
+
+                        // sound effect
+                        player.world.playSoundFromEntity(null, player, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                        player.world.playSoundFromEntity(null, player, SoundEvents.ITEM_SHIELD_BLOCK, SoundCategory.PLAYERS, 0.25f, 1.0f);
+                        player.world.playSoundFromEntity(null, player, SoundEvents.ITEM_SHIELD_BREAK, SoundCategory.PLAYERS, 0.25f, 1.0f);
+
+                        // TODO: if the damage amount is >= 20.0, break additional shields, up to 60.0 damage at max
+
+                        // knock back target a slight amount
+                        Entity attacker = source.getAttacker();
+                        if(attacker instanceof LivingEntity living) {
+                            living.takeKnockback(1.0, player.getX() - attacker.getX(), player.getZ() - attacker.getZ());
+                        }
+
+                        return TypedActionResult.pass(amount - 20.0f);
+                    }
+                }
+            }
+
+            return TypedActionResult.pass(amount);
+        });
     }
 
     private static void registerItemHandlers() {

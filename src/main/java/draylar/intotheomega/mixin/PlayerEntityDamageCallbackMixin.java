@@ -26,7 +26,7 @@ public class PlayerEntityDamageCallbackMixin {
     private void store(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
         TypedActionResult<Float> result = PlayerDamageCallback.EVENT.invoker().onDamage((PlayerEntity) (Object) this, source, amount);
 
-        if(result.getResult().equals(ActionResult.FAIL)) {
+        if(result.getResult().equals(ActionResult.FAIL) || result.getValue() <= 0.0) {
             cir.cancel();
         } else {
             ito_dmg = result.getValue();

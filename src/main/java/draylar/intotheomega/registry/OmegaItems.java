@@ -76,7 +76,8 @@ public class OmegaItems {
     public static final Item EXPLOSION_IN_A_BOTTLE = register("explosion_in_a_bottle", new ExplosiveDoubleJumpItem(new Item.Settings().group(GROUP).rarity(EPIC).maxCount(1), 2));
     // todo: rename explosion in a bottle
     public static final Item MATRIX_PICKAXE = register("matrix_pickaxe", new PickaxeItem(MatrixToolMaterial.INSTANCE, 3, -2.3f, new Item.Settings().group(GROUP).rarity(EPIC).maxCount(1)));
-
+    public static final Item GUARDIAN_OF_GLASS = register("guard_of_glass", new GuardOfGlassItem(new Item.Settings().group(GROUP).rarity(EPIC).maxDamage(300)));
+    // TODO: Matrix Visors?
 
     // obsidian spike
     public static final Item SEVENTH_PILLAR = register("seventh_pillar", new SeventhPillarItem(new Item.Settings().group(GROUP).rarity(EPIC).maxCount(1), 14));

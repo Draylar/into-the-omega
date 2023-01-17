@@ -12,6 +12,7 @@ import draylar.intotheomega.client.feature.HyperionFeatureRenderer;
 import draylar.intotheomega.client.feature.SkinArmorFeatureRenderer;
 import draylar.intotheomega.client.feature.WingFeatureRenderer;
 import draylar.intotheomega.client.trinket.EyeTrinketRenderer;
+import draylar.intotheomega.client.trinket.GuardOfGlassTrinketRenderer;
 import draylar.intotheomega.client.trinket.OrbitalTrinketRenderer;
 import draylar.intotheomega.impl.event.client.OmegaParticleFactoryRegistrar;
 import draylar.intotheomega.impl.event.client.armor.ChilledVoidArmorDisplayHandler;
@@ -38,7 +39,6 @@ import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
@@ -48,16 +48,10 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.PrioritizedGoal;
-import net.minecraft.entity.ai.pathing.Path;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class IntoTheOmegaClient implements ClientModInitializer {
@@ -130,6 +124,7 @@ public class IntoTheOmegaClient implements ClientModInitializer {
         TrinketRendererRegistry.registerRenderer(OmegaItems.SOUL_TOME, new OrbitalTrinketRenderer());
         TrinketRendererRegistry.registerRenderer(OmegaItems.SOUL_SWORD, new OrbitalTrinketRenderer());
         TrinketRendererRegistry.registerRenderer(OmegaItems.SOUL_SHIELD, new OrbitalTrinketRenderer());
+        TrinketRendererRegistry.registerRenderer(OmegaItems.GUARDIAN_OF_GLASS, new GuardOfGlassTrinketRenderer());
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((entityType, entityRenderer, registrationHelper, context) -> {
             if(entityType.equals(EntityType.PLAYER)) {
