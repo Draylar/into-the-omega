@@ -16,4 +16,12 @@ public class Particles {
             recipient.networkHandler.sendPacket(particlePacket);
         }
     }
+
+    public static void sendTo(Collection<ServerPlayerEntity> recipients, DefaultParticleType type, double x, double y, double z, float velX, float velY, float velZ, int count) {
+        ParticleS2CPacket particlePacket = new ParticleS2CPacket(type, false, x, y, z, velX, velY, velZ, 1, count);
+
+        for (ServerPlayerEntity recipient : recipients) {
+            recipient.networkHandler.sendPacket(particlePacket);
+        }
+    }
 }

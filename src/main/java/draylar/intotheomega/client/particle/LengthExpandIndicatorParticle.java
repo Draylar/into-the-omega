@@ -49,7 +49,7 @@ public class LengthExpandIndicatorParticle extends DirectParticle {
     public void render(MatrixStack matrices, float delta, VertexConsumer buffer, Camera camera) {
         matrices.translate(0, 0.05, 0);
         flat(matrices, camera);
-        matrices.scale(10f, 30f, 30f);
+        matrices.scale((float) width, (float) depth, 1f);
 
         float ageProgress = (age + delta) / (float) maxAge;
         float fade = fadeOut(delta, 0.75f);

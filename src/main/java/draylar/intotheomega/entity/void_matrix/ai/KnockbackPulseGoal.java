@@ -18,6 +18,7 @@ public class KnockbackPulseGoal extends StageGoal {
 
     private static final int MAX_TICKS = 60;
     private int ticks = 0;
+    private boolean circular = false;
 
     public KnockbackPulseGoal(VoidMatrixEntity vm, VoidMatrixEntity.Stage stage) {
         super(vm, stage);
@@ -39,9 +40,14 @@ public class KnockbackPulseGoal extends StageGoal {
         super.start();
         ticks = 0;
         world.sendEntityStatus(vm, VoidMatrixEntity.STOMP);
+        circular = world.random.nextDouble() <= 0.5;
 
         // Send a Circular Indicator VFX particle to clients
-        Particles.sendTo(PlayerLookup.tracking(vm), OmegaParticles.VOID_MATRIX$SLAM_CIRCULAR_INDICATOR, vm.getX(), vm.getY(), vm.getZ(), 1);
+        if(false) {
+            Particles.sendTo(PlayerLookup.tracking(vm), OmegaParticles.VOID_MATRIX$SLAM_CIRCULAR_INDICATOR, vm.getX(), vm.getY(), vm.getZ(), 1);
+        } else {
+            Particles.sendTo(PlayerLookup.tracking(vm), OmegaParticles.VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR, vm.getX(), vm.getY(), vm.getZ(), 15, 75, 0, 0);
+        }
     }
 
     @Override
