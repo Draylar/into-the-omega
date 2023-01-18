@@ -23,6 +23,7 @@ public class OmegaParticles {
     public static final DefaultParticleType NOVA_STRIKE = ParticleTypesAccessor.callRegister("intotheomega:nova_strike", false);
     public static final DefaultParticleType QUASAR_SLASH = ParticleTypesAccessor.callRegister("intotheomega:quasar_slash", false);
     public static final DefaultParticleType VOID_MATRIX$SLAM_CIRCULAR_INDICATOR = ParticleTypesAccessor.callRegister("intotheomega:void_matrix/slam_circular_indicator", false);
+    public static final DefaultParticleType VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR = ParticleTypesAccessor.callRegister("intotheomega:void_matrix/slam_length_expand_indicator", false);
 
     public static void init() {
 

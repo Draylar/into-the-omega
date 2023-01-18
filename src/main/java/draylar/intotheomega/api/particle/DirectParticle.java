@@ -72,9 +72,4 @@ public abstract class DirectParticle extends SpriteBillboardParticle {
         buffer.vertex(position, 0.5f, 0.5f, 0.0f).texture(getMinU(), getMinV()).color(red, green, blue, alpha).light(light).next();
         buffer.vertex(position, 0.5f, -0.5f, 0.0f).texture(getMinU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
     }
-
-    @Override
-    public ParticleTextureSheet getType() {
-        return OmegaParticleSheets.PROGRESS_TRANSLUCENT;
-    }
 }

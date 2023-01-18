@@ -32,5 +32,10 @@ public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHan
                 return new CircularIndicatorParticle.VoidMatrixSlam(sprite, parameters, world, x, y, z, velocityX, velocityY, velocityZ);
             };
         });
+        manager.registerFactory(OmegaParticles.VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR, sprite -> {
+            return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
+                return new LengthExpandIndicatorParticle.VoidMatrixSlam(sprite, parameters, world, x, y, z, velocityX, velocityY, velocityZ);
+            };
+        });
     }
 }

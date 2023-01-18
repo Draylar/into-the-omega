@@ -34,7 +34,8 @@ public abstract class ParticleManagerMixin {
         PARTICLE_TEXTURE_SHEETS = new ImmutableList.Builder<ParticleTextureSheet>()
                 .addAll(PARTICLE_TEXTURE_SHEETS)
                 .add(OmegaParticle.PARTICLE_SHEET_TRANSLUCENT)
-                .add(OmegaParticleSheets.PROGRESS_TRANSLUCENT)
+                .add(OmegaParticleSheets.PROGRESS_TRANSLUCENT_CIRCULAR)
+                .add(OmegaParticleSheets.PROGRESS_TRANSLUCENT_LENGTH_EXPAND)
                 .build();
     }
 }
