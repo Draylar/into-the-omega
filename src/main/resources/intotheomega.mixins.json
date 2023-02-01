@@ -69,6 +69,8 @@
     "trinkets.EndermanTeleportBewitchMixin",
     "trinkets.ExplosionDamageMixin",
     "trinkets.PlayerEntityDamageMixin",
+    "world.ChunkGeneratorMixin",
+    "world.DimensionTypeMixin",
     "world.EndBiomeHeightMixin",
     "world.EndBiomeSourceMixin",
     "world.EndPillarDesignMixin",
