@@ -8,7 +8,6 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.RandomUtils;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
@@ -22,7 +21,7 @@ public class ActivatedStarlightCornerBlock extends BlockWithEntity {
     @Nullable
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new Entity(pos, state);
+        return new StarlightBE(pos, state);
     }
 
     @Override
@@ -37,9 +36,9 @@ public class ActivatedStarlightCornerBlock extends BlockWithEntity {
         world.addParticle(OmegaParticles.TINY_STAR, pos.getX() + 0.5, pos.getY() + 9.75, pos.getZ() + 0.5, world.random.nextDouble(0.1) - 0.05, 0, world.random.nextDouble(0.1) - 0.05);
     }
 
-    public static class Entity extends BlockEntity {
+    public static class StarlightBE extends BlockEntity {
 
-        public Entity(BlockPos pos, BlockState state) {
+        public StarlightBE(BlockPos pos, BlockState state) {
             super(OmegaBlockEntities.STARLIGHT_CORNER, pos, state);
         }
     }

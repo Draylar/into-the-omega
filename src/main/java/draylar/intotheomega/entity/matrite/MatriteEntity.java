@@ -19,6 +19,7 @@ import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -47,6 +48,9 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
     private LivingEntity target;
     private VoidMatrixEntity source;
     private int shootAt = -1;
+    private int nonIdleTicks = 0;
+    private int idleShootTime = 10 + world.random.nextInt(25);
+    private boolean hasFiredAtPlayer = false;
 
     public MatriteEntity(EntityType<? extends MatriteEntity> type, World world) {
         super(type, world);
@@ -104,10 +108,18 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
 
         // track target
         if(!world.isClient && source != null && target != null && !dataTracker.get(IDLE)) {
+            nonIdleTicks++;
+
             // veer towards target
-            Vec3d towards = target.getPos().subtract(getPos()).normalize();
-            Vec3d towardsTarget = towards.multiply(0.25).add(getVelocity()).normalize().multiply(1.5);
-            setVelocity(towardsTarget);
+            if(nonIdleTicks >= idleShootTime && !hasFiredAtPlayer){
+                Vec3d towards = target.getPos().subtract(getPos()).normalize();
+                float variance = 0.1f;
+                Vec3d towardsTarget = towards.multiply(3.0)
+                        .add(RandomUtils.range(world.random, variance), 0.0f, RandomUtils.range(world.random, variance));
+
+                setVelocity(towardsTarget);
+                hasFiredAtPlayer = true;
+            }
         }
 
         // check if there are any intercepting projectiles, remove if so
@@ -172,8 +184,6 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
     @Override
     public void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-
-        world.addParticle(ParticleTypes.EXPLOSION, getX(), getY(), getZ(), 0, 0, 0);
 
         if (!this.world.isClient && hitResult.getType().equals(HitResult.Type.BLOCK)) {
             explode();
@@ -247,8 +257,10 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
     }
 
     public void explode() {
-        world.addParticle(ParticleTypes.EXPLOSION, getX(), getY(), getZ(), 0, 0, 0);
-        world.playSound(null, getBlockPos(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, .25f, 0);
+        if(world instanceof ServerWorld serverWorld) {
+            serverWorld.spawnParticles(ParticleTypes.EXPLOSION, getX(), getY(), getZ(), 3, 0.25, 0.25, 0.25, 0);
+            world.playSound(null, getBlockPos(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, .25f, 0);
+        }
 
         world.getEntitiesByClass(LivingEntity.class, new Box(getBlockPos().add(-2, -2 ,-2), getBlockPos().add(2, 2, 2)), entity -> !(entity instanceof VoidMatrixEntity))
                 .forEach(target -> {
@@ -288,7 +300,7 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
 
         // Calculate vector between new Matrite and the target Player, then fire
         Vec3d vel = target.getPos().add(0, target.getHeight() / 2, 0).subtract(getPos()).normalize();
-        setVelocity(vel.multiply(1.25));
+        setVelocity(vel.multiply(0.25 + world.random.nextFloat() * 0.5));
         shootAt = -1;
 
         setIdle(false);

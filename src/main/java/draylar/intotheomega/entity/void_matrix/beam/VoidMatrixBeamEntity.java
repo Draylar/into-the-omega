@@ -1,14 +1,8 @@
 package draylar.intotheomega.entity.void_matrix.beam;
 
-import draylar.intotheomega.api.particle.Particles;
-import draylar.intotheomega.client.particle.OmegaParticle;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
-import draylar.intotheomega.registry.OmegaEntities;
 import draylar.intotheomega.registry.OmegaParticles;
 import draylar.intotheomega.util.ParticleUtils;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

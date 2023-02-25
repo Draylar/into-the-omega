@@ -11,6 +11,7 @@ import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.nova.*;
 import draylar.intotheomega.entity.slime.OmegaSlimeEmperorEntity;
 import draylar.intotheomega.entity.starfall.StarfallProjectileEntity;
+import draylar.intotheomega.entity.void_matrix.indicator.MatriteTargetIndicatorEntity;
 import draylar.intotheomega.entity.void_matrix.beam.VoidMatrixBeamEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -336,6 +337,15 @@ public class OmegaEntities {
                     .trackRangeBlocks(1000)
                     .trackedUpdateRate(1)
                     .forceTrackedVelocityUpdates(true)
+                    .build());
+
+    public static final EntityType<MatriteTargetIndicatorEntity> MATRITE_TARGET_INDICATOR = register(
+            "matrite_target_indicator",
+            FabricEntityTypeBuilder.<MatriteTargetIndicatorEntity>create()
+                    .spawnGroup(SpawnGroup.MISC)
+                    .dimensions(EntityDimensions.fixed(0.0f, 0.0f))
+                    .disableSaving()
+                    .entityFactory(MatriteTargetIndicatorEntity::new)
                     .build());
 
     private static <T extends Entity> EntityType<T> register(String name, EntityType<T> entity) {

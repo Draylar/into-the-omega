@@ -13,7 +13,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
-public class StarlightCornerRenderer implements BlockEntityRenderer<ActivatedStarlightCornerBlock.Entity> {
+public class StarlightCornerRenderer implements BlockEntityRenderer<ActivatedStarlightCornerBlock.StarlightBE> {
 
     private static final Identifier TEXTURE = IntoTheOmega.id("textures/entity/solid_white.png");
 
@@ -22,7 +22,7 @@ public class StarlightCornerRenderer implements BlockEntityRenderer<ActivatedSta
     }
 
     @Override
-    public void render(ActivatedStarlightCornerBlock.Entity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+    public void render(ActivatedStarlightCornerBlock.StarlightBE entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         VertexConsumer buffer = vertexConsumers.getBuffer(RenderLayer.getEyes(TEXTURE));
         float purple = (float) (Math.sin(GLFW.glfwGetTime()) / 2) + 0.5f;
         matrices.push();
