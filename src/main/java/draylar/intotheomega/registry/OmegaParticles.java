@@ -1,8 +1,12 @@
 package draylar.intotheomega.registry;
 
+import draylar.intotheomega.impl.event.client.OmegaParticleFactoryRegistrar;
 import draylar.intotheomega.mixin.access.ParticleTypesAccessor;
 import net.minecraft.particle.DefaultParticleType;
 
+/**
+ * @see OmegaParticleFactoryRegistrar
+ */
 public class OmegaParticles {
 
     public static final DefaultParticleType OMEGA_PARTICLE = ParticleTypesAccessor.callRegister("intotheomega:default", false);
@@ -24,6 +28,7 @@ public class OmegaParticles {
     public static final DefaultParticleType QUASAR_SLASH = ParticleTypesAccessor.callRegister("intotheomega:quasar_slash", false);
     public static final DefaultParticleType VOID_MATRIX$SLAM_CIRCULAR_INDICATOR = ParticleTypesAccessor.callRegister("intotheomega:void_matrix/slam_circular_indicator", false);
     public static final DefaultParticleType VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR = ParticleTypesAccessor.callRegister("intotheomega:void_matrix/slam_length_expand_indicator", false);
+    public static final DefaultParticleType VOID_BEAM_DUST = ParticleTypesAccessor.callRegister("intotheomega:void_matrix/beam/dust", false);
 
     public static void init() {
 

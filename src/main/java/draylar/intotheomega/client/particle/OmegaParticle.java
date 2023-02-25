@@ -3,6 +3,7 @@ package draylar.intotheomega.client.particle;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import draylar.intotheomega.api.Color;
+import draylar.intotheomega.registry.client.OmegaShaders;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
@@ -22,6 +23,7 @@ public class OmegaParticle extends SpriteBillboardParticle {
         @Override
         public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
             RenderSystem.depthMask(false);
+            RenderSystem.setShader(OmegaShaders.TRANSLUCENT_PARTICLE);
             textureManager.bindTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);

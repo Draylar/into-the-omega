@@ -2,9 +2,14 @@ package draylar.intotheomega.impl.event.client;
 
 import draylar.intotheomega.api.Color;
 import draylar.intotheomega.api.event.ParticleEvents;
+import draylar.intotheomega.api.particle.DirectParticle;
 import draylar.intotheomega.client.particle.*;
+import draylar.intotheomega.entity.void_matrix.beam.particle.VoidBeamDustParticle;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.particle.ParticleManager;
+import net.minecraft.client.particle.SpriteProvider;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.particle.DefaultParticleType;
 
 public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHandler {
 
@@ -37,5 +42,20 @@ public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHan
                 return new LengthExpandIndicatorParticle.VoidMatrixSlam(sprite, parameters, world, x, y, z, velocityX, velocityY, velocityZ);
             };
         });
+
+        register(manager, OmegaParticles.VOID_BEAM_DUST, VoidBeamDustParticle::new);
+    }
+
+    private static void register(ParticleManager manager, DefaultParticleType type, Factory factory) {
+        manager.registerFactory(type, sprite -> {
+            return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
+                return factory.create(sprite, parameters, world, x, y, z, velocityX, velocityY, velocityZ);
+            };
+        });
+    }
+
+    private interface Factory {
+
+        DirectParticle create(SpriteProvider spriteProvider, DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ);
     }
 }

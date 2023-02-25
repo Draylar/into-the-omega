@@ -12,6 +12,7 @@ public class OmegaShaders {
     public static final OmegaCoreShader CIRCLE_INDICATOR_PARTICLE = OmegaCoreShader.register("indicator_particle", OmegaVertexFormats.POSITION_TEXTURE_COLOR_LIGHT_PROGRESS);
     public static final OmegaCoreShader LENGTH_EXPAND_INDICATOR_PARTICLE = OmegaCoreShader.register("length_expand_indicator_particle", OmegaVertexFormats.POSITION_TEXTURE_COLOR_LIGHT_PROGRESS);
     public static final OmegaCoreShader GLOWING_BEAM = OmegaCoreShader.register("glowing_beam", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL);
+    public static final OmegaCoreShader TRANSLUCENT_PARTICLE = OmegaCoreShader.register("particle_translucent", VertexFormats.POSITION_TEXTURE_COLOR_NORMAL);
 
     public static void initialize() {
 

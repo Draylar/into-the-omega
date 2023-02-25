@@ -1,7 +1,11 @@
 package draylar.intotheomega.entity.void_matrix.beam;
 
+import draylar.intotheomega.api.particle.Particles;
+import draylar.intotheomega.client.particle.OmegaParticle;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import draylar.intotheomega.registry.OmegaEntities;
+import draylar.intotheomega.registry.OmegaParticles;
+import draylar.intotheomega.util.ParticleUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.world.ClientWorld;
@@ -40,6 +44,21 @@ public class VoidMatrixBeamEntity extends Entity {
             // Beam explodes at 2 seconds
             if(age == 25) {
                 world.playSound(null, getX(), getY(), getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, 5.0f, 3.0f);
+
+                // particles
+                ParticleUtils.spawnParticles(
+                        (ServerWorld) world,
+                        OmegaParticles.VOID_BEAM_DUST,
+                        true,
+                        getX(),
+                        getY(),
+                        getZ(),
+                        100,
+                        0,
+                        10,
+                        0,
+                        0.1f
+                );
 
                 // attack players
                 world.getEntitiesByClass(LivingEntity.class, new Box(getBlockPos().add(-3, -100, -3), getBlockPos().add(3, 100, 3)), entity -> !(entity instanceof VoidMatrixEntity)).forEach(e -> {
