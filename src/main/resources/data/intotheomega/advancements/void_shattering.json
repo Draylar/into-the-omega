@@ -1,0 +1,36 @@
+{
+  "parent": "intotheomega:root",
+  "display": {
+    "title": {
+      "text": "Shattering the Void",
+      "color": "light_purple",
+      "bold": false
+    },
+    "description": {
+      "text": "Slay the Void Matrix at the top of the Matrix Spire."
+    },
+    "icon": {
+      "item": "intotheomega:matrix_bomb"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "kill_void_matrix": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "intotheomega:void_matrix"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  }
+}

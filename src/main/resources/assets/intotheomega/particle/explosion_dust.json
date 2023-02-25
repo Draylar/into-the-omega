@@ -1,0 +1,10 @@
+{
+  "id": "intotheomega:explosion_dust",
+  "components": {
+    "quad": "intotheomega:textures/particle/white",
+    "rotation": "face_camera",
+    "movement": [
+
+    ]
+  }
+}

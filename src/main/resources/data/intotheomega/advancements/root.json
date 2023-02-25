@@ -1,7 +1,7 @@
 {
   "display": {
     "title": {
-      "text": "Into The Ω",
+      "text": "Into The Omega",
       "color": "dark_purple",
       "bold": true
     },
@@ -15,7 +15,7 @@
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false,
-    "background": "intotheomega:textures/block/rainbow_obsidian.png"
+    "background": "minecraft:textures/block/obsidian.png"
   },
   "criteria": {
     "visitend": {

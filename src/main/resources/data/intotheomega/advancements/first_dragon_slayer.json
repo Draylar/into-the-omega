@@ -1,0 +1,28 @@
+{
+  "parent": "intotheomega:root",
+  "display": {
+    "title": {
+      "text": "Dragon Slayer",
+      "color": "aqua",
+      "bold": false
+    },
+    "description": {
+      "text": "Fell the Dual Dragon in the Dragon Chasm."
+    },
+    "icon": {
+      "item": "intotheomega:dual_core"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "kill_void_matrix": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "parent": "intotheomega:black_thorn",
+  "display": {
+    "title": {
+      "text": "Enigma Challenge",
+      "color": "dark_gray",
+      "bold": false
+    },
+    "description": {
+      "text": "Defeat the Enigma King in a duel within the Black Thorn."
+    },
+    "icon": {
+      "item": "intotheomega:awakened_seventh_pillar"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "kill_void_matrix": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "intotheomega:enigma_king"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  }
+}

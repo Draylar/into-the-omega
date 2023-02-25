@@ -1,0 +1,28 @@
+{
+  "parent": "intotheomega:first_dragon_slayer",
+  "display": {
+    "title": {
+      "text": "Dragon Slayer: Beyond",
+      "color": "aqua",
+      "bold": false
+    },
+    "description": {
+      "text": "Fell the Dual Dragon 10 times."
+    },
+    "icon": {
+      "item": "intotheomega:dual_core"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "kill_void_matrix": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+
+      }
+    }
+  }
+}
