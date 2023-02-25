@@ -2,7 +2,7 @@ package draylar.intotheomega.registry.client;
 
 import draylar.intotheomega.client.be.*;
 import draylar.intotheomega.client.entity.renderer.*;
-import draylar.intotheomega.entity.VoidFloaterEntity;
+import draylar.intotheomega.entity.void_matrix.beam.VoidMatrixBeamRenderer;
 import draylar.intotheomega.registry.OmegaBlockEntities;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.fabricmc.api.EnvType;
@@ -11,7 +11,6 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegi
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity;
 
 @Environment(EnvType.CLIENT)
 public class OmegaRenderers {

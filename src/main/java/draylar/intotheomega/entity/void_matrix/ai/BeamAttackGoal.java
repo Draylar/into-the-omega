@@ -1,6 +1,6 @@
 package draylar.intotheomega.entity.void_matrix.ai;
 
-import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
+import draylar.intotheomega.entity.void_matrix.beam.VoidMatrixBeamEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,14 +1,12 @@
 package draylar.intotheomega.registry.client;
 
 import draylar.intotheomega.mixin.access.RenderLayerAccessor;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderPhase;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 public class OmegaRenderLayers {
 
@@ -102,5 +100,18 @@ public class OmegaRenderLayers {
 
     public static RenderLayer getEntityTrueTranslucent(Identifier texture) {
         return ENTITY_TRUE_TRANSLUCENT.apply(texture, false);
+    }
+
+    public static RenderLayer entityShader(Identifier texture, Supplier<Shader> shader) {
+        var multiPhaseParameters = RenderLayer.MultiPhaseParameters.builder()
+                .shader(new RenderPhase.Shader(shader))
+                .texture(new RenderPhase.Texture(texture, false, false))
+                .transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY)
+                .cull(RenderPhase.DISABLE_CULLING)
+                .lightmap(RenderPhase.ENABLE_LIGHTMAP)
+                .overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
+                .build(true);
+
+        return RenderLayerAccessor.of("entity_true_translucent", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, multiPhaseParameters);
     }
 }

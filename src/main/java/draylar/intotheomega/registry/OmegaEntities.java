@@ -11,7 +11,7 @@ import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.nova.*;
 import draylar.intotheomega.entity.slime.OmegaSlimeEmperorEntity;
 import draylar.intotheomega.entity.starfall.StarfallProjectileEntity;
-import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
+import draylar.intotheomega.entity.void_matrix.beam.VoidMatrixBeamEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;

@@ -1,5 +1,6 @@
-package draylar.intotheomega.entity.void_matrix;
+package draylar.intotheomega.entity.void_matrix.beam;
 
+import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,13 +27,6 @@ public class VoidMatrixBeamEntity extends Entity {
         ignoreCameraFrustum = true;
     }
 
-    @Environment(EnvType.CLIENT)
-    public VoidMatrixBeamEntity(ClientWorld world, double x, double y, double z) {
-        super(OmegaEntities.VOID_MATRIX_BEAM, world);
-        this.updatePosition(x, y, z);
-        this.updateTrackedPosition(x, y, z);
-    }
-
     @Override
     public void tick() {
         super.tick();
@@ -40,12 +34,12 @@ public class VoidMatrixBeamEntity extends Entity {
         if(!world.isClient) {
 
             if(age == 1) {
-                ((ServerWorld) world).playSound(null, getX(), getY(), getZ(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.HOSTILE, 5.0f, 2.0f);
+                world.playSound(null, getX(), getY(), getZ(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.HOSTILE, 5.0f, 2.0f);
             }
 
             // Beam explodes at 2 seconds
-            if(age == 40) {
-                world.playSound(null, getX(), getY(), getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, 1.0f, 3.0f);
+            if(age == 25) {
+                world.playSound(null, getX(), getY(), getZ(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, 5.0f, 3.0f);
 
                 // attack players
                 world.getEntitiesByClass(LivingEntity.class, new Box(getBlockPos().add(-3, -100, -3), getBlockPos().add(3, 100, 3)), entity -> !(entity instanceof VoidMatrixEntity)).forEach(e -> {

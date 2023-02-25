@@ -1,11 +1,10 @@
 package draylar.intotheomega.item.matrix;
 
-import draylar.intotheomega.entity.void_matrix.VoidMatrixBeamEntity;
+import draylar.intotheomega.entity.void_matrix.beam.VoidMatrixBeamEntity;
 import draylar.intotheomega.impl.AttackingItem;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
