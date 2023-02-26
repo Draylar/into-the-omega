@@ -4,8 +4,10 @@ import dev.emi.trinkets.api.TrinketsApi;
 import draylar.intotheomega.api.data.player.PlayerDataAttachment;
 import draylar.intotheomega.command.*;
 import draylar.intotheomega.config.ITOConfig;
+import draylar.intotheomega.gui.DemoPaneMenu;
 import draylar.intotheomega.impl.ServerPlayerMirrorExtensions;
 import draylar.intotheomega.impl.event.server.DragonLootTableHandler;
+import draylar.intotheomega.library.gui.Menu;
 import draylar.intotheomega.mixin.access.ChunkGeneratorSettingsAccessor;
 import draylar.intotheomega.network.ServerNetworking;
 import draylar.intotheomega.registry.*;
@@ -16,6 +18,7 @@ import draylar.intotheomega.world.OmegaSurfaceRules;
 import draylar.intotheomega.world.feature.DarkSakuraTreeFeature;
 import draylar.omegaconfig.OmegaConfig;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -24,6 +27,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -142,6 +146,28 @@ public class IntoTheOmega implements ModInitializer {
                 }
             });
         }
+
+        Menu.register("demo_menu", DemoPaneMenu::new);
+        ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("menu")
+                .executes(context -> {
+                    MinecraftClient.getInstance().setScreen(null);
+
+                    // Insane hackery to get around setScreen from chat menu command
+                    new Thread(() -> {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException exception) {
+                            throw new RuntimeException(exception);
+                        }
+
+                        MinecraftClient.getInstance().execute(() -> {
+                            Menu.open("demo_menu");
+                        });
+                    }).start();
+
+                    return 1;
+                })
+        );
     }
 
     public static void mirrorPlacement(PlayerEntity player, ItemStack stack, Direction side, World world, BlockPos center, BlockPos pos, Block block) {
