@@ -1,28 +1,43 @@
 package draylar.intotheomega.library.gui.vanilla;
 
 import draylar.intotheomega.library.gui.Menu;
-import draylar.intotheomega.library.gui.MenuNode;
+import draylar.intotheomega.library.gui.MenuElement;
 import draylar.intotheomega.library.gui.Modifier;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 
-public class MenuScreen extends Screen implements MenuNode<MenuScreen> {
+public class MenuScreen extends Screen implements MenuElement<MenuScreen> {
 
     private final Menu root;
-    private MenuNode<?> composed;
+    private MenuElement<?> composed;
 
     public MenuScreen(Menu root) {
         super(LiteralText.EMPTY);
         this.root = root;
         this.composed = root.compose();
-        update(null);
+        rebuiltLayout(null);
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        draw(this, matrices);
+        draw(this, matrices, mouseX, mouseY);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        boolean any = false;
+        for (MenuElement<?> element : composed.getChildren()) {
+            any = any || element.click(mouseX, mouseY, button);
+        }
+
+        return any;
+    }
+
+    @Override
+    public void tick() {
+        composed.tick();
     }
 
     @Override
@@ -31,8 +46,8 @@ public class MenuScreen extends Screen implements MenuNode<MenuScreen> {
     }
 
     @Override
-    public void draw(MenuNode<?> parent, MatrixStack matrices) {
-        composed.draw(parent, matrices);
+    public void draw(MenuElement<?> parent, MatrixStack matrices, double mouseX, double mouseY) {
+        composed.draw(parent, matrices, mouseX, mouseY);
     }
 
     @Override
@@ -61,13 +76,13 @@ public class MenuScreen extends Screen implements MenuNode<MenuScreen> {
     }
 
     @Override
-    public void update(MenuNode<?> parent) {
-        composed.update(this);
+    public void rebuiltLayout(MenuElement<?> parent) {
+        composed.rebuiltLayout(this);
     }
 
     @Override
     public void resize(MinecraftClient client, int width, int height) {
         super.resize(client, width, height);
-        update(null);
+        rebuiltLayout(null);
     }
 }

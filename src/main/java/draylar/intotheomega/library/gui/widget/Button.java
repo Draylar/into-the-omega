@@ -1,36 +1,48 @@
 package draylar.intotheomega.library.gui.widget;
 
-import draylar.intotheomega.library.gui.MenuNode;
-import draylar.intotheomega.library.gui.MenuWidget;
+import draylar.intotheomega.library.gui.Labeled;
+import draylar.intotheomega.library.gui.MenuElement;
+import draylar.intotheomega.library.gui.MenuComponent;
 import draylar.intotheomega.library.gui.Modifier;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 
-public class Button extends MenuWidget<Button> {
+public class Button extends MenuComponent<Button> implements Labeled {
 
     private final Text label;
+    private final Runnable onClick;
 
-    public Button(Modifier modifier, Text label) {
+    public Button(Modifier modifier, Text label, Runnable onClick) {
         super(modifier);
         this.label = label;
+        this.onClick = onClick;
     }
 
     public static Button create(Modifier modifier, Text label) {
-        return new Button(modifier, label);
+        return create(modifier, label, () -> {});
+    }
+
+    public static Button create(Modifier modifier, Text label, Runnable onClick) {
+        return new Button(modifier, label, onClick);
     }
 
     @Override
-    public void draw(MenuNode<?> parent, MatrixStack matrices) {
-        getModifier().getBackground().drawButton(matrices, getX(), getY(), getWidth(), getHeight());
+    public boolean click(double mouseX, double mouseY, int button) {
+        if(isHovered(mouseX, mouseY)) {
+            onClick.run();
+            return true;
+        }
 
-        // Draw Label
-        float centerX = getX() + getWidth() / 2f;
-        float centerY = getY() + (getHeight() - 12) / 2f;
-        TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-        OrderedText orderedText = label.asOrderedText();
-        textRenderer.draw(matrices, orderedText, (centerX - textRenderer.getWidth(orderedText) / 2), centerY, 0xff000000);
+        return false;
+    }
+
+    @Override
+    public void draw(MenuElement<?> parent, MatrixStack matrices, double mouseX, double mouseY) {
+        getModifier().getBackground().drawButton(this, matrices, getX(), getY(), getWidth(), getHeight(), isHovered(mouseX, mouseY));
+    }
+
+    @Override
+    public Text getLabel() {
+        return label;
     }
 }

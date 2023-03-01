@@ -5,6 +5,7 @@ import draylar.intotheomega.api.data.player.PlayerDataAttachment;
 import draylar.intotheomega.command.*;
 import draylar.intotheomega.config.ITOConfig;
 import draylar.intotheomega.gui.DemoPaneMenu;
+import draylar.intotheomega.gui.ParticleMenu;
 import draylar.intotheomega.impl.ServerPlayerMirrorExtensions;
 import draylar.intotheomega.impl.event.server.DragonLootTableHandler;
 import draylar.intotheomega.library.gui.Menu;
@@ -148,6 +149,7 @@ public class IntoTheOmega implements ModInitializer {
         }
 
         Menu.register("demo_menu", DemoPaneMenu::new);
+        Menu.register("particle", ParticleMenu::new);
         ClientCommandManager.DISPATCHER.register(ClientCommandManager.literal("menu")
                 .executes(context -> {
                     MinecraftClient.getInstance().setScreen(null);
@@ -161,7 +163,7 @@ public class IntoTheOmega implements ModInitializer {
                         }
 
                         MinecraftClient.getInstance().execute(() -> {
-                            Menu.open("demo_menu");
+                            Menu.open("particle");
                         });
                     }).start();
 

@@ -1,25 +1,25 @@
 package draylar.intotheomega.library.gui.layout;
 
-import draylar.intotheomega.library.gui.MenuNode;
-import draylar.intotheomega.library.gui.MenuWidget;
+import draylar.intotheomega.library.gui.MenuComponent;
+import draylar.intotheomega.library.gui.MenuElement;
 import draylar.intotheomega.library.gui.Modifier;
 import net.minecraft.client.util.math.MatrixStack;
 
-public class PaneLayout extends MenuWidget<PaneLayout> {
+import java.util.Arrays;
 
-    private final MenuNode<?>[] nodes;
+public class PaneLayout extends MenuComponent<PaneLayout> {
 
-    public PaneLayout(Modifier modifier, MenuNode<?>... nodes) {
+    public PaneLayout(Modifier modifier, MenuElement<?>... nodes) {
         super(modifier);
-        this.nodes = nodes;
+        getChildren().addAll(Arrays.asList(nodes));
     }
 
-    public static PaneLayout create(Modifier modifier, MenuNode<?>... nodes) {
+    public static PaneLayout create(Modifier modifier, MenuElement<?>... nodes) {
         return new PaneLayout(modifier, nodes);
     }
 
     @Override
-    public void draw(MenuNode<?> parent, MatrixStack matrices) {
+    public void draw(MenuElement<?> parent, MatrixStack matrices, double mouseX, double mouseY) {
         // Draw Pane background
         getModifier().getBackground().drawBackground(
                 matrices,
@@ -30,9 +30,6 @@ public class PaneLayout extends MenuWidget<PaneLayout> {
         );
 
         // Draw children nodes
-        for (MenuNode<?> node : nodes) {
-            node.update(this);
-            node.draw(parent, matrices);
-        }
+        super.draw(parent, matrices, mouseX, mouseY);
     }
 }

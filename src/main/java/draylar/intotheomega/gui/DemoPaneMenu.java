@@ -11,14 +11,14 @@ import static draylar.intotheomega.library.gui.Size.percentageWidth;
 public class DemoPaneMenu extends Menu {
 
     @Override
-    public MenuNode<?> compose() {
+    public MenuElement<?> compose() {
         return PaneLayout.create(
                 Modifier.create(modifier -> {
                     modifier.x(percentageWidth(0.25));
                     modifier.y(percentageHeight(0.25));
                     modifier.height(percentageHeight(0.5));
                     modifier.width(percentageWidth(0.5));
-                    modifier.background(BackgroundRenderer.themed(MenuTheme.BEDROCK));
+                    modifier.background(BackgroundRenderer.themed(MenuThemes.BEDROCK));
                 }),
                 Button.create(
                         Modifier.create()
@@ -26,8 +26,8 @@ public class DemoPaneMenu extends Menu {
                                 .y(percentageHeight(1.0 - 0.25 - 0.2))
                                 .height(percentageHeight(0.25))
                                 .width(percentageWidth(0.30))
-                                .background(BackgroundRenderer.themed(MenuTheme.BEDROCK)),
-                        new LiteralText("I agree!")
+                                .background(BackgroundRenderer.themed(MenuThemes.BEDROCK)),
+                        new LiteralText("I agree!"), () -> {}
                 ),
                 Button.create(
                         Modifier.create()
@@ -35,8 +35,8 @@ public class DemoPaneMenu extends Menu {
                                 .y(percentageHeight(1.0 - 0.25 - 0.2))
                                 .height(percentageHeight(0.25))
                                 .width(percentageWidth(0.30))
-                                .background(BackgroundRenderer.themed(MenuTheme.BEDROCK)),
-                        new LiteralText("No thanks!")
+                                .background(BackgroundRenderer.themed(MenuThemes.BEDROCK)),
+                        new LiteralText("No thanks!"), () -> {}
                 )
         );
     }

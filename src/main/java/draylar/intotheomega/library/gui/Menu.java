@@ -1,5 +1,6 @@
 package draylar.intotheomega.library.gui;
 
+import draylar.intotheomega.library.gui.state.MutableState;
 import draylar.intotheomega.library.gui.vanilla.MenuScreen;
 import net.minecraft.client.MinecraftClient;
 import org.jetbrains.annotations.Nullable;
@@ -26,7 +27,11 @@ public abstract class Menu {
         MinecraftClient.getInstance().setScreen(screen);
     }
 
-    public abstract MenuNode<?> compose();
+    public final <T> MutableState<T> state(Class<T> type, T value) {
+        return new MutableState<T>(value);
+    }
+
+    public abstract MenuElement<?> compose();
 
     public boolean pause() {
         return false;

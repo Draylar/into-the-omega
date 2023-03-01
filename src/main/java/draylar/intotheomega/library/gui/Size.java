@@ -12,11 +12,15 @@ public abstract class Size {
         return new Percentage(parent -> (int) (parent.getWidth() * amount));
     }
 
+    public static Size remainingWidth() {
+        return new RemainingWidth();
+    }
+
     public static Size percentageHeight(double amount) {
         return new Percentage(parent -> (int) (parent.getHeight() * amount));
     }
 
-    public abstract int get(MenuNode<?> parent);
+    public abstract int get(MenuElement<?> parent, MenuElement<?> child);
 
     private static class Fixed extends Size {
 
@@ -27,22 +31,30 @@ public abstract class Size {
         }
 
         @Override
-        public int get(MenuNode<?> parent) {
+        public int get(MenuElement<?> parent, MenuElement<?> child) {
             return pixels;
         }
     }
 
     private static class Percentage extends Size {
 
-        private final Function<MenuNode<?>, Integer> base;
+        private final Function<MenuElement<?>, Integer> base;
 
-        public Percentage(Function<MenuNode<?>, Integer> base) {
+        public Percentage(Function<MenuElement<?>, Integer> base) {
             this.base = base;
         }
 
         @Override
-        public int get(MenuNode<?> parent) {
+        public int get(MenuElement<?> parent, MenuElement<?> child) {
             return base.apply(parent);
+        }
+    }
+
+    private static class RemainingWidth extends Size {
+
+        @Override
+        public int get(MenuElement<?> parent, MenuElement<?> child) {
+            return parent.getWidth() - child.getX();
         }
     }
 }
