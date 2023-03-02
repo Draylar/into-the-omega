@@ -3,6 +3,7 @@ package draylar.intotheomega.entity.void_matrix.ai;
 import draylar.intotheomega.api.particle.Particles;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import draylar.intotheomega.registry.OmegaParticles;
+import draylar.intotheomega.vfx.particle.option.CircleIndicatorParticleEffect;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -44,7 +45,7 @@ public class KnockbackPulseGoal extends StageGoal {
 
         // Send a Circular Indicator VFX particle to clients
         if(false) {
-            Particles.sendTo(PlayerLookup.tracking(vm), OmegaParticles.VOID_MATRIX$SLAM_CIRCULAR_INDICATOR, vm.getX(), vm.getY(), vm.getZ(), 1);
+            Particles.sendTo(PlayerLookup.tracking(vm), new CircleIndicatorParticleEffect(30.0, 0xffaa00ff, 120), vm.getX(), vm.getY(), vm.getZ(), 1);
         } else {
             Particles.sendTo(PlayerLookup.tracking(vm), OmegaParticles.VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR, vm.getX(), vm.getY(), vm.getZ(), 15, 75, 0, 0);
         }

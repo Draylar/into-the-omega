@@ -1,8 +1,13 @@
 package draylar.intotheomega.entity.void_matrix.ai;
 
+import draylar.intotheomega.api.PositionUtils;
+import draylar.intotheomega.api.RandomUtils;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
+import draylar.intotheomega.entity.void_matrix.indicator.MatriteTargetIndicatorEntity;
+import draylar.intotheomega.registry.OmegaEntities;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +32,7 @@ public class MatriteProjectileAttackGoal extends StageGoal {
 
             // Each attack appears 5 ticks after the previous one.
             for (int i = 0; i < attacks; i++) {
-                int attackTime = 5;
+                int attackTime = 10;
                 queuedAttacks.add(vm.age + currentTime + attackTime);
                 currentTime += attackTime;
             }
@@ -68,8 +73,33 @@ public class MatriteProjectileAttackGoal extends StageGoal {
                 // Find a target nearby to shoot projectiles at
                 PlayerEntity target = locateRandomNearbyPlayer();
                 if(target != null) {
+
+                    // Summon Matrite target around player
+                    MatriteTargetIndicatorEntity targetIndicator = new MatriteTargetIndicatorEntity(OmegaEntities.MATRITE_TARGET_INDICATOR, world);
+                    if(world.random.nextDouble() <= 0.5) {
+                        double x = target.getX() + RandomUtils.range(world.random, 3.0f);
+                        double z = target.getZ() + RandomUtils.range(world.random, 3.0f);
+                        BlockPos pos = PositionUtils.findClosestGroundPosition(world, new BlockPos(x, target.getY(), z), 2, 3);
+                        if(pos != null) {
+                            targetIndicator.updatePosition(pos.getX(), pos.getY(), pos.getZ());
+                        } else {
+                            return;
+                        }
+                    } else {
+                        double x = target.getX() + RandomUtils.range(world.random, 12.0f);
+                        double z = target.getZ() + RandomUtils.range(world.random, 12.0f);
+                        BlockPos pos = PositionUtils.findClosestGroundPosition(world, new BlockPos(x, target.getY(), z), 3, 4);
+                        if(pos != null) {
+                            targetIndicator.updatePosition(pos.getX(), pos.getY(), pos.getZ());
+                        } else {
+                            return;
+                        }
+                    }
+
+                    world.spawnEntity(targetIndicator);
+
                     MatriteEntity matrite = new MatriteEntity(world);
-                    matrite.setTarget(target, 20 * 4 + world.random.nextInt(2));
+                    matrite.setTarget(targetIndicator, 0);
                     matrite.setSource(vm);
                     matrite.updatePosition(finalX, finalY, finalZ);
                     matrite.setOwner(vm);

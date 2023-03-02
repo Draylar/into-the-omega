@@ -22,9 +22,12 @@ public class MatriteTargetIndicatorEntity extends Entity {
 
         if(!world.isClient) {
             if(!hasSpawnedParticle) {
-                VFX.circleIndicator(world, getX(), getY(), getZ());
-
+                VFX.circleIndicator(world, getX(), getY(), getZ(), 5.0, 0xFFFF00FF, 70);
                 hasSpawnedParticle = true;
+            }
+
+            if(age >= 100) {
+                discard();
             }
         }
     }

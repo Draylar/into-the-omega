@@ -1,14 +1,13 @@
 package draylar.intotheomega.api.particle;
 
-import draylar.intotheomega.client.particle.OmegaParticleSheets;
-import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.particle.SpriteBillboardParticle;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
@@ -17,9 +16,9 @@ import net.minecraft.util.math.Vec3f;
 public abstract class DirectParticle extends SpriteBillboardParticle {
 
     protected final SpriteProvider spriteProvider;
-    protected final DefaultParticleType parameters;
+    protected final ParticleEffect parameters;
 
-    public DirectParticle(SpriteProvider spriteProvider, DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ) {
+    public DirectParticle(SpriteProvider spriteProvider, ParticleEffect parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ) {
             super(world, x, y, z, velX, velY, velZ);
         this.spriteProvider = spriteProvider;
         this.parameters = parameters;

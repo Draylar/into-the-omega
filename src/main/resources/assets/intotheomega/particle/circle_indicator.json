@@ -1,0 +1,14 @@
+{
+  "description": {
+    "id": "omega:vfx/circle_indicator",
+    "type": "layered"
+  },
+  "particle": [
+    {
+
+    },
+    {
+
+    }
+  ]
+}

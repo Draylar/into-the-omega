@@ -13,13 +13,13 @@ import java.util.function.Function;
 @Mixin(ParticleTypes.class)
 public interface ParticleTypesAccessor {
 
-    @Invoker
-    static DefaultParticleType callRegister(String name, boolean alwaysShow) {
+    @Invoker(value = "register")
+    static DefaultParticleType register(String name, boolean alwaysShow) {
         throw new UnsupportedOperationException();
     }
 
-    @Invoker
-    static <T extends ParticleEffect> ParticleType<T> callRegister(String name, ParticleEffect.Factory<T> factory, final Function<ParticleType<T>, Codec<T>> function) {
+    @Invoker(value = "register")
+    static <T extends ParticleEffect> ParticleType<T> register(String name, ParticleEffect.Factory<T> factory, final Function<ParticleType<T>, Codec<T>> function) {
         throw new UnsupportedOperationException();
     }
 }

@@ -45,7 +45,7 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
     private final AnimationFactory factory = new AnimationFactory(this);
 
     // Entity state
-    private LivingEntity target;
+    private Entity target;
     private VoidMatrixEntity source;
     private int shootAt = -1;
     private int nonIdleTicks = 0;
@@ -113,10 +113,7 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
             // veer towards target
             if(nonIdleTicks >= idleShootTime && !hasFiredAtPlayer){
                 Vec3d towards = target.getPos().subtract(getPos()).normalize();
-                float variance = 0.1f;
-                Vec3d towardsTarget = towards.multiply(3.0)
-                        .add(RandomUtils.range(world.random, variance), 0.0f, RandomUtils.range(world.random, variance));
-
+                Vec3d towardsTarget = towards.multiply(3.0);
                 setVelocity(towardsTarget);
                 hasFiredAtPlayer = true;
             }
@@ -281,7 +278,7 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
                 });
     }
 
-    public void setTarget(LivingEntity target, int delay) {
+    public void setTarget(Entity target, int delay) {
         this.shootAt = this.age + delay;
         this.target = target;
     }

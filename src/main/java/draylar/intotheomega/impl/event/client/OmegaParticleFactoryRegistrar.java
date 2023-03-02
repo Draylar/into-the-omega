@@ -9,7 +9,8 @@ import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
 
 public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHandler {
 
@@ -32,11 +33,6 @@ public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHan
         manager.registerFactory(OmegaParticles.ORIGIN_NOVA, OriginNovaParticle.Factory::new);
         manager.registerFactory(OmegaParticles.NOVA_STRIKE, NovaStrikeParticle.Factory::new);
         manager.registerFactory(OmegaParticles.QUASAR_SLASH, QuasarSlashParticle.Factory::new);
-        manager.registerFactory(OmegaParticles.VOID_MATRIX$SLAM_CIRCULAR_INDICATOR, sprite -> {
-            return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
-                return new CircularIndicatorParticle.VoidMatrixSlam(sprite, parameters, world, x, y, z, velocityX, velocityY, velocityZ);
-            };
-        });
         manager.registerFactory(OmegaParticles.VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR, sprite -> {
             return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
                 return new LengthExpandIndicatorParticle.VoidMatrixSlam(sprite, parameters, world, x, y, z, velocityX, velocityY, velocityZ);
@@ -44,9 +40,10 @@ public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHan
         });
 
         register(manager, OmegaParticles.VOID_BEAM_DUST, VoidBeamDustParticle::new);
+        register(manager, OmegaParticles.CIRCLE_INDICATOR, CircleIndicatorParticle::new);
     }
 
-    private static void register(ParticleManager manager, DefaultParticleType type, Factory factory) {
+    private static <T extends ParticleEffect> void register(ParticleManager manager, ParticleType<T> type, Factory<T> factory) {
         manager.registerFactory(type, sprite -> {
             return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
                 return factory.create(sprite, parameters, world, x, y, z, velocityX, velocityY, velocityZ);
@@ -54,8 +51,13 @@ public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHan
         });
     }
 
-    private interface Factory {
+    /**
+     * Particle factory with arguments matching {@link DirectParticle} primary constructor for method referencing.
+     *
+     * @param <T>
+     */
+    private interface Factory<T extends ParticleEffect> {
 
-        DirectParticle create(SpriteProvider spriteProvider, DefaultParticleType parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ);
+        DirectParticle create(SpriteProvider spriteProvider, T parameters, ClientWorld world, double x, double y, double z, double velX, double velY, double velZ);
     }
 }
