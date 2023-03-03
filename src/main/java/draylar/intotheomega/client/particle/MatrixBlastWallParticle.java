@@ -17,9 +17,9 @@ public class MatrixBlastWallParticle extends DirectParticle {
         red = 1.0f;
         green = 0.3f;
         blue = 1.0f;
-        velocityX = 0.0f;
-        velocityY = world.random.nextFloat() * 0.25;
-        velocityZ = 0.0f;
+        velocityX = 0;
+        velocityY = 0.0f + world.random.nextFloat() * 1.5;
+        velocityZ = 0;
         scale = 3.0f;
         maxAge = 100;
     }
@@ -27,6 +27,7 @@ public class MatrixBlastWallParticle extends DirectParticle {
     @Override
     public void render(MatrixStack matrices, float delta, VertexConsumer buffer, Camera camera) {
         alpha = Math.max(0.0f, 1.0f - (age + delta) / maxAge);
+        scale = 3.0f;
         faceCamera(matrices, camera);
         quad(matrices, buffer, LightmapTextureManager.MAX_LIGHT_COORDINATE);
     }

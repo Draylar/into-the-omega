@@ -33,14 +33,10 @@ public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHan
         manager.registerFactory(OmegaParticles.ORIGIN_NOVA, OriginNovaParticle.Factory::new);
         manager.registerFactory(OmegaParticles.NOVA_STRIKE, NovaStrikeParticle.Factory::new);
         manager.registerFactory(OmegaParticles.QUASAR_SLASH, QuasarSlashParticle.Factory::new);
-        manager.registerFactory(OmegaParticles.VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR, sprite -> {
-            return (parameters, world, x, y, z, velocityX, velocityY, velocityZ) -> {
-                return new LengthExpandIndicatorParticle.VoidMatrixSlam(sprite, parameters, world, x, y, z, velocityX, velocityY, velocityZ);
-            };
-        });
 
         register(manager, OmegaParticles.VOID_BEAM_DUST, VoidBeamDustParticle::new);
         register(manager, OmegaParticles.CIRCLE_INDICATOR, CircleIndicatorParticle::new);
+        register(manager, OmegaParticles.LENGTH_EXPAND_INDICATOR, LengthExpandIndicatorParticle::new);
         register(manager, OmegaParticles.MATRIX_STAR, MatrixStarParticle::new);
         register(manager, OmegaParticles.MATRIX_BLAST_WALL, MatrixBlastWallParticle::new);
     }

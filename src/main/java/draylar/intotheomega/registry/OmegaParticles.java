@@ -3,6 +3,7 @@ package draylar.intotheomega.registry;
 import draylar.intotheomega.impl.event.client.OmegaParticleFactoryRegistrar;
 import draylar.intotheomega.mixin.access.ParticleTypesAccessor;
 import draylar.intotheomega.vfx.particle.option.CircleIndicatorParticleEffect;
+import draylar.intotheomega.vfx.particle.option.LengthExpandParticleEffect;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleType;
 
@@ -28,13 +29,13 @@ public class OmegaParticles {
     public static final DefaultParticleType ORIGIN_NOVA = ParticleTypesAccessor.register("intotheomega:origin_nova", false);
     public static final DefaultParticleType NOVA_STRIKE = ParticleTypesAccessor.register("intotheomega:nova_strike", false);
     public static final DefaultParticleType QUASAR_SLASH = ParticleTypesAccessor.register("intotheomega:quasar_slash", false);
-    public static final DefaultParticleType VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR = ParticleTypesAccessor.register("intotheomega:void_matrix/slam_length_expand_indicator", false);
     public static final DefaultParticleType VOID_BEAM_DUST = ParticleTypesAccessor.register("intotheomega:void_matrix/beam/dust", false);
     public static final DefaultParticleType MATRIX_STAR = ParticleTypesAccessor.register("intotheomega:void_matrix/matrix_star", false);
     public static final DefaultParticleType MATRIX_BLAST_WALL = ParticleTypesAccessor.register("intotheomega:void_matrix/matrix_blast_wall", false);
 
     // Options
     public static final ParticleType<CircleIndicatorParticleEffect> CIRCLE_INDICATOR = ParticleTypesAccessor.register("intotheomega:vfx/circle_indicator", CircleIndicatorParticleEffect.SERIALIZER, type -> CircleIndicatorParticleEffect.CODEC);
+    public static final ParticleType<LengthExpandParticleEffect> LENGTH_EXPAND_INDICATOR = ParticleTypesAccessor.register("intotheomega:vfx/length_expand_indicator", LengthExpandParticleEffect.SERIALIZER, type -> LengthExpandParticleEffect.CODEC);
 
 
     public static void init() {

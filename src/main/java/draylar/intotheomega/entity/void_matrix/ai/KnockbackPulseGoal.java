@@ -1,14 +1,13 @@
 package draylar.intotheomega.entity.void_matrix.ai;
 
-import draylar.intotheomega.api.particle.Particles;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import draylar.intotheomega.registry.OmegaParticles;
+import draylar.intotheomega.util.ParticleUtils;
 import draylar.intotheomega.vfx.VFX;
-import draylar.intotheomega.vfx.particle.option.CircleIndicatorParticleEffect;
-import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Box;
@@ -52,7 +51,7 @@ public class KnockbackPulseGoal extends StageGoal {
             circular = true;
         } else {
             pathYaw = vm.getYaw();
-            Particles.sendTo(PlayerLookup.tracking(vm), OmegaParticles.VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR, vm.getX(), vm.getY(), vm.getZ(), 15, 75, 0, 0);
+            VFX.lengthExpandIndicator(world, vm.getX(), vm.getY(), vm.getZ(), 15, 75, pathYaw, 0xffaa00ff, 120);
             circular = false;
         }
     }
@@ -69,9 +68,12 @@ public class KnockbackPulseGoal extends StageGoal {
 
         if(ticks == 67) {
             if(!circular) {
-                double x = Math.sin(pathYaw);
-                double z = Math.sin(pathYaw);
-                world.spawnParticles(OmegaParticles.MATRIX_BLAST_WALL, vm.getX(), vm.getY(), vm.getZ(), 2000, 50, 0, 0, 0);
+                double f = (pathYaw - 90) * ((float) Math.PI / 180);
+                double xf = Math.cos(f);
+                double zf = Math.sin(f);
+                for (int i = -35; i <= 35; i++) {
+                    ParticleUtils.spawnParticles(world, OmegaParticles.MATRIX_BLAST_WALL, true, vm.getX() + xf * i, vm.getY(), vm.getZ() + zf * i, 50, xf * 5, 0, zf * 5, 0);
+                }
             } else {
                 world.spawnParticles(OmegaParticles.MATRIX_BLAST_WALL, vm.getX(), vm.getY(), vm.getZ(), 2000, 5, 0, 5, 0);
             }
