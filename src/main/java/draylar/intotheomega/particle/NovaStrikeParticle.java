@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

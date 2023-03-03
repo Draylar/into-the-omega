@@ -1,27 +1,43 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
-import net.minecraft.util.math.MathHelper;
 
-public class TemplateParticle extends SpriteBillboardParticle {
+public class DarkSakuraPetalParticle extends SpriteBillboardParticle {
 
-    public TemplateParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    private float angleSpeed = 0.0f;
+
+    public DarkSakuraPetalParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
+        this.red = 1;
+        this.green = 1;
+        this.blue = 1;
+        this.scale *= 1;
+        this.maxAge = 250;
         this.collidesWithWorld = false;
-        maxAge = 40;
         this.setSpriteForAge(spriteProvider);
+        angleSpeed = 0.05f * world.random.nextFloat();
     }
 
     @Override
     public void tick() {
         super.tick();
+
+        velocityY = Math.max(-0.03f, velocityY - 0.001f);
+        velocityX = Math.sin((age / (float) maxAge) * 15) / 25f;
+
+        prevAngle = angle;
+        angle += angleSpeed;
+
+        if(onGround) {
+            markDead();
+        }
     }
 
     @Override
@@ -40,14 +56,7 @@ public class TemplateParticle extends SpriteBillboardParticle {
 
         @Override
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-            return TemplateParticle.create(defaultParticleType, clientWorld, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
+            return new DarkSakuraPetalParticle(clientWorld, x, y, z, velocityX, velocityY, velocityZ, this.spriteProvider);
         }
-    }
-
-    private static TemplateParticle create(DefaultParticleType type, ClientWorld clientWorld, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
-        TemplateParticle particle = new TemplateParticle(clientWorld, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
-        particle.maxAge = 40;
-        particle.scale = 1;
-        return particle;
     }
 }

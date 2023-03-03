@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,11 +7,11 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.math.MathHelper;
 
-public class StarlightParticle extends SpriteBillboardParticle {
+public class TinyStarParticle extends SpriteBillboardParticle {
 
     private final SpriteProvider spriteProvider;
 
-    public StarlightParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    public TinyStarParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.velocityX = velocityX;
@@ -26,9 +26,7 @@ public class StarlightParticle extends SpriteBillboardParticle {
         super.tick();
         this.setSpriteForAge(spriteProvider);
 
-        alpha = 1.0f;
-        prevAngle = angle;
-        angle += 0.1;
+        alpha = MathHelper.clamp((float) Math.sin(Math.PI * (age / (float) maxAge)), 0.0f, 1.0f);
     }
 
     @Override
@@ -47,13 +45,13 @@ public class StarlightParticle extends SpriteBillboardParticle {
 
         @Override
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-            return StarlightParticle.create(defaultParticleType, clientWorld, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
+            return TinyStarParticle.create(defaultParticleType, clientWorld, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
         }
     }
 
-    private static StarlightParticle create(DefaultParticleType type, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
-        StarlightParticle particle = new StarlightParticle(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
-        particle.maxAge = 10 + world.random.nextInt(10);
+    private static TinyStarParticle create(DefaultParticleType type, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+        TinyStarParticle particle = new TinyStarParticle(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
+        particle.maxAge = 60 + world.random.nextInt(30);
         particle.scale = 0.1f;
         particle.alpha = 0.0f;
         return particle;

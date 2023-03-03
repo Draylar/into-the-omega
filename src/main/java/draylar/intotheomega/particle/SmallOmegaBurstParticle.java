@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,21 +8,21 @@ import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
-public class IceFlakeParticle extends SpriteBillboardParticle {
+public class SmallOmegaBurstParticle extends SpriteBillboardParticle {
 
     private boolean reachedGround;
     private final SpriteProvider spriteProvider;
 
-    public IceFlakeParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    public SmallOmegaBurstParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
-        this.velocityX = velocityX * .025;
-        this.velocityY = velocityY * .025;
-        this.velocityZ = velocityZ * .025;
+        this.velocityX = velocityX;
+        this.velocityY = velocityY;
+        this.velocityZ = velocityZ;
         this.red = 1;
         this.green = 1;
         this.blue = 1;
-        this.scale *= 1;
-        this.maxAge = 15 + world.random.nextInt(5);
+        this.scale *= 2;
+        this.maxAge = 10 + world.random.nextInt(5);
         this.reachedGround = false;
         this.collidesWithWorld = false;
         this.spriteProvider = spriteProvider;
@@ -34,14 +34,6 @@ public class IceFlakeParticle extends SpriteBillboardParticle {
         this.prevPosX = this.x;
         this.prevPosY = this.y;
         this.prevPosZ = this.z;
-        this.scale += 0.01;
-
-        // tick down transparency
-        if(this.age + 3 >= this.maxAge) {
-            int remaining = this.maxAge - this.age;
-            this.alpha = 1 - 1f / remaining;
-        }
-
         if (this.age++ >= this.maxAge) {
             this.markDead();
         } else {
@@ -72,7 +64,7 @@ public class IceFlakeParticle extends SpriteBillboardParticle {
 
     @Override
     public ParticleTextureSheet getType() {
-        return OmegaParticle.PARTICLE_SHEET_TRANSLUCENT;
+        return ParticleTextureSheet.PARTICLE_SHEET_OPAQUE;
     }
 
     @Override
@@ -91,7 +83,7 @@ public class IceFlakeParticle extends SpriteBillboardParticle {
 
         @Override
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new IceFlakeParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+            return new SmallOmegaBurstParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }
 }

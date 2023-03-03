@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -67,6 +67,27 @@ public class OmegaParticleSheets {
         @Override
         public String toString() {
             return "TRANSLUCENT_ADDITION";
+        }
+    };
+
+    public static final ParticleTextureSheet BLOCK = new ParticleTextureSheet(){
+
+        @Override
+        public void begin(BufferBuilder builder, TextureManager textureManager) {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            RenderSystem.depthMask(true);
+            RenderSystem.setShaderTexture(0, SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+            builder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
+        }
+
+        @Override
+        public void draw(Tessellator tessellator) {
+            tessellator.draw();
+        }
+
+        public String toString() {
+            return "BLOCK_SHEET";
         }
     };
 

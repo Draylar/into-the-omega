@@ -1,8 +1,7 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import draylar.intotheomega.api.Easing;
 import draylar.intotheomega.api.particle.DirectParticle;
-import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.render.Camera;

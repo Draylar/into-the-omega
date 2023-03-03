@@ -4,6 +4,7 @@ import draylar.intotheomega.impl.event.client.OmegaParticleFactoryRegistrar;
 import draylar.intotheomega.mixin.access.ParticleTypesAccessor;
 import draylar.intotheomega.vfx.particle.option.CircleIndicatorParticleEffect;
 import draylar.intotheomega.vfx.particle.option.LengthExpandParticleEffect;
+import draylar.intotheomega.vfx.particle.option.RisingBlockParticleEffect;
 import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.particle.ParticleType;
 
@@ -36,6 +37,7 @@ public class OmegaParticles {
     // Options
     public static final ParticleType<CircleIndicatorParticleEffect> CIRCLE_INDICATOR = ParticleTypesAccessor.register("intotheomega:vfx/circle_indicator", CircleIndicatorParticleEffect.SERIALIZER, type -> CircleIndicatorParticleEffect.CODEC);
     public static final ParticleType<LengthExpandParticleEffect> LENGTH_EXPAND_INDICATOR = ParticleTypesAccessor.register("intotheomega:vfx/length_expand_indicator", LengthExpandParticleEffect.SERIALIZER, type -> LengthExpandParticleEffect.CODEC);
+    public static final ParticleType<RisingBlockParticleEffect> RISING_BLOCK = ParticleTypesAccessor.register("intotheomega:vfx/rising_block", RisingBlockParticleEffect.SERIALIZER, type -> RisingBlockParticleEffect.CODEC);
 
 
     public static void init() {

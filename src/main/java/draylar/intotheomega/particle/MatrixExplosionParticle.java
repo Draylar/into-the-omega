@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -8,56 +8,57 @@ import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
-public class VariantFusionParticle extends SpriteBillboardParticle {
+public class MatrixExplosionParticle extends SpriteBillboardParticle {
 
     private boolean reachedGround;
     private final SpriteProvider spriteProvider;
 
-    public VariantFusionParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    public MatrixExplosionParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.velocityX = velocityX;
         this.velocityY = velocityY;
         this.velocityZ = velocityZ;
-        red = MathHelper.nextFloat(this.random, 0.7176471F, 0.8745098F);
-        green = MathHelper.nextFloat(this.random, 0.0F, 0.0F);
-        blue = MathHelper.nextFloat(this.random, 0.8235294F, 0.9764706F);
-        scale *= 1;
+        red = 1;
+        green = 1;
+        blue = 1;
+        scale *= 2;
         maxAge = 10 + world.random.nextInt(5);
         reachedGround = false;
         collidesWithWorld = false;
         this.spriteProvider = spriteProvider;
-        setSpriteForAge(spriteProvider);
+        this.setSpriteForAge(spriteProvider);
     }
 
     @Override
     public void tick() {
-        prevPosX = x;
-        prevPosY = y;
-        prevPosZ = z;
-        if (age++ >= maxAge) {
-            markDead();
+        this.prevPosX = this.x;
+        this.prevPosY = this.y;
+        this.prevPosZ = this.z;
+        if (this.age++ >= this.maxAge) {
+            this.markDead();
         } else {
-            setSpriteForAge(this.spriteProvider);
-            if (onGround) {
-                velocityY = 0.0D;
-                reachedGround = true;
+            this.setSpriteForAge(this.spriteProvider);
+            if (this.onGround) {
+                this.velocityY = 0.0D;
+                this.reachedGround = true;
             }
 
-            if (reachedGround) {
-                velocityY += 0.002D;
+            if (this.reachedGround) {
+                this.velocityY += 0.002D;
             }
 
-            move(velocityX, velocityY, velocityZ);
-            if (y == prevPosY) {
-                velocityX *= 1.1D;
-                velocityZ *= 1.1D;
+            this.move(this.velocityX, this.velocityY, this.velocityZ);
+            if (this.y == this.prevPosY) {
+                this.velocityX *= 1.1D;
+                this.velocityZ *= 1.1D;
             }
 
-            velocityX *= 0.9599999785423279D;
-            velocityZ *= 0.9599999785423279D;
-            if (reachedGround) {
-                velocityY *= 0.9599999785423279D;
+            this.velocityX *= 0.9599999785423279D;
+            this.velocityZ *= 0.9599999785423279D;
+            if (this.reachedGround) {
+                this.velocityY *= 0.9599999785423279D;
             }
+
         }
     }
 
@@ -82,7 +83,7 @@ public class VariantFusionParticle extends SpriteBillboardParticle {
 
         @Override
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double d, double e, double f, double g, double h, double i) {
-            return new VariantFusionParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
+            return new MatrixExplosionParticle(clientWorld, d, e, f, g, h, i, this.spriteProvider);
         }
     }
 }

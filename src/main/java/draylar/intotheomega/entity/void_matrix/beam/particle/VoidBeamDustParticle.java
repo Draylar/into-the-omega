@@ -1,7 +1,7 @@
 package draylar.intotheomega.entity.void_matrix.beam.particle;
 
 import draylar.intotheomega.api.particle.DirectParticle;
-import draylar.intotheomega.client.particle.OmegaParticle;
+import draylar.intotheomega.particle.OmegaParticle;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.render.Camera;

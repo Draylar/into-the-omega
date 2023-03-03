@@ -3,8 +3,8 @@ package draylar.intotheomega.impl.event.client;
 import draylar.intotheomega.api.Color;
 import draylar.intotheomega.api.event.ParticleEvents;
 import draylar.intotheomega.api.particle.DirectParticle;
-import draylar.intotheomega.client.particle.*;
 import draylar.intotheomega.entity.void_matrix.beam.particle.VoidBeamDustParticle;
+import draylar.intotheomega.particle.*;
 import draylar.intotheomega.registry.OmegaParticles;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.SpriteProvider;
@@ -37,6 +37,7 @@ public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHan
         register(manager, OmegaParticles.VOID_BEAM_DUST, VoidBeamDustParticle::new);
         register(manager, OmegaParticles.CIRCLE_INDICATOR, CircleIndicatorParticle::new);
         register(manager, OmegaParticles.LENGTH_EXPAND_INDICATOR, LengthExpandIndicatorParticle::new);
+        register(manager, OmegaParticles.RISING_BLOCK, RisingBlockParticle::new);
         register(manager, OmegaParticles.MATRIX_STAR, MatrixStarParticle::new);
         register(manager, OmegaParticles.MATRIX_BLAST_WALL, MatrixBlastWallParticle::new);
     }

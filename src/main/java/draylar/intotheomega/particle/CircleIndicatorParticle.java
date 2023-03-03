@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import draylar.intotheomega.api.client.OmegaVertexFormats;
 import draylar.intotheomega.api.client.VertexWrapper;

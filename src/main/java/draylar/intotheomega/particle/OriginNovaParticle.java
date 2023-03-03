@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import net.minecraft.client.particle.*;
 import net.minecraft.client.render.Camera;

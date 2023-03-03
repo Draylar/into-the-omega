@@ -52,14 +52,13 @@ public class MatriteProjectileAttackGoal extends StageGoal {
     @Override
     public void stop() {
         super.stop();
-        cooldown = 20 * 10;
+        cooldown = 20 * 5;
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        ParticleUtils.spawnParticles(world, OmegaParticles.MATRIX_STAR, true, vm.getX(), vm.getY() + 10, vm.getZ(), 5, 5, 5, 5, 1.0);
         List<Integer> toRemove = new ArrayList<>();
 
         queuedAttacks.forEach(time -> {

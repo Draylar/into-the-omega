@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import draylar.intotheomega.api.particle.DirectParticle;
 import net.minecraft.client.particle.ParticleTextureSheet;
@@ -21,7 +21,7 @@ public class MatrixBlastWallParticle extends DirectParticle {
         velocityY = 0.0f + world.random.nextFloat() * 1.5;
         velocityZ = 0;
         scale = 3.0f;
-        maxAge = 100;
+        maxAge = 50;
     }
 
     @Override

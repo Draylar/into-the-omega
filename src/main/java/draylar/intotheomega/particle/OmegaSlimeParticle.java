@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import draylar.intotheomega.registry.OmegaItems;
 import net.minecraft.client.particle.CrackParticle;

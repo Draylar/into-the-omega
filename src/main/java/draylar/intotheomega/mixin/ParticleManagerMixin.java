@@ -2,7 +2,8 @@ package draylar.intotheomega.mixin;
 
 import com.google.common.collect.ImmutableList;
 import draylar.intotheomega.api.event.ParticleEvents;
-import draylar.intotheomega.client.particle.*;
+import draylar.intotheomega.particle.OmegaParticle;
+import draylar.intotheomega.particle.OmegaParticleSheets;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.texture.TextureManager;
@@ -37,6 +38,7 @@ public abstract class ParticleManagerMixin {
                 .add(OmegaParticleSheets.PROGRESS_TRANSLUCENT_CIRCULAR)
                 .add(OmegaParticleSheets.PROGRESS_TRANSLUCENT_LENGTH_EXPAND)
                 .add(OmegaParticleSheets.TRANSLUCENT_ADDITION)
+                .add(OmegaParticleSheets.BLOCK)
                 .build();
     }
 }

@@ -56,12 +56,16 @@ public abstract class DirectParticle extends SpriteBillboardParticle {
         matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
     }
 
-    protected final void quad(MatrixStack matrices, VertexConsumer buffer, int light) {
-        quad(matrices, buffer, red, green, blue, alpha, light);
+    protected final float fadeIn(float delta, float completeAgePercentage) {
+        return Math.min(1.0f, MathHelper.getLerpProgress(Math.min(maxAge, age + delta), 0.0f, maxAge * completeAgePercentage));
     }
 
     protected final float fadeOut(float delta, float startAgePercentage) {
         return 1.0f - Math.max(0.0f, MathHelper.getLerpProgress(Math.min(maxAge, age + delta), maxAge * startAgePercentage, maxAge));
+    }
+
+    protected final void quad(MatrixStack matrices, VertexConsumer buffer, int light) {
+        quad(matrices, buffer, red, green, blue, alpha, light);
     }
 
     protected final void quad(MatrixStack matrices, VertexConsumer buffer, float red, float green, float blue, float alpha, int light) {
@@ -70,5 +74,49 @@ public abstract class DirectParticle extends SpriteBillboardParticle {
         buffer.vertex(position, -0.5f, 0.5f, 0.0f).texture(getMaxU(), getMinV()).color(red, green, blue, alpha).light(light).next();
         buffer.vertex(position, 0.5f, 0.5f, 0.0f).texture(getMinU(), getMinV()).color(red, green, blue, alpha).light(light).next();
         buffer.vertex(position, 0.5f, -0.5f, 0.0f).texture(getMinU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+    }
+
+    protected final void cube(MatrixStack matrices, VertexConsumer buffer, int light) {
+        cube(matrices, buffer, red, green, blue, alpha, light);
+    }
+
+    protected final void cube(MatrixStack matrices, VertexConsumer buffer, float red, float green, float blue, float alpha, int light) {
+        Matrix4f position = matrices.peek().getPositionMatrix();
+
+        // north
+        buffer.vertex(position, -0.5f, -0.5f, -0.5f).texture(getMaxU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, -0.5f, 0.5f, -0.5f).texture(getMaxU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, 0.5f, 0.5f, -0.5f).texture(getMinU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, 0.5f, -0.5f, -0.5f).texture(getMinU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+
+        // south
+        buffer.vertex(position, 0.5f, -0.5f, 0.5f).texture(getMinU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, 0.5f, 0.5f, 0.5f).texture(getMinU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, -0.5f, 0.5f, 0.5f).texture(getMaxU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, -0.5f, -0.5f, 0.5f).texture(getMaxU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+
+        // east
+        buffer.vertex(position, 0.5f, 0.5f, -0.5f).texture(getMinU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, 0.5f, 0.5f, 0.5f).texture(getMinU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, 0.5f, -0.5f, 0.5f).texture(getMaxU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, 0.5f, -0.5f, -0.5f).texture(getMaxU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+
+        // west
+        buffer.vertex(position, -0.5f, -0.5f, -0.5f).texture(getMaxU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, -0.5f, -0.5f, 0.5f).texture(getMaxU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, -0.5f, 0.5f, 0.5f).texture(getMinU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, -0.5f, 0.5f, -0.5f).texture(getMinU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+
+        // top
+        buffer.vertex(position, -0.5f, 0.5f, -0.5f).texture(getMaxU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, -0.5f, 0.5f, 0.5f).texture(getMaxU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, 0.5f, 0.5f, 0.5f).texture(getMinU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, 0.5f, 0.5f, -0.5f).texture(getMinU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+
+        // bottom
+        buffer.vertex(position, 0.5f, -0.5f, -0.5f).texture(getMinU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, 0.5f, -0.5f, 0.5f).texture(getMinU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, -0.5f, -0.5f, 0.5f).texture(getMaxU(), getMinV()).color(red, green, blue, alpha).light(light).next();
+        buffer.vertex(position, -0.5f, -0.5f, -0.5f).texture(getMaxU(), getMaxV()).color(red, green, blue, alpha).light(light).next();
     }
 }

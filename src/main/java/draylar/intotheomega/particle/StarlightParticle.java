@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -6,11 +6,11 @@ import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.DefaultParticleType;
 
-public class QuasarSlashParticle extends SpriteBillboardParticle {
+public class StarlightParticle extends SpriteBillboardParticle {
 
     private final SpriteProvider spriteProvider;
 
-    public QuasarSlashParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+    public StarlightParticle(ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
         super(world, x, y, z);
         this.spriteProvider = spriteProvider;
         this.velocityX = velocityX;
@@ -23,12 +23,16 @@ public class QuasarSlashParticle extends SpriteBillboardParticle {
     @Override
     public void tick() {
         super.tick();
-        setSpriteForAge(spriteProvider);
+        this.setSpriteForAge(spriteProvider);
+
+        alpha = 1.0f;
+        prevAngle = angle;
+        angle += 0.1;
     }
 
     @Override
     public ParticleTextureSheet getType() {
-        return ParticleTextureSheet.PARTICLE_SHEET_LIT;
+        return ParticleTextureSheet.PARTICLE_SHEET_TRANSLUCENT;
     }
 
     @Environment(EnvType.CLIENT)
@@ -42,24 +46,15 @@ public class QuasarSlashParticle extends SpriteBillboardParticle {
 
         @Override
         public Particle createParticle(DefaultParticleType defaultParticleType, ClientWorld clientWorld, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
-            return QuasarSlashParticle.create(defaultParticleType, clientWorld, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
+            return StarlightParticle.create(defaultParticleType, clientWorld, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
         }
     }
 
-    private static QuasarSlashParticle create(DefaultParticleType type, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
-        QuasarSlashParticle particle = new QuasarSlashParticle(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
-
-        float color = world.random.nextFloat(0.5f) + 0.5f;
-
-        particle.maxAge = 4;
-        particle.scale = 2;
-        particle.red = color;
-        particle.blue = color;
-        particle.green = color * world.random.nextFloat();
-
-        particle.angle = world.random.nextFloat() * 1000;
-        particle.prevAngle = particle.angle;
-
+    private static StarlightParticle create(DefaultParticleType type, ClientWorld world, double x, double y, double z, double velocityX, double velocityY, double velocityZ, SpriteProvider spriteProvider) {
+        StarlightParticle particle = new StarlightParticle(world, x, y, z, velocityX, velocityY, velocityZ, spriteProvider);
+        particle.maxAge = 10 + world.random.nextInt(10);
+        particle.scale = 0.1f;
+        particle.alpha = 0.0f;
         return particle;
     }
 }

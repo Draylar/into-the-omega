@@ -1,4 +1,4 @@
-package draylar.intotheomega.client.particle;
+package draylar.intotheomega.particle;
 
 import draylar.intotheomega.api.client.OmegaVertexFormats;
 import draylar.intotheomega.api.client.VertexWrapper;
@@ -11,7 +11,6 @@ import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particle.DefaultParticleType;
 import net.minecraft.util.math.Vec3f;
 
 public class LengthExpandIndicatorParticle extends DirectParticle {
