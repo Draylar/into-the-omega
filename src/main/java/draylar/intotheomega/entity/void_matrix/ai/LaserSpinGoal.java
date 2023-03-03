@@ -25,6 +25,7 @@ public class LaserSpinGoal extends StageGoal {
 
     private long lastLaser = 0;
     private boolean inPosition = false;
+    private boolean hasUsed = false;
 
     public LaserSpinGoal(VoidMatrixEntity vm, VoidMatrixEntity.Stage stage) {
         super(vm, stage);
@@ -33,17 +34,22 @@ public class LaserSpinGoal extends StageGoal {
 
     @Override
     public boolean canStart() {
+        if(!hasUsed && super.canStart() && vm.getHome() != null) {
+            return true;
+        }
+
         return super.canStart() && vm.getHome() != null && world.random.nextInt(100) == 0 && !vm.isFiringLaser() && System.currentTimeMillis() - lastLaser > 10_000;
     }
 
     @Override
     public void start() {
         super.start();
+        hasUsed = true;
         vm.setLaserTicks(0);
 
         System.out.println("START");
         BlockPos home = vm.getHome();
-        vm.getMoveControl().moveTo(home.getX(), home.getY() + 1, home.getZ(), 3);
+        vm.getMoveControl().moveTo(home.getX(), home.getY(), home.getZ(), 3);
     }
 
     @Override
@@ -54,6 +60,9 @@ public class LaserSpinGoal extends StageGoal {
     @Override
     public void tick() {
         super.tick();
+
+        // TODO: debug
+        // vm.setLaserTicks(35);
 
         if(!inPosition && !vm.getMoveControl().isMoving() || vm.getBlockPos().equals(vm.getHome().up())) {
             vm.setFiringLaser(true);

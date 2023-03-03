@@ -1,6 +1,7 @@
 package draylar.intotheomega.entity.block;
 
 import draylar.intotheomega.api.RandomUtils;
+import draylar.intotheomega.api.block.EarlyRender;
 import draylar.intotheomega.registry.OmegaBlockEntities;
 import draylar.intotheomega.registry.OmegaBlocks;
 import draylar.intotheomega.vfx.particle.option.RisingBlockParticleEffect;
@@ -11,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec2f;
 import net.minecraft.world.World;
 
-public class MatrixDungeonFloorBlockEntity extends BlockEntity {
+public class MatrixDungeonFloorBlockEntity extends BlockEntity implements EarlyRender {
 
     public MatrixDungeonFloorBlockEntity(BlockPos pos, BlockState state) {
         super(OmegaBlockEntities.MATRIX_DUNGEON_FLOOR, pos, state);

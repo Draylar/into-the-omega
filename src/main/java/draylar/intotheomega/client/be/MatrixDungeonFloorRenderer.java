@@ -1,6 +1,6 @@
 package draylar.intotheomega.client.be;
 
-import draylar.intotheomega.api.TextureConstants;
+import com.mojang.blaze3d.systems.RenderSystem;
 import draylar.intotheomega.api.client.ShapeRendering;
 import draylar.intotheomega.api.client.VertexWrapper;
 import draylar.intotheomega.entity.block.MatrixDungeonFloorBlockEntity;
@@ -41,14 +41,18 @@ public class MatrixDungeonFloorRenderer implements BlockEntityRenderer<MatrixDun
         matrices.push();
         matrices.translate(0.5f, 0.001f, 0.5f);
         matrices.scale(75f, 1f, 75f);
+
+        RenderSystem.enableDepthTest();
+        RenderSystem.enableBlend();
+
         ShapeRendering.quad(LightmapTextureManager.MAX_LIGHT_COORDINATE, 1.0f, 1.0f, 1.0f, matrices.peek().getNormalMatrix(), matrices.peek().getPositionMatrix(), buffer);
         matrices.pop();
     }
 
-    @Override
-    public boolean rendersOutsideBoundingBox(MatrixDungeonFloorBlockEntity blockEntity) {
-        return true;
-    }
+//    @Override
+//    public boolean rendersOutsideBoundingBox(MatrixDungeonFloorBlockEntity blockEntity) {
+//        return true;
+//    }
 
     @Override
     public int getRenderDistance() {

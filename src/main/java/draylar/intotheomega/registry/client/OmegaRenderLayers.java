@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class OmegaRenderLayers {
@@ -110,6 +111,22 @@ public class OmegaRenderLayers {
                 .cull(RenderPhase.DISABLE_CULLING)
                 .lightmap(RenderPhase.ENABLE_LIGHTMAP)
                 .overlay(RenderPhase.ENABLE_OVERLAY_COLOR)
+                .build(true);
+
+        return RenderLayerAccessor.of("entity_true_translucent", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, multiPhaseParameters);
+    }
+
+    public static RenderLayer entityShader(Identifier texture, Supplier<Shader> shader, Consumer<RenderLayer.MultiPhaseParameters.Builder> consumer) {
+        RenderLayer.MultiPhaseParameters.Builder builder = RenderLayer.MultiPhaseParameters.builder()
+                .shader(new RenderPhase.Shader(shader))
+                .texture(new RenderPhase.Texture(texture, false, false))
+                .transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY)
+                .cull(RenderPhase.DISABLE_CULLING)
+                .lightmap(RenderPhase.ENABLE_LIGHTMAP)
+                .overlay(RenderPhase.ENABLE_OVERLAY_COLOR);
+
+        consumer.accept(builder);
+        var multiPhaseParameters = builder
                 .build(true);
 
         return RenderLayerAccessor.of("entity_true_translucent", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, VertexFormat.DrawMode.QUADS, 256, true, true, multiPhaseParameters);

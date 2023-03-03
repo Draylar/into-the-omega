@@ -1,10 +1,12 @@
 package draylar.intotheomega.entity.void_matrix.ai;
 
+import draylar.intotheomega.api.PositionUtils;
 import draylar.intotheomega.entity.void_matrix.beam.VoidMatrixBeamEntity;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import draylar.intotheomega.registry.OmegaEntities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 
 public class BeamAttackGoal extends StageGoal {
@@ -74,9 +76,11 @@ public class BeamAttackGoal extends StageGoal {
                 // todo: this will probably only go for corners
                 Vec3d pos = vm.getPos();
                 pos = pos.add(world.random.nextInt(7) * randomPolarity(world.random), 0, world.random.nextInt(7) * randomPolarity(world.random));
+                BlockPos p = PositionUtils.findClosestGroundPosition(world, new BlockPos(pos.getX(), pos.getY(), pos.getZ()), 0, 16);
+                if(p == null) return;
                 int time = vm.age + world.random.nextInt(40);
                 VoidMatrixBeamEntity beam = new VoidMatrixBeamEntity(OmegaEntities.VOID_MATRIX_BEAM, world);
-                beam.updatePosition(pos.getX(), pos.getY(), pos.getZ());
+                beam.updatePosition(p.getX(), p.getY(), p.getZ());
                 world.spawnEntity(beam);
             }
         }

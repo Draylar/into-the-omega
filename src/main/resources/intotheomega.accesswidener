@@ -44,10 +44,16 @@ accessible field net/minecraft/client/render/RenderPhase ENABLE_OVERLAY_COLOR Ln
 accessible field net/minecraft/client/render/RenderPhase VIEW_OFFSET_Z_LAYERING Lnet/minecraft/client/render/RenderPhase$Layering;
 accessible class net/minecraft/client/render/RenderLayer$MultiPhaseParameters
 accessible class net/minecraft/client/render/RenderPhase$Texture
+accessible class net/minecraft/client/render/RenderPhase$Transparency
 accessible class net/minecraft/client/render/RenderLayer$MultiPhase
 extendable class net/minecraft/client/render/RenderLayer$MultiPhase
 accessible field net/minecraft/client/render/RenderPhase TRANSLUCENT_TRANSPARENCY Lnet/minecraft/client/render/RenderPhase$Transparency;
+accessible field net/minecraft/client/render/RenderPhase ADDITIVE_TRANSPARENCY Lnet/minecraft/client/render/RenderPhase$Transparency;
 accessible class net/minecraft/client/render/RenderPhase$Shader
+
+# World Renderer
+accessible class net/minecraft/client/render/WorldRenderer$ChunkInfo
+accessible field net/minecraft/client/render/WorldRenderer$ChunkInfo chunk Lnet/minecraft/client/render/chunk/ChunkBuilder$BuiltChunk;
 
 # Model Element deserializers
 accessible method net/minecraft/client/render/model/json/ModelTransformation$Deserializer <init> ()V

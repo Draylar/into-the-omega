@@ -2,8 +2,13 @@ package draylar.intotheomega.client.entity.renderer;
 
 import dev.monarkhes.myron.api.Myron;
 import draylar.intotheomega.IntoTheOmega;
+import draylar.intotheomega.api.TextureConstants;
+import draylar.intotheomega.api.client.ShapeRendering;
+import draylar.intotheomega.api.client.VertexWrapper;
 import draylar.intotheomega.client.entity.model.VoidMatrixModel;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
+import draylar.intotheomega.registry.client.OmegaRenderLayers;
+import draylar.intotheomega.registry.client.OmegaShaders;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.model.BakedModel;
@@ -18,6 +23,11 @@ import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 public class VoidMatrixEntityRenderer extends GeoEntityRenderer<VoidMatrixEntity> {
 
     private static final Identifier MODEL_LOCATION = IntoTheOmega.id("models/misc/void_matrix_beam");
+
+    private static final RenderLayer GLOWING_BEAM = OmegaRenderLayers.entityShader(
+            TextureConstants.WHITE,
+            OmegaShaders.GLOWING_BEAM
+    );
 
     public VoidMatrixEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new VoidMatrixModel());
@@ -75,15 +85,24 @@ public class VoidMatrixEntityRenderer extends GeoEntityRenderer<VoidMatrixEntity
             float cooldown = remaining > 10 ? 1 : remaining / 10f;
 
             float scale = (2f + (float) Math.sin(lerpedAge / 10f) * .1f) * warmup * cooldown;
-            matrices.translate(60, 1, 0);
-            matrices.scale(25, scale, scale);
-            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(90));
+//            matrices.translate(60, 1, 0);
+//            matrices.scale(25, scale, scale);
+//            matrices.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(90));
+            matrices.scale(5f, 1.0f, scale * 3.0f);
+            matrices.translate(5, 1.5, 0);
+            matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(90));
 
             // render cylinder
-            MatrixStack.Entry entry = matrices.peek();
-            model.getQuads(null, null, vm.world.random).forEach(quad -> {
-                consumer.quad(entry, quad, 1F, 1F, 1F, light, OverlayTexture.DEFAULT_UV);
-            });
+            matrices.scale(10f, 10f, 10f);
+            VertexConsumer buffer = vertexConsumers.getBuffer(GLOWING_BEAM);
+            ShapeRendering.quad(
+                    LightmapTextureManager.MAX_LIGHT_COORDINATE,
+                    1.0f,
+                    1.0f,
+                    1.0f,
+                    matrices,
+                    VertexWrapper.wrap(buffer, GLOWING_BEAM.getVertexFormat())
+            );
 
             matrices.pop();
         }

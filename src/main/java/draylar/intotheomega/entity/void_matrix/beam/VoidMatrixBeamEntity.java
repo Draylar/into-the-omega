@@ -30,7 +30,6 @@ public class VoidMatrixBeamEntity extends Entity {
         super.tick();
 
         if(!world.isClient) {
-
             if(age == 1) {
                 world.playSound(null, getX(), getY(), getZ(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.HOSTILE, 5.0f, 2.0f);
             }

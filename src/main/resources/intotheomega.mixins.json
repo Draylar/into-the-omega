@@ -92,6 +92,7 @@
     "PlayerRendererMixin",
     "SplashTextMixin",
     "TransformationDeserializerMixin",
+    "WorldRendererEarlyBEMixin",
     "access.BakedModelManagerAccessor",
     "access.EntityModelLayersAccessor",
     "access.ItemRendererAccessor",

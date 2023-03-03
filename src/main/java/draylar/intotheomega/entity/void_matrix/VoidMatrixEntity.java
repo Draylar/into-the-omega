@@ -166,7 +166,7 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
     @Nullable
     @Override
     public EntityData initialize(ServerWorldAccess world, LocalDifficulty difficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound entityTag) {
-        if(home == null) {
+        if(home == null || home.equals(BlockPos.ORIGIN)) {
             home = getBlockPos();
         }
 
