@@ -259,7 +259,7 @@ public class MatriteEntity extends ProjectileEntity implements IAnimatable {
             world.playSound(null, getBlockPos(), SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, .25f, 0);
         }
 
-        world.getEntitiesByClass(LivingEntity.class, new Box(getBlockPos().add(-2, -2 ,-2), getBlockPos().add(2, 2, 2)), entity -> !(entity instanceof VoidMatrixEntity))
+        world.getEntitiesByClass(LivingEntity.class, new Box(getBlockPos().add(-3, -3 ,-3), getBlockPos().add(3, 3, 3)), entity -> !(entity instanceof VoidMatrixEntity))
                 .forEach(target -> {
                     if(source != null) {
                         target.damage(DamageSource.mobProjectile(this, source), 10);

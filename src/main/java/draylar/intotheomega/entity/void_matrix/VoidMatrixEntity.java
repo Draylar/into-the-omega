@@ -119,8 +119,8 @@ public class VoidMatrixEntity extends FlyingEntity implements IAnimatable, HomeE
          *          The Void Matrix will also periodically send out a pulse wave, damaging and knocking back targets nearby.
          *          Targets that are closest to the Void Matrix will take the most damage and knockback.
          */
-        goalSelector.add(1, new MatriteProjectileAttackGoal(this, Stage.ONE));
         goalSelector.add(3, new KnockbackPulseGoal(this, Stage.ONE));
+        // goalSelector.add(1, new MatriteProjectileAttackGoal(this, Stage.ONE));
 
         /*
          *     Stage 2 <=> 400 - 200 HP

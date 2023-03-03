@@ -36,6 +36,7 @@ public abstract class ParticleManagerMixin {
                 .add(OmegaParticle.PARTICLE_SHEET_TRANSLUCENT)
                 .add(OmegaParticleSheets.PROGRESS_TRANSLUCENT_CIRCULAR)
                 .add(OmegaParticleSheets.PROGRESS_TRANSLUCENT_LENGTH_EXPAND)
+                .add(OmegaParticleSheets.TRANSLUCENT_ADDITION)
                 .build();
     }
 }

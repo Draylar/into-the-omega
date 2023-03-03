@@ -30,6 +30,8 @@ public class OmegaParticles {
     public static final DefaultParticleType QUASAR_SLASH = ParticleTypesAccessor.register("intotheomega:quasar_slash", false);
     public static final DefaultParticleType VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR = ParticleTypesAccessor.register("intotheomega:void_matrix/slam_length_expand_indicator", false);
     public static final DefaultParticleType VOID_BEAM_DUST = ParticleTypesAccessor.register("intotheomega:void_matrix/beam/dust", false);
+    public static final DefaultParticleType MATRIX_STAR = ParticleTypesAccessor.register("intotheomega:void_matrix/matrix_star", false);
+    public static final DefaultParticleType MATRIX_BLAST_WALL = ParticleTypesAccessor.register("intotheomega:void_matrix/matrix_blast_wall", false);
 
     // Options
     public static final ParticleType<CircleIndicatorParticleEffect> CIRCLE_INDICATOR = ParticleTypesAccessor.register("intotheomega:vfx/circle_indicator", CircleIndicatorParticleEffect.SERIALIZER, type -> CircleIndicatorParticleEffect.CODEC);

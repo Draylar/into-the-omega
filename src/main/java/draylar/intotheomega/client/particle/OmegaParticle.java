@@ -24,7 +24,7 @@ public class OmegaParticle extends SpriteBillboardParticle {
         public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
             RenderSystem.depthMask(false);
             RenderSystem.setShader(OmegaShaders.TRANSLUCENT_PARTICLE);
-            textureManager.bindTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
+            RenderSystem.setShaderTexture(0, SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
             bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);

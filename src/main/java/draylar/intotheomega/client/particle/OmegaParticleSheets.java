@@ -9,6 +9,7 @@ import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.texture.TextureManager;
 
@@ -41,6 +42,33 @@ public class OmegaParticleSheets {
             tessellator.draw();
         }
     }
+
+    public static final ParticleTextureSheet TRANSLUCENT_ADDITION = new ParticleTextureSheet() {
+
+        @Override
+        public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
+            RenderSystem.depthMask(false);
+            RenderSystem.setShader(OmegaShaders.TRANSLUCENT_PARTICLE);
+            RenderSystem.setShaderTexture(0, SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
+            RenderSystem.enableBlend();
+            RenderSystem.blendFuncSeparate(
+                    GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE,
+                    GlStateManager.SrcFactor.ONE, GlStateManager.DstFactor.ONE
+            );
+
+            bufferBuilder.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
+        }
+
+        @Override
+        public void draw(Tessellator tessellator) {
+            tessellator.draw();
+        }
+
+        @Override
+        public String toString() {
+            return "TRANSLUCENT_ADDITION";
+        }
+    };
 
     public static final ParticleTextureSheet PROGRESS_TRANSLUCENT_CIRCULAR = new ShaderTemplateSheet(OmegaShaders.CIRCLE_INDICATOR_PARTICLE, OmegaVertexFormats.POSITION_TEXTURE_COLOR_LIGHT_PROGRESS);
     public static final ParticleTextureSheet PROGRESS_TRANSLUCENT_LENGTH_EXPAND = new ShaderTemplateSheet(OmegaShaders.LENGTH_EXPAND_INDICATOR_PARTICLE, OmegaVertexFormats.POSITION_TEXTURE_COLOR_LIGHT_PROGRESS);

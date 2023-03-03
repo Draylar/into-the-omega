@@ -4,10 +4,7 @@ import dev.monarkhes.myron.api.Myron;
 import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.client.entity.model.VoidMatrixModel;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
@@ -28,6 +25,7 @@ public class VoidMatrixEntityRenderer extends GeoEntityRenderer<VoidMatrixEntity
 
     @Override
     public void render(GeoModel model, VoidMatrixEntity vm, float delta, RenderLayer type, MatrixStack stack, VertexConsumerProvider consumer, VertexConsumer vertexBuilder, int light, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        light = LightmapTextureManager.MAX_LIGHT_COORDINATE;
         BakedModel laser = Myron.getModel(MODEL_LOCATION);
 
         stack.push();

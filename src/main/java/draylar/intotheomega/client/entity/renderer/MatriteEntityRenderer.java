@@ -4,6 +4,7 @@ import draylar.intotheomega.IntoTheOmega;
 import draylar.intotheomega.client.entity.model.MatriteEntityModel;
 import draylar.intotheomega.entity.matrite.MatriteEntity;
 import draylar.intotheomega.registry.OmegaEntityModelLayers;
+import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -25,6 +26,8 @@ public class MatriteEntityRenderer extends EntityRenderer<MatriteEntity> {
 
     @Override
     public void render(MatriteEntity matrite, float yaw, float delta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
+        light = LightmapTextureManager.MAX_LIGHT_COORDINATE;
+
         matrices.push();
 
 

@@ -1,5 +1,7 @@
 package draylar.intotheomega.entity.void_matrix.indicator;
 
+import draylar.intotheomega.registry.OmegaParticles;
+import draylar.intotheomega.util.ParticleUtils;
 import draylar.intotheomega.vfx.VFX;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -23,6 +25,7 @@ public class MatriteTargetIndicatorEntity extends Entity {
         if(!world.isClient) {
             if(!hasSpawnedParticle) {
                 VFX.circleIndicator(world, getX(), getY(), getZ(), 5.0, 0xFFFF00FF, 70);
+                ParticleUtils.spawnParticles(world, OmegaParticles.MATRIX_STAR, true, getX(), getY() + 6, getZ(), 25, 1, 3, 1, 1.0);
                 hasSpawnedParticle = true;
             }
 

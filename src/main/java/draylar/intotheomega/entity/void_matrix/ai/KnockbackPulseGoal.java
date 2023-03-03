@@ -3,6 +3,7 @@ package draylar.intotheomega.entity.void_matrix.ai;
 import draylar.intotheomega.api.particle.Particles;
 import draylar.intotheomega.entity.void_matrix.VoidMatrixEntity;
 import draylar.intotheomega.registry.OmegaParticles;
+import draylar.intotheomega.vfx.VFX;
 import draylar.intotheomega.vfx.particle.option.CircleIndicatorParticleEffect;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.entity.LivingEntity;
@@ -20,6 +21,7 @@ public class KnockbackPulseGoal extends StageGoal {
     private static final int MAX_TICKS = 60;
     private int ticks = 0;
     private boolean circular = false;
+    private double pathYaw = 0;
 
     public KnockbackPulseGoal(VoidMatrixEntity vm, VoidMatrixEntity.Stage stage) {
         super(vm, stage);
@@ -33,7 +35,7 @@ public class KnockbackPulseGoal extends StageGoal {
             return true;
         }
 
-        return super.canStart() && vm.getTarget() != null && vm.getTarget().getPos().distanceTo(vm.getPos()) <= 8 && world.random.nextInt(10) == 0;
+        return super.canStart() && vm.getTarget() != null && world.random.nextInt(30) == 0;
     }
 
     @Override
@@ -41,13 +43,17 @@ public class KnockbackPulseGoal extends StageGoal {
         super.start();
         ticks = 0;
         world.sendEntityStatus(vm, VoidMatrixEntity.STOMP);
-        circular = world.random.nextDouble() <= 0.5;
+
+        boolean canBeCircular = vm.getTarget() != null && vm.getTarget().distanceTo(vm) <= 10.0f;
 
         // Send a Circular Indicator VFX particle to clients
-        if(false) {
-            Particles.sendTo(PlayerLookup.tracking(vm), new CircleIndicatorParticleEffect(30.0, 0xffaa00ff, 120), vm.getX(), vm.getY(), vm.getZ(), 1);
+        if(canBeCircular && world.random.nextFloat() <= 0.75) {
+            VFX.circleIndicator(world, vm.getX(), vm.getY(), vm.getZ(), 30.0, 0xffaa00ff, 120);
+            circular = true;
         } else {
+            pathYaw = vm.getYaw();
             Particles.sendTo(PlayerLookup.tracking(vm), OmegaParticles.VOID_MATRIX$SLAM_LENGTH_EXPAND_INDICATOR, vm.getX(), vm.getY(), vm.getZ(), 15, 75, 0, 0);
+            circular = false;
         }
     }
 
@@ -62,6 +68,14 @@ public class KnockbackPulseGoal extends StageGoal {
         }
 
         if(ticks == 67) {
+            if(!circular) {
+                double x = Math.sin(pathYaw);
+                double z = Math.sin(pathYaw);
+                world.spawnParticles(OmegaParticles.MATRIX_BLAST_WALL, vm.getX(), vm.getY(), vm.getZ(), 2000, 50, 0, 0, 0);
+            } else {
+                world.spawnParticles(OmegaParticles.MATRIX_BLAST_WALL, vm.getX(), vm.getY(), vm.getZ(), 2000, 5, 0, 5, 0);
+            }
+
             // fx
             world.spawnParticles(OmegaParticles.MATRIX_EXPLOSION, vm.getX(), vm.getY(), vm.getZ(), 250, 6, 0, 6, 0);
             world.spawnParticles(ParticleTypes.EXPLOSION, vm.getX(), vm.getY(), vm.getZ(), 100, 6, 1, 6, 0);

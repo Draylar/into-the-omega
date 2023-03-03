@@ -41,6 +41,8 @@ public class OmegaParticleFactoryRegistrar implements ParticleEvents.RegistryHan
 
         register(manager, OmegaParticles.VOID_BEAM_DUST, VoidBeamDustParticle::new);
         register(manager, OmegaParticles.CIRCLE_INDICATOR, CircleIndicatorParticle::new);
+        register(manager, OmegaParticles.MATRIX_STAR, MatrixStarParticle::new);
+        register(manager, OmegaParticles.MATRIX_BLAST_WALL, MatrixBlastWallParticle::new);
     }
 
     private static <T extends ParticleEffect> void register(ParticleManager manager, ParticleType<T> type, Factory<T> factory) {
